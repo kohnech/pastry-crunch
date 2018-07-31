@@ -34,6 +34,10 @@ else ifeq ($(BUILD_TYPE),RELEASE)
 	CXXFLAGS += -O3
 endif
 
+## Machine
+CORES ?= $(shell nproc)
+MAKEFLAGS+="-j $(CORES)"
+
 ## Sources
 SRCS = 	CApp.cpp \
 		CSurface.cpp
@@ -44,9 +48,20 @@ HDRS = 	inc/CApp.h \
 OBJS = $(patsubst %.cpp,$(BUILDDIR)/%.o,$(SRCS))
 
 ## Make targets
-.PHONY: all clean
+.PHONY: all clean run
+
+help:
+	@echo
+	@echo '  all                   - build and create main executable.'
+	@echo '  lint                  - run clang formating for c++'
+	@echo '  run                   - run main executable.'
+	@echo '  clean                 - clean project.'
+	@echo
 
 all: $(BUILDDIR) $(BUILDDIR)/$(COMPONENT_NAME)
+
+run: $(BUILDDIR)/$(COMPONENT_NAME)
+	$(BUILDDIR)/$(COMPONENT_NAME)
 
 $(BUILDDIR):
 	mkdir -p $(BUILDDIR)

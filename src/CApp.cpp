@@ -70,10 +70,10 @@ bool CApp::OnInit() {
         return false;
     }
 
-/*    SDL_SetRenderDrawColor(mRenderer, 0, 255, 0, 255);
+    SDL_SetRenderDrawColor(mRenderer, 0, 255, 0, 255); // green
     SDL_RenderClear(mRenderer);
     SDL_RenderPresent(mRenderer);
-    SDL_Delay(3000);*/
+    SDL_Delay(3000);
 
     return true;
 }
