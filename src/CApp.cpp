@@ -7,6 +7,7 @@
 
 CApp::CApp()
   : Surf_Display{NULL}
+  , renderer{NULL}
 
 {
     Running = true;
@@ -48,6 +49,17 @@ bool CApp::OnInit() {
         return false;
     }
 
+    renderer = SDL_CreateRenderer(Surf_Display, -1, 0);
+
+    if (renderer == NULL) {
+        return false;
+    }
+
+/*    SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+    SDL_RenderClear(renderer);
+    SDL_RenderPresent(renderer);
+    SDL_Delay(3000);*/
+
     return true;
 }
 
@@ -62,6 +74,9 @@ void CApp::OnLoop() {
 }
 
 void CApp::OnRender() {
+    SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+    SDL_RenderClear(renderer);
+    SDL_RenderPresent(renderer);
 }
 
 void CApp::OnCleanup() {

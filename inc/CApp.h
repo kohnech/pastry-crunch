@@ -8,6 +8,8 @@ private:
 
     SDL_Window*    Surf_Display;
 
+    SDL_Renderer* renderer;
+
 public:
     CApp();
 
