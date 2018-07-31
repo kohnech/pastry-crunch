@@ -8,6 +8,8 @@
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 
+const int FRAMES_PER_SECOND = 2;
+
 
 class CApp : public CEvent {
 private:
@@ -38,4 +40,8 @@ public:
     void OnCleanup();
 
     void OnExit();
+
+    void OnResize(int w,int h);
+
+    void OnKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode);
 };
