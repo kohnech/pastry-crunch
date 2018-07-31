@@ -7,13 +7,11 @@ class CApp {
 private:
     bool    Running;
 
-    SDL_Window*    Surf_Display;
+    SDL_Window*    mWindow;
 
-    SDL_Surface*    Surf_Test;
+    SDL_Texture* mTexture;
 
-    SDL_Texture* Texture_Test;
-
-    SDL_Renderer* renderer;
+    SDL_Renderer* mRenderer;
 
 public:
     CApp();
