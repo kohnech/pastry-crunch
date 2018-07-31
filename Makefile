@@ -1,4 +1,3 @@
-
 ## Project
 COMPONENT_NAME ?= sdl2-first-test
 export PROJ_ROOT := $(CURDIR)
@@ -10,10 +9,14 @@ TOOLSDIR = $(PROJ_ROOT)/tools
 
 ## 3rd-party settings
 SDL_VERSION=2.0.8
+SDL_PATH = $(3RDPARTYDIR)/SDL2-$(SDL_VERSION)
 
 INCLUDE_DIRS += -I$(PROJ_ROOT)/inc \
 				-I$(3RDPARTYDIR)/SDL2-$(SDL_VERSION)/include
 
+## Libs
+LIBS = -lSDL2 -lSDL2main
+LIBS_PATH = -L$(BUILDDIR) -L$(SDL_PATH)/lib
 
 ## Compiler
 BUILD_TYPE ?= DEBUG
@@ -26,7 +29,6 @@ ifeq ($(BUILD_TYPE),DEBUG)
 else ifeq ($(BUILD_TYPE),RELEASE)
 	CXXFLAGS += -O3
 endif
-LDFLAGS = -shared
 
 ## Sources
 SRCS = 	CApp.cpp
@@ -43,9 +45,8 @@ all: $(BUILDDIR) $(BUILDDIR)/$(COMPONENT_NAME)
 $(BUILDDIR):
 	mkdir -p $(BUILDDIR)
 
-$(BUILDDIR)/$(COMPONENT_NAME): $(BUILDDIR)/main.o $(BUILDDIR)/$(STATIC) $(HDRS)
-	$(CXX) -o $@ $(BUILDDIR)/main.o -L$(BUILDDIR) -lSDL2 -lfirsttest
-# TODO use LDFLAGS...
+$(BUILDDIR)/$(COMPONENT_NAME): $(BUILDDIR)/main.o $(OBJS) $(HDRS)
+	$(CXX) -o $@ $(BUILDDIR)/main.o $(OBJS) $(LIBS_PATH) $(LIBS)
 
 $(BUILDDIR)/main.o: $(SRCDIR)/main.cpp $(HDRS)
 	$(CXX) -o $@ $(INCLUDE_DIRS) -c $(CXXFLAGS) $(SRCDIR)/main.cpp
