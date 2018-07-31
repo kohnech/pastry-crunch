@@ -1,5 +1,5 @@
 ## Project
-COMPONENT_NAME ?= sdl2-first-test
+COMPONENT_NAME ?= bakery-street
 export PROJ_ROOT := $(CURDIR)
 SUBDIRS = tests
 SRCDIR = $(PROJ_ROOT)/src
@@ -10,11 +10,13 @@ TOOLSDIR = $(PROJ_ROOT)/tools
 ## 3rd-party settings
 SDL_VERSION=2.0.8
 SDL_PATH = $(3RDPARTYDIR)/SDL2-$(SDL_VERSION)
-SD_IMAGE_VERSION=2.0.3
-SDL_IMAGE_PATH =$(3RDPARTYDIR)/SDL2_image-$(SDL_VERSION)
+SDL_IMAGE_VERSION=2.0.3
+SDL_IMAGE_PATH =$(3RDPARTYDIR)/SDL2_image-$(SDL_IMAGE_VERSION)
 
 INCLUDE_DIRS += -I$(PROJ_ROOT)/inc \
-				-I$(3RDPARTYDIR)/SDL2-$(SDL_VERSION)/include
+				-I$(SDL_PATH)/include \
+				-I$(SDL_PATH)/include/SDL2 \
+				-I$(SDL_IMAGE_PATH)/include
 
 ## Libs
 LIBS = -lSDL2 -lSDL2main -lSDL2_image
