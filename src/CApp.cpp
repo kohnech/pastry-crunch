@@ -94,7 +94,7 @@ void CApp::OnRender() {
     SDL_RenderCopy(mRenderer, mTexture, NULL, NULL);
 
     SDL_RenderPresent(mRenderer);
-    SDL_Delay(1000); // 1 fps
+    SDL_Delay(1000 / FRAMES_PER_SECOND);
 }
 
 void CApp::OnCleanup() {
@@ -106,5 +106,14 @@ void CApp::OnCleanup() {
 void CApp::OnExit() {
     std::cout << "Quiting... bye!" << std::endl;
     mIsRunning = false;
+}
+
+void CApp::OnResize(int w,int h) {
+    std::cout << "Window resized width: " << w << ", height: " << h << std::endl;
+}
+
+void CApp::OnKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode)
+{
+    std::cout << "Key pressed: " << unicode << std::endl;
 }
 
