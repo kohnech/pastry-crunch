@@ -72,7 +72,6 @@ bool CSurface::OnDraw(SDL_Renderer* renderer, SDL_Texture* Surf_Src, int X, int 
     DestR.x = X;
     DestR.y = Y;
 
-    //SDL_BlitSurface(Surf_Src, NULL, Surf_Dest, &DestR);
     SDL_RenderCopy(renderer, Surf_Src, NULL, &DestR);
 
     return true;
