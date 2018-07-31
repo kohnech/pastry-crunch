@@ -10,15 +10,19 @@ public:
 
     virtual void OnEvent(SDL_Event* Event);
 
-    virtual void OnInputFocus();
+    virtual void OnInputFocusGained();
+
+    virtual void OnInputFocusLost();
 
     virtual void OnInputBlur();
 
-    virtual void OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode);
+    virtual void OnKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode);
 
-    virtual void OnKeyUp(SDLKey sym, SDLMod mod, Uint16 unicode);
+    virtual void OnKeyUp(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode);
 
-    virtual void OnMouseFocus();
+    virtual void OnMouseEnter();
+
+    virtual void OnMouseLeave();
 
     virtual void OnMouseBlur();
 
