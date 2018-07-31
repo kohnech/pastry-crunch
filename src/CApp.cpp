@@ -15,8 +15,10 @@ CApp::CApp()
         , mTexture { NULL }
         , mRenderer{ NULL }
 {
-    Running = true;
+    mIsRunning = true;
 }
+
+CApp::~CApp(){}
 
 int CApp::OnExecute() {
     if(OnInit() == false) {
@@ -25,7 +27,7 @@ int CApp::OnExecute() {
 
     SDL_Event Event;
 
-    while(Running) {
+    while(mIsRunning) {
         while(SDL_PollEvent(&Event)) {
             OnEvent(&Event);
         }
@@ -45,20 +47,21 @@ bool CApp::OnInit() {
     }
 
     mWindow = SDL_CreateWindow("Game Window",
-                                    SDL_WINDOWPOS_UNDEFINED,
-                                    SDL_WINDOWPOS_UNDEFINED,
-                                    640, 480,
-                                    SDL_WINDOW_RESIZABLE);
+                               SDL_WINDOWPOS_UNDEFINED,
+                               SDL_WINDOWPOS_UNDEFINED,
+                               SCREEN_WIDTH,
+                               SCREEN_HEIGHT,
+                               SDL_WINDOW_RESIZABLE);
 
     if(mWindow == NULL) {
-        std::cout << "CreateWindow got NULL!" << std::endl;
+        std::cout << "SDL_CreateWindow got NULL!" << std::endl;
         return false;
     }
 
     mRenderer = SDL_CreateRenderer(mWindow, -1, 0);
 
     if (mRenderer == NULL) {
-        std::cout << "mRenderer got NULL!" << std::endl;
+        std::cout << "SDL_CreateRenderer got NULL!" << std::endl;
         return false;
     }
 
@@ -78,11 +81,8 @@ bool CApp::OnInit() {
     return true;
 }
 
-void CApp::OnEvent(SDL_Event* Event) {
-    if(Event->type == SDL_QUIT) {
-        std::cout << "Quiting... bye!" << std::endl;
-        Running = false;
-    }
+void CApp::OnEvent(SDL_Event* event) {
+    CEvent::OnEvent(event);
 }
 
 void CApp::OnLoop() {
@@ -102,3 +102,9 @@ void CApp::OnCleanup() {
     SDL_Quit();
     std::cout << "Quitting..." << std::endl;
 }
+
+void CApp::OnExit() {
+    std::cout << "Quiting... bye!" << std::endl;
+    mIsRunning = false;
+}
+
