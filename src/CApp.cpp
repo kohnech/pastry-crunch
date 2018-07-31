@@ -3,6 +3,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_events.h>
 
+#include <iostream>
+
 CApp::CApp() {
     Running = true;
 }
@@ -29,10 +31,28 @@ int CApp::OnExecute() {
 }
 
 bool CApp::OnInit() {
+    if(SDL_Init(SDL_INIT_EVERYTHING) < 0) {
+        return false;
+    }
+
+    Surf_Display = SDL_CreateWindow("Buggy Window",
+                                    SDL_WINDOWPOS_UNDEFINED,
+                                    SDL_WINDOWPOS_UNDEFINED,
+                                    0, 0,
+                                    SDL_WINDOW_FULLSCREEN_DESKTOP);
+
+    if(Surf_Display == NULL) {
+        return false;
+    }
+
     return true;
 }
 
 void CApp::OnEvent(SDL_Event* Event) {
+    if(Event->type == SDL_QUIT) {
+        std::cout << "Quiting... bye!" << std::endl;
+        Running = false;
+    }
 }
 
 void CApp::OnLoop() {
@@ -42,4 +62,5 @@ void CApp::OnRender() {
 }
 
 void CApp::OnCleanup() {
+    SDL_Quit();
 }
