@@ -12,54 +12,35 @@ void CEvent::OnEvent(SDL_Event* event) {
         case SDL_WINDOWEVENT: {
             switch(event->window.event) {
                 case SDL_WINDOWEVENT_ENTER: {
-                    //if ( event->active.gain ) {
-                        OnMouseEnter();
-                    //}
-                    //else {
-                    //    OnMouseBlur();
-                    //}
+                    OnMouseEnter();
                     break;
                 }
                 case SDL_WINDOWEVENT_LEAVE: {
-                    //if ( event->active.gain ) {
-                        OnMouseLeave();
-                    //}
-                    //else {
-                    //    OnMouseBlur();
-                    //}
+                    OnMouseLeave();
                     break;
                 }
                 case SDL_WINDOWEVENT_FOCUS_GAINED: {
-                    //if ( event->active.gain ) {
-                        OnInputFocusGained();
-                    //}
-                    //else {
-                    //    OnInputBlur();
-                    //}
+                    OnInputFocusGained();
                     break;
                 }
                 case SDL_WINDOWEVENT_FOCUS_LOST: {
-                    //if ( event->active.gain ) {
-                        OnInputFocusLost();
-                    //}
-                    //else {
-                    //    OnInputBlur();
-                    //}
+                    OnInputFocusLost();
                     break;
                 }
                 case SDL_WINDOWEVENT_RESIZED: {
                     OnResize(event->window.data1,event->window.data2);
                     break;
                 }
-                /*case SDL_APPACTIVE:    {
-                    if ( event->active.gain ) {
-                        OnRestore();
-                    }
-                    else {
-                        OnMinimize();
-                    }
+                case SDL_WINDOWEVENT_SHOWN:
+                case SDL_WINDOWEVENT_HIDDEN:
+                case SDL_WINDOWEVENT_EXPOSED:
+                case SDL_WINDOWEVENT_MOVED:
+                case SDL_WINDOWEVENT_SIZE_CHANGED:
+                case SDL_WINDOWEVENT_MINIMIZED:
+                case SDL_WINDOWEVENT_MAXIMIZED:
+                case SDL_WINDOWEVENT_RESTORED:
+                case SDL_WINDOWEVENT_CLOSE:
                     break;
-                }*/
             }
             break;
         }
@@ -173,11 +154,11 @@ void CEvent::OnInputBlur() {
     //Pure virtual, do nothing
 }
 
-void CEvent::OnKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode) {
+void CEvent::OnKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode scancode) {
     //Pure virtual, do nothing
 }
 
-void CEvent::OnKeyUp(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode) {
+void CEvent::OnKeyUp(SDL_Keycode sym, Uint16 mod, SDL_Scancode scancode) {
     //Pure virtual, do nothing
 }
 
