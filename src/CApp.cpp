@@ -5,7 +5,10 @@
 
 #include <iostream>
 
-CApp::CApp() {
+CApp::CApp()
+  : Surf_Display{NULL}
+
+{
     Running = true;
 }
 
@@ -35,11 +38,11 @@ bool CApp::OnInit() {
         return false;
     }
 
-    Surf_Display = SDL_CreateWindow("Buggy Window",
+    Surf_Display = SDL_CreateWindow("Game Window",
                                     SDL_WINDOWPOS_UNDEFINED,
                                     SDL_WINDOWPOS_UNDEFINED,
-                                    0, 0,
-                                    SDL_WINDOW_FULLSCREEN_DESKTOP);
+                                    640, 480,
+                                    SDL_WINDOW_RESIZABLE);
 
     if(Surf_Display == NULL) {
         return false;
