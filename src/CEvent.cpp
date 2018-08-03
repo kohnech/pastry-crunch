@@ -1,6 +1,7 @@
 #include "CEvent.h"
 
-CEvent::CEvent() {
+CEvent::CEvent()
+{
 }
 
 CEvent::~CEvent()
