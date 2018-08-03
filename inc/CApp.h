@@ -25,15 +25,13 @@ public:
     CApp();
     ~CApp();
 
-    int onExecute();
-
 public:
 
     bool onInit();
 
     void onEvent(SDL_Event* Event);
 
-    void onLoop();
+    bool onLoop();
 
     void onRender();
 
