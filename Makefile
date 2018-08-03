@@ -56,6 +56,7 @@ help:
 	@echo
 	@echo '  all                   - build and create main executable.'
 	@echo '  lint                  - run clang formating for c++'
+	@echo '  clang-format          - run clang-format on c++ files following rules specified in .clang-format.'
 	@echo '  run                   - run main executable.'
 	@echo '  clean                 - clean project.'
 	@echo
@@ -81,6 +82,11 @@ $(OBJS): $(BUILDDIR)/%.o : $(SRCDIR)/%.cpp
 $(BUILDDIR)/$(STATIC): $(OBJS)
 	@echo "[Link (Static)]"
 	@ar rcs $@ $^
+
+lint: clang-format
+
+clang-format:
+	find ./inc ./src -regex '.*\.\(cpp\|hpp\|cc\|cxx\|h\)' -exec clang-format-5.0 -style=file -i {} \;
 
 clean:
 	rm -f $(OBJS)

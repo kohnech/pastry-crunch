@@ -4,18 +4,19 @@
 
 #include <SDL2/SDL.h>
 
-//Screen dimension constants
+// Screen dimension constants
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 
 const int FRAMES_PER_SECOND = 2;
 
 
-class CApp : public CEvent {
+class CApp : public CEvent
+{
 private:
-    bool    mIsRunning;
+    bool mIsRunning;
 
-    SDL_Window*    mWindow;
+    SDL_Window* mWindow;
 
     SDL_Texture* mTexture;
 
@@ -25,23 +26,20 @@ public:
     CApp();
     ~CApp();
 
-    int OnExecute();
-
 public:
+    bool onInit();
 
-    bool OnInit();
+    void onEvent(SDL_Event* Event);
 
-    void OnEvent(SDL_Event* Event);
+    bool onLoop();
 
-    void OnLoop();
+    void onRender();
 
-    void OnRender();
+    void onCleanup();
 
-    void OnCleanup();
+    void onExit();
 
-    void OnExit();
+    void onResize(int w, int h);
 
-    void OnResize(int w,int h);
-
-    void OnKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode);
+    void onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode);
 };
