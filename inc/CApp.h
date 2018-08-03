@@ -25,23 +25,23 @@ public:
     CApp();
     ~CApp();
 
-    int OnExecute();
+    int onExecute();
 
 public:
 
-    bool OnInit();
+    bool onInit();
 
-    void OnEvent(SDL_Event* Event);
+    void onEvent(SDL_Event* Event);
 
-    void OnLoop();
+    void onLoop();
 
-    void OnRender();
+    void onRender();
 
-    void OnCleanup();
+    void onCleanup();
 
-    void OnExit();
+    void onExit();
 
-    void OnResize(int w,int h);
+    void onResize(int w, int h);
 
-    void OnKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode);
+    void onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode);
 };
