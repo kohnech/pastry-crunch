@@ -20,8 +20,8 @@ CApp::CApp()
 
 CApp::~CApp(){}
 
-int CApp::OnExecute() {
-    if(OnInit() == false) {
+int CApp::onExecute() {
+    if(onInit() == false) {
         return -1;
     }
 
@@ -29,19 +29,19 @@ int CApp::OnExecute() {
 
     while(mIsRunning) {
         while(SDL_PollEvent(&Event)) {
-            OnEvent(&Event);
+            onEvent(&Event);
         }
 
-        OnLoop();
-        OnRender();
+        onLoop();
+        onRender();
     }
 
-    OnCleanup();
+    onCleanup();
 
     return 0;
 }
 
-bool CApp::OnInit() {
+bool CApp::onInit() {
     if(SDL_Init(SDL_INIT_EVERYTHING) < 0) {
         return false;
     }
@@ -81,14 +81,14 @@ bool CApp::OnInit() {
     return true;
 }
 
-void CApp::OnEvent(SDL_Event* event) {
-    CEvent::OnEvent(event);
+void CApp::onEvent(SDL_Event* event) {
+    CEvent::onEvent(event);
 }
 
-void CApp::OnLoop() {
+void CApp::onLoop() {
 }
 
-void CApp::OnRender() {
+void CApp::onRender() {
     SDL_RenderClear( mRenderer );
     //CSurface::OnDraw(mRenderer, mTexture, 0, 0);
     SDL_RenderCopy(mRenderer, mTexture, NULL, NULL);
@@ -97,23 +97,22 @@ void CApp::OnRender() {
     SDL_Delay(1000 / FRAMES_PER_SECOND);
 }
 
-void CApp::OnCleanup() {
+void CApp::onCleanup() {
     SDL_DestroyWindow(mWindow);
     SDL_Quit();
     std::cout << "Quitting..." << std::endl;
 }
 
-void CApp::OnExit() {
+void CApp::onExit() {
     std::cout << "Quiting... bye!" << std::endl;
     mIsRunning = false;
 }
 
-void CApp::OnResize(int w,int h) {
+void CApp::onResize(int w,int h) {
     std::cout << "Window resized width: " << w << ", height: " << h << std::endl;
 }
 
-void CApp::OnKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode)
+void CApp::onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode)
 {
     std::cout << "Key pressed: " << unicode << std::endl;
 }
-
