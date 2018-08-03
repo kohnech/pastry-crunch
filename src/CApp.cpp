@@ -20,26 +20,6 @@ CApp::CApp()
 
 CApp::~CApp(){}
 
-int CApp::onExecute() {
-    if(onInit() == false) {
-        return -1;
-    }
-
-    SDL_Event Event;
-
-    while(mIsRunning) {
-        while(SDL_PollEvent(&Event)) {
-            onEvent(&Event);
-        }
-
-        onLoop();
-        onRender();
-    }
-
-    onCleanup();
-
-    return 0;
-}
 
 bool CApp::onInit() {
     if(SDL_Init(SDL_INIT_EVERYTHING) < 0) {
@@ -85,7 +65,8 @@ void CApp::onEvent(SDL_Event* event) {
     CEvent::onEvent(event);
 }
 
-void CApp::onLoop() {
+bool CApp::onLoop() {
+    return mIsRunning;
 }
 
 void CApp::onRender() {
