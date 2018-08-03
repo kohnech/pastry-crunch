@@ -35,50 +35,83 @@ SDL_Texture* CSurface::loadTexture(SDL_Renderer* renderer, std::string path)
     return newTexture;
 }
 
+SDL_Surface* CSurface::loadSurface(std::string path)
+{
+    printf("loadSurface...");
+    // Load image at specified path
+    SDL_Surface* loadedSurface = IMG_Load(path.c_str());
+    if (loadedSurface == NULL)
+    {
+        printf("Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError());
+    }
+
+    return loadedSurface;
+}
+
 
 SDL_Surface* CSurface::OnLoad(const char* File)
 {
-    SDL_Surface* Surf_Temp = NULL;
-    SDL_Surface* Surf_Return = NULL;
+    SDL_Surface* Surf_Temp;
 
-    if ((Surf_Temp = IMG_Load(File)) == NULL)
+    Surf_Temp = SDL_LoadBMP(File);
+    if (Surf_Temp == NULL)
     {
-        std::cout << "Could not open file: " << File << std::endl;
-        std::cout << "Make sure it exist first." << std::endl;
+        printf("Loading BMP Failed: %s\n", SDL_GetError());
         return NULL;
     }
 
-    // Surf_Return = SDL_ConvertSurfaceFormat(Surf_Temp,
-    //                                       SDL_PIXELFORMAT_UNKNOWN,
-    //                                       0);
-    // Surf_Return = SDL_DisplayFormatAlpha(Surf_Temp);
-    Surf_Return = Surf_Temp;
-
-
-    if (Surf_Return == NULL)
-    {
-        std::cout << "Could not convert surface format" << std::endl;
-    }
-
-    SDL_FreeSurface(Surf_Temp);
-
-    return Surf_Return;
+    return Surf_Temp;
 }
 
-bool CSurface::OnDraw(SDL_Renderer* renderer, SDL_Texture* Surf_Src, int X, int Y)
+bool CSurface::OnDraw(SDL_Surface* Surf_Dest, SDL_Surface* Surf_Src, int x, int y)
 {
-    std::cout << "OnDraw" << std::endl;
-    if (Surf_Src == NULL)
+    if (Surf_Dest == NULL || Surf_Src == NULL)
     {
+        printf("Surface Drawing failed: %s\n", SDL_GetError());
         return false;
     }
 
     SDL_Rect DestR;
+    DestR.x = x;
+    DestR.y = y;
 
-    DestR.x = X;
-    DestR.y = Y;
+    SDL_BlitSurface(Surf_Src, NULL, Surf_Dest, &DestR);
 
-    SDL_RenderCopy(renderer, Surf_Src, NULL, &DestR);
+    return true;
+}
+
+bool CSurface::OnDraw(SDL_Surface* Surf_Dest, SDL_Surface* Surf_Src, int x, int y, int x2, int y2, int w, int h)
+{
+    if (Surf_Dest == NULL || Surf_Src == NULL)
+    {
+        printf("Surface Drawing failed: %s\n", SDL_GetError());
+        return false;
+    }
+
+    SDL_Rect DestR;
+    DestR.x = x;
+    DestR.y = y;
+
+    SDL_Rect SrcR;
+    SrcR.x = x2;
+    SrcR.y = y2;
+    SrcR.w = w;
+    SrcR.h = h;
+
+    SDL_BlitSurface(Surf_Src, &SrcR, Surf_Dest, &DestR);
+
+    return true;
+}
+
+
+bool CSurface::Transparent(SDL_Surface* Surf_Dest, int r, int g, int b)
+{
+    if (Surf_Dest == NULL)
+    {
+        return false;
+    }
+
+    SDL_SetColorKey(Surf_Dest, SDL_TRUE, SDL_MapRGB(Surf_Dest->format, r, g, b));
 
     return true;
 }
