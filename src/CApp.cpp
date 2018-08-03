@@ -19,6 +19,7 @@ CApp::CApp()
 
 CApp::~CApp()
 {
+    onCleanup();
 }
 
 

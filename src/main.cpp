@@ -3,7 +3,7 @@
 
 int main(int argc, char* argv[])
 {
-    std::cout << "Starting main SDL2 first test..." << std::endl;
+    std::cout << "Starting main loop..." << std::endl;
     CApp theApp;
 
     if (theApp.onInit() == false)
@@ -11,22 +11,20 @@ int main(int argc, char* argv[])
         return EXIT_FAILURE;
     }
 
-    SDL_Event Event;
+    SDL_Event event;
 
     // Main loop
     bool isRunning = true;
     while (isRunning)
     {
-        while (SDL_PollEvent(&Event))
+        while (SDL_PollEvent(&event))
         {
-            theApp.onEvent(&Event);
+            theApp.onEvent(&event);
         }
 
         isRunning = theApp.onLoop();
         theApp.onRender();
     }
-
-    theApp.onCleanup();
 
     return EXIT_SUCCESS;
 }
