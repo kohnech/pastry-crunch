@@ -10,16 +10,23 @@ public:
     CSurface();
 
 public:
+    static SDL_Surface* OnLoad(std::string File);
+
     static SDL_Texture* loadTexture(SDL_Renderer* renderer, std::string path);
 
-    static SDL_Surface* loadSurface(std::string path);
+    /*!
+     * Load PNG image with SDL2_image
+     * @param path Path to image to laod
+     * @return True if successful
+     */
+    static SDL_Surface* loadImage(std::string path);
 
     /*!
-     * Load an image bmp to a surface
+     * Load an BMP image to a surface
      * @param File The image to load relative to exe or absolute path
      * @return True if successful
      */
-    static SDL_Surface* OnLoad(const char* File);
+    static SDL_Surface* loadBmp(std::string File);
 
     /*!
      * Draw an image on source
