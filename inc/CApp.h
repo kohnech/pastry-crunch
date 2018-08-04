@@ -2,6 +2,7 @@
 
 #include "CAnimation.h"
 #include "CEvent.h"
+#include "CEntity.h"
 
 #include <SDL2/SDL.h>
 
@@ -22,6 +23,9 @@ private:
     SDL_Surface*    Surf_Test;
 
     CAnimation Anim_Yoshi;
+
+    CEntity         Entity1;
+    CEntity         Entity2;
 
 public:
     CApp();

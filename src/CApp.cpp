@@ -51,6 +51,19 @@ bool CApp::onInit()
     Anim_Yoshi.MaxFrames = 8;
     //Anim_Yoshi.Oscillate = true;
 
+    if(Entity1.OnLoad(img, 64, 64, 8) == false) {
+        return false;
+    }
+
+    if(Entity2.OnLoad(img, 64, 64, 8) == false) {
+        return false;
+    }
+
+    Entity2.X = 100;
+
+    CEntity::EntityList.push_back(&Entity1);
+    CEntity::EntityList.push_back(&Entity2);
+
     return true;
 }
 
@@ -62,17 +75,35 @@ void CApp::onEvent(SDL_Event* event)
 bool CApp::onLoop()
 {
     Anim_Yoshi.OnAnimate();
+
+
+    for(auto entity : CEntity::EntityList)
+    {
+        if(!entity) {
+            continue;
+        }
+
+        entity->OnLoop();
+    }
+
     return mIsRunning;
 }
 
 void CApp::onRender()
 {
     CSurface::OnDraw(Surf_Display, Surf_Test, 290, 220, 0, Anim_Yoshi.GetCurrentFrame() * 64, 64, 64);
-    //CSurface::OnDraw(Surf_Display, Surf_Test, 0, 0);
+
+    for(auto entity : CEntity::EntityList)
+    {
+        if(!entity) {
+            continue;
+        }
+
+        entity->OnRender(Surf_Display);
+    }
+
 
     SDL_UpdateWindowSurface(mWindow);
-
-    //SDL_Delay(1000 / FRAMES_PER_SECOND);
 }
 
 void CApp::onCleanup()
@@ -80,6 +111,17 @@ void CApp::onCleanup()
     SDL_FreeSurface(Surf_Test);
     SDL_FreeSurface(Surf_Display);
     SDL_DestroyWindow(mWindow);
+
+    for(auto entity : CEntity::EntityList)
+    {
+        if(!entity) {
+            continue;
+        }
+
+        entity->OnCleanup();
+    }
+
+    CEntity::EntityList.clear();
 
 
     SDL_Quit();
