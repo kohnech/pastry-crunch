@@ -1,7 +1,6 @@
 #include "CApp.h"
 #include "CSurface.h"
 
-
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_events.h>
 #include <SDL_image.h>
@@ -11,8 +10,8 @@
 
 CApp::CApp()
 : mWindow{ NULL }
-, mTexture{ NULL }
-, mRenderer{ NULL }
+, Surf_Display{ NULL }
+, Surf_Test{ NULL }
 {
     mIsRunning = true;
 }
@@ -39,27 +38,18 @@ bool CApp::onInit()
         return false;
     }
 
-    mRenderer = SDL_CreateRenderer(mWindow, -1, 0);
+    Surf_Display = SDL_GetWindowSurface(mWindow);
 
-    if (mRenderer == NULL)
-    {
-        std::cout << "SDL_CreateRenderer got NULL!" << std::endl;
+    std::string img = "yoshi.bmp";
+
+    if((Surf_Test = CSurface::OnLoad(img.c_str())) == NULL) {
+        printf("Loading Image failed: %s\n", SDL_GetError());
         return false;
     }
 
-    std::string img = "astronaut.png";
-    mTexture = CSurface::loadTexture(mRenderer, img);
 
-    if (mTexture == NULL)
-    {
-        std::cout << "Could not loadTexture!" << std::endl;
-        return false;
-    }
-
-    SDL_SetRenderDrawColor(mRenderer, 0, 255, 0, 255); // green
-    SDL_RenderClear(mRenderer);
-    SDL_RenderPresent(mRenderer);
-    SDL_Delay(3000);
+    Anim_Yoshi.MaxFrames = 8;
+    //Anim_Yoshi.Oscillate = true;
 
     return true;
 }
@@ -71,22 +61,27 @@ void CApp::onEvent(SDL_Event* event)
 
 bool CApp::onLoop()
 {
+    Anim_Yoshi.OnAnimate();
     return mIsRunning;
 }
 
 void CApp::onRender()
 {
-    SDL_RenderClear(mRenderer);
-    // CSurface::OnDraw(mRenderer, mTexture, 0, 0);
-    SDL_RenderCopy(mRenderer, mTexture, NULL, NULL);
+    CSurface::OnDraw(Surf_Display, Surf_Test, 290, 220, 0, Anim_Yoshi.GetCurrentFrame() * 64, 64, 64);
+    //CSurface::OnDraw(Surf_Display, Surf_Test, 0, 0);
 
-    SDL_RenderPresent(mRenderer);
-    SDL_Delay(1000 / FRAMES_PER_SECOND);
+    SDL_UpdateWindowSurface(mWindow);
+
+    //SDL_Delay(1000 / FRAMES_PER_SECOND);
 }
 
 void CApp::onCleanup()
 {
+    SDL_FreeSurface(Surf_Test);
+    SDL_FreeSurface(Surf_Display);
     SDL_DestroyWindow(mWindow);
+
+
     SDL_Quit();
     std::cout << "Quitting..." << std::endl;
 }
