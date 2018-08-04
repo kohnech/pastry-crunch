@@ -16,6 +16,7 @@ CAnimation::CAnimation()
 
 void CAnimation::OnAnimate()
 {
+
     if (OldTime + FrameRate > SDL_GetTicks())
     {
         return;
@@ -27,7 +28,7 @@ void CAnimation::OnAnimate()
 
     if (Oscillate) {
         if (FrameInc > 0) {
-            if (CurrentFrame >= MaxFrames)
+            if (CurrentFrame >= MaxFrames -1)
             {
                 FrameInc = -FrameInc;
             }
@@ -42,7 +43,7 @@ void CAnimation::OnAnimate()
     }
     else
     {
-        if (CurrentFrame >= MaxFrames)
+        if (CurrentFrame >= MaxFrames -1)
         {
             CurrentFrame = 0;
         }
