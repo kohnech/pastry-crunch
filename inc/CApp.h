@@ -1,5 +1,6 @@
 #pragma once
 
+#include "CAnimation.h"
 #include "CEvent.h"
 
 #include <SDL2/SDL.h>
@@ -17,10 +18,10 @@ private:
     bool mIsRunning;
 
     SDL_Window* mWindow;
+    SDL_Surface* Surf_Display;
+    SDL_Surface*    Surf_Test;
 
-    SDL_Texture* mTexture;
-
-    SDL_Renderer* mRenderer;
+    CAnimation Anim_Yoshi;
 
 public:
     CApp();
