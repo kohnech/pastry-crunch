@@ -42,11 +42,13 @@ MAKEFLAGS+="-j $(CORES)"
 ## Sources
 SRCS = 	CApp.cpp \
 		CSurface.cpp \
-		CEvent.cpp
+		CEvent.cpp \
+		CAnimation.cpp
 
 HDRS = 	inc/CApp.h \
 		inc/CSurface.h \
-		inc/CEvent.h
+		inc/CEvent.h \
+		inc/CAnimation.h
 
 OBJS = $(patsubst %.cpp,$(BUILDDIR)/%.o,$(SRCS))
 
