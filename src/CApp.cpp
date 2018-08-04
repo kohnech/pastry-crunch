@@ -60,6 +60,7 @@ bool CApp::onInit()
     }
 
     Entity2.X = 100;
+    Entity2.Y = 100;
 
     CEntity::EntityList.push_back(&Entity1);
     CEntity::EntityList.push_back(&Entity2);
