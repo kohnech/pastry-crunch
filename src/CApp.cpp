@@ -47,7 +47,7 @@ bool CApp::onInit()
         return false;
     }
 
-    std::string img = "astronaut.png";
+    std::string img = "ASTRONAUT.BMP";
     mTexture = CSurface::loadTexture(mRenderer, img);
 
     if (mTexture == NULL)

@@ -21,7 +21,7 @@ INCLUDE_DIRS += -I$(PROJ_ROOT)/inc \
 ## Libs
 LIBS = -lSDL2 -lSDL2main -lSDL2_image -lsndio
 LIBS_PATH = -L$(BUILDDIR) -L$(SDL_PATH)/lib -L$(SDL_IMAGE_PATH)/lib -L$(3RDPARTYDIR)/sndio
-export LD_LIBRARY_PATH=$(SDL_PATH)/lib:$(3RDPARTYDIR)/sndio:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$(SDL_PATH)/lib:$(3RDPARTYDIR)/sndio:$(SDL_IMAGE_PATH)/lib:$LD_LIBRARY_PATH
 
 ## Compiler
 BUILD_TYPE ?= DEBUG
