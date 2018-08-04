@@ -1,7 +1,6 @@
 #include "CApp.h"
 #include "CSurface.h"
 
-
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_events.h>
 #include <SDL_image.h>
@@ -41,7 +40,7 @@ bool CApp::onInit()
 
     Surf_Display = SDL_GetWindowSurface(mWindow);
 
-    std::string img = "tomato.bmp";
+    std::string img = "yoshi.bmp";
 
     if((Surf_Test = CSurface::OnLoad(img.c_str())) == NULL) {
         printf("Loading Image failed: %s\n", SDL_GetError());
@@ -50,7 +49,7 @@ bool CApp::onInit()
 
 
     Anim_Yoshi.MaxFrames = 8;
-    Anim_Yoshi.Oscillate = true;
+    //Anim_Yoshi.Oscillate = true;
 
     return true;
 }
@@ -68,12 +67,12 @@ bool CApp::onLoop()
 
 void CApp::onRender()
 {
-    //CSurface::OnDraw(Surf_Display, Surf_Test, 290, 220, 0, Anim_Yoshi.GetCurrentFrame() * 64, 64, 64);
-    CSurface::OnDraw(Surf_Display, Surf_Test, 0, 0);
+    CSurface::OnDraw(Surf_Display, Surf_Test, 290, 220, 0, Anim_Yoshi.GetCurrentFrame() * 64, 64, 64);
+    //CSurface::OnDraw(Surf_Display, Surf_Test, 0, 0);
 
     SDL_UpdateWindowSurface(mWindow);
 
-    SDL_Delay(1000 / FRAMES_PER_SECOND);
+    //SDL_Delay(1000 / FRAMES_PER_SECOND);
 }
 
 void CApp::onCleanup()
