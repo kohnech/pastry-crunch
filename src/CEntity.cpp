@@ -19,7 +19,7 @@ CEntity::~CEntity()
 
 bool CEntity::OnLoad(std::string File, int Width, int Height, int MaxFrames)
 {
-    if((Surf_Entity = CSurface::OnLoad(File.c_str())) == NULL) {
+    if((Surf_Entity = mCSurface->OnLoad(File)) == NULL) {
         return false;
     }
 

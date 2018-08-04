@@ -42,7 +42,7 @@ bool CApp::onInit()
 
     std::string img = "yoshi.bmp";
 
-    if((Surf_Test = CSurface::OnLoad(img.c_str())) == NULL) {
+    if((Surf_Test = CSurface::OnLoad(img)) == NULL) {
         printf("Loading Image failed: %s\n", SDL_GetError());
         return false;
     }
