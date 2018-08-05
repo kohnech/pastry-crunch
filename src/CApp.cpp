@@ -40,7 +40,7 @@ bool CApp::onInit()
 
     Surf_Display = SDL_GetWindowSurface(mWindow);
 
-    std::string img = "yoshi.jpg";
+    std::string img = "yoshi.png";
 
     if((Surf_Test = CSurface::OnLoad(img)) == NULL) {
         printf("Loading Image failed: %s\n", SDL_GetError());
