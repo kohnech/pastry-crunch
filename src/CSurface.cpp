@@ -8,10 +8,14 @@ CSurface::CSurface()
 {
 }
 
+CSurface::~CSurface()
+{
+}
+
 SDL_Surface* CSurface::OnLoad(std::string File) {
     return loadImage(File);
 }
-
+/*
 SDL_Texture* CSurface::loadTexture(SDL_Renderer* renderer, std::string path)
 {
     // The final texture
@@ -37,9 +41,22 @@ SDL_Texture* CSurface::loadTexture(SDL_Renderer* renderer, std::string path)
     }
 
     return newTexture;
+}*/
+SDL_Texture* CSurface::loadTexture(SDL_Renderer* renderer, const std::string &str )
+{
+    // Load image as SDL_Surface
+
+    SDL_Texture* texture = IMG_LoadTexture( renderer, str.c_str() );
+    if ( texture == nullptr )
+    {
+        std::cout << "Failed to load texture " << str << " error : " << SDL_GetError() << std::endl;
+        return nullptr;
+    }
+
+    return texture;
 }
 
-SDL_Surface* CSurface::loadImage(std::string path)
+SDL_Surface* CSurface::loadImage(const std::string path)
 {
     printf("loadImage...");
     // Load image at specified path
@@ -52,7 +69,7 @@ SDL_Surface* CSurface::loadImage(std::string path)
     return loadedSurface;
 }
 
-SDL_Surface* CSurface::loadBmp(std::string File)
+SDL_Surface* CSurface::loadBmp(const std::string File)
 {
     SDL_Surface* Surf_Temp;
 

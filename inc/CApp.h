@@ -27,6 +27,8 @@ private:
     CEntity         Entity1;
     CEntity         Entity2;
 
+    CSurface*  mCSurface;
+
 public:
     CApp();
     ~CApp();
