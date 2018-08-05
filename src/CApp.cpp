@@ -12,6 +12,7 @@ CApp::CApp()
 : mWindow{ NULL }
 , Surf_Display{ NULL }
 , Surf_Test{ NULL }
+, mCSurface{ new CSurface }
 {
     mIsRunning = true;
 }
@@ -40,9 +41,9 @@ bool CApp::onInit()
 
     Surf_Display = SDL_GetWindowSurface(mWindow);
 
-    std::string img = "yoshi.bmp";
+    std::string img = "yoshi.png";
 
-    if((Surf_Test = CSurface::OnLoad(img.c_str())) == NULL) {
+    if((Surf_Test = mCSurface->OnLoad(img)) == NULL) {
         printf("Loading Image failed: %s\n", SDL_GetError());
         return false;
     }
@@ -92,7 +93,7 @@ bool CApp::onLoop()
 
 void CApp::onRender()
 {
-    CSurface::OnDraw(Surf_Display, Surf_Test, 290, 220, 0, Anim_Yoshi.GetCurrentFrame() * 64, 64, 64);
+    mCSurface->OnDraw(Surf_Display, Surf_Test, 290, 220, 0, Anim_Yoshi.GetCurrentFrame() * 64, 64, 64);
 
     for(auto entity : CEntity::EntityList)
     {
@@ -126,6 +127,7 @@ void CApp::onCleanup()
 
 
     SDL_Quit();
+    delete mCSurface;
     std::cout << "Quitting..." << std::endl;
 }
 
