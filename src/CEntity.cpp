@@ -19,11 +19,11 @@ CEntity::~CEntity()
 
 bool CEntity::OnLoad(std::string File, int Width, int Height, int MaxFrames)
 {
-    if((Surf_Entity = CSurface::OnLoad(File.c_str())) == NULL) {
+    if((Surf_Entity = mCSurface->OnLoad(File)) == NULL) {
         return false;
     }
 
-    CSurface::Transparent(Surf_Entity, 255, 0, 255);
+    mCSurface->Transparent(Surf_Entity, 255, 0, 255);
 
     this->Width = Width;
     this->Height = Height;
