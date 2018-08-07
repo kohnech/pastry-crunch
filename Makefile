@@ -46,7 +46,8 @@ SRCS = 	CApp.cpp \
 		CAnimation.cpp \
 		CEntity.cpp \
 		CTile.cpp \
-		CMap.cpp
+		CMap.cpp \
+		CArea.cpp
 
 HDRS = 	inc/CApp.h \
 		inc/CSurface.h \
@@ -54,7 +55,8 @@ HDRS = 	inc/CApp.h \
 		inc/CAnimation.h \
 		inc/CEntity.h \
 		inc/CTile.h \
-		inc/CMap.h
+		inc/CMap.h \
+		inc/CArea.h
 
 OBJS = $(patsubst %.cpp,$(BUILDDIR)/%.o,$(SRCS))
 
