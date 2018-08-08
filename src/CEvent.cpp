@@ -58,9 +58,9 @@ void CEvent::onEvent(SDL_Event* event)
 
     case SDL_KEYDOWN:
     {
-        if (event->key.repeat == true) {
-            break;
-        }
+        //if (event->key.repeat == true) {
+//            break;
+//        }
         onKeyDown(event->key.keysym.sym, event->key.keysym.mod, event->key.keysym.scancode);
         break;
     }
