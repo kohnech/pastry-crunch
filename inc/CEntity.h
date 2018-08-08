@@ -13,8 +13,6 @@ protected:
 
     SDL_Surface*    Surf_Entity;
 
-    CSurface*       mCSurface;
-
 public:
     float           X;
     float           Y;

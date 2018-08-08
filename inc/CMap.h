@@ -12,7 +12,6 @@ public:
 
 private:
     std::vector<CTile> TileList;
-    CSurface* mCSurface;
 
 public:
     CMap();

@@ -2,8 +2,6 @@
 
 #include "CMap.h"
 
-class CSurface;
-
 class CArea {
 public:
     static CArea            AreaControl;
@@ -15,8 +13,6 @@ private:
     int                     AreaSize;
 
     SDL_Surface*        Surf_Tileset;
-
-    CSurface* mCSurface;
 
 public:
     CArea();
