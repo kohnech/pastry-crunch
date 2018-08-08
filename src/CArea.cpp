@@ -6,14 +6,13 @@ CArea CArea::AreaControl;
 
 CArea::CArea() {
     AreaSize = 0;
-    mCSurface = new CSurface();
 }
 
 CArea::~CArea() {
-    delete mCSurface;
 }
 
 bool CArea::OnLoad(char* File) {
+    printf("CArea::OnLoad... with File: %s\n", File);
     MapList.clear();
 
     FILE* FileHandle = fopen(File, "r");
@@ -25,23 +24,32 @@ bool CArea::OnLoad(char* File) {
     char TilesetFile[255];
 
     fscanf(FileHandle, "%s\n", TilesetFile);
+    printf("TilesetFile: %s\n", TilesetFile); // DEBUG
 
-    if((Surf_Tileset = mCSurface->OnLoad(TilesetFile)) == false) {
+    if((Surf_Tileset = CSurface::OnLoad(TilesetFile)) == false) {
         fclose(FileHandle);
 
         return false;
     }
 
-    fscanf(FileHandle, "%d\n", &AreaSize);
+    char ch = fgetc(FileHandle);
+    int test = (int)ch - 48; // convert ascii to int
+    AreaSize = test;
 
-    for(int X = 0;X < AreaSize;X++) {
-        for(int Y = 0;Y < AreaSize;Y++) {
+
+    for (int X = 0; X < AreaSize; X++)
+    {
+        for (int Y = 0; Y < AreaSize; Y++)
+        {
             char MapFile[255];
 
             fscanf(FileHandle, "%s ", MapFile);
+            printf("MapFile: %s\n", MapFile);
 
             CMap tempMap;
-            if(tempMap.OnLoad(MapFile) == false) {
+            if (tempMap.OnLoad(MapFile) == false)
+            {
+                printf("Error CMAp.OnLoad...\n");
                 fclose(FileHandle);
 
                 return false;

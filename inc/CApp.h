@@ -4,6 +4,10 @@
 #include "CEvent.h"
 #include "CEntity.h"
 
+
+#include "CArea.h"
+#include "CCamera.h"
+
 #include <SDL2/SDL.h>
 
 // Screen dimension constants
@@ -26,7 +30,6 @@ private:
     CEntity         Entity1;
     CEntity         Entity2;
 
-    CSurface*  mCSurface;
 
 public:
     CApp();

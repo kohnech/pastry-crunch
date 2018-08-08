@@ -3,11 +3,9 @@
 
 CMap::CMap() {
     Surf_Tileset = NULL;
-    mCSurface = new CSurface();
 }
 
 CMap::~CMap() {
-    delete mCSurface;
 }
 
 bool CMap::OnLoad(char* File) {
@@ -56,7 +54,7 @@ void CMap::OnRender(SDL_Surface* Surf_Display, int MapX, int MapY) {
             int TilesetX = (TileList[ID].TileID % TilesetWidth) * TILE_SIZE;
             int TilesetY = (TileList[ID].TileID / TilesetHeight) * TILE_SIZE;
 
-            mCSurface->OnDraw(Surf_Display, Surf_Tileset, tX, tY, TilesetX, TilesetY, TILE_SIZE, TILE_SIZE);
+            CSurface::OnDraw(Surf_Display, Surf_Tileset, tX, tY, TilesetX, TilesetY, TILE_SIZE, TILE_SIZE);
 
             ID++;
         }

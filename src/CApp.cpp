@@ -13,7 +13,6 @@ CApp::CApp()
 : mWindow{ NULL }
 , Surf_Display{ NULL }
 , Surf_Test{ NULL }
-, mCSurface{ new CSurface }
 {
     mIsRunning = true;
 }
@@ -44,7 +43,7 @@ bool CApp::onInit()
 
     std::string img = "yoshi.png";
 
-    if((Surf_Test = mCSurface->OnLoad(img)) == NULL) {
+    if((Surf_Test = CSurface::OnLoad(img)) == NULL) {
         printf("Loading Image failed: %s\n", SDL_GetError());
         return false;
     }
@@ -66,6 +65,12 @@ bool CApp::onInit()
 
     CEntity::EntityList.push_back(&Entity1);
     CEntity::EntityList.push_back(&Entity2);
+
+    char tmp[] = "./maps/1.area";
+
+    if(CArea::AreaControl.OnLoad(tmp) == false) {
+        return false;
+    }
 
     return true;
 }
@@ -94,7 +99,7 @@ bool CApp::onLoop()
 
 void CApp::onRender()
 {
-    mCSurface->OnDraw(Surf_Display, Surf_Test, 290, 220, 0, Anim_Yoshi.GetCurrentFrame() * 64, 64, 64);
+    CSurface::OnDraw(Surf_Display, Surf_Test, 290, 220, 0, Anim_Yoshi.GetCurrentFrame() * 64, 64, 64);
 
     for(auto entity : CEntity::EntityList)
     {
@@ -104,6 +109,8 @@ void CApp::onRender()
 
         entity->OnRender(Surf_Display);
     }
+    CArea::AreaControl.OnRender(Surf_Display, CCamera::CameraControl.GetX(), CCamera::CameraControl.GetY());
+
 
 
     SDL_UpdateWindowSurface(mWindow);
@@ -128,7 +135,7 @@ void CApp::onCleanup()
 
 
     SDL_Quit();
-    delete mCSurface;
+    CArea::AreaControl.OnCleanup();
     std::cout << "Quitting..." << std::endl;
 }
 
@@ -146,4 +153,13 @@ void CApp::onResize(int w, int h)
 void CApp::onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode)
 {
     std::cout << "Key pressed: " << unicode << std::endl;
+    switch(sym) {
+        case SDLK_UP:      CCamera::CameraControl.OnMove( 0,  5); break;
+        case SDLK_DOWN:  CCamera::CameraControl.OnMove( 0, -5); break;
+        case SDLK_LEFT:  CCamera::CameraControl.OnMove( 5,  0); break;
+        case SDLK_RIGHT: CCamera::CameraControl.OnMove(-5,  0); break;
+
+        default: {
+        }
+    }
 }

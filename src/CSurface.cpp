@@ -4,13 +4,6 @@
 
 #include <SDL_image.h>
 
-CSurface::CSurface()
-{
-}
-
-CSurface::~CSurface()
-{
-}
 
 SDL_Surface* CSurface::OnLoad(std::string File) {
     return loadImage(File);
@@ -58,7 +51,7 @@ SDL_Texture* CSurface::loadTexture(SDL_Renderer* renderer, const std::string &st
 
 SDL_Surface* CSurface::loadImage(const std::string path)
 {
-    printf("loadImage...");
+    printf("CSurface::loadImage... %s\n", path.c_str());
     // Load image at specified path
     SDL_Surface* loadedSurface = IMG_Load(path.c_str());
     if (loadedSurface == NULL)
