@@ -5,6 +5,7 @@
 #include <SDL2/SDL_events.h>
 #include <SDL_image.h>
 #include "Define.h"
+#include "CGrid.h"
 
 #include <iostream>
 
@@ -52,23 +53,23 @@ bool CApp::onInit()
     Anim_Yoshi.MaxFrames = 8;
     //Anim_Yoshi.Oscillate = true;
 
-    if(Entity1.OnLoad(img, 64, 64, 8) == false) {
+    if(Entity1.OnLoad(img, 64, 64) == false) {
         return false;
     }
 
-    if(Entity2.OnLoad(img, 64, 64, 8) == false) {
+    if(Entity2.OnLoad(img, 64, 64) == false) {
         return false;
     }
 
-    Entity2.X = 100;
-    Entity2.Y = 100;
 
-    CEntity::EntityList.push_back(&Entity1);
-    CEntity::EntityList.push_back(&Entity2);
+    EntityList.push_back(&Entity1);
+    EntityList.push_back(&Entity2);
 
-    char tmp[] = "./maps/1.area";
+//    char tmp[] = "./maps/1.area";
+    std::string mImagePath = "./assets/bakery/pastry_donut.png";
+    std::cout << "finifhed CApp OnInit()"<< std::endl;
 
-    if(CArea::AreaControl.OnLoad(tmp) == false) {
+    if(CGrid::GridInstance.load(mImagePath) == false) {
         return false;
     }
 
@@ -85,7 +86,7 @@ bool CApp::onLoop()
     Anim_Yoshi.OnAnimate();
 
 
-    for(auto entity : CEntity::EntityList)
+    for(auto entity : EntityList)
     {
         if(!entity) {
             continue;
@@ -101,16 +102,18 @@ void CApp::onRender()
 {
     CSurface::OnDraw(Surf_Display, Surf_Test, 290, 220, 0, Anim_Yoshi.GetCurrentFrame() * 64, 64, 64);
 
-    for(auto entity : CEntity::EntityList)
+    int i = 1;
+    for(auto entity : EntityList)
     {
         if(!entity) {
             continue;
         }
 
-        entity->OnRender(Surf_Display);
+        entity->OnRender(Surf_Display, CCamera::CameraControl.GetX() * i, CCamera::CameraControl.GetY());
+        i++;
     }
-    CArea::AreaControl.OnRender(Surf_Display, CCamera::CameraControl.GetX(), CCamera::CameraControl.GetY());
 
+    CGrid::GridInstance.render(Surf_Display, 100, 0);
 
 
     SDL_UpdateWindowSurface(mWindow);
@@ -122,7 +125,7 @@ void CApp::onCleanup()
     SDL_FreeSurface(Surf_Display);
     SDL_DestroyWindow(mWindow);
 
-    for(auto entity : CEntity::EntityList)
+    for(auto entity : EntityList)
     {
         if(!entity) {
             continue;
@@ -130,8 +133,9 @@ void CApp::onCleanup()
 
         entity->OnCleanup();
     }
+    CGrid::GridInstance.cleanup();
 
-    CEntity::EntityList.clear();
+    EntityList.clear();
 
 
     SDL_Quit();
@@ -154,10 +158,10 @@ void CApp::onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode)
 {
     std::cout << "Key pressed: " << unicode << std::endl;
     switch(sym) {
-        case SDLK_UP:      CCamera::CameraControl.OnMove( 0,  5); break;
-        case SDLK_DOWN:  CCamera::CameraControl.OnMove( 0, -5); break;
-        case SDLK_LEFT:  CCamera::CameraControl.OnMove( 5,  0); break;
-        case SDLK_RIGHT: CCamera::CameraControl.OnMove(-5,  0); break;
+        case SDLK_UP:      CCamera::CameraControl.OnMove( 0, -5); break;
+        case SDLK_DOWN:  CCamera::CameraControl.OnMove(0, 5); break;
+        case SDLK_LEFT:  CCamera::CameraControl.OnMove(-5, 0); break;
+        case SDLK_RIGHT: CCamera::CameraControl.OnMove(5,  0); break;
 
         default: {
         }
