@@ -4,11 +4,14 @@
 #include "CEvent.h"
 #include "CEntity.h"
 
+
+#include "CArea.h"
+#include "CCamera.h"
+
 #include <SDL2/SDL.h>
 
 // Screen dimension constants
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
+
 
 const int FRAMES_PER_SECOND = 2;
 
@@ -27,7 +30,6 @@ private:
     CEntity         Entity1;
     CEntity         Entity2;
 
-    CSurface*  mCSurface;
 
 public:
     CApp();

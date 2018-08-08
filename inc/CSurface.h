@@ -4,12 +4,8 @@
 
 #include <string>
 
-class CSurface
+namespace CSurface
 {
-public:
-    CSurface();
-
-    ~CSurface();
 
     SDL_Surface* OnLoad(std::string File);
 
@@ -55,4 +51,4 @@ public:
     OnDraw(SDL_Surface* Surf_Dest, SDL_Surface* Surf_Src, int x, int y, int x2, int y2, int w, int h);
 
     bool Transparent(SDL_Surface* texture, int r, int g, int b);
-};
+}
