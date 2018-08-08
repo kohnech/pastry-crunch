@@ -1,14 +1,11 @@
 #include "CEntity.h"
+#include <iostream>
 
-std::vector<CEntity*> CEntity::EntityList;
 
 CEntity::CEntity()
 : Surf_Entity { NULL }
-, X { 0.0f }
-, Y { 0.0f }
-, Width { 0 }
-, Height { 0 }
-, AnimState { 0 }
+, mWidth { 0 }
+, mHeight { 0 }
 {
 }
 
@@ -16,7 +13,7 @@ CEntity::~CEntity()
 {
 }
 
-bool CEntity::OnLoad(std::string File, int Width, int Height, int MaxFrames)
+bool CEntity::OnLoad(std::string File, int width, int height)
 {
     if((Surf_Entity = CSurface::OnLoad(File)) == NULL) {
         return false;
@@ -24,24 +21,21 @@ bool CEntity::OnLoad(std::string File, int Width, int Height, int MaxFrames)
 
     CSurface::Transparent(Surf_Entity, 255, 0, 255);
 
-    this->Width = Width;
-    this->Height = Height;
-
-    Anim_Control.MaxFrames = MaxFrames;
+    mWidth = width;
+    mHeight = height;
 
     return true;
 }
 
 void CEntity::OnLoop()
 {
-    Anim_Control.OnAnimate();
 }
 
-void CEntity::OnRender(SDL_Surface* Surf_Display)
+void CEntity::OnRender(SDL_Surface* Surf_Display, int x, int y)
 {
     if(Surf_Entity == NULL || Surf_Display == NULL) return;
 
-    CSurface::OnDraw(Surf_Display, Surf_Entity, X, Y, AnimState * Width, Anim_Control.GetCurrentFrame() * Height, Width, Height);
+    CSurface::OnDraw(Surf_Display, Surf_Entity, x, y, 0, 0, mWidth, mHeight);
 }
 
 void CEntity::OnCleanup()

@@ -30,6 +30,7 @@ private:
     CEntity         Entity1;
     CEntity         Entity2;
 
+    std::vector<CEntity*>    EntityList;
 
 public:
     CApp();
