@@ -167,7 +167,6 @@ void CApp::onCleanup()
 
         entity->OnCleanup();
     }
-    CGrid::instance.cleanup();
 
     EntityList.clear();
 
