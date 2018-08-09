@@ -39,7 +39,7 @@ std::pair<int,int> CAssets::getScreenSize()
 std::vector<std::string> CAssets::getGridAssets()
 {
     std::vector<std::string> vec;
-    json data = mJ["grid"]["assetList"];
+    json data = mJ["grid"]["assets"]["icons"];
 
     for (auto it = data.begin(); it != data.end(); ++it)
     {
@@ -48,6 +48,14 @@ std::vector<std::string> CAssets::getGridAssets()
 
     return vec;
 };
+
+std::pair<int, int> CAssets::getGridAssetSize()
+{
+    std::pair <int, int> size;
+    size.first = mJ["grid"]["assets"]["width"];
+    size.second = mJ["grid"]["assets"]["height"];
+    return size;
+}
 
 std::string CAssets::getTitle()
 {

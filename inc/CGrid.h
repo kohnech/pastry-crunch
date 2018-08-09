@@ -11,8 +11,8 @@ public:
 
     /*!
      * Construct a grid with left upper corner at (x,y)
-     * @param xpos
-     * @param ypos
+     * @param x x position upper left corner
+     * @param y y position upper left corner
      */
     CGrid(int x, int y);
 
@@ -32,6 +32,13 @@ public:
      * @param ypos
      */
     void setPosition(int x, int y);
+
+    /*!
+     * Sets grid brick size
+     * @param w
+     * @param h
+     */
+    void setBrickSize(int w, int h);
 
     /*!
      * Loads grid assets
@@ -60,4 +67,5 @@ private:
     CEntity *mGrid[GRID_WIDTH][GRID_HEIGHT];
     std::string mImagePath;
     int mX, mY;
+    int mBrickWidth, mBrickHeight;
 };
