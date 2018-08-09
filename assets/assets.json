@@ -1,9 +1,9 @@
 {
-  "settings" : {
-    "title" : "Bakery Street",
-    "screen" : {
-      "width" : 1024,
-      "height" : 768
+  "settings": {
+    "title": "Bakery Street",
+    "screen": {
+      "width": 1024,
+      "height": 768
     }
   },
   "tile": {
@@ -12,15 +12,19 @@
     "height": 72
   },
   "grid": {
-    "width": 64,
-    "height": 72,
-    "assetList": [
-      "./assets/bakery/pastry_cookie01.png",
-      "./assets/bakery/pastry_cookie02.png",
-      "./assets/bakery/pastry_croissant.png",
-      "./assets/bakery/pastry_cupcake.png",
-      "./assets/bakery/pastry_donut.png"
-    ]
+    "width": 2,
+    "height": 2,
+    "assets": {
+      "width" : 64,
+      "height" : 72,
+      "icons": [
+        "./assets/bakery/pastry_cookie01.png",
+        "./assets/bakery/pastry_cookie02.png",
+        "./assets/bakery/pastry_croissant.png",
+        "./assets/bakery/pastry_cupcake.png",
+        "./assets/bakery/pastry_donut.png"
+      ]
+    }
   },
   "background": {
     "asset": "./assets/bakery/bg_ipad_landscape.png",

@@ -34,7 +34,6 @@ bool CApp::onInit()
     }
 
     /// Settings & assets
-    // Test
     CAssets assets;
     assets.load();
 
@@ -58,6 +57,7 @@ bool CApp::onInit()
     }
     std::string windowTitle = assets.getTitle();
 
+    std::pair <int, int> gridAssetSize = assets.getGridAssetSize();
 
     /// Create main application window
     mWindow = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
@@ -98,6 +98,7 @@ bool CApp::onInit()
 
     /// Create game board
     CGrid::instance.setPosition(100, 100);
+    CGrid::instance.setBrickSize(gridAssetSize.first, gridAssetSize.second);
     if(CGrid::instance.load(icons) == false) {
         return false;
     }

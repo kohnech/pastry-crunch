@@ -11,11 +11,14 @@ CGrid::CGrid(int x, int y)
 {
     mX = x;
     mY = y;
+
 }
 
 CGrid::CGrid()
 : mX { 0 }
 , mY { 0 }
+, mBrickWidth { ICON_WIDTH }
+, mBrickHeight { ICON_HEIGHT }
 {
 }
 
@@ -31,17 +34,15 @@ void CGrid::setPosition(int x, int y)
     mY = y;
 }
 
+void CGrid::setBrickSize(int w, int h)
+{
+    mBrickWidth = w;
+    mBrickHeight = h;
+}
 
 
 bool CGrid::load(std::vector<std::string> assets)
 {
-    /*
-    for (std::string asset : assets)
-    {
-        CEntity* entity = new CEntity();
-        entity->OnLoad ( asset.c_str(), ICON_WIDTH, ICON_HEIGHT);
-        mBricks.push_back(entity);
-    }*/
     mAssets = assets;
     initGrid();
 
@@ -54,8 +55,8 @@ void CGrid::render(SDL_Surface* Surf_Display)
     for (int x = 0; x < GRID_WIDTH; ++x)
     {
         for (int y = 0; y < GRID_HEIGHT; ++y) {
-            int xPos = x * ICON_WIDTH;
-            int yPos = y * ICON_HEIGHT;
+            int xPos = x * mBrickWidth;
+            int yPos = y * mBrickHeight;
 
             CEntity* src = mGrid[x][y];
             //CSurface::OnDraw(Surf_Display, src->Surf_Entity, xPos, yPos, 0, 0, 100, 100);
@@ -83,7 +84,7 @@ void CGrid::initGrid()
         {
             std::string asset = mAssets[getRandomInt()];
             CEntity* entity = new CEntity();
-            entity->OnLoad ( asset.c_str(), ICON_WIDTH, ICON_HEIGHT);
+            entity->OnLoad ( asset.c_str(), mBrickWidth, mBrickHeight);
 
             std::cout << "Loading image CGid..." << std::endl;
             mGrid[x][y] = entity;
