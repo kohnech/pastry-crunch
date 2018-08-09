@@ -5,21 +5,59 @@
 #include <string>
 #include "CEntity.h"
 
-class CGrid
-{
+class CGrid {
 public:
-    static CGrid            instance;
+    static CGrid instance;
 
-    CGrid(int xpos, int ypos);
+    /*!
+     * Construct a grid with left upper corner at (x,y)
+     * @param xpos
+     * @param ypos
+     */
+    CGrid(int x, int y);
+
+    /*!
+     * Construct a grid with left upper corner at (0, 0)
+     */
     CGrid();
-    void setPosition(int xpos, int ypos);
-    bool load(std::string icon);
-    void render(SDL_Surface* Surf_Display);
+
+    /*!
+     * Unload resources
+     */
+    ~CGrid();
+
+    /*!
+     * Set grid upper left corner at position (x, y)
+     * @param xpos
+     * @param ypos
+     */
+    void setPosition(int x, int y);
+
+    /*!
+     * Loads grid assets
+     * @param assets Vector with the icon assets
+     * @return
+     */
+    bool load(std::vector <std::string> assets);
+
+    void render(SDL_Surface *Surf_Display);
+
     void cleanup();
 
 
+    int getRandomInt();
+
+
 private:
-    CEntity* mMap[GRID_WIDTH][GRID_HEIGHT];
+    /*!
+    * Creates a starting point with bricks laid our randomly with max
+    * 2 of the same in a set.
+    */
+    void initGrid();
+
+
+    std::vector<std::string> mAssets;
+    CEntity *mGrid[GRID_WIDTH][GRID_HEIGHT];
     std::string mImagePath;
     int mX, mY;
 };

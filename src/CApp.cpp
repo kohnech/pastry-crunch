@@ -94,17 +94,16 @@ bool CApp::onInit()
     EntityList.push_back(&Entity1);
     EntityList.push_back(&Entity2);
 
-//    char tmp[] = "./maps/1.area";
-    std::string mImagePath = "./assets/bakery/pastry_donut.png";
-    std::cout << "finifhed CApp OnInit()"<< std::endl;
 
+
+    /// Create game board
     CGrid::instance.setPosition(100, 100);
-    if(CGrid::instance.load(mImagePath) == false) {
+    if(CGrid::instance.load(icons) == false) {
         return false;
     }
 
 
-
+    std::cout << "finished CApp OnInit()..."<< std::endl;
 
     return true;
 }

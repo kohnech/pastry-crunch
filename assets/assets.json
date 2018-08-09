@@ -7,7 +7,7 @@
     }
   },
   "tile": {
-    "asset": "bakery/GameTileBG_01.png",
+    "asset": "./assets/bakery/GameTileBG_01.png",
     "width": 64,
     "height": 72
   },
@@ -15,25 +15,25 @@
     "width": 64,
     "height": 72,
     "assetList": [
-      "bakery/pastry_cookie01.png",
-      "bakery/pastry_cookie02.png",
-      "bakery/pastry_croissant.png",
-      "bakery/pastry_cupcake.png",
-      "bakery/pastry_donut.png"
+      "./assets/bakery/pastry_cookie01.png",
+      "./assets/bakery/pastry_cookie02.png",
+      "./assets/bakery/pastry_croissant.png",
+      "./assets/bakery/pastry_cupcake.png",
+      "./assets/bakery/pastry_donut.png"
     ]
   },
   "background": {
-    "asset": "bakery/bg_ipad_landscape.png",
+    "asset": "./assets/bakery/bg_ipad_landscape.png",
     "width": 1024,
     "height": 768
   },
   "button": {
-    "asset": "bakery/button.png"
+    "asset": "./assets/bakery/button.png"
   },
   "gameover": {
-    "asset": "bakery/overlay_gameover_ipad.png"
+    "asset": "./assets/bakery/overlay_gameover_ipad.png"
   },
   "gameCompleted": {
-    "asset": "bakery/overlay_levelcomplete_ipad.png"
+    "asset": "./assets/bakery/overlay_levelcomplete_ipad.png"
   }
 }
