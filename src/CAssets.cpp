@@ -5,6 +5,8 @@
 #include <fstream>
 #include <iostream>
 #include <utility>
+#include <vector>
+#include <string>
 
 //  using nlohmann::json;
 using json = nlohmann::json;
@@ -37,4 +39,17 @@ std::pair<int,int> CAssets::getScreenSize()
     size.first = mJ["settings"]["screen"]["width"];
     size.second = mJ["settings"]["screen"]["height"];
     return size;
+};
+
+std::vector<std::string> CAssets::getGridAssets()
+{
+    std::vector<std::string> vec;
+    json data = mJ["grid"]["assetList"];
+
+    for (auto it = data.begin(); it != data.end(); ++it)
+    {
+        vec.push_back(*it);
+    }
+
+    return vec;
 };

@@ -6,6 +6,8 @@
  */
 #include "json.hpp"
 #include <utility>
+#include <vector>
+#include <string>
 
 using json = nlohmann::json;
 
@@ -16,6 +18,7 @@ public:
     void load();
     std::string getBackgroundPath();
     std::pair<int,int> getScreenSize();
+    std::vector<std::string> getGridAssets();
 
 private:
     json mJ;

@@ -51,7 +51,14 @@ bool CApp::onInit()
 
     std::cout << assets.getBackgroundPath() << std::endl;
     Background_Surf = CSurface::loadImage(assets.getBackgroundPath());
+    std::vector<std::string> icons = assets.getGridAssets();
+    for (auto asset : icons)
+    {
+        std::cout << "assets:" << asset << std::endl;
+    }
 
+
+    /// Create main application window
     mWindow = SDL_CreateWindow("Game Window", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
                                mWidth, mHeight, SDL_WINDOW_RESIZABLE);
 
