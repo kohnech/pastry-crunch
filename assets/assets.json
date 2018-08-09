@@ -7,12 +7,12 @@
   },
   "tile": {
     "asset": "bakery/GameTileBG_01.png",
-    "width": 10,
-    "height": 10
+    "width": 64,
+    "height": 72
   },
   "grid": {
-    "width": 10,
-    "height": 10,
+    "width": 64,
+    "height": 72,
     "assetList": [
       "bakery/pastry_cookie01.png",
       "bakery/pastry_cookie02.png",
@@ -23,8 +23,8 @@
   },
   "background": {
     "asset": "bakery/bg_ipad_landscape.png",
-    "width": 1280,
-    "height": 720
+    "width": 1024,
+    "height": 768
   },
   "button": {
     "asset": "bakery/button.png"

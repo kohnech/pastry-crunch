@@ -90,8 +90,8 @@ bool CApp::onInit()
     std::string mImagePath = "./assets/bakery/pastry_donut.png";
     std::cout << "finifhed CApp OnInit()"<< std::endl;
 
-    CGrid::GridInstance.setPosition(100, 100);
-    if(CGrid::GridInstance.load(mImagePath) == false) {
+    CGrid::instance.setPosition(100, 100);
+    if(CGrid::instance.load(mImagePath) == false) {
         return false;
     }
 
@@ -139,7 +139,7 @@ void CApp::onRender()
         i++;
     }
 
-    CGrid::GridInstance.render(Surf_Display);
+    CGrid::instance.render(Surf_Display);
 
 
     SDL_UpdateWindowSurface(mWindow);
@@ -159,7 +159,7 @@ void CApp::onCleanup()
 
         entity->OnCleanup();
     }
-    CGrid::GridInstance.cleanup();
+    CGrid::instance.cleanup();
 
     EntityList.clear();
 

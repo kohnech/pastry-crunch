@@ -4,7 +4,7 @@
 
 #include <iostream>
 
-CGrid CGrid::GridInstance;
+CGrid CGrid::instance;
 
 CGrid::CGrid(int xpos, int ypos)
 {

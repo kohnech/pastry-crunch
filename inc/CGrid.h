@@ -8,7 +8,7 @@
 class CGrid
 {
 public:
-    static CGrid            GridInstance;
+    static CGrid            instance;
 
     CGrid(int xpos, int ypos);
     CGrid();
