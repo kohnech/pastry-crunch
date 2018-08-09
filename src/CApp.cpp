@@ -6,8 +6,10 @@
 #include <SDL_image.h>
 #include "Define.h"
 #include "CGrid.h"
+#include "CAssets.h"
 
 #include <iostream>
+#include <utility>
 
 
 CApp::CApp()
@@ -31,8 +33,27 @@ bool CApp::onInit()
         return false;
     }
 
+    /// Settings & assets
+    // Test
+    CAssets assets;
+    assets.load();
+
+    std::pair <int, int> size = assets.getScreenSize();
+    mWidth = size.first;
+    mHeight = size.second;
+
+    if (mWidth <= 0) {
+        mWidth = SCREEN_WIDTH;
+    }
+    if (mHeight <= 0) {
+        mHeight = SCREEN_HEIGHT;
+    }
+
+    std::cout << assets.getBackgroundPath() << std::endl;
+    Background_Surf = CSurface::loadImage(assets.getBackgroundPath());
+
     mWindow = SDL_CreateWindow("Game Window", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-                               SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_RESIZABLE);
+                               mWidth, mHeight, SDL_WINDOW_RESIZABLE);
 
     if (mWindow == NULL)
     {
@@ -69,9 +90,13 @@ bool CApp::onInit()
     std::string mImagePath = "./assets/bakery/pastry_donut.png";
     std::cout << "finifhed CApp OnInit()"<< std::endl;
 
+    CGrid::GridInstance.setPosition(100, 100);
     if(CGrid::GridInstance.load(mImagePath) == false) {
         return false;
     }
+
+
+
 
     return true;
 }
@@ -101,6 +126,7 @@ bool CApp::onLoop()
 void CApp::onRender()
 {
     CSurface::OnDraw(Surf_Display, Surf_Test, 290, 220, 0, Anim_Yoshi.GetCurrentFrame() * 64, 64, 64);
+    CSurface::OnDraw(Surf_Display, Background_Surf, 0, 0);
 
     int i = 1;
     for(auto entity : EntityList)
@@ -113,7 +139,7 @@ void CApp::onRender()
         i++;
     }
 
-    CGrid::GridInstance.render(Surf_Display, 100, 0);
+    CGrid::GridInstance.render(Surf_Display);
 
 
     SDL_UpdateWindowSurface(mWindow);

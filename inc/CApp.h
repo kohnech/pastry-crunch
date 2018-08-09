@@ -30,7 +30,12 @@ private:
     CEntity         Entity1;
     CEntity         Entity2;
 
+    SDL_Surface* Background_Surf;
+
     std::vector<CEntity*>    EntityList;
+
+    int mWidth;
+    int mHeight;
 
 public:
     CApp();

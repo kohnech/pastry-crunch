@@ -6,8 +6,23 @@
 
 CGrid CGrid::GridInstance;
 
-CGrid::CGrid()
+CGrid::CGrid(int xpos, int ypos)
 {
+    mX = xpos;
+    mY = ypos;
+}
+
+CGrid::CGrid()
+: mX { 0 }
+, mY { 0 }
+{
+}
+
+
+void CGrid::setPosition(int xpos, int ypos)
+{
+    mX = xpos;
+    mY = ypos;
 }
 
 bool CGrid::load(std::string icon)
@@ -28,7 +43,7 @@ bool CGrid::load(std::string icon)
 }
 
 
-void CGrid::render(SDL_Surface* Surf_Display, int mapX, int mapY)
+void CGrid::render(SDL_Surface* Surf_Display)
 {
 
     for (int x = 0; x < GRID_WIDTH; ++x)
@@ -40,7 +55,7 @@ void CGrid::render(SDL_Surface* Surf_Display, int mapX, int mapY)
             CEntity* src = mMap[x][y];
             //CSurface::OnDraw(Surf_Display, src->Surf_Entity, xPos, yPos, 0, 0, 100, 100);
 
-            src->OnRender(Surf_Display, mapX + xPos, mapY + yPos);
+            src->OnRender(Surf_Display, mX + xPos, mY + yPos);
         }
     }
 }

@@ -1,0 +1,38 @@
+{
+  "settings" : {
+    "screen" : {
+      "width" : 1024,
+      "height" : 768
+    }
+  },
+  "tile": {
+    "asset": "bakery/GameTileBG_01.png",
+    "width": 10,
+    "height": 10
+  },
+  "grid": {
+    "width": 10,
+    "height": 10,
+    "assetList": [
+      "bakery/pastry_cookie01.png",
+      "bakery/pastry_cookie02.png",
+      "bakery/pastry_croissant.png",
+      "bakery/pastry_cupcake.png",
+      "bakery/pastry_donut.png"
+    ]
+  },
+  "background": {
+    "asset": "bakery/bg_ipad_landscape.png",
+    "width": 1280,
+    "height": 720
+  },
+  "button": {
+    "asset": "bakery/button.png"
+  },
+  "gameover": {
+    "asset": "bakery/overlay_gameover_ipad.png"
+  },
+  "gameCompleted": {
+    "asset": "bakery/overlay_levelcomplete_ipad.png"
+  }
+}

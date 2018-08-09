@@ -10,13 +10,16 @@ class CGrid
 public:
     static CGrid            GridInstance;
 
+    CGrid(int xpos, int ypos);
     CGrid();
+    void setPosition(int xpos, int ypos);
     bool load(std::string icon);
-    void render(SDL_Surface* Surf_Display, int MapX, int MapY);
+    void render(SDL_Surface* Surf_Display);
     void cleanup();
 
 
 private:
     CEntity* mMap[GRID_WIDTH][GRID_HEIGHT];
     std::string mImagePath;
+    int mX, mY;
 };
