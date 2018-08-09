@@ -19,6 +19,7 @@ public:
     std::string getBackgroundPath();
     std::pair<int,int> getScreenSize();
     std::vector<std::string> getGridAssets();
+    std::string getTitle();
 
 private:
     json mJ;
