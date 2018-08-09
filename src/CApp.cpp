@@ -56,10 +56,11 @@ bool CApp::onInit()
     {
         std::cout << "assets:" << asset << std::endl;
     }
+    std::string windowTitle = assets.getTitle();
 
 
     /// Create main application window
-    mWindow = SDL_CreateWindow("Game Window", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+    mWindow = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
                                mWidth, mHeight, SDL_WINDOW_RESIZABLE);
 
     if (mWindow == NULL)

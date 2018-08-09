@@ -1,5 +1,6 @@
 {
   "settings" : {
+    "title" : "Bakery Street",
     "screen" : {
       "width" : 1024,
       "height" : 768

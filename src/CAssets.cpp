@@ -53,3 +53,8 @@ std::vector<std::string> CAssets::getGridAssets()
 
     return vec;
 };
+
+std::string CAssets::getTitle()
+{
+    return mJ["settings"]["title"];
+}
