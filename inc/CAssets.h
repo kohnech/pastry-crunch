@@ -15,12 +15,14 @@ class CAssets
 {
 public:
     CAssets();
-    void load();
+    void load(std::string);
     std::string getBackgroundPath();
     std::pair<int,int> getScreenSize();
     std::vector<std::string> getGridAssets();
     std::pair<int, int> getGridAssetSize();
     std::string getTitle();
+    std::string getTileAsset();
+    std::pair<int, int> getTileSize();
 
 private:
     json mJ;

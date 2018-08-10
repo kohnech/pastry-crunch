@@ -35,7 +35,7 @@ bool CApp::onInit()
 
     /// Settings & assets
     CAssets assets;
-    assets.load();
+    assets.load("./assets/assets.json");
 
     std::pair <int, int> size = assets.getScreenSize();
     mWidth = size.first;
@@ -82,11 +82,11 @@ bool CApp::onInit()
     Anim_Yoshi.MaxFrames = 8;
     //Anim_Yoshi.Oscillate = true;
 
-    if(Entity1.OnLoad(img, 64, 64) == false) {
+    if(Entity1.load(img, 64, 64) == false) {
         return false;
     }
 
-    if(Entity2.OnLoad(img, 64, 64) == false) {
+    if(Entity2.load(img, 64, 64) == false) {
         return false;
     }
 
@@ -99,7 +99,7 @@ bool CApp::onInit()
     /// Create game board
     CGrid::instance.setPosition(100, 100);
     CGrid::instance.setBrickSize(gridAssetSize.first, gridAssetSize.second);
-    if(CGrid::instance.load(icons) == false) {
+    if(CGrid::instance.load(assets) == false) {
         return false;
     }
 
@@ -117,17 +117,6 @@ void CApp::onEvent(SDL_Event* event)
 bool CApp::onLoop()
 {
     Anim_Yoshi.OnAnimate();
-
-
-    for(auto entity : EntityList)
-    {
-        if(!entity) {
-            continue;
-        }
-
-        entity->OnLoop();
-    }
-
     return mIsRunning;
 }
 
@@ -143,7 +132,7 @@ void CApp::onRender()
             continue;
         }
 
-        entity->OnRender(Surf_Display, CCamera::CameraControl.GetX() * i, CCamera::CameraControl.GetY());
+        entity->render(Surf_Display, CCamera::CameraControl.GetX() * i, CCamera::CameraControl.GetY());
         i++;
     }
 
