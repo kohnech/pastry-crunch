@@ -1,12 +1,12 @@
 #include "CApp.h"
 #include "CSurface.h"
 
+#include "CAssets.h"
+#include "CGrid.h"
+#include "Define.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_events.h>
 #include <SDL_image.h>
-#include "Define.h"
-#include "CGrid.h"
-#include "CAssets.h"
 
 #include <iostream>
 #include <utility>
@@ -37,14 +37,16 @@ bool CApp::onInit()
     CAssets assets;
     assets.load("./assets/assets.json");
 
-    std::pair <int, int> size = assets.getScreenSize();
+    std::pair<int, int> size = assets.getScreenSize();
     mWidth = size.first;
     mHeight = size.second;
 
-    if (mWidth <= 0) {
+    if (mWidth <= 0)
+    {
         mWidth = SCREEN_WIDTH;
     }
-    if (mHeight <= 0) {
+    if (mHeight <= 0)
+    {
         mHeight = SCREEN_HEIGHT;
     }
 
@@ -57,11 +59,11 @@ bool CApp::onInit()
     }
     std::string windowTitle = assets.getTitle();
 
-    std::pair <int, int> gridAssetSize = assets.getGridAssetSize();
+    std::pair<int, int> gridAssetSize = assets.getGridAssetSize();
 
     /// Create main application window
-    mWindow = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-                               mWidth, mHeight, SDL_WINDOW_RESIZABLE);
+    mWindow = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_UNDEFINED,
+                               SDL_WINDOWPOS_UNDEFINED, mWidth, mHeight, SDL_WINDOW_RESIZABLE);
 
     if (mWindow == NULL)
     {
@@ -73,20 +75,23 @@ bool CApp::onInit()
 
     std::string img = "yoshi.png";
 
-    if((Surf_Test = CSurface::OnLoad(img)) == NULL) {
+    if ((Surf_Test = CSurface::OnLoad(img)) == NULL)
+    {
         printf("Loading Image failed: %s\n", SDL_GetError());
         return false;
     }
 
 
     Anim_Yoshi.MaxFrames = 8;
-    //Anim_Yoshi.Oscillate = true;
+    // Anim_Yoshi.Oscillate = true;
 
-    if(Entity1.load(img, 64, 64) == false) {
+    if (Entity1.load(img, 64, 64) == false)
+    {
         return false;
     }
 
-    if(Entity2.load(img, 64, 64) == false) {
+    if (Entity2.load(img, 64, 64) == false)
+    {
         return false;
     }
 
@@ -95,16 +100,16 @@ bool CApp::onInit()
     EntityList.push_back(&Entity2);
 
 
-
     /// Create game board
     CGrid::instance.setPosition(100, 100);
     CGrid::instance.setBrickSize(gridAssetSize.first, gridAssetSize.second);
-    if(CGrid::instance.load(assets) == false) {
+    if (CGrid::instance.load(assets) == false)
+    {
         return false;
     }
 
 
-    std::cout << "finished CApp OnInit()..."<< std::endl;
+    std::cout << "finished CApp OnInit()..." << std::endl;
 
     return true;
 }
@@ -126,9 +131,10 @@ void CApp::onRender()
     CSurface::OnDraw(Surf_Display, Background_Surf, 0, 0);
 
     int i = 1;
-    for(auto entity : EntityList)
+    for (auto entity : EntityList)
     {
-        if(!entity) {
+        if (!entity)
+        {
             continue;
         }
 
@@ -148,9 +154,10 @@ void CApp::onCleanup()
     SDL_FreeSurface(Surf_Display);
     SDL_DestroyWindow(mWindow);
 
-    for(auto entity : EntityList)
+    for (auto entity : EntityList)
     {
-        if(!entity) {
+        if (!entity)
+        {
             continue;
         }
 
@@ -179,13 +186,23 @@ void CApp::onResize(int w, int h)
 void CApp::onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode)
 {
     std::cout << "Key pressed: " << unicode << std::endl;
-    switch(sym) {
-        case SDLK_UP:      CCamera::CameraControl.OnMove( 0, -5); break;
-        case SDLK_DOWN:  CCamera::CameraControl.OnMove(0, 5); break;
-        case SDLK_LEFT:  CCamera::CameraControl.OnMove(-5, 0); break;
-        case SDLK_RIGHT: CCamera::CameraControl.OnMove(5,  0); break;
+    switch (sym)
+    {
+    case SDLK_UP:
+        CCamera::CameraControl.OnMove(0, -5);
+        break;
+    case SDLK_DOWN:
+        CCamera::CameraControl.OnMove(0, 5);
+        break;
+    case SDLK_LEFT:
+        CCamera::CameraControl.OnMove(-5, 0);
+        break;
+    case SDLK_RIGHT:
+        CCamera::CameraControl.OnMove(5, 0);
+        break;
 
-        default: {
-        }
+    default:
+    {
+    }
     }
 }

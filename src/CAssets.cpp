@@ -4,16 +4,15 @@
 
 #include <fstream>
 #include <iostream>
+#include <string>
 #include <utility>
 #include <vector>
-#include <string>
 
 //  using nlohmann::json;
 using json = nlohmann::json;
 
 CAssets::CAssets()
 {
-
 }
 
 void CAssets::load(std::string settingsFile)
@@ -28,9 +27,9 @@ std::string CAssets::getBackgroundPath()
     return mJ["background"]["asset"];
 }
 
-std::pair<int,int> CAssets::getScreenSize()
+std::pair<int, int> CAssets::getScreenSize()
 {
-    std::pair <int, int> size;
+    std::pair<int, int> size;
     size.first = mJ["settings"]["screen"]["width"];
     size.second = mJ["settings"]["screen"]["height"];
     return size;
@@ -51,7 +50,7 @@ std::vector<std::string> CAssets::getGridAssets()
 
 std::pair<int, int> CAssets::getGridAssetSize()
 {
-    std::pair <int, int> size;
+    std::pair<int, int> size;
     size.first = mJ["grid"]["assets"]["width"];
     size.second = mJ["grid"]["assets"]["height"];
     return size;
@@ -69,7 +68,7 @@ std::string CAssets::getTileAsset()
 
 std::pair<int, int> CAssets::getTileSize()
 {
-    std::pair <int, int> size;
+    std::pair<int, int> size;
     size.first = mJ["tile"]["width"];
     size.second = mJ["tile"]["height"];
     return size;

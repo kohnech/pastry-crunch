@@ -5,7 +5,8 @@
 #include <SDL_image.h>
 
 
-SDL_Surface* CSurface::OnLoad(std::string File) {
+SDL_Surface* CSurface::OnLoad(std::string File)
+{
     return loadImage(File);
 }
 /*
@@ -26,7 +27,8 @@ SDL_Texture* CSurface::loadTexture(SDL_Renderer* renderer, std::string path)
         newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
         if (newTexture == NULL)
         {
-            printf("Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
+            printf("Unable to create texture from %s! SDL Error: %s\n", path.c_str(),
+SDL_GetError());
         }
 
         // Get rid of old loaded surface
@@ -35,12 +37,12 @@ SDL_Texture* CSurface::loadTexture(SDL_Renderer* renderer, std::string path)
 
     return newTexture;
 }*/
-SDL_Texture* CSurface::loadTexture(SDL_Renderer* renderer, const std::string &str )
+SDL_Texture* CSurface::loadTexture(SDL_Renderer* renderer, const std::string& str)
 {
     // Load image as SDL_Surface
 
-    SDL_Texture* texture = IMG_LoadTexture( renderer, str.c_str() );
-    if ( texture == nullptr )
+    SDL_Texture* texture = IMG_LoadTexture(renderer, str.c_str());
+    if (texture == nullptr)
     {
         std::cout << "Failed to load texture " << str << " error : " << SDL_GetError() << std::endl;
         return nullptr;

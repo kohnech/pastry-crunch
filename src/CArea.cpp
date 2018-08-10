@@ -4,20 +4,24 @@
 
 CArea CArea::AreaControl;
 
-CArea::CArea() {
+CArea::CArea()
+{
     AreaSize = 0;
 }
 
-CArea::~CArea() {
+CArea::~CArea()
+{
 }
 
-bool CArea::OnLoad(char* File) {
+bool CArea::OnLoad(char* File)
+{
     printf("CArea::OnLoad... with File: %s\n", File);
     MapList.clear();
 
     FILE* FileHandle = fopen(File, "r");
 
-    if(FileHandle == NULL) {
+    if (FileHandle == NULL)
+    {
         return false;
     }
 
@@ -26,7 +30,8 @@ bool CArea::OnLoad(char* File) {
     fscanf(FileHandle, "%s\n", TilesetFile);
     printf("TilesetFile: %s\n", TilesetFile); // DEBUG
 
-    if((Surf_Tileset = CSurface::OnLoad(TilesetFile)) == false) {
+    if ((Surf_Tileset = CSurface::OnLoad(TilesetFile)) == false)
+    {
         fclose(FileHandle);
 
         return false;
@@ -67,17 +72,20 @@ bool CArea::OnLoad(char* File) {
     return true;
 }
 
-void CArea::OnRender(SDL_Surface* Surf_Display, int CameraX, int CameraY) {
-    int MapWidth  = MAP_WIDTH * TILE_SIZE;
+void CArea::OnRender(SDL_Surface* Surf_Display, int CameraX, int CameraY)
+{
+    int MapWidth = MAP_WIDTH * TILE_SIZE;
     int MapHeight = MAP_HEIGHT * TILE_SIZE;
 
     int FirstID = -CameraX / MapWidth;
     FirstID = FirstID + ((-CameraY / MapHeight) * AreaSize);
 
-    for(int i = 0;i < 4;i++) {
+    for (int i = 0; i < 4; i++)
+    {
         unsigned int ID = FirstID + ((i / 2) * AreaSize) + (i % 2);
 
-        if(ID < 0 || ID >= MapList.size()) continue;
+        if (ID < 0 || ID >= MapList.size())
+            continue;
 
         int X = ((ID % AreaSize) * MapWidth) + CameraX;
         int Y = ((ID / AreaSize) * MapHeight) + CameraY;
@@ -86,8 +94,10 @@ void CArea::OnRender(SDL_Surface* Surf_Display, int CameraX, int CameraY) {
     }
 }
 
-void CArea::OnCleanup() {
-    if(Surf_Tileset) {
+void CArea::OnCleanup()
+{
+    if (Surf_Tileset)
+    {
         SDL_FreeSurface(Surf_Tileset);
     }
 

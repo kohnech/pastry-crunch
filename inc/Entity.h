@@ -26,8 +26,7 @@ public:
      * @param tileHeight
      * @return
      */
-    virtual bool load(std::string assetFile, int width, int height,
-                        std::string tileFile, int tileWidth, int tileHeight);
+    virtual bool load(std::string assetFile, int width, int height, std::string tileFile, int tileWidth, int tileHeight);
 
 
     virtual bool load(std::string assetFile, int width, int height);
@@ -40,18 +39,17 @@ public:
      * The type of the entity used for matching neighbours with
      * same id
      */
-    int            id;
+    int id;
 
 
 protected:
-    SDL_Surface*    Surf_Entity;
-    SDL_Surface*    Surf_Tile;
+    SDL_Surface* Surf_Entity;
+    SDL_Surface* Surf_Tile;
 
 
 private:
-
-    int             mWidth, mHeight;
-    int             mTileWidth, mTileHeight;
-    std::string     mAsset;
-    std::string     mTileAsset;
+    int mWidth, mHeight;
+    int mTileWidth, mTileHeight;
+    std::string mAsset;
+    std::string mTileAsset;
 };

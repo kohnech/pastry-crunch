@@ -1,12 +1,13 @@
 #pragma once
 
-#include <SDL.h>
-#include "Define.h"
-#include <string>
-#include "Entity.h"
 #include "CAssets.h"
+#include "Define.h"
+#include "Entity.h"
+#include <SDL.h>
+#include <string>
 
-class CGrid {
+class CGrid
+{
 public:
     static CGrid instance;
 
@@ -48,7 +49,7 @@ public:
      */
     bool load(CAssets& assets);
 
-    void render(SDL_Surface *Surf_Display);
+    void render(SDL_Surface* Surf_Display);
 
     void cleanup();
 
@@ -58,9 +59,9 @@ public:
 
 private:
     /*!
-    * Creates a starting point with bricks laid our randomly with max
-    * 2 of the same in a set.
-    */
+     * Creates a starting point with bricks laid our randomly with max
+     * 2 of the same in a set.
+     */
     void initGrid();
 
 
