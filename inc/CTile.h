@@ -1,16 +1,18 @@
 #pragma once
 
-enum {
+enum
+{
     TILE_TYPE_NONE = 0,
 
     TILE_TYPE_NORMAL,
     TILE_TYPE_BLOCK
 };
 
-class CTile {
+class CTile
+{
 public:
-    int     TileID;
-    int     TypeID;
+    int TileID;
+    int TypeID;
 
 public:
     CTile();

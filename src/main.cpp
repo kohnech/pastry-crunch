@@ -3,27 +3,34 @@
 
 int main(int argc, char* argv[])
 {
-    std::cout << "Starting main loop..." << std::endl;
-    CApp theApp;
-
-    if (theApp.onInit() == false)
+    try
     {
-        return EXIT_FAILURE;
-    }
+        std::cout << "Starting main loop..." << std::endl;
+        CApp theApp;
 
-    SDL_Event event;
-
-    // Main loop
-    bool isRunning = true;
-    while (isRunning)
-    {
-        while (SDL_PollEvent(&event))
+        if (theApp.onInit() == false)
         {
-            theApp.onEvent(&event);
+            return EXIT_FAILURE;
         }
 
-        isRunning = theApp.onLoop();
-        theApp.onRender();
+        SDL_Event event;
+
+        // Main loop
+        bool isRunning = true;
+        while (isRunning)
+        {
+            while (SDL_PollEvent(&event))
+            {
+                theApp.onEvent(&event);
+            }
+
+            isRunning = theApp.onLoop();
+            theApp.onRender();
+        }
+    }
+    catch (std::exception& e)
+    {
+        std::cout << "Got exception: " << e.what() << std::endl;
     }
 
     return EXIT_SUCCESS;

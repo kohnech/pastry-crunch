@@ -1,24 +1,30 @@
 #include "CMap.h"
 #include "Define.h"
 
-CMap::CMap() {
+CMap::CMap()
+{
     Surf_Tileset = NULL;
 }
 
-CMap::~CMap() {
+CMap::~CMap()
+{
 }
 
-bool CMap::OnLoad(char* File) {
+bool CMap::OnLoad(char* File)
+{
     TileList.clear();
 
     FILE* FileHandle = fopen(File, "r");
 
-    if(FileHandle == NULL) {
+    if (FileHandle == NULL)
+    {
         return false;
     }
 
-    for(int Y = 0;Y < MAP_HEIGHT;Y++) {
-        for(int X = 0;X < MAP_WIDTH;X++) {
+    for (int Y = 0; Y < MAP_HEIGHT; Y++)
+    {
+        for (int X = 0; X < MAP_WIDTH; X++)
+        {
             CTile tempTile;
 
             fscanf(FileHandle, "%d:%d ", &tempTile.TileID, &tempTile.TypeID);
@@ -33,17 +39,22 @@ bool CMap::OnLoad(char* File) {
     return true;
 }
 
-void CMap::OnRender(SDL_Surface* Surf_Display, int MapX, int MapY) {
-    if(Surf_Tileset == NULL) return;
+void CMap::OnRender(SDL_Surface* Surf_Display, int MapX, int MapY)
+{
+    if (Surf_Tileset == NULL)
+        return;
 
-    int TilesetWidth  = Surf_Tileset->w / TILE_SIZE;
-    //int TilesetHeight = Surf_Tileset->h / TILE_SIZE;
+    int TilesetWidth = Surf_Tileset->w / TILE_SIZE;
+    // int TilesetHeight = Surf_Tileset->h / TILE_SIZE;
 
     int ID = 0;
 
-    for(int Y = 0;Y < MAP_HEIGHT;Y++) {
-        for(int X = 0;X < MAP_WIDTH;X++) {
-            if(TileList[ID].TypeID == TILE_TYPE_NONE) {
+    for (int Y = 0; Y < MAP_HEIGHT; Y++)
+    {
+        for (int X = 0; X < MAP_WIDTH; X++)
+        {
+            if (TileList[ID].TypeID == TILE_TYPE_NONE)
+            {
                 ID++;
                 continue;
             }

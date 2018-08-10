@@ -12,11 +12,13 @@ SDL_VERSION=2.0.8
 SDL_PATH = $(3RDPARTYDIR)/SDL2-$(SDL_VERSION)
 SDL_IMAGE_VERSION=2.0.1
 SDL_IMAGE_PATH =$(3RDPARTYDIR)/SDL2_image-$(SDL_IMAGE_VERSION)
+SDL_JSON_PATH = $(3RDPARTYDIR)/nlohmann
 
 INCLUDE_DIRS += -I$(PROJ_ROOT)/inc \
 				-I$(SDL_PATH)/include \
 				-I$(SDL_PATH)/include/SDL2 \
-				-I$(SDL_IMAGE_PATH)/include
+				-I$(SDL_IMAGE_PATH)/include \
+				-I$(SDL_JSON_PATH)/include
 
 ## Libs
 LIBS = -lSDL2 -lSDL2main -lSDL2_image -lsndio
@@ -44,21 +46,25 @@ SRCS = 	CApp.cpp \
 		CSurface.cpp \
 		CEvent.cpp \
 		CAnimation.cpp \
-		CEntity.cpp \
+		Entity.cpp \
 		CTile.cpp \
 		CMap.cpp \
 		CArea.cpp \
-		CCamera.cpp
+		CCamera.cpp \
+		CGrid.cpp \
+		CAssets.cpp
 
 HDRS = 	inc/CApp.h \
 		inc/CSurface.h \
 		inc/CEvent.h \
 		inc/CAnimation.h \
-		inc/CEntity.h \
+		inc/Entity.h \
 		inc/CTile.h \
 		inc/CMap.h \
 		inc/CArea.h \
-		inc/CCamera.h
+		inc/CCamera.h \
+		inc/CGrid.h \
+		inc/CAssets.h
 
 OBJS = $(patsubst %.cpp,$(BUILDDIR)/%.o,$(SRCS))
 
