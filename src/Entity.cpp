@@ -2,8 +2,8 @@
 #include <iostream>
 
 Entity::Entity()
-        : Surf_Entity { NULL }
-        , mId { 0 }
+        : id { 0 }
+        , Surf_Entity { NULL }
         , mWidth { 0 }
         , mHeight { 0 }
         , mAsset { "" }
@@ -11,8 +11,8 @@ Entity::Entity()
 }
 
 Entity::Entity(int id)
-: Surf_Entity { NULL }
-, mId { id }
+: id { id }
+, Surf_Entity { NULL }
 , mWidth { 0 }
 , mHeight { 0 }
 , mAsset { "" }

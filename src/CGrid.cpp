@@ -79,7 +79,17 @@ void CGrid::cleanup()
 /*
 void CGrid::findHorizontalMatches()
 {
+    // Loop over rows
+    for (int y = 0; y < GRID_HEIGHT; ++y) {
+        int type = type = mGrid[0][y]->id;
+        int numInARow = 0;
+        for (int x = 1; x < GRID_WIDTH; ++x) {
+            if (mGrid[x-1][y] == mGrid[x][y]) {
 
+            }
+
+        }
+    }
 }
 
 

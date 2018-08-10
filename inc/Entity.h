@@ -23,13 +23,15 @@ public:
 
     virtual void OnCleanup();
 
+    int            id;
+
 
 protected:
     SDL_Surface*    Surf_Entity;
 
 
 private:
-    int            mId;
+
     int             mWidth;
     int             mHeight;
     std::string    mAsset;
