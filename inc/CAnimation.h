@@ -9,7 +9,7 @@ private:
     int FrameInc;
 
 private:
-    int FrameRate; //Milliseconds
+    int FrameRate; // Milliseconds
 
     long OldTime;
 

@@ -2,7 +2,7 @@
 
 #include "CAnimation.h"
 #include "CEvent.h"
-#include "CEntity.h"
+#include "Entity.h"
 
 
 #include "CArea.h"
@@ -23,13 +23,19 @@ private:
 
     SDL_Window* mWindow;
     SDL_Surface* Surf_Display;
-    SDL_Surface*    Surf_Test;
+    SDL_Surface* Surf_Test;
 
     CAnimation Anim_Yoshi;
 
-    CEntity         Entity1;
-    CEntity         Entity2;
+    Entity Entity1;
+    Entity Entity2;
 
+    SDL_Surface* Background_Surf;
+
+    std::vector<Entity*> EntityList;
+
+    int mWidth;
+    int mHeight;
 
 public:
     CApp();

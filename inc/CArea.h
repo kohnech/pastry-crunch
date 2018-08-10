@@ -2,25 +2,26 @@
 
 #include "CMap.h"
 
-class CArea {
+class CArea
+{
 public:
-    static CArea            AreaControl;
+    static CArea AreaControl;
 
 public:
-    std::vector<CMap>       MapList;
+    std::vector<CMap> MapList;
 
 private:
-    int                     AreaSize;
+    int AreaSize;
 
-    SDL_Surface*        Surf_Tileset;
+    SDL_Surface* Surf_Tileset;
 
 public:
     CArea();
     ~CArea();
 
-    bool    OnLoad(char* File);
+    bool OnLoad(char* File);
 
-    void    OnRender(SDL_Surface* Surf_Display, int CameraX, int CameraY);
+    void OnRender(SDL_Surface* Surf_Display, int CameraX, int CameraY);
 
-    void    OnCleanup();
+    void OnCleanup();
 };

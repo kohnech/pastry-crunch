@@ -1,0 +1,45 @@
+{
+  "settings": {
+    "title": "Bakery Street",
+    "minimumMatches" : 3,
+    "minimumScores" : 30,
+    "screen": {
+      "width": 1024,
+      "height": 768
+    }
+  },
+  "tile": {
+    "asset": "./assets/bakery/GameTileBG_01.png",
+    "width": 64,
+    "height": 72
+  },
+  "grid": {
+    "width": 2,
+    "height": 2,
+    "assets": {
+      "width" : 64,
+      "height" : 72,
+      "icons": [
+        "./assets/bakery/pastry_cookie01.png",
+        "./assets/bakery/pastry_cookie02.png",
+        "./assets/bakery/pastry_croissant.png",
+        "./assets/bakery/pastry_cupcake.png",
+        "./assets/bakery/pastry_donut.png"
+      ]
+    }
+  },
+  "background": {
+    "asset": "./assets/bakery/bg_ipad_landscape.png",
+    "width": 1024,
+    "height": 768
+  },
+  "button": {
+    "asset": "./assets/bakery/button.png"
+  },
+  "gameover": {
+    "asset": "./assets/bakery/overlay_gameover_ipad.png"
+  },
+  "gameCompleted": {
+    "asset": "./assets/bakery/overlay_levelcomplete_ipad.png"
+  }
+}

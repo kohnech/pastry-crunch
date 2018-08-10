@@ -3,10 +3,11 @@
 #include <SDL.h>
 #include <vector>
 
-#include "CTile.h"
 #include "CSurface.h"
+#include "CTile.h"
 
-class CMap {
+class CMap
+{
 public:
     SDL_Surface* Surf_Tileset;
 

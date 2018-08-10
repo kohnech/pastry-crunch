@@ -4,12 +4,14 @@
 
 #include "Define.h"
 
-enum {
+enum
+{
     TARGET_MODE_NORMAL = 0,
     TARGET_MODE_CENTER
 };
 
-class CCamera {
+class CCamera
+{
 public:
     static CCamera CameraControl;
 
