@@ -58,7 +58,7 @@ void CGrid::render(SDL_Surface* Surf_Display)
             int xPos = x * mBrickWidth;
             int yPos = y * mBrickHeight;
 
-            CEntity* src = mGrid[x][y];
+            Entity* src = mGrid[x][y];
             //CSurface::OnDraw(Surf_Display, src->Surf_Entity, xPos, yPos, 0, 0, 100, 100);
 
             src->OnRender(Surf_Display, mX + xPos, mY + yPos);
@@ -76,14 +76,30 @@ void CGrid::cleanup()
     }
 }
 
+/*
+void CGrid::findHorizontalMatches()
+{
+
+}
+
+
+void CGrid::findVerticalMatches()
+{
+
+}*/
+
+/*!
+ * Populate a Grid randomly without any matches.
+ */
 void CGrid::initGrid()
 {
     for (int x = 0; x < GRID_WIDTH; ++x)
     {
         for (int y = 0; y < GRID_HEIGHT; ++y)
         {
-            std::string asset = mAssets[getRandomInt()];
-            CEntity* entity = new CEntity();
+            int random = getRandomInt();
+            std::string asset = mAssets[random];
+            Entity* entity = new Entity(random);
             entity->OnLoad ( asset.c_str(), mBrickWidth, mBrickHeight);
 
             std::cout << "Loading image CGid..." << std::endl;

@@ -5,14 +5,17 @@
 #include "CAnimation.h"
 #include "CSurface.h"
 
-class CEntity
+
+class Entity
 {
 public:
-    CEntity();
+    Entity();
 
-    virtual ~CEntity();
+    Entity(int id);
 
-    virtual bool OnLoad(std::string File, int Width, int Height);
+    virtual ~Entity();
+
+    virtual bool OnLoad(std::string file, int width, int height);
 
     virtual void OnLoop();
 
@@ -26,7 +29,10 @@ protected:
 
 
 private:
+    int            mId;
     int             mWidth;
     int             mHeight;
+    std::string    mAsset;
+
 
 };

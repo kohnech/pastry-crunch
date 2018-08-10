@@ -3,7 +3,7 @@
 #include <SDL.h>
 #include "Define.h"
 #include <string>
-#include "CEntity.h"
+#include "Entity.h"
 
 class CGrid {
 public:
@@ -64,7 +64,7 @@ private:
 
 
     std::vector<std::string> mAssets;
-    CEntity *mGrid[GRID_WIDTH][GRID_HEIGHT];
+    Entity* mGrid[GRID_WIDTH][GRID_HEIGHT];
     std::string mImagePath;
     int mX, mY;
     int mBrickWidth, mBrickHeight;
