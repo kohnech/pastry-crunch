@@ -2,7 +2,8 @@
 
 CCamera CCamera::CameraControl;
 
-CCamera::CCamera() {
+CCamera::CCamera()
+{
     X = Y = 0;
 
     TargetX = TargetY = NULL;
@@ -10,14 +11,18 @@ CCamera::CCamera() {
     TargetMode = TARGET_MODE_NORMAL;
 }
 
-void CCamera::OnMove(int MoveX, int MoveY) {
+void CCamera::OnMove(int MoveX, int MoveY)
+{
     X += MoveX;
     Y += MoveY;
 }
 
-int CCamera::GetX() {
-    if(TargetX != NULL) {
-        if(TargetMode == TARGET_MODE_CENTER) {
+int CCamera::GetX()
+{
+    if (TargetX != NULL)
+    {
+        if (TargetMode == TARGET_MODE_CENTER)
+        {
             return *TargetX - (SCREEN_WIDTH / 2);
         }
 
@@ -27,9 +32,12 @@ int CCamera::GetX() {
     return X;
 }
 
-int CCamera::GetY() {
-    if(TargetY != NULL) {
-        if(TargetMode == TARGET_MODE_CENTER) {
+int CCamera::GetY()
+{
+    if (TargetY != NULL)
+    {
+        if (TargetMode == TARGET_MODE_CENTER)
+        {
             return *TargetY - (SCREEN_HEIGHT / 2);
         }
 
@@ -39,12 +47,14 @@ int CCamera::GetY() {
     return Y;
 }
 
-void CCamera::SetPos(int X, int Y) {
+void CCamera::SetPos(int X, int Y)
+{
     this->X = X;
     this->Y = Y;
 }
 
-void CCamera::SetTarget(int* X, int* Y) {
+void CCamera::SetTarget(int* X, int* Y)
+{
     TargetX = X;
     TargetY = Y;
 }

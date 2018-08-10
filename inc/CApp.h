@@ -23,16 +23,16 @@ private:
 
     SDL_Window* mWindow;
     SDL_Surface* Surf_Display;
-    SDL_Surface*    Surf_Test;
+    SDL_Surface* Surf_Test;
 
     CAnimation Anim_Yoshi;
 
-    Entity         Entity1;
-    Entity         Entity2;
+    Entity Entity1;
+    Entity Entity2;
 
     SDL_Surface* Background_Surf;
 
-    std::vector<Entity*>    EntityList;
+    std::vector<Entity*> EntityList;
 
     int mWidth;
     int mHeight;

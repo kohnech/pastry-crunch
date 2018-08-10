@@ -3,11 +3,13 @@
 
 int main(int argc, char* argv[])
 {
-    try {
+    try
+    {
         std::cout << "Starting main loop..." << std::endl;
         CApp theApp;
 
-        if (theApp.onInit() == false) {
+        if (theApp.onInit() == false)
+        {
             return EXIT_FAILURE;
         }
 
@@ -15,8 +17,10 @@ int main(int argc, char* argv[])
 
         // Main loop
         bool isRunning = true;
-        while (isRunning) {
-            while (SDL_PollEvent(&event)) {
+        while (isRunning)
+        {
+            while (SDL_PollEvent(&event))
+            {
                 theApp.onEvent(&event);
             }
 
