@@ -46,7 +46,7 @@ SRCS = 	CApp.cpp \
 		CSurface.cpp \
 		CEvent.cpp \
 		CAnimation.cpp \
-		CEntity.cpp \
+		Entity.cpp \
 		CTile.cpp \
 		CMap.cpp \
 		CArea.cpp \
@@ -58,7 +58,7 @@ HDRS = 	inc/CApp.h \
 		inc/CSurface.h \
 		inc/CEvent.h \
 		inc/CAnimation.h \
-		inc/CEntity.h \
+		inc/Entity.h \
 		inc/CTile.h \
 		inc/CMap.h \
 		inc/CArea.h \
