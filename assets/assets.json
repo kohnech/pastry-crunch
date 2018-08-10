@@ -1,6 +1,8 @@
 {
   "settings": {
     "title": "Bakery Street",
+    "minimumMatches" : 3,
+    "minimumScores" : 30,
     "screen": {
       "width": 1024,
       "height": 768

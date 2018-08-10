@@ -4,6 +4,7 @@
 #include "Define.h"
 #include <string>
 #include "Entity.h"
+#include "CAssets.h"
 
 class CGrid {
 public:
@@ -42,10 +43,10 @@ public:
 
     /*!
      * Loads grid assets
-     * @param assets Vector with the icon assets
+     * @param assets The asset manager to extract assets
      * @return
      */
-    bool load(std::vector <std::string> assets);
+    bool load(CAssets& assets);
 
     void render(SDL_Surface *Surf_Display);
 
@@ -68,4 +69,5 @@ private:
     std::string mImagePath;
     int mX, mY;
     int mBrickWidth, mBrickHeight;
+    std::string mTileAsset;
 };

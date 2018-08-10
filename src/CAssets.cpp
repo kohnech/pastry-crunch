@@ -16,9 +16,9 @@ CAssets::CAssets()
 
 }
 
-void CAssets::load()
+void CAssets::load(std::string settingsFile)
 {
-    std::ifstream ifs("./assets/assets.json");
+    std::ifstream ifs(settingsFile);
     ifs >> mJ;
 }
 
@@ -61,3 +61,16 @@ std::string CAssets::getTitle()
 {
     return mJ["settings"]["title"];
 }
+
+std::string CAssets::getTileAsset()
+{
+    return mJ["tile"]["asset"];
+}
+
+std::pair<int, int> CAssets::getTileSize()
+{
+    std::pair <int, int> size;
+    size.first = mJ["tile"]["width"];
+    size.second = mJ["tile"]["height"];
+    return size;
+};

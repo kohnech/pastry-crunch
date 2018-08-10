@@ -4,14 +4,16 @@
 
 #include <iostream>
 #include <random>
+#include <map>
 
 CGrid CGrid::instance;
 
 CGrid::CGrid(int x, int y)
+        : mX { x }
+        , mY { y }
+        , mBrickWidth { ICON_WIDTH }
+        , mBrickHeight { ICON_HEIGHT }
 {
-    mX = x;
-    mY = y;
-
 }
 
 CGrid::CGrid()
@@ -41,9 +43,15 @@ void CGrid::setBrickSize(int w, int h)
 }
 
 
-bool CGrid::load(std::vector<std::string> assets)
+bool CGrid::load(CAssets& assets)
 {
-    mAssets = assets;
+    mAssets = assets.getGridAssets();
+    std::pair <int, int> gridAssetSize = assets.getGridAssetSize();
+    mBrickWidth = gridAssetSize.first;
+    mBrickHeight = gridAssetSize.second;
+    mTileAsset.assign(assets.getTileAsset());
+std::cout << "mTileAsset: " << mTileAsset << std::endl;
+
     initGrid();
 
     return true;
@@ -58,10 +66,10 @@ void CGrid::render(SDL_Surface* Surf_Display)
             int xPos = x * mBrickWidth;
             int yPos = y * mBrickHeight;
 
-            Entity* src = mGrid[x][y];
+            Entity* entity = mGrid[x][y];
             //CSurface::OnDraw(Surf_Display, src->Surf_Entity, xPos, yPos, 0, 0, 100, 100);
 
-            src->OnRender(Surf_Display, mX + xPos, mY + yPos);
+            entity->render(Surf_Display, mX + xPos, mY + yPos);
         }
     }
 }
@@ -103,14 +111,26 @@ void CGrid::findVerticalMatches()
  */
 void CGrid::initGrid()
 {
+    std::map<int, int> numberId;
     for (int x = 0; x < GRID_WIDTH; ++x)
     {
         for (int y = 0; y < GRID_HEIGHT; ++y)
         {
             int random = getRandomInt();
-            std::string asset = mAssets[random];
-            Entity* entity = new Entity(random);
-            entity->OnLoad ( asset.c_str(), mBrickWidth, mBrickHeight);
+            int newRandom = random;
+            numberId[random]++;
+            if (numberId[random] == 2) {
+
+                /// shuffle until we get a new ID
+                while (newRandom == random) {
+                    newRandom = getRandomInt();
+                }
+                numberId[random]--;
+            }
+
+            std::string asset = mAssets[newRandom];
+            Entity* entity = new Entity(newRandom);
+            entity->load ( asset.c_str(), mBrickWidth, mBrickHeight, mTileAsset, mBrickWidth, mBrickHeight);
 
             std::cout << "Loading image CGid..." << std::endl;
             mGrid[x][y] = entity;
