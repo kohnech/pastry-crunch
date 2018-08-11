@@ -46,7 +46,7 @@ CORES ?= $(shell nproc)
 MAKEFLAGS+="-j $(CORES)"
 
 ## Sources
-SRCS = 	CApp.cpp \
+SRCS = 	App.cpp \
 		Surface.cpp \
 		Event.cpp \
 		CAnimation.cpp \
@@ -59,7 +59,7 @@ SRCS = 	CApp.cpp \
 		IThread.cpp \
 		Text.cpp
 
-HDRS = 	inc/CApp.h \
+HDRS = 	inc/App.h \
 		inc/Surface.h \
 		inc/Event.h \
 		inc/CAnimation.h \
