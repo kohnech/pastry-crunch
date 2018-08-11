@@ -16,7 +16,7 @@ public:
 
     Board();
 
-    bool loadBoard(std::string tileFile, int tileWidth, int tileHeight);
+    bool loadBoard(std::string tileFile, std::string highlightFile, int tileWidth, int tileHeight);
 
     void renderBoard(SDL_Surface* Surf_Display, int x, int y);
 
@@ -33,4 +33,7 @@ protected:
 
 private:
     SDL_Surface* Surf_Tile;
+    SDL_Surface* mHighlightSurf;
+    int mHighlightX, mHighlightY;
+    bool mIsHighlightVisible;
 };

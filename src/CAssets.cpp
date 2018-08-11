@@ -81,3 +81,8 @@ std::pair<int, int> CAssets::getTileSize()
     size.second = mJ["tile"]["height"];
     return size;
 };
+
+std::string CAssets::getHighlightAsset()
+{
+    return mJ["tile"]["highlight"];
+}
