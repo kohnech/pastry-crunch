@@ -9,17 +9,15 @@
 CGrid CGrid::instance;
 
 CGrid::CGrid(int x, int y)
-: mX{ x }
-, mY{ y }
-, mBrickWidth{ ICON_WIDTH }
+: mBrickWidth{ ICON_WIDTH }
 , mBrickHeight{ ICON_HEIGHT }
 {
+    mX = x;
+    mY = y;
 }
 
 CGrid::CGrid()
-: mX{ 0 }
-, mY{ 0 }
-, mBrickWidth{ ICON_WIDTH }
+: mBrickWidth{ ICON_WIDTH }
 , mBrickHeight{ ICON_HEIGHT }
 {
 }
@@ -36,12 +34,6 @@ void CGrid::setPosition(int x, int y)
     mY = y;
 }
 
-void CGrid::setBrickSize(int w, int h)
-{
-    mBrickWidth = w;
-    mBrickHeight = h;
-}
-
 
 bool CGrid::load(CAssets& assets)
 {
@@ -51,6 +43,10 @@ bool CGrid::load(CAssets& assets)
     mBrickHeight = gridAssetSize.second;
     mTileAsset.assign(assets.getTileAsset());
     std::cout << "mTileAsset: " << mTileAsset << std::endl;
+
+    std::pair<int, int> gridPosition = assets.getGridPosition();
+    mX = gridPosition.first;
+    mY = gridPosition.second;
 
     initGrid();
 
@@ -134,6 +130,7 @@ void CGrid::initGrid()
 
             std::string asset = mAssets[newRandom];
             Entity* entity = new Entity(newRandom);
+            // TODO use mTileWidth / mTileHeight instead for Tile below... Need to read it out from asset mng.
             entity->load(asset.c_str(), mBrickWidth, mBrickHeight, mTileAsset, mBrickWidth, mBrickHeight);
 
             std::cout << "Loading image CGid..." << std::endl;

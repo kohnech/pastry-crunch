@@ -16,6 +16,8 @@
   "grid": {
     "width": 2,
     "height": 2,
+    "xpos" : 400,
+    "ypos" : 200,
     "assets": {
       "width" : 64,
       "height" : 72,
