@@ -58,11 +58,9 @@ private:
      */
     void initGrid();
 
-
     std::vector<std::string> mAssets;
     Entity* mGrid[GRID_WIDTH][GRID_HEIGHT];
     std::string mImagePath;
 
     int mBrickWidth, mBrickHeight;
-    std::string mTileAsset;
 };
