@@ -19,7 +19,7 @@ Text::~Text()
     cleanup();
 }
 
-bool Text::load(CAssets& assets)
+bool Text::load(Assets& assets)
 {
     std::string font = assets.getFont();
     mFontSize = assets.getFontSize();

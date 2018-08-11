@@ -22,7 +22,7 @@ public:
         std::cout << "WARNING: Unimplemented method: " << __FILE__ << ":" << __LINE__ << std::endl;
         return false;
     }
-    virtual bool load(CAssets& assets)
+    virtual bool load(Assets& assets)
     {
         std::cout << "WARNING: Unimplemented method: " << __FILE__ << ":" << __LINE__ << std::endl;
         return false;

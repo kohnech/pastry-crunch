@@ -13,7 +13,7 @@ class Text : public IUiComponent
 public:
     Text();
     ~Text();
-    bool load(CAssets& assets);
+    bool load(Assets& assets);
     void render(SDL_Surface* display);
     void cleanup();
     void setText(const std::string& msg, int x, int y);

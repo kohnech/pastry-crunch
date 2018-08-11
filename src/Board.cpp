@@ -22,7 +22,7 @@ Board::~Board()
     cleanup();
 }
 
-bool Board::load(CAssets& assets)
+bool Board::load(Assets& assets)
 {
     mTileAsset.assign(assets.getTileAsset());
     std::string highlightFile = assets.getHighlightAsset();
