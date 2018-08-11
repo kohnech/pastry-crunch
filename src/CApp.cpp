@@ -112,7 +112,7 @@ bool CApp::onInit()
 
 void CApp::onEvent(SDL_Event* event)
 {
-    CEvent::onEvent(event);
+    Event::onEvent(event);
     Grid::instance.onEvent(event);
 }
 
