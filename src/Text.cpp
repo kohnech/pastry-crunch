@@ -22,6 +22,7 @@ Text::~Text()
 bool Text::load(CAssets& assets)
 {
     std::string font = assets.getFont();
+    mFontSize = assets.getFontSize();
     if (TTF_Init() < 0) {
         printf("TTF_Init failed: %s\n", SDL_GetError());
     }
@@ -38,7 +39,7 @@ bool Text::load(CAssets& assets)
 void Text::render(SDL_Surface* display)
 {
     mSurface = TTF_RenderUTF8_Solid(mFont, mMessage.c_str(), BLUE);
-    CSurface::OnDraw(display, mSurface, 0, 0);
+    CSurface::OnDraw(display, mSurface, mX, mY);
 }
 
 void Text::cleanup()
@@ -49,4 +50,6 @@ void Text::cleanup()
 void Text::setText(const std::string& msg, int x, int y)
 {
     mMessage.assign(msg);
+    mX = x;
+    mY = y;
 }
