@@ -55,6 +55,14 @@ std::pair<int, int> CAssets::getGridAssetSize()
     return size;
 }
 
+std::pair<int, int> CAssets::getGridSize()
+{
+    std::pair<int, int> size;
+    size.first = mJ["grid"]["width"];
+    size.second = mJ["grid"]["height"];
+    return size;
+}
+
 std::pair<int, int> CAssets::getGridPosition()
 {
     std::pair<int, int> position;
