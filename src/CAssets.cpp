@@ -8,7 +8,6 @@
 #include <utility>
 #include <vector>
 
-//  using nlohmann::json;
 using json = nlohmann::json;
 
 CAssets::CAssets()
@@ -90,4 +89,9 @@ std::string CAssets::getHighlightAsset()
 std::string CAssets::getFont()
 {
     return mJ["settings"]["font"];
+}
+
+int CAssets::getFontSize()
+{
+    return mJ["settings"]["fontSize"];
 }
