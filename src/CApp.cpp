@@ -105,6 +105,8 @@ bool CApp::onInit()
 
     std::cout << "finished CApp OnInit()..." << std::endl;
 
+    mScore.OnLoad();
+
     return true;
 }
 
@@ -138,6 +140,7 @@ void CApp::onRender()
 
     CGrid::instance.render(Surf_Display);
 
+    mScore.OnRender(Surf_Display, "Score", 12, 12);
 
     SDL_UpdateWindowSurface(mWindow);
 }
@@ -159,7 +162,7 @@ void CApp::onCleanup()
     }
 
     EntityList.clear();
-
+    mScore.OnCleanup();
 
     SDL_Quit();
     CArea::AreaControl.OnCleanup();
