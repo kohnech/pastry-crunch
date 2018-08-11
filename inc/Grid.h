@@ -35,7 +35,6 @@ public:
      */
     Grid(int x = 0, int y = 0);
 
-
     /*!
      * Unload resources
      */
@@ -89,14 +88,23 @@ public:
     bool isAdjacent(const Index& ind);
 
     /*!
-     * Swap grid enities and undo if no match
+     * Swap grid entities and undo if no match
      * @param from
      * @param to
      */
     void swapEntity(Index from, Index to);
 
+    /*!
+     * Searches for vertical matches and return
+     * index set with connected entities
+     * @param ind
+     * @return
+     */
+    std::vector<Index> findVerticalMatches(const Index& ind);
+
 private:
     std::vector<std::string> mAssets;
+    // TODO use dynamic allocation
     Entity* mGrid[GRID_WIDTH][GRID_HEIGHT];
     std::string mImagePath;
 
