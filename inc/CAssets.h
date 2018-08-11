@@ -26,6 +26,7 @@ public:
     std::pair<int, int> getTileSize();
     std::string getHighlightAsset();
     std::string getFont();
+    int getFontSize();
 
 private:
     json mJ;
