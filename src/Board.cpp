@@ -58,6 +58,13 @@ void Board::cleanupBoard()
 void Board::onLButtonDown(int x, int y)
 {
     std::cout << "onLButtonDown: (" << x << "," << y << ")" << std::endl;
+
+    std::cout << "mTileWidth: " << mTileWidth << ", mTileHeight: " << mTileHeight << std::endl;
+
+    /// Calculate board coordinate
+    int row = (x - mX) / mTileWidth;
+    int column = (y - mY) / mTileHeight;
+    std::cout << "Pressed coordinate: (" << row << ", " << column << ")" << std::endl;
 }
 
 void Board::onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode)
