@@ -12,7 +12,7 @@
  */
 
 
-class Board : public CEvent, public IUiComponent
+class Board : public IUiComponent
 {
 public:
     static Board instance;
@@ -27,15 +27,12 @@ public:
 
     void cleanup();
 
-    virtual void onLButtonDown(int mX, int mY);
-    //virtual void onLButtonUp(int mX, int mY);
-    virtual void onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode);
-
 protected:
     std::string mTileAsset;
+    int mHighlightX, mHighlightY;
 
 private:
     SDL_Surface* mHighlightSurf;
-    int mHighlightX, mHighlightY;
+
     bool mIsHighlightVisible;
 };

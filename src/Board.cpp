@@ -10,9 +10,9 @@ Board Board::instance;
 
 Board::Board()
 : mTileAsset{""}
-, mHighlightSurf { NULL }
 , mHighlightX{ 0 }
 , mHighlightY{ 0 }
+, mHighlightSurf { NULL }
 , mIsHighlightVisible{ true }
 {
 }
@@ -31,10 +31,9 @@ bool Board::load(CAssets& assets)
     mWidth = tileSize.first;
     mHeight = tileSize.second;
 
-    std::cout << "Hello Board!" << std::endl;
-
     if ((mSurface = CSurface::OnLoad(mTileAsset)) == NULL)
     {
+        std::cout << "ERROR: could not create mSurface: " << SDL_GetError() << std::endl;
         return false;
     }
 
@@ -82,29 +81,4 @@ void Board::cleanup()
 
     mSurface = NULL;
     mHighlightSurf = NULL;
-}
-
-void Board::onLButtonDown(int x, int y)
-{
-    std::cout << "onLButtonDown: (" << x << "," << y << ")" << std::endl;
-
-    std::cout << "mWidth: " << mWidth << ", mHeight: " << mHeight << std::endl;
-
-    if (mWidth == 0 || mWidth == 0) {
-        return;
-    }
-
-    /// Calculate board coordinate
-    int row = (x - mX) / mWidth;
-    int column = (y - mY) / mHeight;
-    std::cout << "Pressed coordinate: (" << row << ", " << column << ")" << std::endl;
-
-    mHighlightX = row;
-    mHighlightY = column;
-}
-
-void Board::onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode)
-{
-    std::cout << "Key pressed: " << unicode << std::endl;
-    std::cout << "mX:" << mX << "mY: " << mY << std::endl;
 }
