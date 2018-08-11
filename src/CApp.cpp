@@ -209,6 +209,7 @@ bool CApp::ThreadMethod()
 
     while (mIsRunning)
     {
+        std::cout << "How fsat?" << std::endl;
         while (SDL_PollEvent(&event))
         {
             onEvent(&event);
@@ -216,6 +217,7 @@ bool CApp::ThreadMethod()
 
         onLoop();
         onRender();
+        sleep(33); // ms, 30 fps
     }
 
     return true;

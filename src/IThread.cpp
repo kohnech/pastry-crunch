@@ -13,6 +13,10 @@ void IThread::join() {
     mThread.join();
 }
 
+void IThread::sleep(int ms) {
+    std::this_thread::sleep_for(std::chrono::milliseconds(ms));
+}
+
 int IThread::ThreadProxy(void* ptr) {
     if (ptr == NULL)
     {

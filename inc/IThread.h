@@ -2,6 +2,7 @@
 
 
 #include <thread>
+#include <chrono>
 /*!
  * Thread method
  */
@@ -13,6 +14,7 @@ public:
 
     void start();
     void join();
+    void sleep(int milliseconds);
 
     virtual bool ThreadMethod() = 0;
     bool mIsRunning;
