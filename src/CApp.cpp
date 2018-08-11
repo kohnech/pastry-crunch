@@ -140,7 +140,7 @@ void CApp::onRender()
 
     CGrid::instance.render(Surf_Display);
 
-    mScore.setText("Score: 100", 100, 200);
+    mScore.setText("Score: 100", 100, 100);
     mScore.render(Surf_Display);
 
     SDL_UpdateWindowSurface(mWindow);
