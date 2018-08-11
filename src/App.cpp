@@ -1,4 +1,4 @@
-#include "CApp.h"
+#include "App.h"
 #include "Surface.h"
 #include "CAssets.h"
 #include "Grid.h"
@@ -13,7 +13,7 @@
 #include <utility>
 
 
-CApp::CApp()
+App::App()
 : mWindow{ NULL }
 , Surf_Display{ NULL }
 , Surf_Test{ NULL }
@@ -21,13 +21,13 @@ CApp::CApp()
     mIsRunning = true;
 }
 
-CApp::~CApp()
+App::~App()
 {
     onCleanup();
 }
 
 
-bool CApp::onInit()
+bool App::onInit()
 {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
     {
@@ -103,25 +103,25 @@ bool CApp::onInit()
     }
 
 
-    std::cout << "finished CApp OnInit()..." << std::endl;
+    std::cout << "finished App OnInit()..." << std::endl;
 
     mScore.load(assets);
 
     return true;
 }
 
-void CApp::onEvent(SDL_Event* event)
+void App::onEvent(SDL_Event* event)
 {
     Event::onEvent(event);
     Grid::instance.onEvent(event);
 }
 
-void CApp::onLoop()
+void App::onLoop()
 {
     Anim_Yoshi.OnAnimate();
 }
 
-void CApp::onRender()
+void App::onRender()
 {
 
     Surface::OnDraw(Surf_Display, Background_Surf, 0, 0);
@@ -147,7 +147,7 @@ void CApp::onRender()
     SDL_UpdateWindowSurface(mWindow);
 }
 
-void CApp::onCleanup()
+void App::onCleanup()
 {
     SDL_FreeSurface(Surf_Test);
     SDL_FreeSurface(Surf_Display);
@@ -159,18 +159,18 @@ void CApp::onCleanup()
     std::cout << "Quitting..." << std::endl;
 }
 
-void CApp::onExit()
+void App::onExit()
 {
     std::cout << "Quiting... bye!" << std::endl;
     mIsRunning = false;
 }
 
-void CApp::onResize(int w, int h)
+void App::onResize(int w, int h)
 {
     std::cout << "Window resized width: " << w << ", height: " << h << std::endl;
 }
 
-void CApp::onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode)
+void App::onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode)
 {
     std::cout << "Key pressed: " << unicode << std::endl;
     switch (sym)
@@ -194,7 +194,7 @@ void CApp::onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode)
     }
 }
 
-bool CApp::ThreadMethod()
+bool App::ThreadMethod()
 {
     std::cout << "ThreadMethod()" << std::endl;
 
