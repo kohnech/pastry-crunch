@@ -2,26 +2,29 @@
 
 #include <iostream>
 
-Thread::Thread() {
+IThread::IThread() {
 }
 
-void Thread::start() {
+void IThread::start() {
     mThread = std::thread(ThreadProxy, this);
 }
 
-void Thread::join() {
+void IThread::join() {
     mThread.join();
 }
 
-int Thread::ThreadProxy(void* lpParam) {
+int IThread::ThreadProxy(void* ptr) {
+    if (ptr == NULL)
+    {
+        return EXIT_FAILURE;
+    }
+
     std::string threadName;
-    //int dwWorkingThreadId = 0;
+
     try {
-        Thread *pThread = static_cast<Thread *>(lpParam);
+        IThread *pThread = static_cast<IThread *>(ptr);
         if (pThread != NULL) {
             pThread->mIsRunning = true;
-            //dwWorkingThreadId = pThread->GetWorkingThreadId();
-            //pThread->GetThreadName(threadName);
             pThread->ThreadMethod();
             pThread->mIsRunning = false;
         }

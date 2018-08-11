@@ -17,7 +17,7 @@
 const int FRAMES_PER_SECOND = 2;
 
 
-class CApp : public CEvent, public Thread
+class CApp : public CEvent, public IThread
 {
 public:
     CApp();

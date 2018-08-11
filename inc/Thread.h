@@ -6,10 +6,10 @@
  * Thread method
  */
 
-class Thread
+class IThread
 {
 public:
-    Thread();
+    IThread();
 
     void start();
     void join();
@@ -19,5 +19,5 @@ public:
 
 private:
     std::thread mThread;
-    static int ThreadProxy(void* lpParam);
+    static int ThreadProxy(void* ptr);
 };
