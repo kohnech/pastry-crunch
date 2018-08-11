@@ -51,8 +51,8 @@ void Board::render(SDL_Surface* Surf_Display)
     if (Surf_Display == NULL || mSurface == NULL)
         return;
 
-    for (int x = 0; x < GRID_WIDTH; ++x) {
-        for (int y = 0; y < GRID_HEIGHT; ++y) {
+    for (int x = 0; x < mGridRowSize; ++x) {
+        for (int y = 0; y < mGridColumnSize; ++y) {
             int xPos = x * mWidth;
             int yPos = y * mHeight;
 

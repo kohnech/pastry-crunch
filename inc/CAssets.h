@@ -20,6 +20,7 @@ public:
     std::pair<int, int> getScreenSize();
     std::vector<std::string> getGridAssets();
     std::pair<int, int> getGridAssetSize();
+    std::pair<int, int> getGridSize();
     std::pair<int, int> getGridPosition();
     std::string getTitle();
     std::string getTileAsset();

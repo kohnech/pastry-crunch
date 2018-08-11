@@ -45,6 +45,17 @@ bool Grid::load(CAssets& assets)
     mX = gridPosition.first;
     mY = gridPosition.second;
 
+    std::pair<int, int> gridSize = assets.getGridSize();
+    mGridRowSize = gridSize.first;
+    mGridColumnSize = gridSize.second;
+
+    std::cout << "Grid size: " << mGridRowSize << " x " << mGridColumnSize << std::endl;
+
+    // Allocate on heap the grid
+    mGrid = new Entity**[mGridRowSize];
+    for (int i = 0; i < mGridRowSize; ++i)
+        mGrid[i] = new Entity*[mGridColumnSize];
+
     Board::load(assets);
 
     initGrid();
@@ -56,9 +67,9 @@ bool Grid::load(CAssets& assets)
 void Grid::render(SDL_Surface* Surf_Display)
 {
     Board::render(Surf_Display);
-    for (int x = 0; x < GRID_WIDTH; ++x)
+    for (int x = 0; x < mGridRowSize; ++x)
     {
-        for (int y = 0; y < GRID_HEIGHT; ++y)
+        for (int y = 0; y < mGridColumnSize; ++y)
         {
             int xPos = x * mBrickWidth;
             int yPos = y * mBrickHeight;
@@ -73,9 +84,9 @@ void Grid::render(SDL_Surface* Surf_Display)
 
 void Grid::cleanup()
 {
-    for (int x = 0; x < GRID_WIDTH; ++x)
+    for (int x = 0; x < mGridRowSize; ++x)
     {
-        for (int y = 0; y < GRID_HEIGHT; ++y)
+        for (int y = 0; y < mGridColumnSize; ++y)
         {
             delete mGrid[x][y];
         }
@@ -129,9 +140,9 @@ void Grid::initGrid()
     //    destroyAllEntities();
 
 
-    for (int row = 0; row < GRID_HEIGHT; row++)
+    for (int row = 0; row < mGridColumnSize; row++)
     {
-        for (int column = 0; column < GRID_WIDTH; column++)
+        for (int column = 0; column < mGridRowSize; column++)
         {
 
             int newId = getRandomInt();
@@ -257,8 +268,8 @@ std::vector<Index> Grid::findVerticalMatches(const Index& ind)
         }
 
     //check right
-    if (ind.column != GRID_WIDTH - 1)
-        for (int column = ind.column + 1; column < GRID_WIDTH; column++)
+    if (ind.column != mGridRowSize - 1)
+        for (int column = ind.column + 1; column < mGridRowSize; column++)
         {
             if (mGrid[ind.row][column]->id == shape->id)
             {
