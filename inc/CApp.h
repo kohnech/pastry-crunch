@@ -8,6 +8,7 @@
 #include "CArea.h"
 #include "CCamera.h"
 #include "IThread.h"
+#include "Text.h"
 
 #include <SDL2/SDL.h>
 
@@ -61,4 +62,6 @@ private:
 
     int mWidth;
     int mHeight;
+
+    Text mScore;
 };
