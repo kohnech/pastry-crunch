@@ -14,17 +14,19 @@ SDL_IMAGE_VERSION=2.0.1
 SDL_IMAGE_PATH =$(3RDPARTYDIR)/SDL2_image-$(SDL_IMAGE_VERSION)
 SDL_JSON_PATH = $(3RDPARTYDIR)/nlohmann
 SDL_TTF_PATH =$(3RDPARTYDIR)/SDL2_ttf-2.0.14
+SDL_FREETYPE_PATH =$(3RDPARTYDIR)/freetype-2.4.10
 
 INCLUDE_DIRS += -I$(PROJ_ROOT)/inc \
 				-I$(SDL_PATH)/include \
 				-I$(SDL_PATH)/include/SDL2 \
 				-I$(SDL_IMAGE_PATH)/include \
 				-I$(SDL_JSON_PATH)/include \
-				-I$(SDL_TTF_PATH)/include
+				-I$(SDL_TTF_PATH)/include \
+				-I$(SDL_FREETYPE_PATH)/include
 
 ## Libs
-LIBS = -lSDL2 -lSDL2main -lSDL2_image -lsndio -pthread -lSDL2_ttf
-LIBS_PATH = -L$(BUILDDIR) -L$(SDL_PATH)/lib -L$(SDL_IMAGE_PATH)/lib -L$(3RDPARTYDIR)/sndio -L$(SDL_TTF_PATH)/lib
+LIBS = -lSDL2 -lSDL2main -lSDL2_image -lsndio -pthread -lSDL2_ttf -lfreetype
+LIBS_PATH = -L$(BUILDDIR) -L$(SDL_PATH)/lib -L$(SDL_IMAGE_PATH)/lib -L$(3RDPARTYDIR)/sndio -L$(SDL_TTF_PATH)/lib -L$(SDL_FREETYPE_PATH)/lib
 export LD_LIBRARY_PATH=$(SDL_PATH)/lib:$(3RDPARTYDIR)/sndio:$(SDL_IMAGE_PATH)/lib:$LD_LIBRARY_PATH
 
 ## Compiler
