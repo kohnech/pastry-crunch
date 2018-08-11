@@ -3,10 +3,11 @@
 #include "CAssets.h"
 #include "Define.h"
 #include "Entity.h"
+#include "Board.h"
 #include <SDL.h>
 #include <string>
 
-class CGrid
+class CGrid : public Board
 {
 public:
     static CGrid instance;
@@ -36,13 +37,6 @@ public:
     void setPosition(int x, int y);
 
     /*!
-     * Sets grid brick size
-     * @param w
-     * @param h
-     */
-    void setBrickSize(int w, int h);
-
-    /*!
      * Loads grid assets
      * @param assets The asset manager to extract assets
      * @return
@@ -68,7 +62,7 @@ private:
     std::vector<std::string> mAssets;
     Entity* mGrid[GRID_WIDTH][GRID_HEIGHT];
     std::string mImagePath;
-    int mX, mY;
+
     int mBrickWidth, mBrickHeight;
     std::string mTileAsset;
 };

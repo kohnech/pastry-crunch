@@ -18,6 +18,28 @@ const int FRAMES_PER_SECOND = 2;
 
 class CApp : public CEvent
 {
+public:
+    CApp();
+    ~CApp();
+
+    bool onInit();
+
+    void onEvent(SDL_Event* Event);
+
+    bool onLoop();
+
+    void onRender();
+
+    void onCleanup();
+
+
+    /// Events
+    void onExit();
+
+    void onResize(int w, int h);
+
+    void onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode);
+
 private:
     bool mIsRunning;
 
@@ -36,25 +58,4 @@ private:
 
     int mWidth;
     int mHeight;
-
-public:
-    CApp();
-    ~CApp();
-
-public:
-    bool onInit();
-
-    void onEvent(SDL_Event* Event);
-
-    bool onLoop();
-
-    void onRender();
-
-    void onCleanup();
-
-    void onExit();
-
-    void onResize(int w, int h);
-
-    void onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode);
 };
