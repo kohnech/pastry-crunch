@@ -4,7 +4,10 @@
 #include "Define.h"
 #include "Entity.h"
 #include "Board.h"
+#include "IUiComponent.h"
+
 #include <SDL.h>
+
 #include <string>
 
 class CGrid : public Board
@@ -17,12 +20,8 @@ public:
      * @param x x position upper left corner
      * @param y y position upper left corner
      */
-    CGrid(int x, int y);
+    CGrid(int x = 0, int y = 0);
 
-    /*!
-     * Construct a grid with left upper corner at (0, 0)
-     */
-    CGrid();
 
     /*!
      * Unload resources

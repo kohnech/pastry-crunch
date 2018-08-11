@@ -105,6 +105,8 @@ bool CApp::onInit()
 
     std::cout << "finished CApp OnInit()..." << std::endl;
 
+    mScore.load(assets);
+
     return true;
 }
 
@@ -138,6 +140,8 @@ void CApp::onRender()
 
     CGrid::instance.render(Surf_Display);
 
+    mScore.setText("Score: 100", 100, 200);
+    mScore.render(Surf_Display);
 
     SDL_UpdateWindowSurface(mWindow);
 }
@@ -148,18 +152,7 @@ void CApp::onCleanup()
     SDL_FreeSurface(Surf_Display);
     SDL_DestroyWindow(mWindow);
 
-    for (auto entity : EntityList)
-    {
-        if (!entity)
-        {
-            continue;
-        }
-
-        entity->OnCleanup();
-    }
-
     EntityList.clear();
-
 
     SDL_Quit();
     CArea::AreaControl.OnCleanup();
@@ -209,8 +202,8 @@ bool CApp::ThreadMethod()
 
     while (mIsRunning)
     {
-        std::cout << "How fsat?" << std::endl;
-        while (SDL_PollEvent(&event))
+        std::cout << "Looping..." << std::endl;
+        while (SDL_PollEvent(&event)) // TODO move out to own thread and use SDL_WaitEvent
         {
             onEvent(&event);
         }

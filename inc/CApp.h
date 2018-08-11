@@ -3,19 +3,12 @@
 #include "CAnimation.h"
 #include "CEvent.h"
 #include "Entity.h"
-
-
 #include "CArea.h"
 #include "CCamera.h"
 #include "IThread.h"
+#include "Text.h"
 
 #include <SDL2/SDL.h>
-
-// Screen dimension constants
-
-
-const int FRAMES_PER_SECOND = 2;
-
 
 class CApp : public CEvent, public IThread
 {
@@ -61,4 +54,6 @@ private:
 
     int mWidth;
     int mHeight;
+
+    Text mScore;
 };
