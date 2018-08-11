@@ -22,6 +22,7 @@ Entity::Entity(int id)
 
 Entity::~Entity()
 {
+    cleanup();
 }
 
 
@@ -50,7 +51,7 @@ void Entity::render(SDL_Surface* Surf_Display, int x, int y)
     CSurface::OnDraw(Surf_Display, Surf_Entity, x, y, 0, 0, mWidth, mHeight);
 }
 
-void Entity::OnCleanup()
+void Entity::cleanup()
 {
     if (Surf_Entity)
     {

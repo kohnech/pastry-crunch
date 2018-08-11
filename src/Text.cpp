@@ -9,18 +9,24 @@
 #include <string>
 
 Text::Text()
-: mSurface{ NULL }
-, mFont{ NULL }
+: mFont{ NULL }
 , mFontSize{ 30 }
-{}
-
-bool Text::OnLoad()
 {
+}
+
+Text::~Text()
+{
+    cleanup();
+}
+
+bool Text::load(CAssets& assets)
+{
+    std::string font = assets.getFont();
     if (TTF_Init() < 0) {
         printf("TTF_Init failed: %s\n", SDL_GetError());
     }
 
-    mFont = TTF_OpenFont("./assets/Ubuntu-C.ttf", mFontSize);
+    mFont = TTF_OpenFont(font.c_str(), mFontSize);
 
     if (mFont < 0) {
         printf("Could not load fond TTF_OpenFont");
@@ -29,13 +35,18 @@ bool Text::OnLoad()
     return true;
 }
 
-void Text::OnRender(SDL_Surface* display, std::string msg, int x, int y)
+void Text::render(SDL_Surface* display)
 {
-    mSurface = TTF_RenderUTF8_Solid(mFont, msg.c_str(), BLUE);
-    CSurface::OnDraw(display, mSurface, x, y);
+    mSurface = TTF_RenderUTF8_Solid(mFont, mMessage.c_str(), BLUE);
+    CSurface::OnDraw(display, mSurface, 0, 0);
 }
 
-void Text::OnCleanup()
+void Text::cleanup()
 {
     TTF_CloseFont(mFont);
+}
+
+void Text::setText(const std::string& msg, int x, int y)
+{
+    mMessage.assign(msg);
 }

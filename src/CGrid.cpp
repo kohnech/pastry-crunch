@@ -16,11 +16,6 @@ CGrid::CGrid(int x, int y)
     mY = y;
 }
 
-CGrid::CGrid()
-: mBrickWidth{ ICON_WIDTH }
-, mBrickHeight{ ICON_HEIGHT }
-{
-}
 
 CGrid::~CGrid()
 {
@@ -41,17 +36,14 @@ bool CGrid::load(CAssets& assets)
     std::pair<int, int> gridAssetSize = assets.getGridAssetSize();
     mBrickWidth = gridAssetSize.first;
     mBrickHeight = gridAssetSize.second;
-    mTileAsset.assign(assets.getTileAsset());
+
     std::cout << "mTileAsset: " << mTileAsset << std::endl;
 
     std::pair<int, int> gridPosition = assets.getGridPosition();
     mX = gridPosition.first;
     mY = gridPosition.second;
-    std::pair<int, int> tileSize = assets.getTileSize();
 
-    std::string highlightFile = assets.getHighlightAsset();
-
-    loadBoard(mTileAsset, highlightFile, tileSize.first, tileSize.second);
+    Board::load(assets);
 
     initGrid();
 
@@ -61,7 +53,7 @@ bool CGrid::load(CAssets& assets)
 
 void CGrid::render(SDL_Surface* Surf_Display)
 {
-    renderBoard(Surf_Display, 0, 0);
+    Board::render(Surf_Display);
     for (int x = 0; x < GRID_WIDTH; ++x)
     {
         for (int y = 0; y < GRID_HEIGHT; ++y)
@@ -79,7 +71,6 @@ void CGrid::render(SDL_Surface* Surf_Display)
 
 void CGrid::cleanup()
 {
-    cleanupBoard();
     for (int x = 0; x < GRID_WIDTH; ++x)
     {
         for (int y = 0; y < GRID_HEIGHT; ++y)
@@ -104,7 +95,6 @@ void CGrid::findHorizontalMatches()
         }
     }
 }
-
 
 void CGrid::findVerticalMatches()
 {

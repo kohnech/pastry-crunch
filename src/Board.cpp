@@ -1,6 +1,7 @@
 #include "Board.h"
 #include "CSurface.h"
 #include "Define.h"
+#include "CAssets.h"
 
 #include <iostream>
 #include <string>
@@ -8,12 +9,9 @@
 Board Board::instance;
 
 Board::Board()
-: mX { 0 }
-, mY { 0 }
-, mTileWidth { 0 }
+: mTileWidth { 0 }
 , mTileHeight { 0 }
 , mTileAsset{""}
-, Surf_Tile{ NULL }
 , mHighlightSurf { NULL }
 , mHighlightX{ 0 }
 , mHighlightY{ 0 }
@@ -21,14 +19,23 @@ Board::Board()
 {
 }
 
-bool Board::loadBoard(std::string tileFile, std::string highlightFile, int tileWidth, int tileHeight)
+Board::~Board()
 {
-    mTileAsset.assign(tileFile);
-    mTileWidth = tileWidth;
-    mTileHeight = tileHeight;
+    cleanup();
+}
+
+bool Board::load(CAssets& assets)
+{
+    mTileAsset.assign(assets.getTileAsset());
+    std::string highlightFile = assets.getHighlightAsset();
+    std::pair<int, int> tileSize = assets.getTileSize();
+
+    mTileWidth = tileSize.first;
+    mTileHeight = tileSize.second;
+
     std::cout << "Hello Board!" << std::endl;
 
-    if ((Surf_Tile = CSurface::OnLoad(tileFile)) == NULL)
+    if ((mSurface = CSurface::OnLoad(mTileAsset)) == NULL)
     {
         return false;
     }
@@ -42,9 +49,9 @@ bool Board::loadBoard(std::string tileFile, std::string highlightFile, int tileW
     return true;
 }
 
-void Board::renderBoard(SDL_Surface* Surf_Display, int x, int y)
+void Board::render(SDL_Surface* Surf_Display)
 {
-    if (Surf_Display == NULL || Surf_Tile == NULL)
+    if (Surf_Display == NULL || mSurface == NULL)
         return;
 
     for (int x = 0; x < GRID_WIDTH; ++x) {
@@ -57,17 +64,17 @@ void Board::renderBoard(SDL_Surface* Surf_Display, int x, int y)
                 CSurface::OnDraw(Surf_Display, mHighlightSurf, mX + xPos, mY + yPos, 0, 0, mTileWidth, mTileHeight);
             }
             else {
-                CSurface::OnDraw(Surf_Display, Surf_Tile, mX + xPos, mY + yPos, 0, 0, mTileWidth, mTileHeight);
+                CSurface::OnDraw(Surf_Display, mSurface, mX + xPos, mY + yPos, 0, 0, mTileWidth, mTileHeight);
             }
         }
     }
 }
 
-void Board::cleanupBoard()
+void Board::cleanup()
 {
-    if (Surf_Tile)
+    if (mSurface)
     {
-        SDL_FreeSurface(Surf_Tile);
+        SDL_FreeSurface(mSurface);
     }
 
     if (mHighlightSurf)
@@ -75,7 +82,7 @@ void Board::cleanupBoard()
         SDL_FreeSurface(mHighlightSurf);
     }
 
-    Surf_Tile = NULL;
+    mSurface = NULL;
     mHighlightSurf = NULL;
 }
 
