@@ -1,7 +1,7 @@
 #pragma once
 
 #include "CAnimation.h"
-#include "CEvent.h"
+#include "Event.h"
 #include "Entity.h"
 #include "CArea.h"
 #include "CCamera.h"
@@ -10,7 +10,7 @@
 
 #include <SDL2/SDL.h>
 
-class CApp : public CEvent, public IThread
+class CApp : public Event, public IThread
 {
 public:
     CApp();

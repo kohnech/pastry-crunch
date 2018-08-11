@@ -1,6 +1,6 @@
 #pragma once
 
-#include "CEvent.h"
+#include "Event.h"
 #include "IUiComponent.h"
 #include "CAssets.h"
 

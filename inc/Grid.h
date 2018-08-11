@@ -23,7 +23,7 @@ public:
     int row, column;
 };
 
-class Grid : public Board, public CEvent
+class Grid : public Board, public Event
 {
 public:
     static Grid instance;
