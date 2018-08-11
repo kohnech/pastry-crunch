@@ -114,10 +114,9 @@ void CApp::onEvent(SDL_Event* event)
     CGrid::instance.onEvent(event);
 }
 
-bool CApp::onLoop()
+void CApp::onLoop()
 {
     Anim_Yoshi.OnAnimate();
-    return mIsRunning;
 }
 
 void CApp::onRender()
@@ -201,3 +200,23 @@ void CApp::onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode)
     }
     }
 }
+
+bool CApp::ThreadMethod()
+{
+    std::cout << "ThreadMethod()" << std::endl;
+
+    SDL_Event event;
+
+    while (mIsRunning)
+    {
+        while (SDL_PollEvent(&event))
+        {
+            onEvent(&event);
+        }
+
+        onLoop();
+        onRender();
+    }
+
+    return true;
+};

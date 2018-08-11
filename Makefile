@@ -21,7 +21,7 @@ INCLUDE_DIRS += -I$(PROJ_ROOT)/inc \
 				-I$(SDL_JSON_PATH)/include
 
 ## Libs
-LIBS = -lSDL2 -lSDL2main -lSDL2_image -lsndio
+LIBS = -lSDL2 -lSDL2main -lSDL2_image -lsndio -pthread
 LIBS_PATH = -L$(BUILDDIR) -L$(SDL_PATH)/lib -L$(SDL_IMAGE_PATH)/lib -L$(3RDPARTYDIR)/sndio
 export LD_LIBRARY_PATH=$(SDL_PATH)/lib:$(3RDPARTYDIR)/sndio:$(SDL_IMAGE_PATH)/lib:$LD_LIBRARY_PATH
 
@@ -53,7 +53,8 @@ SRCS = 	CApp.cpp \
 		CCamera.cpp \
 		CGrid.cpp \
 		CAssets.cpp \
-		Board.cpp
+		Board.cpp \
+		Thread.cpp
 
 HDRS = 	inc/CApp.h \
 		inc/CSurface.h \
@@ -66,7 +67,8 @@ HDRS = 	inc/CApp.h \
 		inc/CCamera.h \
 		inc/CGrid.h \
 		inc/CAssets.h \
-		inc/Board.h
+		inc/Board.h \
+		inc/Thread.h
 
 OBJS = $(patsubst %.cpp,$(BUILDDIR)/%.o,$(SRCS))
 
