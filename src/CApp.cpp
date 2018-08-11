@@ -202,7 +202,6 @@ bool CApp::ThreadMethod()
 
     while (mIsRunning)
     {
-        std::cout << "Looping..." << std::endl;
         while (SDL_PollEvent(&event)) // TODO move out to own thread and use SDL_WaitEvent
         {
             onEvent(&event);

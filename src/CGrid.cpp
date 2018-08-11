@@ -162,3 +162,39 @@ void CGrid::loadEntity(int row, int column, int id)
     entity->load(asset.c_str(), mBrickWidth, mBrickHeight);
     mGrid[row][column] = entity;
 }
+
+void CGrid::onLButtonDown(int x, int y)
+{
+    std::cout << "onLButtonDown: (" << x << "," << y << ")" << std::endl;
+
+    std::cout << "mWidth: " << mWidth << ", mHeight: " << mHeight << std::endl;
+
+    getIndexesFromPosition(x, y);
+}
+
+std::pair<int, int> CGrid::getIndexesFromPosition(int x, int y)
+{
+    if (mWidth == 0 || mWidth == 0) {
+        return {0,0};
+    }
+
+    /// Calculate board coordinate
+    int row = (x - mX) / mWidth;
+    int column = (y - mY) / mHeight;
+    std::cout << "Pressed coordinate: (" << row << ", " << column << ")" << std::endl;
+
+    mHighlightX = row;
+    mHighlightY = column;
+
+    std::pair<int, int> indexes;
+    indexes.first = row;
+    indexes.second = column;
+    return indexes;
+};
+
+
+void CGrid::onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode)
+{
+    std::cout << "Key pressed: " << unicode << std::endl;
+    std::cout << "mX:" << mX << "mY: " << mY << std::endl;
+}

@@ -10,7 +10,7 @@
 
 #include <string>
 
-class CGrid : public Board
+class CGrid : public Board, public CEvent
 {
 public:
     static CGrid instance;
@@ -56,6 +56,20 @@ public:
     void initGrid();
 
     void loadEntity(int x, int y, int id);
+
+    //// Events
+
+    virtual void onLButtonDown(int mX, int mY);
+    //virtual void onLButtonUp(int mX, int mY);
+    virtual void onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode);
+
+    /*!
+     * Calculates the grid indexes from mouse clicked positions
+     * @param x
+     * @param y
+     * @return
+     */
+    std::pair<int, int> getIndexesFromPosition(int x, int y);
 
 private:
     std::vector<std::string> mAssets;
