@@ -184,8 +184,9 @@ void Grid::onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode)
 
 Index Grid::getIndexesFromPosition(int x, int y)
 {
-    if (mWidth == 0 || mWidth == 0) {
-        return {0,0};
+    if (mWidth == 0 || mWidth == 0)
+    {
+        return {0, 0};
     }
 
     /// Calculate board coordinate
@@ -207,7 +208,16 @@ void Grid::update(const Index& pos)
     {
         std::cout << "Found adjacent cookies!!!" << std::endl;
         swapEntity(mPrevClickedIndexes, pos);
+
+        std::vector<Index> matches = findVerticalMatches(pos);
+
+        for (auto ind : matches)
+        {
+            std::cout << "match: (" << ind.row << ", " << ind.column << ")" << std::endl;
+        }
+        //swapEntity(pos, mPrevClickedIndexes);
     }
+
     mPrevClickedIndexes = pos;
 }
 
@@ -225,4 +235,45 @@ void Grid::swapEntity(Index from, Index to)
         Entity* temp = mGrid[from.row][from.column];
         mGrid[from.row][from.column] = mGrid[to.row][to.column];
         mGrid[to.row][to.column] = temp;
+}
+
+std::vector<Index> Grid::findVerticalMatches(const Index& ind)
+{
+    std::vector<Index> matches;
+
+    matches.push_back(ind);
+    Entity* shape = mGrid[ind.row][ind.column];
+    //check left
+    if (ind.column != 0)
+        for (int column = ind.column - 1; column >= 0; column--)
+        {
+            if (mGrid[ind.row][column]->id == shape->id)
+            {
+                Index tmp(ind.row, column);
+                matches.push_back(tmp);
+            }
+            else
+                break;
+        }
+
+    //check right
+    if (ind.column != GRID_WIDTH - 1)
+        for (int column = ind.column + 1; column < GRID_WIDTH; column++)
+        {
+            if (mGrid[ind.row][column]->id == shape->id)
+            {
+                Index tmp(ind.row, column);
+                matches.push_back(tmp);
+            }
+            else
+                break;
+        }
+    std::cout << "size of matches: " << matches.size() << std::endl;
+
+    // TODO read from settings... 3, no magic numbers!!!
+    // we are only interested in a set of more than 3 connected entities
+    if (matches.size() < 3)
+        matches.clear();
+
+    return matches;
 }
