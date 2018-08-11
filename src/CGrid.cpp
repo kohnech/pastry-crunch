@@ -101,40 +101,6 @@ void CGrid::findVerticalMatches()
 
 }*/
 
-/*!
- * Populate a Grid randomly without any matches.
- */
-void CGrid::initGrid()
-{
-    std::map<int, int> numberId;
-    for (int x = 0; x < GRID_WIDTH; ++x)
-    {
-        for (int y = 0; y < GRID_HEIGHT; ++y)
-        {
-            int random = getRandomInt();
-            int newRandom = random;
-            numberId[random]++;
-            if (numberId[random] == 2)
-            {
-
-                /// shuffle until we get a new ID
-                while (newRandom == random)
-                {
-                    newRandom = getRandomInt();
-                }
-                numberId[random]--;
-            }
-
-            std::string asset = mAssets[newRandom];
-            Entity* entity = new Entity(newRandom);
-            // TODO use mTileWidth / mTileHeight instead for Tile below... Need to read it out from asset mng.
-            entity->load(asset.c_str(), mBrickWidth, mBrickHeight);
-
-            std::cout << "Loading image CGid..." << std::endl;
-            mGrid[x][y] = entity;
-        }
-    }
-}
 
 int CGrid::getRandomInt()
 {
@@ -147,4 +113,52 @@ int CGrid::getRandomInt()
     int mean = uniform_dist(e1);
     std::cout << "Randomly-chosen mean: " << mean << '\n';
     return mean;
+}
+
+
+/*!
+ * Populate a Grid randomly without any matches.
+ */
+void CGrid::initGrid()
+{
+    //initScore();
+
+    //if (mGrid != null)
+    //    destroyAllEntities();
+
+
+    for (int row = 0; row < GRID_HEIGHT; row++)
+    {
+        for (int column = 0; column < GRID_WIDTH; column++)
+        {
+
+            int newId = getRandomInt();
+
+            //check if two previous horizontal are of the same type
+            while (column >= 2 && (mGrid[row][column - 1]->id == newId)
+                   && mGrid[row][column - 2]->id == newId)
+            {
+                newId = getRandomInt();
+            }
+
+            //check if two previous vertical are of the same type
+            while (row >= 2 && (mGrid[row - 1][column]->id == newId)
+                   &&  mGrid[row - 2][column]->id == newId)
+            {
+                newId = getRandomInt();
+            }
+
+
+            loadEntity(row, column, newId);
+        }
+    }
+}
+
+void CGrid::loadEntity(int row, int column, int id)
+{
+    std::string asset = mAssets[id];
+    Entity* entity  = new Entity(id);
+    // TODO use mTileWidth / mTileHeight instead for Tile below... Need to read it out from asset mng.
+    entity->load(asset.c_str(), mBrickWidth, mBrickHeight);
+    mGrid[row][column] = entity;
 }
