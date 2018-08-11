@@ -54,7 +54,7 @@ SRCS = 	App.cpp \
 		CTile.cpp \
 		CCamera.cpp \
 		Grid.cpp \
-		CAssets.cpp \
+		Assets.cpp \
 		Board.cpp \
 		IThread.cpp \
 		Text.cpp
@@ -67,7 +67,7 @@ HDRS = 	inc/App.h \
 		inc/CTile.h \
 		inc/CCamera.h \
 		inc/Grid.h \
-		inc/CAssets.h \
+		inc/Assets.h \
 		inc/Board.h \
 		inc/IThread.h \
 		inc/Text.h

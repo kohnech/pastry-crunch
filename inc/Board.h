@@ -2,7 +2,7 @@
 
 #include "Event.h"
 #include "IUiComponent.h"
-#include "CAssets.h"
+#include "Assets.h"
 
 #include <string>
 

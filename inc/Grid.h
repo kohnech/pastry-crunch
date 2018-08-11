@@ -1,6 +1,6 @@
 #pragma once
 
-#include "CAssets.h"
+#include "Assets.h"
 #include "Define.h"
 #include "Entity.h"
 #include "Board.h"

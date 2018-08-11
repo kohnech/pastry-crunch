@@ -1,6 +1,6 @@
 #pragma once
 
-#include "CAssets.h"
+#include "Assets.h"
 #include <SDL2/SDL.h>
 
 #include <iostream>

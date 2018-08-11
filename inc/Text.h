@@ -1,6 +1,6 @@
 #pragma once
 
-#include "CAssets.h"
+#include "Assets.h"
 #include "IUiComponent.h"
 
 #include <SDL2/SDL.h>
