@@ -32,7 +32,6 @@ public:
     virtual void onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode);
 
 protected:
-    int mTileWidth, mTileHeight;
     std::string mTileAsset;
 
 private:
