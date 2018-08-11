@@ -123,7 +123,7 @@ void CApp::onLoop()
 
 void CApp::onRender()
 {
-    CSurface::OnDraw(Surf_Display, Surf_Test, 290, 220, 0, Anim_Yoshi.GetCurrentFrame() * 64, 64, 64);
+
     CSurface::OnDraw(Surf_Display, Background_Surf, 0, 0);
 
     int i = 1;
@@ -142,6 +142,7 @@ void CApp::onRender()
 
     mScore.setText("Score: 100", 100, 100);
     mScore.render(Surf_Display);
+    CSurface::OnDraw(Surf_Display, Surf_Test, 290, 220, 0, Anim_Yoshi.GetCurrentFrame() * 64, 64, 64);
 
     SDL_UpdateWindowSurface(mWindow);
 }
