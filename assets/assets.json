@@ -1,6 +1,7 @@
 {
   "settings": {
     "title": "Bakery Street",
+    "font": "./assets/Ubuntu-C.ttf",
     "minimumMatches": 3,
     "minimumScores": 30,
     "screen": {

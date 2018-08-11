@@ -26,7 +26,7 @@ public:
 
     virtual void render(SDL_Surface* Surf_Display, int x, int y);
 
-    virtual void OnCleanup();
+    virtual void cleanup();
 
     /*!
      * The type of the entity used for matching neighbours with
