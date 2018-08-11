@@ -104,8 +104,7 @@ public:
 
 private:
     std::vector<std::string> mAssets;
-    // TODO use dynamic allocation
-    Entity* mGrid[GRID_WIDTH][GRID_HEIGHT];
+    Entity*** mGrid;
     std::string mImagePath;
 
     int mBrickWidth, mBrickHeight;

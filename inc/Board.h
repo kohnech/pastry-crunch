@@ -30,6 +30,7 @@ public:
 protected:
     std::string mTileAsset;
     int mHighlightX, mHighlightY;
+    int mGridRowSize, mGridColumnSize;
 
 private:
     SDL_Surface* mHighlightSurf;
