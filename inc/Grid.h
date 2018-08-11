@@ -10,6 +10,19 @@
 
 #include <string>
 
+/*!
+ * Helper struct to represent (row, column)
+ */
+struct Index
+{
+public:
+    Index(int r, int c) {
+        row = r;
+        column = c;
+    }
+    int row, column;
+};
+
 class Grid : public Board, public CEvent
 {
 public:
@@ -69,7 +82,18 @@ public:
      * @param y
      * @return
      */
-    std::pair<int, int> getIndexesFromPosition(int x, int y);
+    Index getIndexesFromPosition(int x, int y);
+
+    void update(const Index& ind);
+
+    bool isAdjacent(const Index& ind);
+
+    /*!
+     * Swap grid enities and undo if no match
+     * @param from
+     * @param to
+     */
+    void swapEntity(Index from, Index to);
 
 private:
     std::vector<std::string> mAssets;
@@ -77,4 +101,5 @@ private:
     std::string mImagePath;
 
     int mBrickWidth, mBrickHeight;
+    Index mPrevClickedIndexes;
 };

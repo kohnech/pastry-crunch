@@ -5,12 +5,14 @@
 #include <iostream>
 #include <map>
 #include <random>
+#include <cstdlib>
 
 Grid Grid::instance;
 
 Grid::Grid(int x, int y)
 : mBrickWidth{ ICON_WIDTH }
 , mBrickHeight{ ICON_HEIGHT }
+, mPrevClickedIndexes{ 0, 0 }
 {
     mX = x;
     mY = y;
@@ -169,10 +171,18 @@ void Grid::onLButtonDown(int x, int y)
 
     std::cout << "mWidth: " << mWidth << ", mHeight: " << mHeight << std::endl;
 
-    getIndexesFromPosition(x, y);
+    Index index = getIndexesFromPosition(x, y);
+
+    update(index);
 }
 
-std::pair<int, int> Grid::getIndexesFromPosition(int x, int y)
+void Grid::onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode)
+{
+    std::cout << "Key pressed: " << unicode << std::endl;
+    std::cout << "mX:" << mX << "mY: " << mY << std::endl;
+}
+
+Index Grid::getIndexesFromPosition(int x, int y)
 {
     if (mWidth == 0 || mWidth == 0) {
         return {0,0};
@@ -186,15 +196,33 @@ std::pair<int, int> Grid::getIndexesFromPosition(int x, int y)
     mHighlightX = row;
     mHighlightY = column;
 
-    std::pair<int, int> indexes;
-    indexes.first = row;
-    indexes.second = column;
-    return indexes;
+    Index index(row, column);
+    return index;
 };
 
 
-void Grid::onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode)
+void Grid::update(const Index& pos)
 {
-    std::cout << "Key pressed: " << unicode << std::endl;
-    std::cout << "mX:" << mX << "mY: " << mY << std::endl;
+    if (isAdjacent(pos))
+    {
+        std::cout << "Found adjacent cookies!!!" << std::endl;
+        swapEntity(mPrevClickedIndexes, pos);
+    }
+    mPrevClickedIndexes = pos;
+}
+
+bool Grid::isAdjacent(const Index& ind)
+{
+    return (ind.column == mPrevClickedIndexes.column ||
+            ind.row == mPrevClickedIndexes.row)
+           && std::abs(ind.column - mPrevClickedIndexes.column) <= 1
+           && std::abs(ind.row - mPrevClickedIndexes.row) <= 1;
+}
+
+void Grid::swapEntity(Index from, Index to)
+{
+        // swap entities by swapping them in the grid matrix
+        Entity* temp = mGrid[from.row][from.column];
+        mGrid[from.row][from.column] = mGrid[to.row][to.column];
+        mGrid[to.row][to.column] = temp;
 }
