@@ -3,7 +3,6 @@
 #include "CAnimation.h"
 #include "Event.h"
 #include "Entity.h"
-#include "CArea.h"
 #include "CCamera.h"
 #include "IThread.h"
 #include "Text.h"

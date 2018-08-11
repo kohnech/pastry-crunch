@@ -39,7 +39,7 @@ bool Text::load(CAssets& assets)
 void Text::render(SDL_Surface* display)
 {
     mSurface = TTF_RenderUTF8_Solid(mFont, mMessage.c_str(), BLUE);
-    CSurface::OnDraw(display, mSurface, mX, mY);
+    Surface::OnDraw(display, mSurface, mX, mY);
 }
 
 void Text::cleanup()

@@ -4,7 +4,7 @@
 
 #include <string>
 
-namespace CSurface
+namespace Surface
 {
 
 SDL_Surface* OnLoad(std::string File);

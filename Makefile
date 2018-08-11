@@ -52,8 +52,6 @@ SRCS = 	CApp.cpp \
 		CAnimation.cpp \
 		Entity.cpp \
 		CTile.cpp \
-		CMap.cpp \
-		CArea.cpp \
 		CCamera.cpp \
 		Grid.cpp \
 		CAssets.cpp \
@@ -67,8 +65,6 @@ HDRS = 	inc/CApp.h \
 		inc/CAnimation.h \
 		inc/Entity.h \
 		inc/CTile.h \
-		inc/CMap.h \
-		inc/CArea.h \
 		inc/CCamera.h \
 		inc/Grid.h \
 		inc/CAssets.h \
