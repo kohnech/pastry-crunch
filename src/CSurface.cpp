@@ -5,12 +5,12 @@
 #include <SDL_image.h>
 
 
-SDL_Surface* CSurface::OnLoad(std::string File)
+SDL_Surface* Surface::OnLoad(std::string File)
 {
     return loadImage(File);
 }
 /*
-SDL_Texture* CSurface::loadTexture(SDL_Renderer* renderer, std::string path)
+SDL_Texture* Surface::loadTexture(SDL_Renderer* renderer, std::string path)
 {
     // The final texture
     SDL_Texture* newTexture = NULL;
@@ -37,7 +37,7 @@ SDL_GetError());
 
     return newTexture;
 }*/
-SDL_Texture* CSurface::loadTexture(SDL_Renderer* renderer, const std::string& str)
+SDL_Texture* Surface::loadTexture(SDL_Renderer* renderer, const std::string& str)
 {
     // Load image as SDL_Surface
 
@@ -51,9 +51,9 @@ SDL_Texture* CSurface::loadTexture(SDL_Renderer* renderer, const std::string& st
     return texture;
 }
 
-SDL_Surface* CSurface::loadImage(const std::string path)
+SDL_Surface* Surface::loadImage(const std::string path)
 {
-    printf("CSurface::loadImage... %s\n", path.c_str());
+    printf("Surface::loadImage... %s\n", path.c_str());
     // Load image at specified path
     SDL_Surface* loadedSurface = IMG_Load(path.c_str());
     if (loadedSurface == NULL)
@@ -64,7 +64,7 @@ SDL_Surface* CSurface::loadImage(const std::string path)
     return loadedSurface;
 }
 
-SDL_Surface* CSurface::loadBmp(const std::string File)
+SDL_Surface* Surface::loadBmp(const std::string File)
 {
     SDL_Surface* Surf_Temp;
 
@@ -78,7 +78,7 @@ SDL_Surface* CSurface::loadBmp(const std::string File)
     return Surf_Temp;
 }
 
-bool CSurface::OnDraw(SDL_Surface* Surf_Dest, SDL_Surface* Surf_Src, int x, int y)
+bool Surface::OnDraw(SDL_Surface* Surf_Dest, SDL_Surface* Surf_Src, int x, int y)
 {
     if (Surf_Dest == NULL || Surf_Src == NULL)
     {
@@ -95,7 +95,7 @@ bool CSurface::OnDraw(SDL_Surface* Surf_Dest, SDL_Surface* Surf_Src, int x, int 
     return true;
 }
 
-bool CSurface::OnDraw(SDL_Surface* Surf_Dest, SDL_Surface* Surf_Src, int x, int y, int x2, int y2, int w, int h)
+bool Surface::OnDraw(SDL_Surface* Surf_Dest, SDL_Surface* Surf_Src, int x, int y, int x2, int y2, int w, int h)
 {
     if (Surf_Dest == NULL || Surf_Src == NULL)
     {
@@ -118,7 +118,7 @@ bool CSurface::OnDraw(SDL_Surface* Surf_Dest, SDL_Surface* Surf_Src, int x, int 
     return true;
 }
 
-bool CSurface::Transparent(SDL_Surface* Surf_Dest, int r, int g, int b)
+bool Surface::Transparent(SDL_Surface* Surf_Dest, int r, int g, int b)
 {
     if (Surf_Dest == NULL)
     {

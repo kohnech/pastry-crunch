@@ -31,13 +31,13 @@ bool Board::load(CAssets& assets)
     mWidth = tileSize.first;
     mHeight = tileSize.second;
 
-    if ((mSurface = CSurface::OnLoad(mTileAsset)) == NULL)
+    if ((mSurface = Surface::OnLoad(mTileAsset)) == NULL)
     {
         std::cout << "ERROR: could not create mSurface: " << SDL_GetError() << std::endl;
         return false;
     }
 
-    if ((mHighlightSurf = CSurface::OnLoad(highlightFile)) == NULL)
+    if ((mHighlightSurf = Surface::OnLoad(highlightFile)) == NULL)
     {
         std::cout << "ERROR: could not create mHighlightSurf: " << SDL_GetError() << std::endl;
         return false;
@@ -58,10 +58,10 @@ void Board::render(SDL_Surface* Surf_Display)
 
             if (mIsHighlightVisible && ((x == mHighlightX) && (y == mHighlightY)) )
             {
-                CSurface::OnDraw(Surf_Display, mHighlightSurf, mX + xPos, mY + yPos, 0, 0, mWidth, mHeight);
+                Surface::OnDraw(Surf_Display, mHighlightSurf, mX + xPos, mY + yPos, 0, 0, mWidth, mHeight);
             }
             else {
-                CSurface::OnDraw(Surf_Display, mSurface, mX + xPos, mY + yPos, 0, 0, mWidth, mHeight);
+                Surface::OnDraw(Surf_Display, mSurface, mX + xPos, mY + yPos, 0, 0, mWidth, mHeight);
             }
         }
     }

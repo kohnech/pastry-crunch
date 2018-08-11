@@ -52,7 +52,7 @@ bool CApp::onInit()
     }
 
     std::cout << assets.getBackgroundPath() << std::endl;
-    Background_Surf = CSurface::loadImage(assets.getBackgroundPath());
+    Background_Surf = Surface::loadImage(assets.getBackgroundPath());
     std::string windowTitle = assets.getTitle();
 
 
@@ -70,7 +70,7 @@ bool CApp::onInit()
 
     std::string img = "yoshi.png";
 
-    if ((Surf_Test = CSurface::OnLoad(img)) == NULL)
+    if ((Surf_Test = Surface::OnLoad(img)) == NULL)
     {
         printf("Loading Image failed: %s\n", SDL_GetError());
         return false;
@@ -124,7 +124,7 @@ void CApp::onLoop()
 void CApp::onRender()
 {
 
-    CSurface::OnDraw(Surf_Display, Background_Surf, 0, 0);
+    Surface::OnDraw(Surf_Display, Background_Surf, 0, 0);
 
     int i = 1;
     for (auto entity : EntityList)
@@ -142,7 +142,7 @@ void CApp::onRender()
 
     mScore.setText("Score: 100", 100, 100);
     mScore.render(Surf_Display);
-    CSurface::OnDraw(Surf_Display, Surf_Test, 290, 220, 0, Anim_Yoshi.GetCurrentFrame() * 64, 64, 64);
+    Surface::OnDraw(Surf_Display, Surf_Test, 290, 220, 0, Anim_Yoshi.GetCurrentFrame() * 64, 64, 64);
 
     SDL_UpdateWindowSurface(mWindow);
 }
@@ -156,7 +156,6 @@ void CApp::onCleanup()
     EntityList.clear();
 
     SDL_Quit();
-    CArea::AreaControl.OnCleanup();
     std::cout << "Quitting..." << std::endl;
 }
 
