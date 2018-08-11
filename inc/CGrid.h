@@ -49,14 +49,15 @@ public:
 
     int getRandomInt();
 
-
-private:
     /*!
      * Creates a starting point with bricks laid our randomly with max
      * 2 of the same in a set.
      */
     void initGrid();
 
+    void loadEntity(int x, int y, int id);
+
+private:
     std::vector<std::string> mAssets;
     Entity* mGrid[GRID_WIDTH][GRID_HEIGHT];
     std::string mImagePath;
