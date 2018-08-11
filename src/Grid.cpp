@@ -1,5 +1,5 @@
 #include "Grid.h"
-#include "CSurface.h"
+#include "Surface.h"
 #include "SDL_image.h"
 
 #include <iostream>

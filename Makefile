@@ -47,7 +47,7 @@ MAKEFLAGS+="-j $(CORES)"
 
 ## Sources
 SRCS = 	CApp.cpp \
-		CSurface.cpp \
+		Surface.cpp \
 		Event.cpp \
 		CAnimation.cpp \
 		Entity.cpp \
@@ -60,7 +60,7 @@ SRCS = 	CApp.cpp \
 		Text.cpp
 
 HDRS = 	inc/CApp.h \
-		inc/CSurface.h \
+		inc/Surface.h \
 		inc/Event.h \
 		inc/CAnimation.h \
 		inc/Entity.h \
