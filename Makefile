@@ -55,7 +55,7 @@ SRCS = 	CApp.cpp \
 		CMap.cpp \
 		CArea.cpp \
 		CCamera.cpp \
-		CGrid.cpp \
+		Grid.cpp \
 		CAssets.cpp \
 		Board.cpp \
 		IThread.cpp \
@@ -70,7 +70,7 @@ HDRS = 	inc/CApp.h \
 		inc/CMap.h \
 		inc/CArea.h \
 		inc/CCamera.h \
-		inc/CGrid.h \
+		inc/Grid.h \
 		inc/CAssets.h \
 		inc/Board.h \
 		inc/IThread.h \

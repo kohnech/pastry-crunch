@@ -1,7 +1,7 @@
 #include "CApp.h"
 #include "CSurface.h"
 #include "CAssets.h"
-#include "CGrid.h"
+#include "Grid.h"
 #include "Board.h"
 #include "Define.h"
 
@@ -96,8 +96,8 @@ bool CApp::onInit()
 
 
     /// Create game grid
-    //CGrid::instance.setPosition(100, 100);
-    if (CGrid::instance.load(assets) == false)
+    // Grid::instance.setPosition(100, 100);
+    if (Grid::instance.load(assets) == false)
     {
         return false;
     }
@@ -113,7 +113,7 @@ bool CApp::onInit()
 void CApp::onEvent(SDL_Event* event)
 {
     CEvent::onEvent(event);
-    CGrid::instance.onEvent(event);
+    Grid::instance.onEvent(event);
 }
 
 void CApp::onLoop()
@@ -138,7 +138,7 @@ void CApp::onRender()
         i++;
     }
 
-    CGrid::instance.render(Surf_Display);
+    Grid::instance.render(Surf_Display);
 
     mScore.setText("Score: 100", 100, 100);
     mScore.render(Surf_Display);

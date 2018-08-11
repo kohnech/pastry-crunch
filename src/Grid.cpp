@@ -1,4 +1,4 @@
-#include "CGrid.h"
+#include "Grid.h"
 #include "CSurface.h"
 #include "SDL_image.h"
 
@@ -6,9 +6,9 @@
 #include <map>
 #include <random>
 
-CGrid CGrid::instance;
+Grid Grid::instance;
 
-CGrid::CGrid(int x, int y)
+Grid::Grid(int x, int y)
 : mBrickWidth{ ICON_WIDTH }
 , mBrickHeight{ ICON_HEIGHT }
 {
@@ -17,20 +17,20 @@ CGrid::CGrid(int x, int y)
 }
 
 
-CGrid::~CGrid()
+Grid::~Grid()
 {
     cleanup();
 }
 
 
-void CGrid::setPosition(int x, int y)
+void Grid::setPosition(int x, int y)
 {
     mX = x;
     mY = y;
 }
 
 
-bool CGrid::load(CAssets& assets)
+bool Grid::load(CAssets& assets)
 {
     mAssets = assets.getGridAssets();
     std::pair<int, int> gridAssetSize = assets.getGridAssetSize();
@@ -51,7 +51,7 @@ bool CGrid::load(CAssets& assets)
 }
 
 
-void CGrid::render(SDL_Surface* Surf_Display)
+void Grid::render(SDL_Surface* Surf_Display)
 {
     Board::render(Surf_Display);
     for (int x = 0; x < GRID_WIDTH; ++x)
@@ -69,7 +69,7 @@ void CGrid::render(SDL_Surface* Surf_Display)
     }
 }
 
-void CGrid::cleanup()
+void Grid::cleanup()
 {
     for (int x = 0; x < GRID_WIDTH; ++x)
     {
@@ -81,7 +81,7 @@ void CGrid::cleanup()
 }
 
 /*
-void CGrid::findHorizontalMatches()
+void Grid::findHorizontalMatches()
 {
     // Loop over rows
     for (int y = 0; y < GRID_HEIGHT; ++y) {
@@ -96,13 +96,13 @@ void CGrid::findHorizontalMatches()
     }
 }
 
-void CGrid::findVerticalMatches()
+void Grid::findVerticalMatches()
 {
 
 }*/
 
 
-int CGrid::getRandomInt()
+int Grid::getRandomInt()
 {
     // Seed with a real random value, if available
     std::random_device r;
@@ -119,7 +119,7 @@ int CGrid::getRandomInt()
 /*!
  * Populate a Grid randomly without any matches.
  */
-void CGrid::initGrid()
+void Grid::initGrid()
 {
     //initScore();
 
@@ -154,7 +154,7 @@ void CGrid::initGrid()
     }
 }
 
-void CGrid::loadEntity(int row, int column, int id)
+void Grid::loadEntity(int row, int column, int id)
 {
     std::string asset = mAssets[id];
     Entity* entity  = new Entity(id);
@@ -163,7 +163,7 @@ void CGrid::loadEntity(int row, int column, int id)
     mGrid[row][column] = entity;
 }
 
-void CGrid::onLButtonDown(int x, int y)
+void Grid::onLButtonDown(int x, int y)
 {
     std::cout << "onLButtonDown: (" << x << "," << y << ")" << std::endl;
 
@@ -172,7 +172,7 @@ void CGrid::onLButtonDown(int x, int y)
     getIndexesFromPosition(x, y);
 }
 
-std::pair<int, int> CGrid::getIndexesFromPosition(int x, int y)
+std::pair<int, int> Grid::getIndexesFromPosition(int x, int y)
 {
     if (mWidth == 0 || mWidth == 0) {
         return {0,0};
@@ -193,7 +193,7 @@ std::pair<int, int> CGrid::getIndexesFromPosition(int x, int y)
 };
 
 
-void CGrid::onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode)
+void Grid::onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode)
 {
     std::cout << "Key pressed: " << unicode << std::endl;
     std::cout << "mX:" << mX << "mY: " << mY << std::endl;
