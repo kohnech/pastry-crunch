@@ -12,6 +12,8 @@ public:
     : mX{ 0 }
     , mY { 0 }
     , mSurface { NULL }
+    , mWidth{ 0 }
+    , mHeight{ 0 }
     {
     }
 
@@ -25,6 +27,11 @@ public:
         std::cout << "WARNING: Unimplemented method: " << __FILE__ << ":" << __LINE__ << std::endl;
         return false;
     }
+    virtual bool load(std::string file, int width, int height)
+    {
+        std::cout << "WARNING: Unimplemented method: " << __FILE__ << ":" << __LINE__ << std::endl;
+        return false;
+    }
 
 
     virtual void render(SDL_Surface* Surf_Display) = 0;
@@ -33,4 +40,5 @@ public:
 protected:
     int mX, mY;
     SDL_Surface* mSurface;
+    int mWidth, mHeight;
 };
