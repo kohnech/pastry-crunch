@@ -47,6 +47,9 @@ bool CGrid::load(CAssets& assets)
     std::pair<int, int> gridPosition = assets.getGridPosition();
     mX = gridPosition.first;
     mY = gridPosition.second;
+    std::pair<int, int> tileSize = assets.getTileSize();
+
+    loadBoard(mTileAsset, tileSize.first, tileSize.second);
 
     initGrid();
 
@@ -56,6 +59,7 @@ bool CGrid::load(CAssets& assets)
 
 void CGrid::render(SDL_Surface* Surf_Display)
 {
+    renderBoard(Surf_Display, 0, 0);
     for (int x = 0; x < GRID_WIDTH; ++x)
     {
         for (int y = 0; y < GRID_HEIGHT; ++y)
@@ -73,6 +77,7 @@ void CGrid::render(SDL_Surface* Surf_Display)
 
 void CGrid::cleanup()
 {
+    cleanupBoard();
     for (int x = 0; x < GRID_WIDTH; ++x)
     {
         for (int y = 0; y < GRID_HEIGHT; ++y)
@@ -131,7 +136,7 @@ void CGrid::initGrid()
             std::string asset = mAssets[newRandom];
             Entity* entity = new Entity(newRandom);
             // TODO use mTileWidth / mTileHeight instead for Tile below... Need to read it out from asset mng.
-            entity->load(asset.c_str(), mBrickWidth, mBrickHeight, mTileAsset, mBrickWidth, mBrickHeight);
+            entity->load(asset.c_str(), mBrickWidth, mBrickHeight);
 
             std::cout << "Loading image CGid..." << std::endl;
             mGrid[x][y] = entity;

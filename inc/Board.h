@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CEvent.h"
+#include <string>
 
 /*!
  * The game board base class that handles basic user input events
@@ -15,7 +16,11 @@ public:
 
     Board();
 
-    void test();
+    bool loadBoard(std::string tileFile, int tileWidth, int tileHeight);
+
+    void renderBoard(SDL_Surface* Surf_Display, int x, int y);
+
+    void cleanupBoard();
 
     virtual void onLButtonDown(int mX, int mY);
     //virtual void onLButtonUp(int mX, int mY);
@@ -23,4 +28,9 @@ public:
 
 protected:
     int mX, mY;
+    int mTileWidth, mTileHeight;
+    std::string mTileAsset;
+
+private:
+    SDL_Surface* Surf_Tile;
 };
