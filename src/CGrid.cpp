@@ -49,7 +49,9 @@ bool CGrid::load(CAssets& assets)
     mY = gridPosition.second;
     std::pair<int, int> tileSize = assets.getTileSize();
 
-    loadBoard(mTileAsset, tileSize.first, tileSize.second);
+    std::string highlightFile = assets.getHighlightAsset();
+
+    loadBoard(mTileAsset, highlightFile, tileSize.first, tileSize.second);
 
     initGrid();
 

@@ -1,8 +1,8 @@
 {
   "settings": {
     "title": "Bakery Street",
-    "minimumMatches" : 3,
-    "minimumScores" : 30,
+    "minimumMatches": 3,
+    "minimumScores": 30,
     "screen": {
       "width": 1024,
       "height": 768
@@ -10,17 +10,18 @@
   },
   "tile": {
     "asset": "./assets/bakery/GameTileBG_01.png",
+    "highlight": "./assets/bakery/GameTileBG_highlight.png",
     "width": 64,
     "height": 72
   },
   "grid": {
     "width": 2,
     "height": 2,
-    "xpos" : 400,
-    "ypos" : 200,
+    "xpos": 400,
+    "ypos": 200,
     "assets": {
-      "width" : 64,
-      "height" : 72,
+      "width": 64,
+      "height": 72,
       "icons": [
         "./assets/bakery/pastry_cookie01.png",
         "./assets/bakery/pastry_cookie02.png",
