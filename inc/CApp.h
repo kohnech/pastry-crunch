@@ -7,6 +7,7 @@
 
 #include "CArea.h"
 #include "CCamera.h"
+#include "IThread.h"
 
 #include <SDL2/SDL.h>
 
@@ -16,8 +17,32 @@
 const int FRAMES_PER_SECOND = 2;
 
 
-class CApp : public CEvent
+class CApp : public CEvent, public IThread
 {
+public:
+    CApp();
+    ~CApp();
+
+    bool onInit();
+
+    void onEvent(SDL_Event* Event);
+
+    void onLoop();
+
+    void onRender();
+
+    void onCleanup();
+
+
+    /// Events
+    void onExit();
+
+    void onResize(int w, int h);
+
+    void onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode);
+
+    virtual bool ThreadMethod();
+
 private:
     bool mIsRunning;
 
@@ -36,25 +61,4 @@ private:
 
     int mWidth;
     int mHeight;
-
-public:
-    CApp();
-    ~CApp();
-
-public:
-    bool onInit();
-
-    void onEvent(SDL_Event* Event);
-
-    bool onLoop();
-
-    void onRender();
-
-    void onCleanup();
-
-    void onExit();
-
-    void onResize(int w, int h);
-
-    void onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode);
 };
