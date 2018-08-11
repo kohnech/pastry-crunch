@@ -35,7 +35,7 @@ bool App::onInit()
     }
 
     /// Settings & assets
-    CAssets assets;
+    Assets assets;
     assets.load("./assets/assets.json");
 
     std::pair<int, int> size = assets.getScreenSize();

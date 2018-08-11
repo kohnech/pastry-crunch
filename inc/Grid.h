@@ -52,7 +52,7 @@ public:
      * @param assets The asset manager to extract assets
      * @return
      */
-    bool load(CAssets& assets);
+    bool load(Assets& assets);
 
     void render(SDL_Surface* Surf_Display);
 

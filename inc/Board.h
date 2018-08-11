@@ -21,7 +21,7 @@ public:
 
     ~Board();
 
-    bool load(CAssets& assets);
+    bool load(Assets& assets);
 
     void render(SDL_Surface* Surf_Display);
 

@@ -32,7 +32,7 @@ void Grid::setPosition(int x, int y)
 }
 
 
-bool Grid::load(CAssets& assets)
+bool Grid::load(Assets& assets)
 {
     mAssets = assets.getGridAssets();
     std::pair<int, int> gridAssetSize = assets.getGridAssetSize();
