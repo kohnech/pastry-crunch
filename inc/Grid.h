@@ -101,6 +101,12 @@ public:
      * @return
      */
     std::vector<Index> findVerticalMatches(const Index& ind);
+
+    /*!
+     * Find matches horizontally
+     * @param ind
+     * @return
+     */
     std::vector<Index> findHorizontalMatches(const Index& ind);
 
 private:

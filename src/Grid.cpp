@@ -93,36 +93,15 @@ void Grid::cleanup()
     }
 }
 
-/*
-void Grid::findHorizontalMatches()
-{
-    // Loop over rows
-    for (int y = 0; y < GRID_HEIGHT; ++y) {
-        int type = type = mGrid[0][y]->id;
-        int numInARow = 0;
-        for (int x = 1; x < GRID_WIDTH; ++x) {
-            if (mGrid[x-1][y] == mGrid[x][y]) {
-
-            }
-
-        }
-    }
-}
-
-void Grid::findVerticalMatches()
-{
-
-}*/
-
 
 int Grid::getRandomInt()
 {
     // Seed with a real random value, if available
     std::random_device r;
 
-    // Choose a random mean between 1 and 6
+    // Choose a random mean between 0 and number of unique assets/icon
     std::default_random_engine e1(r());
-    std::uniform_int_distribution<int> uniform_dist(0, 4);
+    std::uniform_int_distribution<int> uniform_dist(0, mAssets.size() - 1);
     int mean = uniform_dist(e1);
     std::cout << "Randomly-chosen mean: " << mean << '\n';
     return mean;
@@ -232,7 +211,7 @@ void Grid::update(const Index& pos)
         {
             std::cout << "match: (" << ind.row << ", " << ind.column << ")" << std::endl;
         }
-        //swapEntity(pos, mPrevClickedIndexes);
+        //swapEntity(pos, mPrevClickedIndexes); // Undo swap
     }
 
     mPrevClickedIndexes = pos;
