@@ -7,7 +7,7 @@
 
 #include "CArea.h"
 #include "CCamera.h"
-#include "Thread.h"
+#include "IThread.h"
 
 #include <SDL2/SDL.h>
 

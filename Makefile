@@ -54,7 +54,7 @@ SRCS = 	CApp.cpp \
 		CGrid.cpp \
 		CAssets.cpp \
 		Board.cpp \
-		Thread.cpp
+		IThread.cpp
 
 HDRS = 	inc/CApp.h \
 		inc/CSurface.h \
@@ -68,7 +68,7 @@ HDRS = 	inc/CApp.h \
 		inc/CGrid.h \
 		inc/CAssets.h \
 		inc/Board.h \
-		inc/Thread.h
+		inc/IThread.h
 
 OBJS = $(patsubst %.cpp,$(BUILDDIR)/%.o,$(SRCS))
 

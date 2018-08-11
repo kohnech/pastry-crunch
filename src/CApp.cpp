@@ -1,10 +1,10 @@
 #include "CApp.h"
 #include "CSurface.h"
-
 #include "CAssets.h"
 #include "CGrid.h"
 #include "Board.h"
 #include "Define.h"
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_events.h>
 #include <SDL_image.h>
