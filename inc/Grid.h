@@ -10,23 +10,23 @@
 
 #include <string>
 
-class CGrid : public Board, public CEvent
+class Grid : public Board, public CEvent
 {
 public:
-    static CGrid instance;
+    static Grid instance;
 
     /*!
      * Construct a grid with left upper corner at (x,y)
      * @param x x position upper left corner
      * @param y y position upper left corner
      */
-    CGrid(int x = 0, int y = 0);
+    Grid(int x = 0, int y = 0);
 
 
     /*!
      * Unload resources
      */
-    ~CGrid();
+    ~Grid();
 
     /*!
      * Set grid upper left corner at position (x, y)
