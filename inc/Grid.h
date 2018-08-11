@@ -101,6 +101,7 @@ public:
      * @return
      */
     std::vector<Index> findVerticalMatches(const Index& ind);
+    std::vector<Index> findHorizontalMatches(const Index& ind);
 
 private:
     std::vector<std::string> mAssets;

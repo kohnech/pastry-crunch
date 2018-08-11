@@ -221,8 +221,14 @@ void Grid::update(const Index& pos)
         swapEntity(mPrevClickedIndexes, pos);
 
         std::vector<Index> matches = findVerticalMatches(pos);
+        std::vector<Index> matchesHor = findHorizontalMatches(pos);
 
         for (auto ind : matches)
+        {
+            std::cout << "match: (" << ind.row << ", " << ind.column << ")" << std::endl;
+        }
+
+        for (auto ind : matchesHor)
         {
             std::cout << "match: (" << ind.row << ", " << ind.column << ")" << std::endl;
         }
@@ -284,6 +290,45 @@ std::vector<Index> Grid::findVerticalMatches(const Index& ind)
     // TODO read from settings... 3, no magic numbers!!!
     // we are only interested in a set of more than 3 connected entities
     if (matches.size() < 3)
+        matches.clear();
+
+    return matches;
+}
+
+std::vector<Index> Grid::findHorizontalMatches(const Index& ind)
+{
+    std::vector<Index> matches;
+    matches.push_back(ind);
+    Entity* shape = mGrid[ind.row][ind.column];
+    //check bottom
+    if (ind.row != 0)
+        for (int row = ind.row - 1; row >= 0; row--)
+        {
+            if (mGrid[row][ind.column] != NULL &&
+                mGrid[row][ind.column]->id == shape->id)
+            {
+                Index tmp(row, ind.column);
+                matches.push_back(tmp);
+            }
+            else
+                break;
+        }
+
+    //check top
+    if (ind.row != mGridRowSize - 1)
+        for (int row = ind.row + 1; row < mGridRowSize; row++)
+        {
+            if (mGrid[row][ind.column] != NULL &&
+                mGrid[row][ind.column]->id == shape->id)
+            {
+                Index tmp(row, ind.column);
+                matches.push_back(tmp);
+            }
+            else
+                break;
+        }
+
+    if (matches.size() < 3) // TODO fixme
         matches.clear();
 
     return matches;
