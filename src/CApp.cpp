@@ -95,7 +95,7 @@ bool CApp::onInit()
     EntityList.push_back(&Entity2);
 
 
-    /// Create game board
+    /// Create game grid
     //CGrid::instance.setPosition(100, 100);
     if (CGrid::instance.load(assets) == false)
     {
@@ -111,7 +111,7 @@ bool CApp::onInit()
 void CApp::onEvent(SDL_Event* event)
 {
     CEvent::onEvent(event);
-    Board::instance.onEvent(event);
+    CGrid::instance.onEvent(event);
 }
 
 bool CApp::onLoop()
