@@ -12,21 +12,8 @@ int main(int argc, char* argv[])
         {
             return EXIT_FAILURE;
         }
-
-        SDL_Event event;
-
-        // Main loop
-        bool isRunning = true;
-        while (isRunning)
-        {
-            while (SDL_PollEvent(&event))
-            {
-                theApp.onEvent(&event);
-            }
-
-            isRunning = theApp.onLoop();
-            theApp.onRender();
-        }
+        theApp.start();
+        theApp.join();
     }
     catch (std::exception& e)
     {

@@ -1,9 +1,10 @@
 #include "CApp.h"
 #include "CSurface.h"
-
 #include "CAssets.h"
 #include "CGrid.h"
+#include "Board.h"
 #include "Define.h"
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_events.h>
 #include <SDL_image.h>
@@ -52,14 +53,8 @@ bool CApp::onInit()
 
     std::cout << assets.getBackgroundPath() << std::endl;
     Background_Surf = CSurface::loadImage(assets.getBackgroundPath());
-    std::vector<std::string> icons = assets.getGridAssets();
-    for (auto asset : icons)
-    {
-        std::cout << "assets:" << asset << std::endl;
-    }
     std::string windowTitle = assets.getTitle();
 
-    std::pair<int, int> gridAssetSize = assets.getGridAssetSize();
 
     /// Create main application window
     mWindow = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_UNDEFINED,
@@ -100,9 +95,8 @@ bool CApp::onInit()
     EntityList.push_back(&Entity2);
 
 
-    /// Create game board
-    CGrid::instance.setPosition(100, 100);
-    CGrid::instance.setBrickSize(gridAssetSize.first, gridAssetSize.second);
+    /// Create game grid
+    //CGrid::instance.setPosition(100, 100);
     if (CGrid::instance.load(assets) == false)
     {
         return false;
@@ -117,12 +111,12 @@ bool CApp::onInit()
 void CApp::onEvent(SDL_Event* event)
 {
     CEvent::onEvent(event);
+    CGrid::instance.onEvent(event);
 }
 
-bool CApp::onLoop()
+void CApp::onLoop()
 {
     Anim_Yoshi.OnAnimate();
-    return mIsRunning;
 }
 
 void CApp::onRender()
@@ -206,3 +200,25 @@ void CApp::onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode)
     }
     }
 }
+
+bool CApp::ThreadMethod()
+{
+    std::cout << "ThreadMethod()" << std::endl;
+
+    SDL_Event event;
+
+    while (mIsRunning)
+    {
+        std::cout << "How fsat?" << std::endl;
+        while (SDL_PollEvent(&event))
+        {
+            onEvent(&event);
+        }
+
+        onLoop();
+        onRender();
+        sleep(33); // ms, 30 fps
+    }
+
+    return true;
+};
