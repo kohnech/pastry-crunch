@@ -86,3 +86,8 @@ std::string CAssets::getHighlightAsset()
 {
     return mJ["tile"]["highlight"];
 }
+
+std::string CAssets::getFont()
+{
+    return mJ["settings"]["font"];
+}

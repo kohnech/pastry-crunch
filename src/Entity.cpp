@@ -4,8 +4,6 @@
 Entity::Entity()
 : id{ 0 }
 , Surf_Entity{ NULL }
-, mWidth{ 0 }
-, mHeight{ 0 }
 , mAsset{ "" }
 {
 }
@@ -14,14 +12,13 @@ Entity::Entity()
 Entity::Entity(int id)
 : id{ id }
 , Surf_Entity{ NULL }
-, mWidth{ 0 }
-, mHeight{ 0 }
 , mAsset{ "" }
 {
 }
 
 Entity::~Entity()
 {
+    cleanup();
 }
 
 
@@ -50,13 +47,19 @@ void Entity::render(SDL_Surface* Surf_Display, int x, int y)
     CSurface::OnDraw(Surf_Display, Surf_Entity, x, y, 0, 0, mWidth, mHeight);
 }
 
-void Entity::OnCleanup()
+
+void Entity::render(SDL_Surface* Surf_Display)
+{
+
+}
+
+
+void Entity::cleanup()
 {
     if (Surf_Entity)
     {
         SDL_FreeSurface(Surf_Entity);
     }
-
 
     Surf_Entity = NULL;
 }

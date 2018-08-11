@@ -4,9 +4,9 @@
 
 #include "CAnimation.h"
 #include "CSurface.h"
+#include "IUiComponent.h"
 
-
-class Entity
+class Entity : public IUiComponent
 {
 public:
     Entity();
@@ -24,9 +24,10 @@ public:
      */
     virtual bool load(std::string assetFile, int width, int height);
 
+    virtual void render(SDL_Surface* Surf_Display);
     virtual void render(SDL_Surface* Surf_Display, int x, int y);
 
-    virtual void OnCleanup();
+    virtual void cleanup();
 
     /*!
      * The type of the entity used for matching neighbours with
@@ -40,6 +41,5 @@ protected:
 
 
 private:
-    int mWidth, mHeight;
     std::string mAsset;
 };
