@@ -31,7 +31,7 @@ INCLUDE_DIRS +=	-I$(CURDIR) \
                 -I$(SDL_FREETYPE_PATH)/include
 
 
-LIBS= -lgtest -lgmock -lpthread -lbakery-street
+LIBS= -lgtest -lgmock -lpthread -lbakery-street -lSDL2_image -lSDL2_ttf
 #LIBS_PATH= -L$(BUILDDIR) -L$(GTEST_PATH)/lib -L$(GMOCK_PATH)/lib -L$(SDL_IMAGE_PATH)/lib -L$(SDL_TTF_PATH)/lib
 LIBS_PATH = -L$(BUILDDIR) -L$(SDL_PATH)/lib -L$(SDL_IMAGE_PATH)/lib -L$(3RDPARTYDIR)/sndio -L$(SDL_TTF_PATH)/lib -L$(SDL_FREETYPE_PATH)/lib
 ####################################################
