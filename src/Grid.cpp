@@ -220,19 +220,26 @@ void Grid::update(const Index& pos)
         std::cout << "Found adjacent cookies!!!" << std::endl;
         swapEntity(mPrevClickedIndexes, pos);
 
-        std::vector<Index> matches = findVerticalMatches(pos);
+        std::vector<Index> matches;
+        matches = findVerticalMatches(pos);
         std::vector<Index> matchesHor = findHorizontalMatches(pos);
+        // Get total matches
+        matches.insert( matches.end(), matchesHor.begin(), matchesHor.end() );
 
         for (auto ind : matches)
         {
             std::cout << "match: (" << ind.row << ", " << ind.column << ")" << std::endl;
         }
 
-        for (auto ind : matchesHor)
+        // Undo swap if no more than 3
+        if (matches.size() < 3) // TODO fix magic number
         {
-            std::cout << "match: (" << ind.row << ", " << ind.column << ")" << std::endl;
+            swapEntity(pos, mPrevClickedIndexes); // Undo swap
+            mPrevClickedIndexes = pos;
+            return;
         }
-        //swapEntity(pos, mPrevClickedIndexes); // Undo swap
+
+        // Now we need collapse the matces
     }
     else {
         std::cout << "No adjacent neighbour found!!!" << std::endl;
