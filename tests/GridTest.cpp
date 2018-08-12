@@ -27,13 +27,52 @@ TEST(GridTests, Test_function_load)
     testGrid.load(assets);
 
     size = testGrid.getSize();
-    EXPECT_EQ(size.first, 64);
-    EXPECT_EQ(size.second, 72);
+    EXPECT_EQ(size.first, 10);
+    EXPECT_EQ(size.second, 10);
 
     pos = testGrid.getPosition();
-    EXPECT_EQ(pos.first, 400);
-    EXPECT_EQ(pos.second, 200);
+    EXPECT_EQ(pos.first, 100);
+    EXPECT_EQ(pos.second, 100);
 
     std::vector<std::string> vec = testGrid.getAssets();
     EXPECT_EQ(vec.size(), 5u);
+
+    Pair gridSize = testGrid.getBoardSize();
+    EXPECT_EQ(gridSize.first, 5);
+    EXPECT_EQ(gridSize.second, 5);
 }
+
+TEST(GridTests, Test_function_getIndexesFromPosition)
+{
+    Assets assets;
+    assets.load("assets.json");
+
+    Grid testGrid;
+    testGrid.load(assets);
+
+    Pair size = testGrid.getSize();
+    EXPECT_EQ(size.first, 10);
+    EXPECT_EQ(size.second, 10);
+
+    Index ind;
+    ind = testGrid.getIndexesFromPosition(50, 50);
+    EXPECT_EQ(ind.column, 0);
+    EXPECT_EQ(ind.row, 0);
+
+    ind = testGrid.getIndexesFromPosition(100, 100);
+    EXPECT_EQ(ind.column, 0);
+    EXPECT_EQ(ind.row, 0);
+
+    ind = testGrid.getIndexesFromPosition(105, 103);
+    EXPECT_EQ(ind.column, 0);
+    EXPECT_EQ(ind.row, 0);
+
+    ind = testGrid.getIndexesFromPosition(110, 110);
+    EXPECT_EQ(ind.column, 1);
+    EXPECT_EQ(ind.row, 1);
+
+    ind = testGrid.getIndexesFromPosition(121, 122);
+    EXPECT_EQ(ind.column, 2);
+    EXPECT_EQ(ind.row, 2);
+}
+
