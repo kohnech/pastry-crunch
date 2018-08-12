@@ -2,12 +2,12 @@
 
 #include <SDL2/SDL.h>
 
-class CEvent
+class Event
 {
 public:
-    CEvent();
+    Event();
 
-    virtual ~CEvent();
+    virtual ~Event();
 
     virtual void onEvent(SDL_Event* Event);
 

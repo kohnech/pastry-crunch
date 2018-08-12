@@ -1,4 +1,4 @@
-#include "CApp.h"
+#include "App.h"
 #include <iostream>
 
 int main(int argc, char* argv[])
@@ -6,7 +6,7 @@ int main(int argc, char* argv[])
     try
     {
         std::cout << "Starting main loop..." << std::endl;
-        CApp theApp;
+        App theApp;
 
         if (theApp.onInit() == false)
         {

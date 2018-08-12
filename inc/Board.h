@@ -1,8 +1,8 @@
 #pragma once
 
-#include "CEvent.h"
+#include "Event.h"
 #include "IUiComponent.h"
-#include "CAssets.h"
+#include "Assets.h"
 
 #include <string>
 
@@ -21,7 +21,7 @@ public:
 
     ~Board();
 
-    bool load(CAssets& assets);
+    bool load(Assets& assets);
 
     void render(SDL_Surface* Surf_Display);
 

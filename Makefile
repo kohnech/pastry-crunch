@@ -46,32 +46,28 @@ CORES ?= $(shell nproc)
 MAKEFLAGS+="-j $(CORES)"
 
 ## Sources
-SRCS = 	CApp.cpp \
-		CSurface.cpp \
-		CEvent.cpp \
+SRCS = 	App.cpp \
+		Surface.cpp \
+		Event.cpp \
 		CAnimation.cpp \
 		Entity.cpp \
 		CTile.cpp \
-		CMap.cpp \
-		CArea.cpp \
 		CCamera.cpp \
 		Grid.cpp \
-		CAssets.cpp \
+		Assets.cpp \
 		Board.cpp \
 		IThread.cpp \
 		Text.cpp
 
-HDRS = 	inc/CApp.h \
-		inc/CSurface.h \
-		inc/CEvent.h \
+HDRS = 	inc/App.h \
+		inc/Surface.h \
+		inc/Event.h \
 		inc/CAnimation.h \
 		inc/Entity.h \
 		inc/CTile.h \
-		inc/CMap.h \
-		inc/CArea.h \
 		inc/CCamera.h \
 		inc/Grid.h \
-		inc/CAssets.h \
+		inc/Assets.h \
 		inc/Board.h \
 		inc/IThread.h \
 		inc/Text.h

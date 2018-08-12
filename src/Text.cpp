@@ -1,6 +1,6 @@
 #include "Text.h"
 #include "Define.h"
-#include "CSurface.h"
+#include "Surface.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
@@ -19,7 +19,7 @@ Text::~Text()
     cleanup();
 }
 
-bool Text::load(CAssets& assets)
+bool Text::load(Assets& assets)
 {
     std::string font = assets.getFont();
     mFontSize = assets.getFontSize();
@@ -39,7 +39,7 @@ bool Text::load(CAssets& assets)
 void Text::render(SDL_Surface* display)
 {
     mSurface = TTF_RenderUTF8_Solid(mFont, mMessage.c_str(), BLUE);
-    CSurface::OnDraw(display, mSurface, mX, mY);
+    Surface::OnDraw(display, mSurface, mX, mY);
 }
 
 void Text::cleanup()

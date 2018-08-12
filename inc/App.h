@@ -1,20 +1,19 @@
 #pragma once
 
 #include "CAnimation.h"
-#include "CEvent.h"
+#include "Event.h"
 #include "Entity.h"
-#include "CArea.h"
 #include "CCamera.h"
 #include "IThread.h"
 #include "Text.h"
 
 #include <SDL2/SDL.h>
 
-class CApp : public CEvent, public IThread
+class App : public Event, public IThread
 {
 public:
-    CApp();
-    ~CApp();
+    App();
+    ~App();
 
     bool onInit();
 

@@ -1,6 +1,6 @@
-#include "CApp.h"
-#include "CSurface.h"
-#include "CAssets.h"
+#include "App.h"
+#include "Surface.h"
+#include "Assets.h"
 #include "Grid.h"
 #include "Board.h"
 #include "Define.h"
@@ -13,7 +13,7 @@
 #include <utility>
 
 
-CApp::CApp()
+App::App()
 : mWindow{ NULL }
 , Surf_Display{ NULL }
 , Surf_Test{ NULL }
@@ -21,13 +21,13 @@ CApp::CApp()
     mIsRunning = true;
 }
 
-CApp::~CApp()
+App::~App()
 {
     onCleanup();
 }
 
 
-bool CApp::onInit()
+bool App::onInit()
 {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
     {
@@ -35,7 +35,7 @@ bool CApp::onInit()
     }
 
     /// Settings & assets
-    CAssets assets;
+    Assets assets;
     assets.load("./assets/assets.json");
 
     std::pair<int, int> size = assets.getScreenSize();
@@ -52,7 +52,7 @@ bool CApp::onInit()
     }
 
     std::cout << assets.getBackgroundPath() << std::endl;
-    Background_Surf = CSurface::loadImage(assets.getBackgroundPath());
+    Background_Surf = Surface::loadImage(assets.getBackgroundPath());
     std::string windowTitle = assets.getTitle();
 
 
@@ -70,7 +70,7 @@ bool CApp::onInit()
 
     std::string img = "yoshi.png";
 
-    if ((Surf_Test = CSurface::OnLoad(img)) == NULL)
+    if ((Surf_Test = Surface::OnLoad(img)) == NULL)
     {
         printf("Loading Image failed: %s\n", SDL_GetError());
         return false;
@@ -103,28 +103,28 @@ bool CApp::onInit()
     }
 
 
-    std::cout << "finished CApp OnInit()..." << std::endl;
+    std::cout << "finished App OnInit()..." << std::endl;
 
     mScore.load(assets);
 
     return true;
 }
 
-void CApp::onEvent(SDL_Event* event)
+void App::onEvent(SDL_Event* event)
 {
-    CEvent::onEvent(event);
+    Event::onEvent(event);
     Grid::instance.onEvent(event);
 }
 
-void CApp::onLoop()
+void App::onLoop()
 {
     Anim_Yoshi.OnAnimate();
 }
 
-void CApp::onRender()
+void App::onRender()
 {
-    CSurface::OnDraw(Surf_Display, Surf_Test, 290, 220, 0, Anim_Yoshi.GetCurrentFrame() * 64, 64, 64);
-    CSurface::OnDraw(Surf_Display, Background_Surf, 0, 0);
+
+    Surface::OnDraw(Surf_Display, Background_Surf, 0, 0);
 
     int i = 1;
     for (auto entity : EntityList)
@@ -142,11 +142,12 @@ void CApp::onRender()
 
     mScore.setText("Score: 100", 100, 100);
     mScore.render(Surf_Display);
+    Surface::OnDraw(Surf_Display, Surf_Test, 290, 220, 0, Anim_Yoshi.GetCurrentFrame() * 64, 64, 64);
 
     SDL_UpdateWindowSurface(mWindow);
 }
 
-void CApp::onCleanup()
+void App::onCleanup()
 {
     SDL_FreeSurface(Surf_Test);
     SDL_FreeSurface(Surf_Display);
@@ -155,22 +156,21 @@ void CApp::onCleanup()
     EntityList.clear();
 
     SDL_Quit();
-    CArea::AreaControl.OnCleanup();
     std::cout << "Quitting..." << std::endl;
 }
 
-void CApp::onExit()
+void App::onExit()
 {
     std::cout << "Quiting... bye!" << std::endl;
     mIsRunning = false;
 }
 
-void CApp::onResize(int w, int h)
+void App::onResize(int w, int h)
 {
     std::cout << "Window resized width: " << w << ", height: " << h << std::endl;
 }
 
-void CApp::onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode)
+void App::onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode)
 {
     std::cout << "Key pressed: " << unicode << std::endl;
     switch (sym)
@@ -194,7 +194,7 @@ void CApp::onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode)
     }
 }
 
-bool CApp::ThreadMethod()
+bool App::ThreadMethod()
 {
     std::cout << "ThreadMethod()" << std::endl;
 
