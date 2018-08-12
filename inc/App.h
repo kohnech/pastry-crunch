@@ -19,7 +19,7 @@ public:
 
     void onEvent(SDL_Event* Event);
 
-    void onLoop();
+    bool onLoop();
 
     void onRender();
 
