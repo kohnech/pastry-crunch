@@ -30,7 +30,6 @@ SRCS = 	main_Test.cpp
 
 all: unit-tests
 
-## Note this command must be run inside a docker container with gtest/gmock unless you have it installed natively
 unit-tests:
 	$(CXX) $(CXXFLAGS) $(SRCS) $(INCLUDE_DIRS) $(LIBS_PATH) $(LIBS) -L$(PROJ_ROOT)/build -o $(BUILDDIR)/$(COMPONENT_NAME)
 
