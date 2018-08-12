@@ -12,28 +12,30 @@ SDL_VERSION=2.0.8
 SDL_PATH = $(3RDPARTYDIR)/SDL2-$(SDL_VERSION)
 SDL_IMAGE_VERSION=2.0.1
 SDL_IMAGE_PATH =$(3RDPARTYDIR)/SDL2_image-$(SDL_IMAGE_VERSION)
-SDL_JSON_PATH = $(3RDPARTYDIR)/nlohmann
 SDL_TTF_PATH =$(3RDPARTYDIR)/SDL2_ttf-2.0.14
 SDL_FREETYPE_PATH =$(3RDPARTYDIR)/freetype-2.4.10
+JSON_PATH = $(3RDPARTYDIR)/nlohmann
 
 INCLUDE_DIRS += -I$(PROJ_ROOT)/inc \
 				-I$(SDL_PATH)/include \
 				-I$(SDL_PATH)/include/SDL2 \
 				-I$(SDL_IMAGE_PATH)/include \
-				-I$(SDL_JSON_PATH)/include \
 				-I$(SDL_TTF_PATH)/include \
-				-I$(SDL_FREETYPE_PATH)/include
+				-I$(SDL_FREETYPE_PATH)/include \
+				-I$(JSON_PATH)/include
 
 ## Libs
 LIBS = -lSDL2 -lSDL2main -lSDL2_image -lsndio -pthread -lSDL2_ttf -lfreetype
 LIBS_PATH = -L$(BUILDDIR) -L$(SDL_PATH)/lib -L$(SDL_IMAGE_PATH)/lib -L$(3RDPARTYDIR)/sndio -L$(SDL_TTF_PATH)/lib -L$(SDL_FREETYPE_PATH)/lib
-export LD_LIBRARY_PATH=$(SDL_PATH)/lib:$(3RDPARTYDIR)/sndio:$(SDL_IMAGE_PATH)/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$(SDL_PATH)/lib:$(3RDPARTYDIR)/sndio:$(SDL_IMAGE_PATH)/lib:$LD_LIBRARY_PATH:$(BUILDDIR)
+export LD_LIBRARY_PATH_=$(LD_LIBRARY_PATH)
 
 ## Compiler
 BUILD_TYPE ?= DEBUG
 CXX = g++
-STATIC = libfirsttest.a
-DYNAMIC = libfirsttest.so
+STATIC = lib$(COMPONENT_NAME).a
+DYNAMIC = lib$(COMPONENT_NAME).so
+LDFLAGS = -shared
 CXXFLAGS = -Wall -Winline -Werror -pipe -std=c++11 -fPIC
 ifeq ($(BUILD_TYPE),DEBUG)
 	CXXFLAGS += -g -O0
@@ -75,7 +77,7 @@ HDRS = 	inc/App.h \
 OBJS = $(patsubst %.cpp,$(BUILDDIR)/%.o,$(SRCS))
 
 ## Make targets
-.PHONY: all clean run
+.PHONY: all lint clang-format run clean unit-tests run-unit-tests shared
 
 help:
 	@echo
@@ -86,6 +88,7 @@ help:
 	@echo '  clean                 - clean project.'
 	@echo '  unit-tests            - build unit tests.'
 	@echo '  run-unit-tests        - run unit tests.'
+	@echo '  shared                - build shared library.'
 	@echo
 
 all: $(BUILDDIR) $(BUILDDIR)/$(COMPONENT_NAME)
@@ -121,8 +124,14 @@ clean:
 	rm -f $(BUILDDIR)/main.o
 	rm -f $(BUILDDIR)/$(STATIC)
 
-unit-tests:
+unit-tests: shared
 	$(MAKE) -C tests $@
 
 run-unit-tests: unit-tests
 	$(MAKE) -C tests $@
+
+shared: $(BUILDDIR)/$(DYNAMIC)
+
+$(BUILDDIR)/$(DYNAMIC): $(OBJS)
+	@echo "[Link (Dynamic)]"
+	$(CXX) ${LDFLAGS} -o $@ $^ $(LIBS_PATH) $(LIBS)
