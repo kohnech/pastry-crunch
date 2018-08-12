@@ -1,7 +1,7 @@
 #include "App.h"
 #include <iostream>
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     try
     {
@@ -12,8 +12,19 @@ int main(int argc, char* argv[])
         {
             return EXIT_FAILURE;
         }
-        theApp.start();
-        theApp.join();
+        SDL_Event event;
+
+        // Main loop
+        bool isRunning = true;
+        while (isRunning) {
+            while (SDL_PollEvent(&event))
+            {
+                theApp.onEvent(&event);
+            }
+
+            isRunning = theApp.onLoop();
+            theApp.onRender();
+        }
     }
     catch (std::exception& e)
     {

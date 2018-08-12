@@ -116,9 +116,10 @@ void App::onEvent(SDL_Event* event)
     Grid::instance.onEvent(event);
 }
 
-void App::onLoop()
+bool App::onLoop()
 {
     Anim_Yoshi.OnAnimate();
+    return mIsRunning;
 }
 
 void App::onRender()
