@@ -84,6 +84,8 @@ help:
 	@echo '  clang-format          - run clang-format on c++ files following rules specified in .clang-format.'
 	@echo '  run                   - run main executable.'
 	@echo '  clean                 - clean project.'
+	@echo '  unit-tests            - build unit tests.'
+	@echo '  run-unit-tests        - run unit tests.'
 	@echo
 
 all: $(BUILDDIR) $(BUILDDIR)/$(COMPONENT_NAME)
@@ -118,3 +120,9 @@ clean:
 	rm -f $(BUILDDIR)/$(COMPONENT_NAME)
 	rm -f $(BUILDDIR)/main.o
 	rm -f $(BUILDDIR)/$(STATIC)
+
+unit-tests:
+	$(MAKE) -C tests $@
+
+run-unit-tests: unit-tests
+	$(MAKE) -C tests $@
