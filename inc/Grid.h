@@ -16,7 +16,7 @@
 struct Index
 {
 public:
-    Index(int r, int c) {
+    Index(int r = 0, int c = 0) {
         row = r;
         column = c;
     }
@@ -120,6 +120,6 @@ private:
     Entity*** mGrid;
     std::string mImagePath;
 
-    int mBrickWidth, mBrickHeight;
+    int mTileWidth, mTileHeight;
     Index mPrevClickedIndexes;
 };

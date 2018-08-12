@@ -82,3 +82,11 @@ void Board::cleanup()
     mSurface = NULL;
     mHighlightSurf = NULL;
 }
+
+Pair Board::getBoardSize()
+{
+    Pair size;
+    size.first = mGridRowSize;
+    size.second = mGridColumnSize;
+    return size;
+}
