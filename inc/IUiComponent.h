@@ -37,6 +37,14 @@ public:
     virtual void render(SDL_Surface* Surf_Display) = 0;
     virtual void cleanup() = 0;
 
+    virtual inline std::pair<int, int> getPosition()
+    {
+        std::pair<int, int> position;
+        position.first = mX;
+        position.second = mY;
+        return position;
+    }
+
 protected:
     int mX, mY;
     SDL_Surface* mSurface;
