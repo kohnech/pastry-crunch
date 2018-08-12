@@ -47,7 +47,7 @@ all: unit-tests
 
 unit-tests: $(BUILDDIR)/$(COMPONENT_NAME)
 
-$(BUILDDIR)/$(COMPONENT_NAME):
+$(BUILDDIR)/$(COMPONENT_NAME): $(SRCS)
 	$(CXX) $(CXXFLAGS) $(SRCS) $(INCLUDE_DIRS) $(LIBS_PATH) $(LIBS) -o $(BUILDDIR)/$(COMPONENT_NAME)
 
 run-unit-tests:

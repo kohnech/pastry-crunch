@@ -109,6 +109,12 @@ public:
      */
     std::vector<Index> findHorizontalMatches(const Index& ind);
 
+    /*!
+     * Return my icon asset list
+     * @return
+     */
+    std::vector<std::string> getAssets();
+
 private:
     std::vector<std::string> mAssets;
     Entity*** mGrid;
