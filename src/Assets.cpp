@@ -1,4 +1,4 @@
-#include "CAssets.h"
+#include "Assets.h"
 
 #include "json.hpp"
 
@@ -10,23 +10,23 @@
 
 using json = nlohmann::json;
 
-CAssets::CAssets()
+Assets::Assets()
 {
 }
 
-void CAssets::load(std::string settingsFile)
+void Assets::load(std::string settingsFile)
 {
     std::ifstream ifs(settingsFile);
     ifs >> mJ;
 }
 
 
-std::string CAssets::getBackgroundPath()
+std::string Assets::getBackgroundPath()
 {
     return mJ["background"]["asset"];
 }
 
-std::pair<int, int> CAssets::getScreenSize()
+std::pair<int, int> Assets::getScreenSize()
 {
     std::pair<int, int> size;
     size.first = mJ["settings"]["screen"]["width"];
@@ -34,7 +34,7 @@ std::pair<int, int> CAssets::getScreenSize()
     return size;
 };
 
-std::vector<std::string> CAssets::getGridAssets()
+std::vector<std::string> Assets::getGridAssets()
 {
     std::vector<std::string> vec;
     json data = mJ["grid"]["assets"]["icons"];
@@ -47,7 +47,7 @@ std::vector<std::string> CAssets::getGridAssets()
     return vec;
 };
 
-std::pair<int, int> CAssets::getGridAssetSize()
+std::pair<int, int> Assets::getGridAssetSize()
 {
     std::pair<int, int> size;
     size.first = mJ["grid"]["assets"]["width"];
@@ -55,7 +55,7 @@ std::pair<int, int> CAssets::getGridAssetSize()
     return size;
 }
 
-std::pair<int, int> CAssets::getGridSize()
+std::pair<int, int> Assets::getGridSize()
 {
     std::pair<int, int> size;
     size.first = mJ["grid"]["width"];
@@ -63,7 +63,7 @@ std::pair<int, int> CAssets::getGridSize()
     return size;
 }
 
-std::pair<int, int> CAssets::getGridPosition()
+std::pair<int, int> Assets::getGridPosition()
 {
     std::pair<int, int> position;
     position.first = mJ["grid"]["xpos"];
@@ -71,17 +71,17 @@ std::pair<int, int> CAssets::getGridPosition()
     return position;
 }
 
-std::string CAssets::getTitle()
+std::string Assets::getTitle()
 {
     return mJ["settings"]["title"];
 }
 
-std::string CAssets::getTileAsset()
+std::string Assets::getTileAsset()
 {
     return mJ["tile"]["asset"];
 }
 
-std::pair<int, int> CAssets::getTileSize()
+std::pair<int, int> Assets::getTileSize()
 {
     std::pair<int, int> size;
     size.first = mJ["tile"]["width"];
@@ -89,17 +89,17 @@ std::pair<int, int> CAssets::getTileSize()
     return size;
 };
 
-std::string CAssets::getHighlightAsset()
+std::string Assets::getHighlightAsset()
 {
     return mJ["tile"]["highlight"];
 }
 
-std::string CAssets::getFont()
+std::string Assets::getFont()
 {
     return mJ["settings"]["font"];
 }
 
-int CAssets::getFontSize()
+int Assets::getFontSize()
 {
     return mJ["settings"]["fontSize"];
 }

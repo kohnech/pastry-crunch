@@ -25,12 +25,12 @@ Entity::~Entity()
 bool Entity::load(std::string assetFile, int width, int height)
 {
     mAsset.assign(assetFile);
-    if ((Surf_Entity = CSurface::OnLoad(assetFile)) == NULL)
+    if ((Surf_Entity = Surface::OnLoad(assetFile)) == NULL)
     {
         return false;
     }
 
-    CSurface::Transparent(Surf_Entity, 255, 0, 255);
+    Surface::Transparent(Surf_Entity, 255, 0, 255);
 
     mWidth = width;
     mHeight = height;
@@ -44,7 +44,7 @@ void Entity::render(SDL_Surface* Surf_Display, int x, int y)
     if (Surf_Entity == NULL || Surf_Display == NULL)
         return;
 
-    CSurface::OnDraw(Surf_Display, Surf_Entity, x, y, 0, 0, mWidth, mHeight);
+    Surface::OnDraw(Surf_Display, Surf_Entity, x, y, 0, 0, mWidth, mHeight);
 }
 
 

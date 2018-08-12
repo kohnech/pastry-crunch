@@ -11,10 +11,10 @@
 
 using json = nlohmann::json;
 
-class CAssets
+class Assets
 {
 public:
-    CAssets();
+    Assets();
     void load(std::string);
     std::string getBackgroundPath();
     std::pair<int, int> getScreenSize();

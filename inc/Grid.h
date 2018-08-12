@@ -1,6 +1,6 @@
 #pragma once
 
-#include "CAssets.h"
+#include "Assets.h"
 #include "Define.h"
 #include "Entity.h"
 #include "Board.h"
@@ -23,7 +23,7 @@ public:
     int row, column;
 };
 
-class Grid : public Board, public CEvent
+class Grid : public Board, public Event
 {
 public:
     static Grid instance;
@@ -52,7 +52,7 @@ public:
      * @param assets The asset manager to extract assets
      * @return
      */
-    bool load(CAssets& assets);
+    bool load(Assets& assets);
 
     void render(SDL_Surface* Surf_Display);
 

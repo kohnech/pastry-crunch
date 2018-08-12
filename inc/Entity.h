@@ -3,7 +3,7 @@
 #include <vector>
 
 #include "CAnimation.h"
-#include "CSurface.h"
+#include "Surface.h"
 #include "IUiComponent.h"
 
 class Entity : public IUiComponent
