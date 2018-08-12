@@ -14,10 +14,21 @@ Assets::Assets()
 {
 }
 
-void Assets::load(std::string settingsFile)
+void Assets::load(std::string file)
 {
-    std::ifstream ifs(settingsFile);
-    ifs >> mJ;
+    try {
+        std::ifstream ifs(file);
+        ifs >> mJ;
+    }
+    catch(std::exception& e)
+    {
+        std::cout << "Could not load asset file: " << file << std::endl;
+    }
+}
+
+void Assets::loadJson(json js)
+{
+    mJ = js;
 }
 
 
@@ -102,4 +113,9 @@ std::string Assets::getFont()
 int Assets::getFontSize()
 {
     return mJ["settings"]["fontSize"];
+}
+
+void Assets::printAssets()
+{
+    std::cout << mJ.dump() << std::endl;
 }

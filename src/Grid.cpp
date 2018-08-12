@@ -10,7 +10,9 @@
 Grid Grid::instance;
 
 Grid::Grid(int x, int y)
-: mBrickWidth{ ICON_WIDTH }
+: mGrid{ NULL }
+, mImagePath{""}
+, mBrickWidth{ ICON_WIDTH }
 , mBrickHeight{ ICON_HEIGHT }
 , mPrevClickedIndexes{ 0, 0 }
 {
@@ -34,6 +36,7 @@ void Grid::setPosition(int x, int y)
 
 bool Grid::load(Assets& assets)
 {
+    assets.printAssets();
     mAssets = assets.getGridAssets();
     std::pair<int, int> gridAssetSize = assets.getGridAssetSize();
     mBrickWidth = gridAssetSize.first;
@@ -84,11 +87,18 @@ void Grid::render(SDL_Surface* Surf_Display)
 
 void Grid::cleanup()
 {
+    if (mGrid == NULL) {
+        std::cout << "ERROR: You must initialize the grid with load()!" << std::endl;
+        return;
+    }
     for (int x = 0; x < mGridRowSize; ++x)
     {
         for (int y = 0; y < mGridColumnSize; ++y)
         {
-            delete mGrid[x][y];
+            if (mGrid[x][y]) {
+                delete mGrid[x][y];
+                mGrid[x][y] = NULL;
+            }
         }
     }
 }
@@ -311,4 +321,9 @@ std::vector<Index> Grid::findHorizontalMatches(const Index& ind)
         matches.clear();
 
     return matches;
+}
+
+std::vector<std::string> Grid::getAssets()
+{
+    return mAssets;
 }
