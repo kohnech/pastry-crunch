@@ -139,6 +139,12 @@ public:
      */
      Entity* getEntity(Index ind);
 
+     /*!
+      * Load a pre grid used for unit test purpose.
+      * Then it will not use any ranomness...
+      */
+      void setGridMatrix(Entity*** grid);
+
 private:
     std::vector<std::string> mAssets;
     Entity*** mGrid;
