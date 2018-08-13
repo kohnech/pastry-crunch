@@ -58,7 +58,10 @@ public:
 
     void cleanup();
 
-
+    /*!
+     * Creates a new random integer for randomizing the grid...
+     * @return a random int
+     */
     int getRandomInt();
 
     /*!
@@ -67,7 +70,14 @@ public:
      */
     void initGrid();
 
-    void loadEntity(int x, int y, int id);
+    /*!
+     * Creates a new entity in the big grid. This is where the bricks are created
+     * with id that has been randomly generated according to many rules...
+     * @param row
+     * @param column
+     * @param id
+     */
+    void loadEntity(int row, int column, int id);
 
     //// Events
 
@@ -83,8 +93,17 @@ public:
      */
     Index getIndexesFromPosition(int x, int y);
 
+    /*!
+     * Update game based on new interaction from user
+     * @param ind
+     */
     void update(const Index& ind);
 
+    /*!
+     * Check if this index is neighbour with previous clicked position
+     * @param ind
+     * @return
+     */
     bool isAdjacent(const Index& ind);
 
     /*!
@@ -114,6 +133,11 @@ public:
      * @return
      */
     std::vector<std::string> getAssets();
+
+    /*!
+     * Get entity at index for unit test purpose
+     */
+     Entity* getEntity(Index ind);
 
 private:
     std::vector<std::string> mAssets;
