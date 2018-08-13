@@ -79,13 +79,51 @@ TEST(GridTests, Test_function_getIndexesFromPosition)
     EXPECT_EQ(ind.column, 2);
     EXPECT_EQ(ind.row, 2);
 
-    // Test extreme point
+    // Test extreme point now we are outside of the board
     ind = testGrid.getIndexesFromPosition(150, 150);
     EXPECT_EQ(ind.column, 0);
     EXPECT_EQ(ind.row, 0);
 
+    // still inside... so a valid index...
     ind = testGrid.getIndexesFromPosition(149, 149);
     EXPECT_EQ(ind.column, 4);
     EXPECT_EQ(ind.row, 4);
 }
 
+TEST(GridTests, Test_function_isAdjacent)
+{
+    Assets assets;
+    assets.load("assets.json");
+
+    Grid testGrid;
+    testGrid.load(assets);
+
+    // Set mPrevClickedPosition with a mouse click... Now it is att Index (0,0)
+    testGrid.onLButtonDown(100,100);
+    EXPECT_TRUE(testGrid.isAdjacent(Index(1,0)));
+    EXPECT_TRUE(testGrid.isAdjacent(Index(0,1)));
+
+    // Click index (4,0)
+    testGrid.onLButtonDown(149,100);
+    EXPECT_TRUE(testGrid.isAdjacent(Index(3,0)));
+    EXPECT_TRUE(testGrid.isAdjacent(Index(4,1)));
+
+    // Click index (4,4)
+    testGrid.onLButtonDown(149,149);
+    EXPECT_TRUE(testGrid.isAdjacent(Index(4,3)));
+    EXPECT_TRUE(testGrid.isAdjacent(Index(3,4)));
+
+    // Click index (2,1)
+    testGrid.onLButtonDown(120,110);
+    EXPECT_TRUE(testGrid.isAdjacent(Index(2,0)));
+    EXPECT_TRUE(testGrid.isAdjacent(Index(2,2)));
+    EXPECT_TRUE(testGrid.isAdjacent(Index(1,1)));
+    EXPECT_TRUE(testGrid.isAdjacent(Index(3,1)));
+
+    // Click index (3,3)
+    testGrid.onLButtonDown(130,130);
+    EXPECT_TRUE(testGrid.isAdjacent(Index(3,2)));
+    EXPECT_TRUE(testGrid.isAdjacent(Index(2,3)));
+    EXPECT_TRUE(testGrid.isAdjacent(Index(4,3)));
+    EXPECT_TRUE(testGrid.isAdjacent(Index(3,4)));
+}
