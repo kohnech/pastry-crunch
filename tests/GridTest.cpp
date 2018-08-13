@@ -127,3 +127,51 @@ TEST(GridTests, Test_function_isAdjacent)
     EXPECT_TRUE(testGrid.isAdjacent(Index(4,3)));
     EXPECT_TRUE(testGrid.isAdjacent(Index(3,4)));
 }
+
+TEST(GridTests, Test_function_swapEntity)
+{
+    Assets assets;
+    assets.load("assets.json");
+
+    Grid testGrid;
+    testGrid.load(assets);
+
+    Index indFrom(0,0);
+    Index indTo(1,1);
+    Entity* from = testGrid.getEntity(indFrom);
+    Entity* to = testGrid.getEntity(indTo);
+
+    testGrid.swapEntity(indFrom, indTo);
+    Entity* newFrom = testGrid.getEntity(indFrom);
+    Entity* newTo = testGrid.getEntity(indTo);
+
+    EXPECT_EQ(from, newTo);
+    EXPECT_EQ(to, newFrom);
+
+    ////
+    indFrom = Index(4,4);
+    indTo = Index(3,4);
+    from = testGrid.getEntity(indFrom);
+    to = testGrid.getEntity(indTo);
+
+    testGrid.swapEntity(indFrom, indTo);
+    newFrom = testGrid.getEntity(indFrom);
+    newTo = testGrid.getEntity(indTo);
+
+    EXPECT_EQ(from, newTo);
+    EXPECT_EQ(to, newFrom);
+
+    // Try swap impossible case. This case will result in NO swap!!!
+    indFrom = Index(4,4);
+    indTo = Index(5,4);
+    from = testGrid.getEntity(indFrom);
+    to = testGrid.getEntity(indTo);
+
+    testGrid.swapEntity(indFrom, indTo);
+    newFrom = testGrid.getEntity(indFrom);
+    newTo = testGrid.getEntity(indTo);
+
+    EXPECT_EQ(nullptr, newTo);
+    EXPECT_EQ(from, newFrom);
+    EXPECT_EQ(nullptr, to);
+}

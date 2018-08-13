@@ -252,10 +252,24 @@ bool Grid::isAdjacent(const Index& ind)
 
 void Grid::swapEntity(Index from, Index to)
 {
-        // swap entities by swapping them in the grid matrix
-        Entity* temp = mGrid[from.row][from.column];
-        mGrid[from.row][from.column] = mGrid[to.row][to.column];
-        mGrid[to.row][to.column] = temp;
+    // First make boundary checks
+    if (from.row < 0 || from.column < 0 || to.row < 0 || to.column < 0)
+    {
+        std::cout << "Try a better index!" << std::endl;
+        return;
+    }
+    Index max = getIndexesFromPosition(mWidth * mGridRowSize + mX - 1, mHeight * mGridColumnSize + mY - 1);
+    std::cout << "CVA atlast" << max.row << ", " << max.column << std::endl;
+    if (from.row > max.row || from.column > max.column || to.row > max.row || to.column > max.column)
+    {
+        std::cout << "Try a better index!" << std::endl;
+        return;
+    }
+
+    // swap entities by swapping them in the grid matrix
+    Entity* temp = mGrid[from.row][from.column];
+    mGrid[from.row][from.column] = mGrid[to.row][to.column];
+    mGrid[to.row][to.column] = temp;
 }
 
 std::vector<Index> Grid::findVerticalMatches(const Index& ind)
@@ -341,4 +355,25 @@ std::vector<Index> Grid::findHorizontalMatches(const Index& ind)
 std::vector<std::string> Grid::getAssets()
 {
     return mAssets;
+}
+
+Entity* Grid::getEntity(Index ind)
+{
+    // First make boundary checks
+    if (ind.row < 0 || ind.column < 0)
+    {
+        std::cout << "Try a better index!" << std::endl;
+        return nullptr;
+    }
+    Index max = getIndexesFromPosition(mWidth * mGridRowSize + mX - 1, mHeight * mGridColumnSize + mY - 1);
+
+    std::cout << "CVA atlast" << max.row << ", " << max.column << std::endl;
+
+    if (ind.row > max.row || ind.column > max.column)
+    {
+        std::cout << "Try a better index!" << std::endl;
+        return nullptr;
+    }
+
+    return mGrid[ind.row][ind.column];
 }
