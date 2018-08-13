@@ -259,7 +259,7 @@ void Grid::swapEntity(Index from, Index to)
         return;
     }
     Index max = getIndexesFromPosition(mWidth * mGridRowSize + mX - 1, mHeight * mGridColumnSize + mY - 1);
-    std::cout << "CVA atlast" << max.row << ", " << max.column << std::endl;
+
     if (from.row > max.row || from.column > max.column || to.row > max.row || to.column > max.column)
     {
         std::cout << "Try a better index!" << std::endl;
@@ -365,9 +365,8 @@ Entity* Grid::getEntity(Index ind)
         std::cout << "Try a better index!" << std::endl;
         return nullptr;
     }
-    Index max = getIndexesFromPosition(mWidth * mGridRowSize + mX - 1, mHeight * mGridColumnSize + mY - 1);
 
-    std::cout << "CVA atlast" << max.row << ", " << max.column << std::endl;
+    Index max = getIndexesFromPosition(mWidth * mGridRowSize + mX - 1, mHeight * mGridColumnSize + mY - 1);
 
     if (ind.row > max.row || ind.column > max.column)
     {
@@ -376,4 +375,9 @@ Entity* Grid::getEntity(Index ind)
     }
 
     return mGrid[ind.row][ind.column];
+}
+
+void Grid::setGridMatrix(Entity*** grid)
+{
+    mGrid = grid;
 }
