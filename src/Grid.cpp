@@ -189,8 +189,8 @@ Index Grid::getIndexesFromPosition(int x, int y)
     }
 
     /// Check board boundaries
-    if (x < mX || x > (mWidth * mGridRowSize + mX) ||
-        y < mY || y > (mHeight * mGridColumnSize + mY))
+    if (x < mX || x >= (mWidth * mGridRowSize + mX) ||
+        y < mY || y >= (mHeight * mGridColumnSize + mY))
     {
         std::cout << "Out of boundary" << std::endl;
         return {0, 0};

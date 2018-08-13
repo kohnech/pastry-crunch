@@ -74,5 +74,18 @@ TEST(GridTests, Test_function_getIndexesFromPosition)
     ind = testGrid.getIndexesFromPosition(121, 122);
     EXPECT_EQ(ind.column, 2);
     EXPECT_EQ(ind.row, 2);
+
+    ind = testGrid.getIndexesFromPosition(121, 122);
+    EXPECT_EQ(ind.column, 2);
+    EXPECT_EQ(ind.row, 2);
+
+    // Test extreme point
+    ind = testGrid.getIndexesFromPosition(150, 150);
+    EXPECT_EQ(ind.column, 0);
+    EXPECT_EQ(ind.row, 0);
+
+    ind = testGrid.getIndexesFromPosition(149, 149);
+    EXPECT_EQ(ind.column, 4);
+    EXPECT_EQ(ind.row, 4);
 }
 
