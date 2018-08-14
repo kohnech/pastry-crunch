@@ -15,7 +15,8 @@ class Assets
 {
 public:
     Assets();
-    void load(std::string);
+    void loadFile(std::string);
+    void loadJson(json js);
     std::string getBackgroundPath();
     std::pair<int, int> getScreenSize();
     std::vector<std::string> getGridAssets();
@@ -28,6 +29,7 @@ public:
     std::string getHighlightAsset();
     std::string getFont();
     int getFontSize();
+    void printAssets();
 
 private:
     json mJ;

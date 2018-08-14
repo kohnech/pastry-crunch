@@ -36,7 +36,7 @@ bool App::onInit()
 
     /// Settings & assets
     Assets assets;
-    assets.load("./assets/assets.json");
+    assets.loadFile("./assets/assets.json");
 
     std::pair<int, int> size = assets.getScreenSize();
     mWidth = size.first;
