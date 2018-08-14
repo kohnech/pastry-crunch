@@ -27,7 +27,7 @@ INCLUDE_DIRS += -I$(PROJ_ROOT)/inc \
 ## Libs
 LIBS = -lSDL2 -lSDL2main -lSDL2_image -lsndio -pthread -lSDL2_ttf -lfreetype
 LIBS_PATH = -L$(BUILDDIR) -L$(SDL_PATH)/lib -L$(SDL_IMAGE_PATH)/lib -L$(3RDPARTYDIR)/sndio -L$(SDL_TTF_PATH)/lib -L$(SDL_FREETYPE_PATH)/lib
-export LD_LIBRARY_PATH=$(SDL_PATH)/lib:$(3RDPARTYDIR)/sndio:$(SDL_IMAGE_PATH)/lib:$LD_LIBRARY_PATH:$(BUILDDIR)
+export LD_LIBRARY_PATH=$(SDL_PATH)/lib:$(3RDPARTYDIR)/sndio:$(SDL_IMAGE_PATH)/lib:$(BUILDDIR):$(SDL_TTF_PATH)/lib:$(SDL_FREETYPE_PATH)/lib
 export LD_LIBRARY_PATH_=$(LD_LIBRARY_PATH)
 
 ## Compiler

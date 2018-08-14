@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Assets.h"
+#include "CommonTypes.h"
+
 #include <SDL2/SDL.h>
 
 #include <iostream>
@@ -37,12 +39,25 @@ public:
     virtual void render(SDL_Surface* Surf_Display) = 0;
     virtual void cleanup() = 0;
 
-    virtual inline std::pair<int, int> getPosition()
+    inline Pair getPosition()
     {
-        std::pair<int, int> position;
+        Pair position;
         position.first = mX;
         position.second = mY;
         return position;
+    }
+
+    inline Pair getSize()
+    {
+        Pair size;
+        size.first = mWidth;
+        size.second = mHeight;
+        return size;
+    }
+
+    inline void setSize(Pair size) {
+        mWidth = size.first;
+        mHeight = size.second;
     }
 
 protected:

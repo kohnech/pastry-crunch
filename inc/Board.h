@@ -27,6 +27,8 @@ public:
 
     void cleanup();
 
+    Pair getBoardSize();
+
 protected:
     std::string mTileAsset;
     int mHighlightX, mHighlightY;

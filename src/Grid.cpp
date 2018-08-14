@@ -5,13 +5,15 @@
 #include <iostream>
 #include <map>
 #include <random>
-#include <cstdlib>
+#include <stdlib.h>
 
 Grid Grid::instance;
 
 Grid::Grid(int x, int y)
-: mBrickWidth{ ICON_WIDTH }
-, mBrickHeight{ ICON_HEIGHT }
+: mGrid{ NULL }
+, mImagePath{""}
+, mTileWidth{ ICON_WIDTH }
+, mTileHeight{ ICON_HEIGHT }
 , mPrevClickedIndexes{ 0, 0 }
 {
     mX = x;
@@ -34,10 +36,11 @@ void Grid::setPosition(int x, int y)
 
 bool Grid::load(Assets& assets)
 {
+    assets.printAssets();
     mAssets = assets.getGridAssets();
     std::pair<int, int> gridAssetSize = assets.getGridAssetSize();
-    mBrickWidth = gridAssetSize.first;
-    mBrickHeight = gridAssetSize.second;
+    mTileWidth = gridAssetSize.first;
+    mTileHeight = gridAssetSize.second;
 
     std::cout << "mTileAsset: " << mTileAsset << std::endl;
 
@@ -71,8 +74,8 @@ void Grid::render(SDL_Surface* Surf_Display)
     {
         for (int y = 0; y < mGridColumnSize; ++y)
         {
-            int xPos = x * mBrickWidth;
-            int yPos = y * mBrickHeight;
+            int xPos = x * mTileWidth;
+            int yPos = y * mTileHeight;
 
             Entity* entity = mGrid[x][y];
             // CSurface::OnDraw(Surf_Display, src->Surf_Entity, xPos, yPos, 0, 0, 100, 100);
@@ -84,11 +87,18 @@ void Grid::render(SDL_Surface* Surf_Display)
 
 void Grid::cleanup()
 {
+    if (mGrid == NULL) {
+        std::cout << "ERROR: You must initialize the grid with load()!" << std::endl;
+        return;
+    }
     for (int x = 0; x < mGridRowSize; ++x)
     {
         for (int y = 0; y < mGridColumnSize; ++y)
         {
-            delete mGrid[x][y];
+            if (mGrid[x][y]) {
+                delete mGrid[x][y];
+                mGrid[x][y] = NULL;
+            }
         }
     }
 }
@@ -150,8 +160,7 @@ void Grid::loadEntity(int row, int column, int id)
 {
     std::string asset = mAssets[id];
     Entity* entity  = new Entity(id);
-    // TODO use mTileWidth / mTileHeight instead for Tile below... Need to read it out from asset mng.
-    entity->load(asset.c_str(), mBrickWidth, mBrickHeight);
+    entity->load(asset.c_str(), mTileWidth, mTileHeight);
     mGrid[row][column] = entity;
 }
 
@@ -179,10 +188,23 @@ Index Grid::getIndexesFromPosition(int x, int y)
         return {0, 0};
     }
 
+    /// Check board boundaries
+    if (x < mX || x >= (mWidth * mGridRowSize + mX) ||
+        y < mY || y >= (mHeight * mGridColumnSize + mY))
+    {
+        std::cout << "Out of boundary" << std::endl;
+        return {0, 0};
+    }
+
     /// Calculate board coordinate
     int row = (x - mX) / mWidth;
     int column = (y - mY) / mHeight;
     std::cout << "Pressed coordinate: (" << row << ", " << column << ")" << std::endl;
+
+    if (row < 0 || column < 0)
+    {
+        return {0, 0};
+    }
 
     mHighlightX = row;
     mHighlightY = column;
@@ -213,6 +235,9 @@ void Grid::update(const Index& pos)
         }
         //swapEntity(pos, mPrevClickedIndexes); // Undo swap
     }
+    else {
+        std::cout << "No adjacent neighbour found!!!" << std::endl;
+    }
 
     mPrevClickedIndexes = pos;
 }
@@ -221,16 +246,30 @@ bool Grid::isAdjacent(const Index& ind)
 {
     return (ind.column == mPrevClickedIndexes.column ||
             ind.row == mPrevClickedIndexes.row)
-           && std::abs(ind.column - mPrevClickedIndexes.column) <= 1
-           && std::abs(ind.row - mPrevClickedIndexes.row) <= 1;
+           && abs(ind.column - mPrevClickedIndexes.column) <= 1
+           && abs(ind.row - mPrevClickedIndexes.row) <= 1;
 }
 
 void Grid::swapEntity(Index from, Index to)
 {
-        // swap entities by swapping them in the grid matrix
-        Entity* temp = mGrid[from.row][from.column];
-        mGrid[from.row][from.column] = mGrid[to.row][to.column];
-        mGrid[to.row][to.column] = temp;
+    // First make boundary checks
+    if (from.row < 0 || from.column < 0 || to.row < 0 || to.column < 0)
+    {
+        std::cout << "Try a better index!" << std::endl;
+        return;
+    }
+    Index max = getIndexesFromPosition(mWidth * mGridRowSize + mX - 1, mHeight * mGridColumnSize + mY - 1);
+
+    if (from.row > max.row || from.column > max.column || to.row > max.row || to.column > max.column)
+    {
+        std::cout << "Try a better index!" << std::endl;
+        return;
+    }
+
+    // swap entities by swapping them in the grid matrix
+    Entity* temp = mGrid[from.row][from.column];
+    mGrid[from.row][from.column] = mGrid[to.row][to.column];
+    mGrid[to.row][to.column] = temp;
 }
 
 std::vector<Index> Grid::findVerticalMatches(const Index& ind)
@@ -311,4 +350,34 @@ std::vector<Index> Grid::findHorizontalMatches(const Index& ind)
         matches.clear();
 
     return matches;
+}
+
+std::vector<std::string> Grid::getAssets()
+{
+    return mAssets;
+}
+
+Entity* Grid::getEntity(Index ind)
+{
+    // First make boundary checks
+    if (ind.row < 0 || ind.column < 0)
+    {
+        std::cout << "Try a better index, return minimum entity at index (0,0)!" << std::endl;
+        return mGrid[0][0];
+    }
+
+    Index max = getIndexesFromPosition(mWidth * mGridRowSize + mX - 1, mHeight * mGridColumnSize + mY - 1);
+
+    if (ind.row > max.row || ind.column > max.column)
+    {
+        std::cout << "Try a better index, return maximum entity!" << std::endl;
+        return mGrid[max.row][max.column];
+    }
+
+    return mGrid[ind.row][ind.column];
+}
+
+void Grid::setGridMatrix(Entity*** grid)
+{
+    mGrid = grid;
 }
