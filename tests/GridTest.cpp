@@ -12,7 +12,7 @@ using json = nlohmann::json;
 TEST(GridTests, Test_function_load)
 {
     Assets assets;
-    assets.load("assets.json");
+    assets.loadFile("assets.json");
 
     Grid testGrid;
 
@@ -45,7 +45,7 @@ TEST(GridTests, Test_function_load)
 TEST(GridTests, Test_function_getIndexesFromPosition)
 {
     Assets assets;
-    assets.load("assets.json");
+    assets.loadFile("assets.json");
 
     Grid testGrid;
     testGrid.load(assets);
@@ -93,7 +93,7 @@ TEST(GridTests, Test_function_getIndexesFromPosition)
 TEST(GridTests, Test_function_isAdjacent)
 {
     Assets assets;
-    assets.load("assets.json");
+    assets.loadFile("assets.json");
 
     Grid testGrid;
     testGrid.load(assets);
@@ -131,7 +131,7 @@ TEST(GridTests, Test_function_isAdjacent)
 TEST(GridTests, Test_function_swapEntity)
 {
     Assets assets;
-    assets.load("assets.json");
+    assets.loadFile("assets.json");
 
     Grid testGrid;
     testGrid.load(assets);
@@ -171,7 +171,7 @@ TEST(GridTests, Test_function_swapEntity)
     newFrom = testGrid.getEntity(indFrom);
     newTo = testGrid.getEntity(indTo);
 
-    EXPECT_EQ(nullptr, newTo);
+    EXPECT_EQ(testGrid.getEntity(Index(4, 4)), newTo);
     EXPECT_EQ(from, newFrom);
-    EXPECT_EQ(nullptr, to);
+    EXPECT_EQ(testGrid.getEntity(Index(4, 4)), to);
 }

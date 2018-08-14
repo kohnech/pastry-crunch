@@ -14,7 +14,7 @@ Assets::Assets()
 {
 }
 
-void Assets::load(std::string file)
+void Assets::loadFile(std::string file)
 {
     try {
         std::ifstream ifs(file);
