@@ -15,7 +15,7 @@ class Assets
 {
 public:
     Assets();
-    void load(std::string);
+    void loadFile(std::string);
     void loadJson(json js);
     std::string getBackgroundPath();
     std::pair<int, int> getScreenSize();

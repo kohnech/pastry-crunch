@@ -362,16 +362,16 @@ Entity* Grid::getEntity(Index ind)
     // First make boundary checks
     if (ind.row < 0 || ind.column < 0)
     {
-        std::cout << "Try a better index!" << std::endl;
-        return nullptr;
+        std::cout << "Try a better index, return minimum entity at index (0,0)!" << std::endl;
+        return mGrid[0][0];
     }
 
     Index max = getIndexesFromPosition(mWidth * mGridRowSize + mX - 1, mHeight * mGridColumnSize + mY - 1);
 
     if (ind.row > max.row || ind.column > max.column)
     {
-        std::cout << "Try a better index!" << std::endl;
-        return nullptr;
+        std::cout << "Try a better index, return maximum entity!" << std::endl;
+        return mGrid[max.row][max.column];
     }
 
     return mGrid[ind.row][ind.column];
