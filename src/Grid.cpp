@@ -129,8 +129,12 @@ void Grid::initGrid()
     //if (mGrid != null)
     //    destroyAllEntities();
 
+<<<<<<< 670935e3980bd2a6bf2584e3cb2360abe9afb584
 
     for (int row = 0; row < mGridRowSize; row++)
+=======
+    for (int row = 0; row < mGridColumnSize; row++)
+>>>>>>> Add collapse game logic NOTE WIP!
     {
         for (int column = 0; column < mGridColumnSize; column++)
         {
@@ -150,7 +154,6 @@ void Grid::initGrid()
             {
                 newId = getRandomInt();
             }
-
 
             loadEntity(row, column, newId);
         }
@@ -240,6 +243,7 @@ void Grid::update(const Index& pos)
         }
 
         // Now we need collapse the matces
+        removeMatches(matches);
     }
     else {
         std::cout << "No adjacent neighbour found!!!" << std::endl;
@@ -358,6 +362,7 @@ std::vector<Index> Grid::findHorizontalMatches(const Index& ind)
     return matches;
 }
 
+
 std::vector<std::string> Grid::getAssets()
 {
     return mAssets;
@@ -402,5 +407,199 @@ Index Grid::getMaximumGridIndex()
     Index ind(row, column);
     std::cout << "Maximum coordinate: (" << row << ", " << column << ")" << std::endl;
     return ind;
+}
+
+void Grid::removeMatches(const std::vector<Index>& matches)
+{
+    // First create new entities with number of matches
+    /*for(Index ind : matches)
+    {
+        int newId = getRandomInt();
+        loadEntity(row, column, newId);
+    }*/
+
+
+    for (Index ind : matches)
+    {
+        delete mGrid[ind.row][ind.column];
+        mGrid[ind.row][ind.column] = NULL;
+    }
+
+    /*
+    collapseColumns(matches);
+printGrid();
+
+    fillCollapsedColumns(matches);
+printGrid();
+     */
+
+printGrid();
+
+    std::vector<int> columns = getDistinctColumns(matches);
+
+    collapse(columns);
+printGrid();
+    createNewEntitiesInColumns(columns);
+
+    /*
+    // get columns that we have to collapse
+    var columns = totalMatches.Select(go => go.GetComponent<Shape>().Column).Distinct();
+
+    //the order the 2 methods below get called is important!!!
+    //collapse the ones gone
+    var collapsedCandyInfo = shapes.Collapse(columns);
+    //create new ones
+    var newCandyInfo = CreateNewCandyInSpecificColumns(columns);*/
+}
+
+void Grid::collapseColumns(const std::vector<Index>& matches)
+{
+    for (Index ind : matches)
+    {
+        for (int column = ind.column; column > 0; --column)
+        {
+            mGrid[ind.row][column] = mGrid[ind.row][column -1];
+        }
+    }
+}
+
+void Grid::printGrid() {
+    for (int column = 0; column < mGridColumnSize; column++)
+    {
+        for (int row = 0; row < mGridRowSize; row++)
+        {
+            if (mGrid[row][column] == NULL) {
+                std::cout << 0;
+            }
+            else {
+                std::cout << 1;
+            }
+        }
+        std::cout << std::endl;
+    }
+}
+
+void Grid::fillCollapsedColumns(const std::vector<Index>& matches)
+{
+    std::vector<int> columns = getDistinctColumns(matches);
+
+    collapse(columns);
+
+
+/*    std::map<int, int> collapsed;
+    std::vector<int> number
+
+    for (Index ind : matches)
+    {
+        collapsed[ind.column]++;
+        std::cout << "ind.column: "<< ind.column << std::endl;
+    }
+
+    for (auto col : collapsed)
+    {
+        std::cout << "column:  " << col.first <<  "number:" <<   col.second << std::endl;
+    }*/
+}
+
+std::vector<int> Grid::getDistinctColumns(const std::vector<Index>& matches)
+{
+    std::vector<int> columns;
+    for (Index ind : matches)
+    {
+        columns.push_back(ind.column);
+    }
+    std::sort(columns.begin(), columns.end());
+    auto last = std::unique(columns.begin(), columns.end());
+    columns.erase(last, columns.end());
+
+    for (int column : columns)
+    {
+        std::cout << "column: " << column  << std::endl;
+    }
+    return columns;
+}
+
+
+void Grid::collapse(std::vector<int> columns)
+{
+    //AlteredCandyInfo collapseInfo = new AlteredCandyInfo();
+
+
+    ///search in every column
+    for (int column : columns)
+    {
+        //begin from bottom row
+        for (int row = 0; row < mGridRowSize - 1; row++)
+        {
+            //if you find a null item
+            if (mGrid[row][column] == NULL)
+            {
+                //start searching for the first non-null
+                for (int row2 = row + 1; row2 < mGridRowSize; row2++)
+                {
+                    //if you find one, bring it down (i.e. replace it with the null you found)
+                    if (mGrid[row2][column] != NULL)
+                    {
+                        mGrid[row][column] = mGrid[row2][column];
+                        mGrid[row2][column] = NULL;
+
+                        //calculate the biggest distance
+                       // if (row2 - row > collapseInfo.MaxDistance)
+                       //     collapseInfo.MaxDistance = row2 - row;
+
+                        //assign new row and column (name does not change)
+                        //mGrid[row][column].GetComponent<Shape>().Row = row;
+                        //mGrid[row][column].GetComponent<Shape>().Column = column;
+
+                        //collapseInfo.AddCandy(shapes[row, column]);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    //return collapseInfo;
+}
+
+void Grid::createNewEntitiesInColumns(std::vector<int> columns)
+{
+    //AlteredCandyInfo newCandyInfo = new AlteredCandyInfo();
+
+    //find how many null values the column has
+    for (int column : columns)
+    {
+        std::vector<Index> emptyItems = getEmptyItemsOnColumn(column);
+        for (auto item : emptyItems)
+        {
+            int go = getRandomInt();
+
+            loadEntity(item.row, item.column, go);
+
+            //GameObject newCandy = Instantiate(go, SpawnPositions[column], Quaternion.identity)
+            //as GameObject;
+
+            //newCandy.GetComponent<Shape>().Assign(go.GetComponent<Shape>().Type, item.Row, item.Column);
+
+            //if (Constants.Rows - item.Row > newCandyInfo.MaxDistance)
+            //    newCandyInfo.MaxDistance = Constants.Rows - item.Row;
+
+            //mGrid[item.Row][item.Column] = newCandy;
+            //newCandyInfo.AddCandy(newCandy);
+        }
+    }
+    //return newCandyInfo;
+}
+
+
+std::vector<Index> Grid::getEmptyItemsOnColumn(int column)
+{
+    std::vector<Index> emptyItems;
+    for (int row = 0; row < mGridRowSize; row++)
+    {
+        if (mGrid[row][column] == NULL)
+            emptyItems.push_back(Index(row,column));
+    }
+    return emptyItems;
 }
 
