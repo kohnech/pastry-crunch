@@ -145,6 +145,12 @@ public:
       */
       void setGridMatrix(Entity*** grid);
 
+      /*!
+       * Moves current highlight position to new index
+       * @param index new index to highlight
+       */
+      void setHighlightPosition(const Index& index);
+
 private:
     std::vector<std::string> mAssets;
     Entity*** mGrid;

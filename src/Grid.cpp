@@ -171,6 +171,7 @@ void Grid::onLButtonDown(int x, int y)
     std::cout << "mWidth: " << mWidth << ", mHeight: " << mHeight << std::endl;
 
     Index index = getIndexesFromPosition(x, y);
+    setHighlightPosition(index);
 
     update(index);
 }
@@ -206,8 +207,7 @@ Index Grid::getIndexesFromPosition(int x, int y)
         return {0, 0};
     }
 
-    mHighlightX = row;
-    mHighlightY = column;
+
 
     Index index(row, column);
     return index;
@@ -381,3 +381,10 @@ void Grid::setGridMatrix(Entity*** grid)
 {
     mGrid = grid;
 }
+
+void Grid::setHighlightPosition(const Index& index)
+{
+    mHighlightX = index.row;
+    mHighlightY = index.column;
+}
+
