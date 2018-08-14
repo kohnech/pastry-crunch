@@ -159,7 +159,24 @@ public:
       * Load a pre grid used for unit test purpose.
       * Then it will not use any ranomness...
       */
-      void setGridMatrix(Entity*** grid);
+    void setGridMatrix(Entity*** grid);
+
+    //////////////////
+    void removeMatches(const std::vector<Index>& matches);
+
+    void collapseColumns(const std::vector<Index>& matches);
+
+    void printGrid();
+
+    void fillCollapsedColumns(const std::vector<Index>& matches);
+
+    std::vector<int> getDistinctColumns(const std::vector<Index>& matches);
+
+    void collapse(std::vector<int> columns);
+
+    void createNewEntitiesInColumns(std::vector<int> columns);
+
+    std::vector<Index> getEmptyItemsOnColumn(int column);
 
       /*!
        * Moves current highlight position to new index
