@@ -49,15 +49,16 @@ bool Grid::load(Assets& assets)
     mY = gridPosition.second;
 
     std::pair<int, int> gridSize = assets.getGridSize();
-    mGridRowSize = gridSize.first;
-    mGridColumnSize = gridSize.second;
+    mGridRowSize = gridSize.first; // x-axis
+    mGridColumnSize = gridSize.second; // y-axis
 
     std::cout << "Grid size: " << mGridRowSize << " x " << mGridColumnSize << std::endl;
 
     // Allocate on heap the grid
     mGrid = new Entity**[mGridRowSize];
-    for (int i = 0; i < mGridRowSize; ++i)
-        mGrid[i] = new Entity*[mGridColumnSize];
+    for (int i = 0; i < mGridRowSize; i++) {
+        mGrid[i] = new Entity *[mGridColumnSize];
+    }
 
     Board::load(assets);
 
@@ -129,9 +130,9 @@ void Grid::initGrid()
     //    destroyAllEntities();
 
 
-    for (int row = 0; row < mGridColumnSize; row++)
+    for (int row = 0; row < mGridRowSize; row++)
     {
-        for (int column = 0; column < mGridRowSize; column++)
+        for (int column = 0; column < mGridColumnSize; column++)
         {
 
             int newId = getRandomInt();
@@ -293,7 +294,7 @@ std::vector<Index> Grid::findVerticalMatches(const Index& ind)
 
     //check right
     if (ind.column != mGridRowSize - 1)
-        for (int column = ind.column + 1; column < mGridRowSize; column++)
+        for (int column = ind.column + 1; column < mGridColumnSize; column++)
         {
             if (mGrid[ind.row][column]->id == shape->id)
             {
