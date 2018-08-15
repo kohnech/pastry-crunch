@@ -59,5 +59,5 @@ void Sounds::play(std::string ID)
 
 void Sounds::stop()
 {
-    //Mix_HaltChannel // TODO fix me
+    Mix_HaltChannel(-1); // Stop all channels
 }

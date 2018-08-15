@@ -196,6 +196,12 @@ void App::onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode)
     case SDLK_2:
         Sounds::instance.play("kaChing");
         break;
+    case SDLK_3:
+        Sounds::instance.play("mining");
+        break;
+    case SDLK_9:
+        Sounds::instance.stop();
+        break;
 
     default:
     {
