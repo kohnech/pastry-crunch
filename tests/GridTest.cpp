@@ -175,3 +175,23 @@ TEST(GridTests, Test_function_swapEntity)
     EXPECT_EQ(from, newFrom);
     EXPECT_EQ(testGrid.getEntity(Index(4, 4)), to);
 }
+
+TEST(GridTests, Test_function_getDistinctColumns)
+{
+    Assets assets;
+    assets.loadFile("assets.json");
+    Grid testGrid;
+    testGrid.load(assets); // TODO create fixture...
+
+    std::vector<Index> matches;
+    Index ind1(1, 1);
+    Index ind2(2, 1);
+    Index ind3(3, 1);
+
+    matches = {ind1, ind2, ind3};
+
+    std::vector<int> columns = testGrid.getDistinctRows(matches);
+    EXPECT_EQ(columns.at(0), 1);
+    EXPECT_EQ(columns.at(1), 2);
+    EXPECT_EQ(columns.at(2), 3);
+}

@@ -282,12 +282,12 @@ std::vector<Index> Grid::findVerticalMatches(const Index& ind)
     std::vector<Index> matches;
 
     matches.push_back(ind);
-    Entity* shape = mGrid[ind.row][ind.column];
+    Entity* entity = mGrid[ind.row][ind.column];
     //check left
     if (ind.column != 0)
         for (int column = ind.column - 1; column >= 0; column--)
         {
-            if (mGrid[ind.row][column]->id == shape->id)
+            if (mGrid[ind.row][column]->id == entity->id)
             {
                 Index tmp(ind.row, column);
                 matches.push_back(tmp);
@@ -300,7 +300,7 @@ std::vector<Index> Grid::findVerticalMatches(const Index& ind)
     if (ind.column != mGridRowSize - 1)
         for (int column = ind.column + 1; column < mGridColumnSize; column++)
         {
-            if (mGrid[ind.row][column]->id == shape->id)
+            if (mGrid[ind.row][column]->id == entity->id)
             {
                 Index tmp(ind.row, column);
                 matches.push_back(tmp);
@@ -322,13 +322,13 @@ std::vector<Index> Grid::findHorizontalMatches(const Index& ind)
 {
     std::vector<Index> matches;
     matches.push_back(ind);
-    Entity* shape = mGrid[ind.row][ind.column];
+    Entity* entity = mGrid[ind.row][ind.column];
     //check bottom
     if (ind.row != 0)
         for (int row = ind.row - 1; row >= 0; row--)
         {
             if (mGrid[row][ind.column] != NULL &&
-                mGrid[row][ind.column]->id == shape->id)
+                mGrid[row][ind.column]->id == entity->id)
             {
                 Index tmp(row, ind.column);
                 matches.push_back(tmp);
@@ -342,7 +342,7 @@ std::vector<Index> Grid::findHorizontalMatches(const Index& ind)
         for (int row = ind.row + 1; row < mGridRowSize; row++)
         {
             if (mGrid[row][ind.column] != NULL &&
-                mGrid[row][ind.column]->id == shape->id)
+                mGrid[row][ind.column]->id == entity->id)
             {
                 Index tmp(row, ind.column);
                 matches.push_back(tmp);
@@ -430,7 +430,7 @@ printGrid();
 
 printGrid();
 
-    std::vector<int> columns = getDistinctColumns(matches);
+    std::vector<int> columns = getDistinctRows(matches);
 
     collapse(columns);
 printGrid();
@@ -476,7 +476,7 @@ void Grid::printGrid() {
 
 void Grid::fillCollapsedColumns(const std::vector<Index>& matches)
 {
-    std::vector<int> columns = getDistinctColumns(matches);
+    std::vector<int> columns = getDistinctRows(matches);
 
     collapse(columns);
 
@@ -496,47 +496,45 @@ void Grid::fillCollapsedColumns(const std::vector<Index>& matches)
     }*/
 }
 
-std::vector<int> Grid::getDistinctColumns(const std::vector<Index>& matches)
+std::vector<int> Grid::getDistinctRows(const std::vector<Index>& matches)
 {
-    std::vector<int> columns;
+    std::vector<int> rows;
     for (Index ind : matches)
     {
-        columns.push_back(ind.column);
+        rows.push_back(ind.row);
     }
-    std::sort(columns.begin(), columns.end());
-    auto last = std::unique(columns.begin(), columns.end());
-    columns.erase(last, columns.end());
+    std::sort(rows.begin(), rows.end());
+    auto last = std::unique(rows.begin(), rows.end());
+    rows.erase(last, rows.end());
 
-    for (int column : columns)
+    for (int row : rows)
     {
-        std::cout << "column: " << column  << std::endl;
+        std::cout << "row: " << row  << std::endl;
     }
-    return columns;
+    return rows;
 }
 
 
-void Grid::collapse(std::vector<int> columns)
+void Grid::collapse(std::vector<int> rows)
 {
-    //AlteredCandyInfo collapseInfo = new AlteredCandyInfo();
 
-
-    ///search in every column
-    for (int column : columns)
+    ///search in every row
+    for (int row : rows)
     {
-        //begin from bottom row
-        for (int row = 0; row < mGridRowSize - 1; row++)
+        //begin from last column
+        for (int y = mGridColumnSize - 1; y > 0; y--)
         {
             //if you find a null item
-            if (mGrid[row][column] == NULL)
+            if (mGrid[row][y] == NULL)
             {
-                //start searching for the first non-null
-                for (int row2 = row + 1; row2 < mGridRowSize; row2++)
+                //start searching for the first non-null from one top above of the grid
+                for (int y2 = y - 1; y2 >= 0; y2--)
                 {
                     //if you find one, bring it down (i.e. replace it with the null you found)
-                    if (mGrid[row2][column] != NULL)
+                    if (mGrid[row][y2] != NULL)
                     {
-                        mGrid[row][column] = mGrid[row2][column];
-                        mGrid[row2][column] = NULL;
+                        mGrid[row][y] = mGrid[row][y2];
+                        mGrid[row][y2] = NULL;
 
                         //calculate the biggest distance
                        // if (row2 - row > collapseInfo.MaxDistance)
@@ -553,7 +551,6 @@ void Grid::collapse(std::vector<int> columns)
             }
         }
     }
-
     //return collapseInfo;
 }
 
