@@ -53,7 +53,7 @@ SDL_Texture* Surface::loadTexture(SDL_Renderer* renderer, const std::string& str
 
 SDL_Surface* Surface::loadImage(const std::string path)
 {
-    printf("Surface::loadImage... %s\n", path.c_str());
+    // printf("Surface::loadImage... %s\n", path.c_str());
     // Load image at specified path
     SDL_Surface* loadedSurface = IMG_Load(path.c_str());
     if (loadedSurface == NULL)
