@@ -21,6 +21,8 @@ public:
 
     void play(std::string ID);
 
+    void stop();
+
 private:
     std::map<std::string, Mix_Chunk*>     mSounds;
 };
