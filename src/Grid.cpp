@@ -242,6 +242,10 @@ void Grid::update(const Index& pos)
         // Get total matches
         matches.insert( matches.end(), matchesHor.begin(), matchesHor.end() );
 
+        // Update score
+        mScore += matches.size() * mMinimumScore;
+        updateScore();
+
         for (auto ind : matches)
         {
             std::cout << "match: (" << ind.row << ", " << ind.column << ")" << std::endl;
@@ -445,16 +449,7 @@ printGrid();
 
     std::vector<int> rows = getDistinctRows(matches);
 
-    //collapse(rows);
-    int collapses = collapse(rows);
-    std::cout << "Adding score: " << mMinimumScore * collapses << std::endl;
-    mScore += mMinimumScore * collapses;
-
-    std::string str;
-    str = "Score: " + std::to_string(mScore);
-    mScoreText.setText(str);
-
-    std::cout << "mSCore: " << mScore << std::endl;
+    collapse(rows);
 
 
 printGrid();
@@ -591,4 +586,13 @@ std::vector<Index> Grid::getEmptyItemsOnColumn(int row)
 void Grid::setVoid(const Index& index)
 {
     mGrid[index.row][index.column] = NULL;
+}
+
+void Grid::updateScore()
+{
+    std::string str;
+    str = "Score: " + std::to_string(mScore);
+    mScoreText.setText(str);
+
+    std::cout << "mSCore: " << mScore << std::endl;
 }

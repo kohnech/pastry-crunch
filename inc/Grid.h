@@ -229,6 +229,11 @@ public:
      */
     Index getMaximumGridIndex();
 
+    /*!
+     * Updates the new score on next rendering cycle
+     */
+    void updateScore();
+
 private:
     std::vector<std::string> mAssets;
     Entity*** mGrid;

@@ -216,11 +216,12 @@ TEST(GridTests, Test_function_collapse)
 
     // Now collapse the void
     std::vector<int> columns = {1};
-    testGrid.collapse(columns);
+    int num = testGrid.collapse(columns);
 
     // Check we collapsed the above index (1, 0)
     EXPECT_EQ(NULL, testGrid.getEntity(ind0));
     EXPECT_TRUE(testGrid.getEntity(ind1) != NULL);
+    EXPECT_EQ(1, num);
 
 
     // Test collapse Index (4, 1), (4, 2)
@@ -236,10 +237,11 @@ TEST(GridTests, Test_function_collapse)
 
     // Now collpase the voids
     columns = {4};
-    testGrid.collapse(columns);
+    num = testGrid.collapse(columns);
 
     // Check we collapsed the above index (1, 0)
     EXPECT_EQ(NULL, testGrid.getEntity(ind0));
     EXPECT_EQ(NULL, testGrid.getEntity(ind1));
     EXPECT_TRUE(testGrid.getEntity(ind2) != NULL);
+    EXPECT_EQ(2, num);
 }
