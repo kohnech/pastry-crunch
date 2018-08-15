@@ -129,12 +129,7 @@ void Grid::initGrid()
     //if (mGrid != null)
     //    destroyAllEntities();
 
-<<<<<<< 670935e3980bd2a6bf2584e3cb2360abe9afb584
-
     for (int row = 0; row < mGridRowSize; row++)
-=======
-    for (int row = 0; row < mGridColumnSize; row++)
->>>>>>> Add collapse game logic NOTE WIP!
     {
         for (int column = 0; column < mGridColumnSize; column++)
         {
