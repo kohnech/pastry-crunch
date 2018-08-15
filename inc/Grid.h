@@ -167,6 +167,13 @@ public:
        */
       void setHighlightPosition(const Index& index);
 
+      /*!
+       * Returns the maximum Grid index
+       * @return maximum grid index which naturally is the width & height
+       * of the grid...
+       */
+        Index getMaximumGridIndex();
+
 private:
     std::vector<std::string> mAssets;
     Entity*** mGrid;
