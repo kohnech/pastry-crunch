@@ -170,7 +170,7 @@ public:
 
     void fillCollapsedColumns(const std::vector<Index>& matches);
 
-    std::vector<int> getDistinctColumns(const std::vector<Index>& matches);
+    std::vector<int> getDistinctRows(const std::vector<Index>& matches);
 
     void collapse(std::vector<int> columns);
 
@@ -178,18 +178,18 @@ public:
 
     std::vector<Index> getEmptyItemsOnColumn(int column);
 
-      /*!
-       * Moves current highlight position to new index
-       * @param index new index to highlight
-       */
-      void setHighlightPosition(const Index& index);
+    /*!
+     * Moves current highlight position to new index
+     * @param index new index to highlight
+     */
+    void setHighlightPosition(const Index& index);
 
-      /*!
-       * Returns the maximum Grid index
-       * @return maximum grid index which naturally is the width & height
-       * of the grid...
-       */
-        Index getMaximumGridIndex();
+    /*!
+     * Returns the maximum Grid index
+     * @return maximum grid index which naturally is the width & height
+     * of the grid...
+     */
+    Index getMaximumGridIndex();
 
 private:
     std::vector<std::string> mAssets;
