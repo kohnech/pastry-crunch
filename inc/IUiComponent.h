@@ -39,6 +39,11 @@ public:
     virtual void render(SDL_Surface* Surf_Display) = 0;
     virtual void cleanup() = 0;
 
+    inline void setPosition(int x, int y)
+    {
+        mX = x; mY = y;
+    }
+
     inline Pair getPosition()
     {
         Pair position;
