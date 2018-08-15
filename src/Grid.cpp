@@ -17,6 +17,7 @@ Grid::Grid(int x, int y)
 , mPrevClickedIndexes{ 0, 0 }
 , mMinimumScore{ 10 }
 , mScore{ 0 }
+, mMinimumMatches{ 0 }
 {
     mX = x;
     mY = y;
@@ -57,6 +58,7 @@ bool Grid::load(Assets& assets)
     std::cout << "Grid size: " << mGridRowSize << " x " << mGridColumnSize << std::endl;
 
     mMinimumScore = assets.getMinimumScores();
+    mMinimumMatches = assets.getMinimumMatches();
 
     // Allocate on heap the grid
     mGrid = new Entity**[mGridRowSize];
@@ -245,8 +247,8 @@ void Grid::update(const Index& pos)
             std::cout << "match: (" << ind.row << ", " << ind.column << ")" << std::endl;
         }
 
-        // Undo swap if no more than 3
-        if (matches.size() < 3) // TODO fix magic number
+        // Undo swap if no more than mMinimumMatches
+        if (matches.size() < mMinimumMatches)
         {
             swapEntity(pos, mPrevClickedIndexes); // Undo swap
             mPrevClickedIndexes = pos;
@@ -334,9 +336,8 @@ std::vector<Index> Grid::findVerticalMatches(const Index& ind)
         }
     std::cout << "size of matches: " << matches.size() << std::endl;
 
-    // TODO read from settings... 3, no magic numbers!!!
-    // we are only interested in a set of more than 3 connected entities
-    if (matches.size() < 3)
+    // we are only interested in a set of more than mMinimumMatches connected entities
+    if (matches.size() < mMinimumMatches)
         matches.clear();
 
     return matches;
@@ -381,7 +382,7 @@ std::vector<Index> Grid::findHorizontalMatches(const Index& ind)
                 break;
         }
 
-    if (matches.size() < 3) // TODO fixme
+    if (matches.size() < mMinimumMatches)
         matches.clear();
 
     return matches;
