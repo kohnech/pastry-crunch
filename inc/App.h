@@ -53,6 +53,4 @@ private:
 
     int mWidth;
     int mHeight;
-
-    Text mScore;
 };

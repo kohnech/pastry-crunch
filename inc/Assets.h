@@ -30,6 +30,8 @@ public:
     std::string getFont();
     int getFontSize();
     void printAssets();
+    int getMinimumScores();
+    int getMinimumMatches();
 
 private:
     json mJ;
