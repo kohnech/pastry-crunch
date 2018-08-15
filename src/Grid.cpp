@@ -254,6 +254,9 @@ void Grid::update(const Index& pos)
         // Undo swap if no more than mMinimumMatches
         if (matches.size() < mMinimumMatches)
         {
+            //play sound
+            Sounds::instance.play("error");
+
             swapEntity(pos, mPrevClickedIndexes); // Undo swap
             mPrevClickedIndexes = pos;
             return;
