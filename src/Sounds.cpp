@@ -57,7 +57,7 @@ void Sounds::play(std::string ID)
     Mix_PlayChannel(-1, mSounds[ID], 0);
 }
 
-void Sounds::stop(std::string ID)
+void Sounds::stop()
 {
     //Mix_HaltChannel // TODO fix me
 }
