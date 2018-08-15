@@ -208,8 +208,6 @@ Index Grid::getIndexesFromPosition(int x, int y)
         return {0, 0};
     }
 
-
-
     Index index(row, column);
     return index;
 };
@@ -259,7 +257,7 @@ void Grid::swapEntity(Index from, Index to)
         std::cout << "Try a better index!" << std::endl;
         return;
     }
-    Index max = getIndexesFromPosition(mWidth * mGridRowSize + mX - 1, mHeight * mGridColumnSize + mY - 1);
+    Index max = getMaximumGridIndex();
 
     if (from.row > max.row || from.column > max.column || to.row > max.row || to.column > max.column)
     {
@@ -367,7 +365,7 @@ Entity* Grid::getEntity(Index ind)
         return mGrid[0][0];
     }
 
-    Index max = getIndexesFromPosition(mWidth * mGridRowSize + mX - 1, mHeight * mGridColumnSize + mY - 1);
+    Index max = getMaximumGridIndex();
 
     if (ind.row > max.row || ind.column > max.column)
     {
@@ -387,5 +385,15 @@ void Grid::setHighlightPosition(const Index& index)
 {
     mHighlightX = index.row;
     mHighlightY = index.column;
+}
+
+Index Grid::getMaximumGridIndex()
+{
+    // Simple math here...
+    int row = mGridRowSize - 1;
+    int column = mGridColumnSize - 1;
+    Index ind(row, column);
+    std::cout << "Maximum coordinate: (" << row << ", " << column << ")" << std::endl;
+    return ind;
 }
 
