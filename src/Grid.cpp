@@ -49,15 +49,16 @@ bool Grid::load(Assets& assets)
     mY = gridPosition.second;
 
     std::pair<int, int> gridSize = assets.getGridSize();
-    mGridRowSize = gridSize.first;
-    mGridColumnSize = gridSize.second;
+    mGridRowSize = gridSize.first; // x-axis
+    mGridColumnSize = gridSize.second; // y-axis
 
     std::cout << "Grid size: " << mGridRowSize << " x " << mGridColumnSize << std::endl;
 
     // Allocate on heap the grid
     mGrid = new Entity**[mGridRowSize];
-    for (int i = 0; i < mGridRowSize; ++i)
-        mGrid[i] = new Entity*[mGridColumnSize];
+    for (int i = 0; i < mGridRowSize; i++) {
+        mGrid[i] = new Entity *[mGridColumnSize];
+    }
 
     Board::load(assets);
 
@@ -129,9 +130,9 @@ void Grid::initGrid()
     //    destroyAllEntities();
 
 
-    for (int row = 0; row < mGridColumnSize; row++)
+    for (int row = 0; row < mGridRowSize; row++)
     {
-        for (int column = 0; column < mGridRowSize; column++)
+        for (int column = 0; column < mGridColumnSize; column++)
         {
 
             int newId = getRandomInt();
@@ -207,8 +208,6 @@ Index Grid::getIndexesFromPosition(int x, int y)
         return {0, 0};
     }
 
-
-
     Index index(row, column);
     return index;
 };
@@ -258,7 +257,7 @@ void Grid::swapEntity(Index from, Index to)
         std::cout << "Try a better index!" << std::endl;
         return;
     }
-    Index max = getIndexesFromPosition(mWidth * mGridRowSize + mX - 1, mHeight * mGridColumnSize + mY - 1);
+    Index max = getMaximumGridIndex();
 
     if (from.row > max.row || from.column > max.column || to.row > max.row || to.column > max.column)
     {
@@ -293,7 +292,7 @@ std::vector<Index> Grid::findVerticalMatches(const Index& ind)
 
     //check right
     if (ind.column != mGridRowSize - 1)
-        for (int column = ind.column + 1; column < mGridRowSize; column++)
+        for (int column = ind.column + 1; column < mGridColumnSize; column++)
         {
             if (mGrid[ind.row][column]->id == shape->id)
             {
@@ -366,7 +365,7 @@ Entity* Grid::getEntity(Index ind)
         return mGrid[0][0];
     }
 
-    Index max = getIndexesFromPosition(mWidth * mGridRowSize + mX - 1, mHeight * mGridColumnSize + mY - 1);
+    Index max = getMaximumGridIndex();
 
     if (ind.row > max.row || ind.column > max.column)
     {
@@ -386,5 +385,15 @@ void Grid::setHighlightPosition(const Index& index)
 {
     mHighlightX = index.row;
     mHighlightY = index.column;
+}
+
+Index Grid::getMaximumGridIndex()
+{
+    // Simple math here...
+    int row = mGridRowSize - 1;
+    int column = mGridColumnSize - 1;
+    Index ind(row, column);
+    std::cout << "Maximum coordinate: (" << row << ", " << column << ")" << std::endl;
+    return ind;
 }
 

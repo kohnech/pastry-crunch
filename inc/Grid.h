@@ -12,6 +12,22 @@
 
 /*!
  * Helper struct to represent (row, column)
+ *
+ *  We use same coordinate system for indexes as for mouse SDL mouse positions:
+ *
+ *            ------------------> x-axis = row
+ *            |
+ *            |
+ *            |
+ *            |
+ *            |
+ *           \/
+ *           y-axis = column
+ *
+ *           Hint: Don't think MS excel here...
+ *           Reason: Much better to align 2 coordinate systems than creating
+ *           an inversion that needs remap/conversion all the time...
+ *
  */
 struct Index
 {
@@ -20,7 +36,7 @@ public:
         row = r;
         column = c;
     }
-    int row, column;
+    int row, column; // row is x-axis, column y-axis aligned with SDL coordinate system
 };
 
 class Grid : public Board, public Event
@@ -150,6 +166,13 @@ public:
        * @param index new index to highlight
        */
       void setHighlightPosition(const Index& index);
+
+      /*!
+       * Returns the maximum Grid index
+       * @return maximum grid index which naturally is the width & height
+       * of the grid...
+       */
+        Index getMaximumGridIndex();
 
 private:
     std::vector<std::string> mAssets;
