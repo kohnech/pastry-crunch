@@ -155,11 +155,12 @@ public:
      */
      Entity* getEntity(Index ind);
 
-     /*!
-      * Load a pre grid used for unit test purpose.
-      * Then it will not use any ranomness...
-      */
-    void setGridMatrix(Entity*** grid);
+    /*!
+     * Sets void @ index. This is useful to simulate voids
+     * in the grid for unit-testing
+     * @param index void to set
+     */
+    void setVoid(const Index& index);
 
     //////////////////
     void removeMatches(const std::vector<Index>& matches);

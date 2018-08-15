@@ -81,7 +81,12 @@ void Grid::render(SDL_Surface* Surf_Display)
             Entity* entity = mGrid[x][y];
             // CSurface::OnDraw(Surf_Display, src->Surf_Entity, xPos, yPos, 0, 0, 100, 100);
 
-            entity->render(Surf_Display, mX + xPos, mY + yPos);
+            if (entity == NULL) {
+                // rendering a void is rendering of nothing...
+            }
+            else {
+                entity->render(Surf_Display, mX + xPos, mY + yPos);
+            }
         }
     }
 }
@@ -114,7 +119,6 @@ int Grid::getRandomInt()
     std::default_random_engine e1(r());
     std::uniform_int_distribution<int> uniform_dist(0, mAssets.size() - 1);
     int mean = uniform_dist(e1);
-    std::cout << "Randomly-chosen mean: " << mean << '\n';
     return mean;
 }
 
@@ -283,11 +287,18 @@ std::vector<Index> Grid::findVerticalMatches(const Index& ind)
 
     matches.push_back(ind);
     Entity* entity = mGrid[ind.row][ind.column];
+
+    if (entity == NULL) {
+        matches.clear();
+        return matches;
+    }
+
     //check left
     if (ind.column != 0)
         for (int column = ind.column - 1; column >= 0; column--)
         {
-            if (mGrid[ind.row][column]->id == entity->id)
+            if (mGrid[ind.row][column] != NULL &&
+                mGrid[ind.row][column]->id == entity->id)
             {
                 Index tmp(ind.row, column);
                 matches.push_back(tmp);
@@ -300,7 +311,8 @@ std::vector<Index> Grid::findVerticalMatches(const Index& ind)
     if (ind.column != mGridRowSize - 1)
         for (int column = ind.column + 1; column < mGridColumnSize; column++)
         {
-            if (mGrid[ind.row][column]->id == entity->id)
+            if (mGrid[ind.row][column] != NULL &&
+                mGrid[ind.row][column]->id == entity->id)
             {
                 Index tmp(ind.row, column);
                 matches.push_back(tmp);
@@ -323,6 +335,12 @@ std::vector<Index> Grid::findHorizontalMatches(const Index& ind)
     std::vector<Index> matches;
     matches.push_back(ind);
     Entity* entity = mGrid[ind.row][ind.column];
+
+    if (entity == NULL) {
+        matches.clear();
+        return matches;
+    }
+
     //check bottom
     if (ind.row != 0)
         for (int row = ind.row - 1; row >= 0; row--)
@@ -368,7 +386,7 @@ Entity* Grid::getEntity(Index ind)
     // First make boundary checks
     if (ind.row < 0 || ind.column < 0)
     {
-        std::cout << "Try a better index, return minimum entity at index (0,0)!" << std::endl;
+        //std::cout << "Try a better index, return minimum entity at index (0,0)!" << std::endl;
         return mGrid[0][0];
     }
 
@@ -376,17 +394,13 @@ Entity* Grid::getEntity(Index ind)
 
     if (ind.row > max.row || ind.column > max.column)
     {
-        std::cout << "Try a better index, return maximum entity!" << std::endl;
+        //std::cout << "Try a better index, return maximum entity!" << std::endl;
         return mGrid[max.row][max.column];
     }
 
     return mGrid[ind.row][ind.column];
 }
 
-void Grid::setGridMatrix(Entity*** grid)
-{
-    mGrid = grid;
-}
 
 void Grid::setHighlightPosition(const Index& index)
 {
@@ -400,7 +414,6 @@ Index Grid::getMaximumGridIndex()
     int row = mGridRowSize - 1;
     int column = mGridColumnSize - 1;
     Index ind(row, column);
-    std::cout << "Maximum coordinate: (" << row << ", " << column << ")" << std::endl;
     return ind;
 }
 
@@ -430,11 +443,11 @@ printGrid();
 
 printGrid();
 
-    std::vector<int> columns = getDistinctRows(matches);
+    std::vector<int> rows = getDistinctRows(matches);
 
-    collapse(columns);
+    collapse(rows);
 printGrid();
-    createNewEntitiesInColumns(columns);
+    createNewEntitiesInColumns(rows);
 
     /*
     // get columns that we have to collapse
@@ -584,14 +597,19 @@ void Grid::createNewEntitiesInColumns(std::vector<int> columns)
 }
 
 
-std::vector<Index> Grid::getEmptyItemsOnColumn(int column)
+std::vector<Index> Grid::getEmptyItemsOnColumn(int row)
 {
     std::vector<Index> emptyItems;
-    for (int row = 0; row < mGridRowSize; row++)
+    for (int column = 0; column < mGridColumnSize; column++)
     {
         if (mGrid[row][column] == NULL)
             emptyItems.push_back(Index(row,column));
     }
     return emptyItems;
+}
+
+void Grid::setVoid(const Index& index)
+{
+    mGrid[index.row][index.column] = NULL;
 }
 
