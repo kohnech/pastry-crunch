@@ -90,7 +90,6 @@ bool App::onInit()
         return false;
     }
 
-
     EntityList.push_back(&Entity1);
     EntityList.push_back(&Entity2);
 
@@ -102,10 +101,8 @@ bool App::onInit()
         return false;
     }
 
-
     std::cout << "finished App OnInit()..." << std::endl;
 
-    mScore.load(assets);
 
     return true;
 }
@@ -141,8 +138,6 @@ void App::onRender()
 
     Grid::instance.render(Surf_Display);
 
-    mScore.setText("Score: 100", 100, 100);
-    mScore.render(Surf_Display);
     Surface::OnDraw(Surf_Display, Surf_Test, 290, 220, 0, Anim_Yoshi.GetCurrentFrame() * 64, 64, 64);
 
     SDL_UpdateWindowSurface(mWindow);
