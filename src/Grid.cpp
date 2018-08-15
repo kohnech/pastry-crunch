@@ -501,7 +501,6 @@ std::vector<int> Grid::getDistinctRows(const std::vector<Index>& matches)
     return rows;
 }
 
-// TODO test return value
 int Grid::collapse(std::vector<int> rows)
 {
     int numCollapses = 0;
@@ -549,7 +548,7 @@ void Grid::createNewEntitiesInRows(std::vector<int> rows)
     //find how many null values the column has
     for (int row : rows)
     {
-        std::vector<Index> emptyItems = getEmptyItemsOnColumn(row);
+        std::vector<Index> emptyItems = getEmptyItemsOnRow(row);
         for (auto item : emptyItems)
         {
             int go = getRandomInt();
@@ -572,7 +571,7 @@ void Grid::createNewEntitiesInRows(std::vector<int> rows)
 }
 
 
-std::vector<Index> Grid::getEmptyItemsOnColumn(int row)
+std::vector<Index> Grid::getEmptyItemsOnRow(int row)
 {
     std::vector<Index> voids;
     for (int column = 0; column < mGridColumnSize; column++)

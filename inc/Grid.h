@@ -210,11 +210,11 @@ public:
     void createNewEntitiesInRows(std::vector<int> rows);
 
     /*!
-     * Returns which rows containing voids
-     * @param column
+     * Returns which indexes containing voids in a particular row
+     * @param row
      * @return
      */
-    std::vector<Index> getEmptyItemsOnColumn(int column);
+    std::vector<Index> getEmptyItemsOnRow(int row);
 
     /*!
      * Moves current highlight position to new index
