@@ -15,6 +15,8 @@ Grid::Grid(int x, int y)
 , mTileWidth{ ICON_WIDTH }
 , mTileHeight{ ICON_HEIGHT }
 , mPrevClickedIndexes{ 0, 0 }
+, mMinimumScore{ 10 }
+, mScore{ 0 }
 {
     mX = x;
     mY = y;
@@ -54,11 +56,19 @@ bool Grid::load(Assets& assets)
 
     std::cout << "Grid size: " << mGridRowSize << " x " << mGridColumnSize << std::endl;
 
+    mMinimumScore = assets.getMinimumScores();
+
     // Allocate on heap the grid
     mGrid = new Entity**[mGridRowSize];
     for (int i = 0; i < mGridRowSize; i++) {
         mGrid[i] = new Entity *[mGridColumnSize];
     }
+
+    mScoreText.load(assets);
+    mScoreText.setPosition(100 , 100);
+    std::string str;
+    str = "Score: " + std::to_string(mScore);
+    mScoreText.setText(str);
 
     Board::load(assets);
 
@@ -87,6 +97,8 @@ void Grid::render(SDL_Surface* Surf_Display)
             else {
                 entity->render(Surf_Display, mX + xPos, mY + yPos);
             }
+
+            mScoreText.render(Surf_Display);
         }
     }
 }
@@ -432,7 +444,18 @@ printGrid();
 
     std::vector<int> rows = getDistinctRows(matches);
 
-    collapse(rows);
+    //collapse(rows);
+    int collapses = collapse(rows);
+    std::cout << "Adding score: " << mMinimumScore * collapses << std::endl;
+    mScore += mMinimumScore * collapses;
+
+    std::string str;
+    str = "Score: " + std::to_string(mScore);
+    mScoreText.setText(str);
+
+    std::cout << "mSCore: " << mScore << std::endl;
+
+
 printGrid();
     createNewEntitiesInRows(rows);
 
@@ -482,9 +505,10 @@ std::vector<int> Grid::getDistinctRows(const std::vector<Index>& matches)
     return rows;
 }
 
-
-void Grid::collapse(std::vector<int> rows)
+// TODO test return value
+int Grid::collapse(std::vector<int> rows)
 {
+    int numCollapses = 0;
     ///search in every row
     for (int row : rows)
     {
@@ -494,6 +518,7 @@ void Grid::collapse(std::vector<int> rows)
             //if you find a null item
             if (mGrid[row][y] == NULL)
             {
+                numCollapses++;
                 //start searching for the first non-null from one top above of the current index
                 for (int y2 = y - 1; y2 >= 0; y2--)
                 {
@@ -502,7 +527,6 @@ void Grid::collapse(std::vector<int> rows)
                     {
                         mGrid[row][y] = mGrid[row][y2];
                         mGrid[row][y2] = NULL;
-
                         //calculate the biggest distance
                        // if (row2 - row > collapseInfo.MaxDistance)
                        //     collapseInfo.MaxDistance = row2 - row;
@@ -519,6 +543,7 @@ void Grid::collapse(std::vector<int> rows)
         }
     }
     //return collapseInfo;
+    return numCollapses;
 }
 
 void Grid::createNewEntitiesInRows(std::vector<int> rows)
@@ -566,4 +591,3 @@ void Grid::setVoid(const Index& index)
 {
     mGrid[index.row][index.column] = NULL;
 }
-

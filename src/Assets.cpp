@@ -119,3 +119,13 @@ void Assets::printAssets()
 {
     std::cout << mJ.dump() << std::endl;
 }
+
+int Assets::getMinimumScores()
+{
+    return mJ["settings"]["minimumScores"];
+}
+
+int Assets::getMinimumMatches()
+{
+    return mJ["settings"]["minimumMatches"];
+}

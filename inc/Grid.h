@@ -5,6 +5,7 @@
 #include "Entity.h"
 #include "Board.h"
 #include "IUiComponent.h"
+#include "Text.h"
 
 #include <SDL.h>
 
@@ -200,7 +201,7 @@ public:
      * the uppermost part of the grid so a refill of new entities can be done
      * @param columns The list of columns to collapse
      */
-    void collapse(std::vector<int> columns);
+    int collapse(std::vector<int> columns);
 
     /*!
      * Creates new entities to play with in collapsed rows
@@ -235,4 +236,7 @@ private:
 
     int mTileWidth, mTileHeight;
     Index mPrevClickedIndexes;
+    int mMinimumScore;
+    int mScore;
+    Text mScoreText;
 };

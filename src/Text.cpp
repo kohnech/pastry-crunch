@@ -11,6 +11,7 @@
 Text::Text()
 : mFont{ NULL }
 , mFontSize{ 30 }
+, mMessage{ "" }
 {
 }
 
@@ -47,9 +48,7 @@ void Text::cleanup()
     TTF_CloseFont(mFont);
 }
 
-void Text::setText(const std::string& msg, int x, int y)
+void Text::setText(std::string msg)
 {
     mMessage.assign(msg);
-    mX = x;
-    mY = y;
 }
