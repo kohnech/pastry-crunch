@@ -178,7 +178,7 @@ TEST(GridTests, Test_function_swapEntity)
     EXPECT_EQ(testGrid.getEntity(Index(4, 4)), to);
 }
 
-TEST(GridTests, Test_function_getDistinctColumns)
+TEST(GridTests, Test_function_getDistinctRows)
 {
     Assets assets;
     assets.loadFile("assets.json");

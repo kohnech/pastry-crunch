@@ -241,7 +241,7 @@ void Grid::update(const Index& pos)
             return;
         }
 
-        // Now we need collapse the matces
+        // Now we need collapse the matches
         removeMatches(matches);
     }
     else {
@@ -419,35 +419,22 @@ Index Grid::getMaximumGridIndex()
 
 void Grid::removeMatches(const std::vector<Index>& matches)
 {
-    // First create new entities with number of matches
-    /*for(Index ind : matches)
-    {
-        int newId = getRandomInt();
-        loadEntity(row, column, newId);
-    }*/
-
-
     for (Index ind : matches)
     {
         delete mGrid[ind.row][ind.column];
         mGrid[ind.row][ind.column] = NULL;
     }
 
-    /*
-    collapseColumns(matches);
-printGrid();
-
-    fillCollapsedColumns(matches);
-printGrid();
-     */
-
+    // TODO add score for each match
+    // TODO This should be a while loop if more matches occurs while refiling the grid...
+    // TODO move out to outer function
 printGrid();
 
     std::vector<int> rows = getDistinctRows(matches);
 
     collapse(rows);
 printGrid();
-    createNewEntitiesInColumns(rows);
+    createNewEntitiesInRows(rows);
 
     /*
     // get columns that we have to collapse
@@ -460,16 +447,6 @@ printGrid();
     var newCandyInfo = CreateNewCandyInSpecificColumns(columns);*/
 }
 
-void Grid::collapseColumns(const std::vector<Index>& matches)
-{
-    for (Index ind : matches)
-    {
-        for (int column = ind.column; column > 0; --column)
-        {
-            mGrid[ind.row][column] = mGrid[ind.row][column -1];
-        }
-    }
-}
 
 void Grid::printGrid() {
     for (int column = 0; column < mGridColumnSize; column++)
@@ -485,28 +462,6 @@ void Grid::printGrid() {
         }
         std::cout << std::endl;
     }
-}
-
-void Grid::fillCollapsedColumns(const std::vector<Index>& matches)
-{
-    std::vector<int> columns = getDistinctRows(matches);
-
-    collapse(columns);
-
-
-/*    std::map<int, int> collapsed;
-    std::vector<int> number
-
-    for (Index ind : matches)
-    {
-        collapsed[ind.column]++;
-        std::cout << "ind.column: "<< ind.column << std::endl;
-    }
-
-    for (auto col : collapsed)
-    {
-        std::cout << "column:  " << col.first <<  "number:" <<   col.second << std::endl;
-    }*/
 }
 
 std::vector<int> Grid::getDistinctRows(const std::vector<Index>& matches)
@@ -530,7 +485,6 @@ std::vector<int> Grid::getDistinctRows(const std::vector<Index>& matches)
 
 void Grid::collapse(std::vector<int> rows)
 {
-
     ///search in every row
     for (int row : rows)
     {
@@ -540,7 +494,7 @@ void Grid::collapse(std::vector<int> rows)
             //if you find a null item
             if (mGrid[row][y] == NULL)
             {
-                //start searching for the first non-null from one top above of the grid
+                //start searching for the first non-null from one top above of the current index
                 for (int y2 = y - 1; y2 >= 0; y2--)
                 {
                     //if you find one, bring it down (i.e. replace it with the null you found)
@@ -567,14 +521,14 @@ void Grid::collapse(std::vector<int> rows)
     //return collapseInfo;
 }
 
-void Grid::createNewEntitiesInColumns(std::vector<int> columns)
+void Grid::createNewEntitiesInRows(std::vector<int> rows)
 {
     //AlteredCandyInfo newCandyInfo = new AlteredCandyInfo();
 
     //find how many null values the column has
-    for (int column : columns)
+    for (int row : rows)
     {
-        std::vector<Index> emptyItems = getEmptyItemsOnColumn(column);
+        std::vector<Index> emptyItems = getEmptyItemsOnColumn(row);
         for (auto item : emptyItems)
         {
             int go = getRandomInt();
@@ -599,13 +553,13 @@ void Grid::createNewEntitiesInColumns(std::vector<int> columns)
 
 std::vector<Index> Grid::getEmptyItemsOnColumn(int row)
 {
-    std::vector<Index> emptyItems;
+    std::vector<Index> voids;
     for (int column = 0; column < mGridColumnSize; column++)
     {
         if (mGrid[row][column] == NULL)
-            emptyItems.push_back(Index(row,column));
+            voids.push_back(Index(row,column));
     }
-    return emptyItems;
+    return voids;
 }
 
 void Grid::setVoid(const Index& index)
