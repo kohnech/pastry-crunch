@@ -129,3 +129,15 @@ int Assets::getMinimumMatches()
 {
     return mJ["settings"]["minimumMatches"];
 }
+
+std::map<std::string, std::string> Assets::getSounds()
+{
+    // create and print a JSON from the map
+    json j = mJ["sounds"];
+    std::cout << j << std::endl;
+
+    // get the map out of JSON
+    std::map<std::string, std::string> m2 = j;
+
+    return m2;
+}
