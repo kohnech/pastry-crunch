@@ -239,4 +239,5 @@ private:
     int mMinimumScore;
     int mScore;
     Text mScoreText;
+    size_t mMinimumMatches;
 };
