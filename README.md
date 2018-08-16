@@ -4,7 +4,7 @@ This is a "midars miner" like game and it's about finding at least 3 matches eit
 of the same pastry.
 
 Everything is configurable from the `asset.json` file. Here you can choose any of the important
-game parameters and even change skinns and the look and feeling of the game as it should
+game parameters and even change skins and the look and feeling of the game as it should
 be.
 
 Any questions? Please ask me or post a PR.
@@ -16,6 +16,8 @@ This games relys soly on the SDL2 set of libraries:
 * SDL2_ttf (display fonts & text)
 * SDL2_mixer (play sounds like wav)
 * Hlohmann Json: https://github.com/nlohmann/json
+* Gameartguppy (Game assets, skins): https://www.gameartguppy.com/shop/pastry-icons/
+* Ideas and techniques learn from: http://www.sdltutorials.com/sdl-tutorial-basics
 
 If you don't have these installed, don't worry, they are included in the Runtime
 environment as a they should be (best practise) so you don't need to search for any
