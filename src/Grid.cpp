@@ -8,6 +8,7 @@
 #include <iostream>
 #include <map>
 #include <random>
+#include <algorithm>
 #include <stdlib.h>
 
 Grid Grid::instance;
@@ -181,6 +182,7 @@ void Grid::initGrid()
 
 void Grid::loadEntity(int row, int column, int id)
 {
+    // TODO delete previous entity if not NULL???
     std::string asset = mAssets[id];
     Entity* entity = new Entity(id);
     entity->load(asset.c_str(), mTileWidth, mTileHeight);
@@ -190,8 +192,6 @@ void Grid::loadEntity(int row, int column, int id)
 void Grid::onLButtonDown(int x, int y)
 {
     std::cout << "onLButtonDown: (" << x << "," << y << ")" << std::endl;
-
-    std::cout << "mWidth: " << mWidth << ", mHeight: " << mHeight << std::endl;
 
     Index index = getIndexesFromPosition(x, y);
     if (index == Index(-1, -1))
@@ -257,8 +257,43 @@ void Grid::update(const Index& pos)
             std::cout << "match: (" << ind.row << ", " << ind.column << ")" << std::endl;
         }
 
-        // Undo swap if no more than mMinimumMatches
-        if (matches.size() < mMinimumMatches)
+
+        if (matches.size() >= mMinimumMatches)
+        {
+            // play sound
+            Sounds::instance.play("kaChing");
+
+            // Update score
+            mScore += matches.size() * mMinimumScore;
+            updateScore();
+
+            // Now we need collapse the matches
+            removeMatches(matches);
+
+
+            // TODO add score for each match
+            // TODO This should be a while loop if more matches occurs while refiling the grid...
+            // TODO move out to outer function
+            printGrid();
+
+            std::vector<int> rows = getDistinctRows(matches);
+
+            collapse(rows);
+
+            printGrid();
+            createNewEntitiesInRows(rows);
+
+            /*
+            // get columns that we have to collapse
+            var columns = totalMatches.Select(go => go.GetComponent<Shape>().Column).Distinct();
+
+            //the order the 2 methods below get called is important!!!
+            //collapse the ones gone
+            var collapsedCandyInfo = shapes.Collapse(columns);
+            //create new ones
+            var newCandyInfo = CreateNewCandyInSpecificColumns(columns);*/
+        }
+        else // Undo swap if no more than mMinimumMatches
         {
             // play sound
             Sounds::instance.play("error");
@@ -267,18 +302,6 @@ void Grid::update(const Index& pos)
             mPrevClickedIndexes = pos;
             return;
         }
-        else
-        {
-            // play sound
-            Sounds::instance.play("kaChing");
-
-            // Update score
-            mScore += matches.size() * mMinimumScore;
-            updateScore();
-        }
-
-        // Now we need collapse the matches
-        removeMatches(matches);
     }
     else
     {
@@ -456,29 +479,6 @@ void Grid::removeMatches(const std::vector<Index>& matches)
         delete mGrid[ind.row][ind.column];
         mGrid[ind.row][ind.column] = NULL;
     }
-
-    // TODO add score for each match
-    // TODO This should be a while loop if more matches occurs while refiling the grid...
-    // TODO move out to outer function
-    printGrid();
-
-    std::vector<int> rows = getDistinctRows(matches);
-
-    collapse(rows);
-
-
-    printGrid();
-    createNewEntitiesInRows(rows);
-
-    /*
-    // get columns that we have to collapse
-    var columns = totalMatches.Select(go => go.GetComponent<Shape>().Column).Distinct();
-
-    //the order the 2 methods below get called is important!!!
-    //collapse the ones gone
-    var collapsedCandyInfo = shapes.Collapse(columns);
-    //create new ones
-    var newCandyInfo = CreateNewCandyInSpecificColumns(columns);*/
 }
 
 
@@ -567,11 +567,11 @@ void Grid::createNewEntitiesInRows(std::vector<int> rows)
     for (int row : rows)
     {
         std::vector<Index> emptyItems = getEmptyItemsOnRow(row);
-        for (auto item : emptyItems)
+        for (auto index : emptyItems)
         {
             int go = getRandomInt();
 
-            loadEntity(item.row, item.column, go);
+            loadEntity(index.row, index.column, go);
 
             // GameObject newCandy = Instantiate(go, SpawnPositions[column], Quaternion.identity)
             // as GameObject;
@@ -593,6 +593,11 @@ void Grid::createNewEntitiesInRows(std::vector<int> rows)
 std::vector<Index> Grid::getEmptyItemsOnRow(int row)
 {
     std::vector<Index> voids;
+    if (row >= mGridRowSize)
+    {
+        return voids;
+    }
+
     for (int column = 0; column < mGridColumnSize; column++)
     {
         if (mGrid[row][column] == NULL)
