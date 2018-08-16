@@ -240,6 +240,15 @@ public:
      */
     void updateScore();
 
+    /*!
+     * Get both horizontal & vertical matches for one index
+     * @param pos
+     * @return
+     */
+    std::vector<Index> findMatches(Index pos);
+
+    std::vector<Index> findNewMatches();
+
 private:
     std::vector<std::string> mAssets;
     Entity*** mGrid;
