@@ -57,9 +57,10 @@ TEST(GridTests, Test_function_getIndexesFromPosition)
     EXPECT_EQ(size.second, 10);
 
     Index ind;
+    // Outside the board
     ind = testGrid.getIndexesFromPosition(50, 50);
-    EXPECT_EQ(ind.column, 0);
-    EXPECT_EQ(ind.row, 0);
+    EXPECT_EQ(ind.column, -1);
+    EXPECT_EQ(ind.row, -1);
 
     ind = testGrid.getIndexesFromPosition(100, 100);
     EXPECT_EQ(ind.column, 0);
@@ -83,8 +84,8 @@ TEST(GridTests, Test_function_getIndexesFromPosition)
 
     // Test extreme point now we are outside of the board
     ind = testGrid.getIndexesFromPosition(150, 130);
-    EXPECT_EQ(ind.column, 0);
-    EXPECT_EQ(ind.row, 0);
+    EXPECT_EQ(ind.column, -1);
+    EXPECT_EQ(ind.row, -1);
 
     // still inside... so a valid index...
     ind = testGrid.getIndexesFromPosition(149, 129);
