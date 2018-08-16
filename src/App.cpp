@@ -4,6 +4,7 @@
 #include "Grid.h"
 #include "Board.h"
 #include "Define.h"
+#include "Sounds.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_events.h>
@@ -101,6 +102,12 @@ bool App::onInit()
         return false;
     }
 
+    /// init sounds
+    if (Sounds::instance.load(assets) == false)
+    {
+        return false;
+    }
+
     std::cout << "finished App OnInit()..." << std::endl;
 
 
@@ -182,6 +189,18 @@ void App::onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode)
         break;
     case SDLK_RIGHT:
         CCamera::CameraControl.OnMove(5, 0);
+        break;
+    case SDLK_1:
+        Sounds::instance.play("drip");
+        break;
+    case SDLK_2:
+        Sounds::instance.play("kaChing");
+        break;
+    case SDLK_3:
+        Sounds::instance.play("mining");
+        break;
+    case SDLK_9:
+        Sounds::instance.stop();
         break;
 
     default:

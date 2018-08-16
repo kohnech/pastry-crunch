@@ -32,6 +32,8 @@ public:
     void printAssets();
     int getMinimumScores();
     int getMinimumMatches();
+    std::map<std::string, std::string> getSounds();
+
 
 private:
     json mJ;

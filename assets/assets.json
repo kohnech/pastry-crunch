@@ -46,5 +46,13 @@
   },
   "gameCompleted": {
     "asset": "./assets/bakery/overlay_levelcomplete_ipad.png"
+  },
+  "sounds": {
+    "drip": "./assets/sounds/Drip.wav",
+    "comp": "./assets/sounds/Chomp.wav",
+    "kaChing": "./assets/sounds/Ka-Ching.wav",
+    "error": "./assets/sounds/Error.wav",
+    "mining": "./assets/sounds/Mining by Moonlight.wav",
+    "scrape": "./assets/sounds/Scrape.wav"
   }
 }
