@@ -4,12 +4,13 @@ This is a "midars miner" like game and it's about finding at least 3 matches eit
 of the same pastry.
 
 Everything is configurable from the `asset.json` file. Here you can choose any of the important
-game parameters and even change skinns and the look and feeling of the game as it should
+game parameters and even change skins and the look and feeling of the game as it should
 be.
 
 Any questions? Please ask me or post a PR.
 
 ## Techniques and 3rd-party libraries
+### 3rd-party libraries
 This games relys soly on the SDL2 set of libraries:
 * SDL2 (Basic game engine)
 * SDL2_image (displays jpg/png etc...)
@@ -24,6 +25,12 @@ under linux, the simplest way to run the game is
 ```
 make run
 ```
+
+### References
+* Gameartguppy (Game assets, skins): https://www.gameartguppy.com/shop/pastry-icons/
+* Ideas and techniques learnt from: http://www.sdltutorials.com/sdl-tutorial-basics
+* Some ideas and game logic learnt from: https://github.com/dgkanatsios/matchthreegame
+
 
 ## Building & setup
 
@@ -42,5 +49,4 @@ make run
 
 
 ## Game logic
-
-![alt text](https://github.com/kohnech/bakery-street-game/state_machine.png "Game logic")
+![alt text](https://github.com/kohnech/bakery-street-game/blob/master/state_machine.png "Game logic")
