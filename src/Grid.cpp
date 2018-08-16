@@ -570,11 +570,11 @@ void Grid::createNewEntitiesInRows(std::vector<int> rows)
     for (int row : rows)
     {
         std::vector<Index> emptyItems = getEmptyItemsOnRow(row);
-        for (auto item : emptyItems)
+        for (auto index : emptyItems)
         {
             int go = getRandomInt();
 
-            loadEntity(item.row, item.column, go);
+            loadEntity(index.row, index.column, go);
 
             // GameObject newCandy = Instantiate(go, SpawnPositions[column], Quaternion.identity)
             // as GameObject;
@@ -596,6 +596,11 @@ void Grid::createNewEntitiesInRows(std::vector<int> rows)
 std::vector<Index> Grid::getEmptyItemsOnRow(int row)
 {
     std::vector<Index> voids;
+    if (row >= mGridRowSize)
+    {
+        return voids;
+    }
+
     for (int column = 0; column < mGridColumnSize; column++)
     {
         if (mGrid[row][column] == NULL)
