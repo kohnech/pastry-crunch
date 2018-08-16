@@ -22,6 +22,53 @@ protected:
         grid_.initGrid();
     }
 
+    void createEmptyRow(int row)
+    {
+        std::vector<Index> matches;
+        /// Create empty vertical pilar at row position
+        for (int i = 0; i < 3; i++)
+        {
+            Index ind(row, i);
+            matches.push_back(ind);
+        }
+        grid_.removeMatches(matches);
+        grid_.printGrid();
+    }
+
+    void createEmptyColumn(int column)
+    {
+        std::vector<Index> matches;
+        /// Create empty vertical pilar at row position
+        for (int i = 0; i < 5; i++)
+        {
+            Index ind(i, column);
+            matches.push_back(ind);
+        }
+        grid_.removeMatches(matches);
+        grid_.printGrid();
+    }
+
+    void printIds()
+    {
+        /*for (int row = 0; row < mGridRowSize; row++) {
+            for (int column = 0; column < mGridColumnSize; column++) {
+
+
+            }
+        }*/
+        /*
+        for (int y = 0; y < 3; y++)
+        {
+            for (int x = 0; x < 3; x++)
+            {
+                Entity* entity = grid_.getEntity(Index(x, y));
+                std::cout << x << y << std::endl;
+                std::cout << "Id: " << entity->id;
+            }
+            std::cout << std::endl;
+        }*/
+    }
+
     Grid grid_;
 };
 
@@ -426,5 +473,51 @@ TEST_F(GridTest, Test_function_removeMatches_vertically)
         Index ind(1, i);
         Entity *neighbour = grid_.getEntity(ind);
         EXPECT_TRUE(neighbour == NULL);
+    }
+}
+
+TEST_F(GridTest, Test_function_getEmptyItemsOnRow)
+{
+    createEmptyRow(1);
+    createEmptyRow(2);
+
+    std::vector<Index> voids1 = grid_.getEmptyItemsOnRow(1);
+    std::vector<Index> voids2 = grid_.getEmptyItemsOnRow(2);
+
+    EXPECT_EQ(voids1.size(), 3u);
+    EXPECT_EQ(voids2.size(), 3u);
+    for (auto ind : voids1)
+    {
+        EXPECT_EQ(ind.row, 1);
+    }
+    for (auto ind : voids2)
+    {
+        EXPECT_EQ(ind.row, 2);
+    }
+}
+
+TEST_F(GridTest, Test_function_getEmptyItemsOnRow_column_empty)
+{
+    createEmptyColumn(1);
+
+    printIds();
+
+    std::vector<Index> voids0 = grid_.getEmptyItemsOnRow(0);
+    std::vector<Index> voids1 = grid_.getEmptyItemsOnRow(1);
+    std::vector<Index> voids2 = grid_.getEmptyItemsOnRow(2);
+    std::vector<Index> voids3 = grid_.getEmptyItemsOnRow(3);
+    std::vector<Index> voids4 = grid_.getEmptyItemsOnRow(4);
+
+    EXPECT_EQ(voids0.size(), 1u);
+    EXPECT_EQ(voids1.size(), 1u);
+    EXPECT_EQ(voids2.size(), 1u);
+    EXPECT_EQ(voids3.size(), 1u);
+    EXPECT_EQ(voids4.size(), 1u);
+
+
+    for (auto ind : voids1)
+    {
+        std::cout << "index: " << ind.row << ", " << ind.column << std::endl;
+        //EXPECT_EQ(1, ind.column);
     }
 }
