@@ -191,6 +191,10 @@ void Grid::onLButtonDown(int x, int y)
     std::cout << "mWidth: " << mWidth << ", mHeight: " << mHeight << std::endl;
 
     Index index = getIndexesFromPosition(x, y);
+    if (index ==  Index(-1, -1)) {
+        std::cout << "Out of boundary" << std::endl;
+        return;
+    }
     setHighlightPosition(index);
 
     update(index);
@@ -213,8 +217,7 @@ Index Grid::getIndexesFromPosition(int x, int y)
     if (x < mX || x >= (mWidth * mGridRowSize + mX) ||
         y < mY || y >= (mHeight * mGridColumnSize + mY))
     {
-        std::cout << "Out of boundary" << std::endl;
-        return {0, 0};
+        return {-1, -1};
     }
 
     /// Calculate board coordinate
@@ -224,7 +227,7 @@ Index Grid::getIndexesFromPosition(int x, int y)
 
     if (row < 0 || column < 0)
     {
-        return {0, 0};
+        return {-1, -1};
     }
 
     Index index(row, column);
