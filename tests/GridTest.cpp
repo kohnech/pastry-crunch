@@ -297,3 +297,55 @@ TEST(GridTests, Test_function_collapse)
     EXPECT_TRUE(testGrid.getEntity(ind2) != NULL);
     EXPECT_EQ(2, num);
 }
+
+TEST(GridTests, Test_function_collapse_4_in_row)
+{
+    Assets assets;
+    assets.loadFile("assets.json");
+
+    Grid testGrid;
+    testGrid.load(assets); // TODO create fixture...
+    testGrid.initGrid();
+
+    testGrid.printGrid();
+    /// Get all ids above row to be collapsed
+    std::vector<int> ids;
+    for (int i = 0; i < 5; i++)
+    {
+        Entity *entity = testGrid.getEntity(Index(i, 0));
+        ids.push_back(entity->id);
+        std::cout << "GetEntity id: " << entity->id << std::endl;
+    }
+
+    /// Test collapse 4 in a row
+        for (int i = 0; i < 5; i++)
+    {
+        Index ind0(i, 1);
+        testGrid.setVoid(ind0);
+        Entity* evoid = testGrid.getEntity(Index(i, 1));
+        EXPECT_TRUE(evoid == NULL);
+
+        Entity* nonvoid = testGrid.getEntity(Index(i, 0));
+        EXPECT_TRUE(nonvoid != NULL);
+
+        nonvoid = testGrid.getEntity(Index(i, 2));
+        EXPECT_TRUE(nonvoid != NULL);
+    }
+
+    testGrid.printGrid();
+
+    std::vector<int> columns = {0, 1, 2, 3, 4};
+    testGrid.collapse(columns);
+
+    testGrid.printGrid();
+
+    for (int i = 0; i < 5; i++)
+    {
+        Entity *evoid = testGrid.getEntity(Index(i, 0));
+        EXPECT_TRUE(evoid == NULL);
+        Entity *entity = testGrid.getEntity(Index(i, 1));
+        EXPECT_EQ(entity->id, ids.at(i));
+    }
+
+}
+
