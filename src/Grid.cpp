@@ -289,7 +289,6 @@ void Grid::update(const Index& pos)
 
             collapse(rows);
 
-
             printGrid();
             createNewEntitiesInRows(rows);
 
@@ -303,8 +302,6 @@ void Grid::update(const Index& pos)
             //create new ones
             var newCandyInfo = CreateNewCandyInSpecificColumns(columns);*/
         }
-
-
     }
     else
     {

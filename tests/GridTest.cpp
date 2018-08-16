@@ -26,50 +26,84 @@ protected:
     {
         std::vector<Index> matches;
         /// Create empty vertical pilar at row position
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < GRID_HEIGHT; i++)
         {
             Index ind(row, i);
             matches.push_back(ind);
         }
         grid_.removeMatches(matches);
-        grid_.printGrid();
     }
 
     void createEmptyColumn(int column)
     {
         std::vector<Index> matches;
         /// Create empty vertical pilar at row position
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < GRID_WIDTH; i++)
         {
             Index ind(i, column);
             matches.push_back(ind);
         }
         grid_.removeMatches(matches);
-        grid_.printGrid();
     }
 
     void printIds()
     {
-        /*for (int row = 0; row < mGridRowSize; row++) {
-            for (int column = 0; column < mGridColumnSize; column++) {
-
-
-            }
-        }*/
-        /*
-        for (int y = 0; y < 3; y++)
+        for (int column = 0; column < GRID_HEIGHT; column++)
         {
-            for (int x = 0; x < 3; x++)
+            for (int row = 0; row < GRID_WIDTH; row++)
             {
-                Entity* entity = grid_.getEntity(Index(x, y));
-                std::cout << x << y << std::endl;
-                std::cout << "Id: " << entity->id;
+                Index ind(row, column);
+                Entity *entity = grid_.getEntity(ind);
+                if (entity == NULL) {
+                    std::cout << "id: " << "V" << ", ";
+                }
+                else {
+                    std::cout << "id: " << entity->id << ", ";
+                }
             }
             std::cout << std::endl;
-        }*/
+        }
+    }
+
+    void recordIds()
+    {
+        for (int column = 0; column < GRID_HEIGHT; column++)
+        {
+            for (int row = 0; row < GRID_WIDTH; row++)
+            {
+                Index ind(row, column);
+                Entity *entity = grid_.getEntity(ind);
+                if (entity == NULL) {
+                    ids[row][column] = -1;
+                } else {
+                    ids[row][column] = entity->id;
+                }
+            }
+        }
+    }
+
+    void compareIds()
+    {
+        for (int column = 0; column < GRID_HEIGHT; column++) {
+            for (int row = 0; row < GRID_WIDTH; row++) {
+
+                if (ids[row][column] == -1) {
+                    continue;
+                }
+                else {
+                    Index ind(row, column);
+                    Entity *entity = grid_.getEntity(ind);
+
+                    ids[row][column] = entity->id;
+
+                    EXPECT_TRUE(ids[row][column] == entity->id);
+                }
+            }
+        }
     }
 
     Grid grid_;
+    int ids[GRID_WIDTH][GRID_HEIGHT];
 };
 
 TEST(GridTests, Test_function_load)
@@ -334,7 +368,7 @@ TEST_F(GridTest, Test_function_collapse_4_in_a_column)
 {
     /// Get all ids above row to be collapsed
     std::vector<int> ids;
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < GRID_WIDTH; i++)
     {
         Entity *entity = grid_.getEntity(Index(i, 0));
         ids.push_back(entity->id);
@@ -342,7 +376,7 @@ TEST_F(GridTest, Test_function_collapse_4_in_a_column)
     }
 
     /// Test collapse 4 in a column
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < GRID_WIDTH; i++)
     {
         Index ind0(i, 1);
         grid_.setVoid(ind0);
@@ -359,7 +393,7 @@ TEST_F(GridTest, Test_function_collapse_4_in_a_column)
     std::vector<int> rows = {0, 1, 2, 3, 4};
     grid_.collapse(rows);
 
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < GRID_WIDTH; i++)
     {
         Entity *evoid = grid_.getEntity(Index(i, 0));
         EXPECT_TRUE(evoid == NULL);
@@ -374,7 +408,7 @@ TEST_F(GridTest, Test_function_collapse_3_in_a_row)
     /// Get all ids above row to be collapsed
     std::vector<int> idsLeftRow;
     std::vector<int> idsRightRow;
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < GRID_HEIGHT; i++)
     {
         Entity *entity = grid_.getEntity(Index(0, i));
         idsLeftRow.push_back(entity->id);
@@ -384,7 +418,7 @@ TEST_F(GridTest, Test_function_collapse_3_in_a_row)
     }
 
     /// Test collapse 3 in a row
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < GRID_HEIGHT; i++)
     {
         Index ind0(1, i);
         grid_.setVoid(ind0);
@@ -401,7 +435,7 @@ TEST_F(GridTest, Test_function_collapse_3_in_a_row)
     std::vector<int> rows = {0 ,1, 2, 3, 4};  // Test collapse all rows
     grid_.collapse(rows);
 
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < GRID_HEIGHT; i++)
     {
         Entity *neighbour = grid_.getEntity(Index(1, i));
         EXPECT_TRUE(neighbour == NULL); // We have yet not refilled the grid
@@ -450,7 +484,7 @@ TEST_F(GridTest, Test_function_removeMatches_vertically)
     std::vector<int> idsLeftRow;
     std::vector<int> idsRightRow;
     /// Test remove matches = creating voids 4 in a column
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < GRID_HEIGHT; i++)
     {
         Entity *entity = grid_.getEntity(Index(0, i));
         idsLeftRow.push_back(entity->id);
@@ -463,7 +497,7 @@ TEST_F(GridTest, Test_function_removeMatches_vertically)
 
     grid_.removeMatches(matches);
 
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < GRID_HEIGHT; i++)
     {
         Entity *entity = grid_.getEntity(Index(0, i));
         EXPECT_EQ(entity->id, idsLeftRow.at(i));
@@ -500,7 +534,25 @@ TEST_F(GridTest, Test_function_getEmptyItemsOnRow_column_empty)
 {
     createEmptyColumn(1);
 
+    std::vector<Index> voids0 = grid_.getEmptyItemsOnRow(0);
+    std::vector<Index> voids1 = grid_.getEmptyItemsOnRow(1);
+    std::vector<Index> voids2 = grid_.getEmptyItemsOnRow(2);
+    std::vector<Index> voids3 = grid_.getEmptyItemsOnRow(3);
+    std::vector<Index> voids4 = grid_.getEmptyItemsOnRow(4);
+
+    EXPECT_EQ(voids0.size(), 1u);
+    EXPECT_EQ(voids1.size(), 1u);
+    EXPECT_EQ(voids2.size(), 1u);
+    EXPECT_EQ(voids3.size(), 1u);
+    EXPECT_EQ(voids4.size(), 1u);
+}
+
+TEST_F(GridTest, Test_function_createNewEntitiesInRows_with_emptyColumn)
+{
+    createEmptyColumn(1);
+
     printIds();
+    recordIds();
 
     std::vector<Index> voids0 = grid_.getEmptyItemsOnRow(0);
     std::vector<Index> voids1 = grid_.getEmptyItemsOnRow(1);
@@ -514,10 +566,41 @@ TEST_F(GridTest, Test_function_getEmptyItemsOnRow_column_empty)
     EXPECT_EQ(voids3.size(), 1u);
     EXPECT_EQ(voids4.size(), 1u);
 
+    std::vector<int> rows = {0, 1, 2, 3, 4};
 
-    for (auto ind : voids1)
-    {
-        std::cout << "index: " << ind.row << ", " << ind.column << std::endl;
-        //EXPECT_EQ(1, ind.column);
-    }
+    grid_.createNewEntitiesInRows(rows);
+
+    std::cout << std::endl << std::endl;
+    printIds();
+    compareIds();
 }
+
+TEST_F(GridTest, Test_function_createNewEntitiesInRows_with_emptyRow)
+{
+    createEmptyRow(1);
+
+    //printIds();
+    recordIds();
+
+    std::vector<Index> voids0 = grid_.getEmptyItemsOnRow(0);
+    std::vector<Index> voids1 = grid_.getEmptyItemsOnRow(1);
+    std::vector<Index> voids2 = grid_.getEmptyItemsOnRow(2);
+    std::vector<Index> voids3 = grid_.getEmptyItemsOnRow(3);
+    std::vector<Index> voids4 = grid_.getEmptyItemsOnRow(4);
+
+    EXPECT_EQ(voids0.size(), 0u);
+    EXPECT_EQ(voids1.size(), 3u);
+    EXPECT_EQ(voids2.size(), 0u);
+    EXPECT_EQ(voids3.size(), 0u);
+    EXPECT_EQ(voids4.size(), 0u);
+
+    std::vector<int> rows = {0, 1, 2, 3, 4};
+
+    grid_.createNewEntitiesInRows(rows);
+
+    std::cout << std::endl << std::endl;
+    //printIds();
+    compareIds();
+}
+
+
