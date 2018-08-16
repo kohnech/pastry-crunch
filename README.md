@@ -42,5 +42,4 @@ make run
 
 
 ## Game logic
-
-![alt text](https://github.com/kohnech/bakery-street-game/state_machine.png "Game logic")
+![alt text](https://github.com/kohnech/bakery-street-game/blob/master/state_machine.png "Game logic")
