@@ -96,7 +96,6 @@ bool App::onInit()
 
 
     /// Create game grid
-    // Grid::instance.setPosition(100, 100);
     if (Grid::instance.load(assets) == false)
     {
         return false;
@@ -108,6 +107,9 @@ bool App::onInit()
         return false;
     }
 
+    mMuteButton = Button(800, 0, "Mute");
+    mMuteButton.load(assets);
+
     std::cout << "finished App OnInit()..." << std::endl;
 
 
@@ -118,6 +120,7 @@ void App::onEvent(SDL_Event* event)
 {
     Event::onEvent(event);
     Grid::instance.onEvent(event);
+    mMuteButton.onEvent(event);
 }
 
 bool App::onLoop()
@@ -146,6 +149,8 @@ void App::onRender()
     Grid::instance.render(Surf_Display);
 
     Surface::OnDraw(Surf_Display, Surf_Test, 290, 220, 0, Anim_Yoshi.GetCurrentFrame() * 64, 64, 64);
+
+    mMuteButton.render(Surf_Display);
 
     SDL_UpdateWindowSurface(mWindow);
 }

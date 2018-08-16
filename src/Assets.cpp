@@ -141,3 +141,16 @@ std::map<std::string, std::string> Assets::getSounds()
 
     return m2;
 }
+
+std::string Assets::getButtonAsset()
+{
+    return mJ["button"]["asset"];
+}
+
+std::pair<int, int> Assets::getButtonSize()
+{
+    std::pair<int, int> size;
+    size.first = mJ["button"]["width"];
+    size.second = mJ["button"]["height"];
+    return size;
+}
