@@ -29,7 +29,7 @@ bool Button::load(Assets& assets)
     std::cout << "Loaded asset: " << asset << std::endl;
 
     mText.load(assets);
-    mText.setPosition(mX + mWidth / 2 - mStr.size()* 6, mY + mHeight / 2 - 20);
+    mText.setPosition(mX + mWidth / 2 - mStr.size() * 6, mY + mHeight / 2 - 20);
     mText.setText(mStr);
 
     std::cout << "text width" << mText.getPosition().first << mText.getPosition().second << std::endl;
@@ -69,8 +69,7 @@ void Button::onLButtonDown(int x, int y)
     }
 
     /// Check outside boundaries
-    if (x < mX || x >= (mWidth + mX) ||
-        y < mY || y >= (mHeight + mY))
+    if (x < mX || x >= (mWidth + mX) || y < mY || y >= (mHeight + mY))
     {
         std::cout << "Out of boundary" << std::endl;
         return;

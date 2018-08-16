@@ -1,7 +1,7 @@
 #include "App.h"
 #include <iostream>
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     try
     {
@@ -16,7 +16,8 @@ int main(int argc, char *argv[])
 
         // Main loop
         bool isRunning = true;
-        while (isRunning) {
+        while (isRunning)
+        {
             while (SDL_PollEvent(&event))
             {
                 theApp.onEvent(&event);

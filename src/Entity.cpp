@@ -50,7 +50,6 @@ void Entity::render(SDL_Surface* Surf_Display, int x, int y)
 
 void Entity::render(SDL_Surface* Surf_Display)
 {
-
 }
 
 
