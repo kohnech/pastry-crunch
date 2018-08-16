@@ -11,6 +11,10 @@
 #include <algorithm>
 #include <stdlib.h>
 
+
+#include <chrono>
+#include <thread>
+
 Grid Grid::instance;
 
 Grid::Grid(int x, int y)
@@ -260,12 +264,7 @@ void Grid::update(const Index& pos)
         std::cout << "Found adjacent cookies!!!" << std::endl;
         swapEntity(mPrevClickedIndexes, pos);
 
-        std::vector<Index> matches;
-        matches = findVerticalMatches(pos);
-        std::vector<Index> matchesHor = findHorizontalMatches(pos);
-        // Get total matches
-        matches.insert(matches.end(), matchesHor.begin(), matchesHor.end());
-
+        std::vector<Index> matches = findMatches(pos);
 
         for (auto ind : matches)
         {
@@ -273,7 +272,18 @@ void Grid::update(const Index& pos)
         }
 
 
-        if (matches.size() >= mMinimumMatches)
+
+        if (matches.size() < mMinimumMatches)
+        {
+            // play sound
+            Sounds::instance.play("error");
+            swapEntity(pos, mPrevClickedIndexes); // Undo swap
+            mPrevClickedIndexes = pos;
+            return;
+        }
+
+
+        while (matches.size() >= mMinimumMatches)
         {
             // play sound
             Sounds::instance.play("kaChing");
@@ -286,7 +296,6 @@ void Grid::update(const Index& pos)
             removeMatches(matches);
 
 
-            // TODO add score for each match
             // TODO This should be a while loop if more matches occurs while refiling the grid...
             // TODO move out to outer function
             printGrid();
@@ -296,7 +305,6 @@ void Grid::update(const Index& pos)
             collapse(rows);
 
             printGrid();
-            createNewEntitiesInRows(rows);
 
             /*
             // get columns that we have to collapse
@@ -307,15 +315,14 @@ void Grid::update(const Index& pos)
             var collapsedCandyInfo = shapes.Collapse(columns);
             //create new ones
             var newCandyInfo = CreateNewCandyInSpecificColumns(columns);*/
-        }
-        else // Undo swap if no more than mMinimumMatches
-        {
-            // play sound
-            Sounds::instance.play("error");
 
-            swapEntity(pos, mPrevClickedIndexes); // Undo swap
-            mPrevClickedIndexes = pos;
-            return;
+            createNewEntitiesInRows(rows);
+
+            matches = findNewMatches();
+
+            // Sleep
+            std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+
         }
     }
     else
@@ -405,7 +412,6 @@ std::vector<Index> Grid::findVerticalMatches(const Index& ind)
             else
                 break;
         }
-    std::cout << "size of matches: " << matches.size() << std::endl;
 
     // we are only interested in a set of more than mMinimumMatches connected entities
     if (matches.size() < mMinimumMatches)
@@ -624,4 +630,38 @@ void Grid::updateScore()
     mScoreText.setText(str);
 
     std::cout << "mSCore: " << mScore << std::endl;
+}
+
+std::vector<Index> Grid::findMatches(Index pos)
+{
+    std::vector<Index> matches;
+    matches = findVerticalMatches(pos);
+    std::vector<Index> matchesHor = findHorizontalMatches(pos);
+    // Get total matches
+    matches.insert(matches.end(), matchesHor.begin(), matchesHor.end());
+    return matches;
+}
+
+std::vector<Index> Grid::findNewMatches()
+{
+    std::vector<Index> matches;
+    for (int row = 0; row < mGridRowSize; row ++)
+    {
+        for (int column = 0; column < mGridColumnSize; column ++)
+        {
+            // Find vertically
+            std::vector<Index> newMatches;
+            newMatches = findVerticalMatches(Index(row, column));
+            matches.insert(matches.end(), newMatches.begin(), newMatches.end());
+
+            newMatches.clear();
+            newMatches = findHorizontalMatches(Index(row, column));
+            matches.insert(matches.end(), newMatches.begin(), newMatches.end());
+        }
+    }
+    for (auto match : matches)
+    {
+        std::cout << "find new match: " << match.row << ", " << match.column << std::endl;
+    }
+    return matches;
 }
