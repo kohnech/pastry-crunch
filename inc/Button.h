@@ -1,7 +1,7 @@
 #pragma once
 
-#include "IUiComponent.h"
 #include "Event.h"
+#include "IUiComponent.h"
 #include "Text.h"
 
 

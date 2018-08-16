@@ -16,11 +16,12 @@ Assets::Assets()
 
 void Assets::loadFile(std::string file)
 {
-    try {
+    try
+    {
         std::ifstream ifs(file);
         ifs >> mJ;
     }
-    catch(std::exception& e)
+    catch (std::exception& e)
     {
         std::cout << "Could not load asset file: " << file << std::endl;
     }

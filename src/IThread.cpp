@@ -2,22 +2,27 @@
 
 #include <iostream>
 
-IThread::IThread() {
+IThread::IThread()
+{
 }
 
-void IThread::start() {
+void IThread::start()
+{
     mThread = std::thread(ThreadProxy, this);
 }
 
-void IThread::join() {
+void IThread::join()
+{
     mThread.join();
 }
 
-void IThread::sleep(int ms) {
+void IThread::sleep(int ms)
+{
     std::this_thread::sleep_for(std::chrono::milliseconds(ms));
 }
 
-int IThread::ThreadProxy(void* ptr) {
+int IThread::ThreadProxy(void* ptr)
+{
     if (ptr == NULL)
     {
         return EXIT_FAILURE;
@@ -25,9 +30,11 @@ int IThread::ThreadProxy(void* ptr) {
 
     std::string threadName;
 
-    try {
-        IThread *pThread = static_cast<IThread *>(ptr);
-        if (pThread != NULL) {
+    try
+    {
+        IThread* pThread = static_cast<IThread*>(ptr);
+        if (pThread != NULL)
+        {
             pThread->mIsRunning = true;
             pThread->ThreadMethod();
             pThread->mIsRunning = false;
@@ -35,7 +42,8 @@ int IThread::ThreadProxy(void* ptr) {
         return EXIT_SUCCESS;
     }
 
-    catch (...) {
+    catch (...)
+    {
         std::cout << "Unhandled exception!" << std::endl;
     }
     return EXIT_FAILURE;
