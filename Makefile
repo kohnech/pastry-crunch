@@ -15,6 +15,8 @@ SDL_IMAGE_PATH =$(3RDPARTYDIR)/SDL2_image-$(SDL_IMAGE_VERSION)
 SDL_TTF_PATH =$(3RDPARTYDIR)/SDL2_ttf-2.0.14
 SDL_FREETYPE_PATH =$(3RDPARTYDIR)/freetype-2.4.10
 JSON_PATH = $(3RDPARTYDIR)/nlohmann
+SDL_MIXER_VERSION=2.0.2
+SDL_MIXER_PATH=$(3RDPARTYDIR)/SDL2_mixer-$(SDL_MIXER_VERSION)
 
 INCLUDE_DIRS += -I$(PROJ_ROOT)/inc \
 				-I$(SDL_PATH)/include \
@@ -22,12 +24,13 @@ INCLUDE_DIRS += -I$(PROJ_ROOT)/inc \
 				-I$(SDL_IMAGE_PATH)/include \
 				-I$(SDL_TTF_PATH)/include \
 				-I$(SDL_FREETYPE_PATH)/include \
-				-I$(JSON_PATH)/include
+				-I$(JSON_PATH)/include \
+				-I$(SDL_MIXER_PATH)/include
 
 ## Libs
-LIBS = -lSDL2 -lSDL2main -lSDL2_image -lsndio -pthread -lSDL2_ttf -lfreetype
-LIBS_PATH = -L$(BUILDDIR) -L$(SDL_PATH)/lib -L$(SDL_IMAGE_PATH)/lib -L$(3RDPARTYDIR)/sndio -L$(SDL_TTF_PATH)/lib -L$(SDL_FREETYPE_PATH)/lib
-export LD_LIBRARY_PATH=$(SDL_PATH)/lib:$(3RDPARTYDIR)/sndio:$(SDL_IMAGE_PATH)/lib:$(BUILDDIR):$(SDL_TTF_PATH)/lib:$(SDL_FREETYPE_PATH)/lib
+LIBS = -lSDL2 -lSDL2main -lSDL2_image -lsndio -pthread -lSDL2_ttf -lfreetype -lSDL2_mixer
+LIBS_PATH = -L$(BUILDDIR) -L$(SDL_PATH)/lib -L$(SDL_IMAGE_PATH)/lib -L$(3RDPARTYDIR)/sndio -L$(SDL_TTF_PATH)/lib -L$(SDL_FREETYPE_PATH)/lib -L$(SDL_MIXER_PATH)/lib
+export LD_LIBRARY_PATH=$(SDL_PATH)/lib:$(3RDPARTYDIR)/sndio:$(SDL_IMAGE_PATH)/lib:$(BUILDDIR):$(SDL_TTF_PATH)/lib:$(SDL_FREETYPE_PATH)/lib:$(SDL_MIXER_PATH)/lib
 export LD_LIBRARY_PATH_=$(LD_LIBRARY_PATH)
 
 ## Compiler
@@ -59,7 +62,8 @@ SRCS = 	App.cpp \
 		Assets.cpp \
 		Board.cpp \
 		IThread.cpp \
-		Text.cpp
+		Text.cpp \
+		Sounds.cpp
 
 HDRS = 	inc/App.h \
 		inc/Surface.h \
@@ -72,7 +76,8 @@ HDRS = 	inc/App.h \
 		inc/Assets.h \
 		inc/Board.h \
 		inc/IThread.h \
-		inc/Text.h
+		inc/Text.h \
+		inc/Sounds.h
 
 OBJS = $(patsubst %.cpp,$(BUILDDIR)/%.o,$(SRCS))
 

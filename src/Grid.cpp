@@ -1,5 +1,8 @@
 #include "Grid.h"
 #include "Surface.h"
+#include "Sounds.h"
+
+
 #include "SDL_image.h"
 
 #include <iostream>
@@ -242,9 +245,6 @@ void Grid::update(const Index& pos)
         // Get total matches
         matches.insert( matches.end(), matchesHor.begin(), matchesHor.end() );
 
-        // Update score
-        mScore += matches.size() * mMinimumScore;
-        updateScore();
 
         for (auto ind : matches)
         {
@@ -254,9 +254,21 @@ void Grid::update(const Index& pos)
         // Undo swap if no more than mMinimumMatches
         if (matches.size() < mMinimumMatches)
         {
+            //play sound
+            Sounds::instance.play("error");
+
             swapEntity(pos, mPrevClickedIndexes); // Undo swap
             mPrevClickedIndexes = pos;
             return;
+        }
+        else
+        {
+            //play sound
+            Sounds::instance.play("kaChing");
+
+            // Update score
+            mScore += matches.size() * mMinimumScore;
+            updateScore();
         }
 
         // Now we need collapse the matches
