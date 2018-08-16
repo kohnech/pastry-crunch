@@ -257,17 +257,8 @@ void Grid::update(const Index& pos)
             std::cout << "match: (" << ind.row << ", " << ind.column << ")" << std::endl;
         }
 
-        // Undo swap if no more than mMinimumMatches
-        if (matches.size() < mMinimumMatches)
-        {
-            // play sound
-            Sounds::instance.play("error");
 
-            swapEntity(pos, mPrevClickedIndexes); // Undo swap
-            mPrevClickedIndexes = pos;
-            return;
-        }
-        else
+        if (matches.size() >= mMinimumMatches)
         {
             // play sound
             Sounds::instance.play("kaChing");
@@ -301,6 +292,15 @@ void Grid::update(const Index& pos)
             var collapsedCandyInfo = shapes.Collapse(columns);
             //create new ones
             var newCandyInfo = CreateNewCandyInSpecificColumns(columns);*/
+        }
+        else // Undo swap if no more than mMinimumMatches
+        {
+            // play sound
+            Sounds::instance.play("error");
+
+            swapEntity(pos, mPrevClickedIndexes); // Undo swap
+            mPrevClickedIndexes = pos;
+            return;
         }
     }
     else
