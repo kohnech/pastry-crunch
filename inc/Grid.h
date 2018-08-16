@@ -100,7 +100,7 @@ public:
      * @param column
      * @param id
      */
-    void loadEntity(int row, int column, int id);
+    void loadEntity(int row, int column, int id, bool animate);
 
     //// Events
 

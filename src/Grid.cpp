@@ -104,7 +104,12 @@ void Grid::render(SDL_Surface* Surf_Display)
             }
             else
             {
-                entity->render(Surf_Display, mX + xPos, mY + yPos);
+                if (entity->animate) {
+                    entity->renderAnimation(Surf_Display, mX + xPos, mY, mX + xPos, mY + yPos);
+                }
+                else {
+                    entity->render(Surf_Display, mX + xPos, mY + yPos);
+                }
             }
 
             mScoreText.render(Surf_Display);
@@ -175,17 +180,18 @@ void Grid::initGrid()
                 newId = getRandomInt();
             }
 
-            loadEntity(row, column, newId);
+            loadEntity(row, column, newId, false);
         }
     }
 }
 
-void Grid::loadEntity(int row, int column, int id)
+void Grid::loadEntity(int row, int column, int id, bool animate)
 {
     // TODO delete previous entity if not NULL???
     std::string asset = mAssets[id];
     Entity* entity = new Entity(id);
     entity->load(asset.c_str(), mTileWidth, mTileHeight);
+    entity->animate = animate;
     mGrid[row][column] = entity;
 }
 
@@ -571,7 +577,7 @@ void Grid::createNewEntitiesInRows(std::vector<int> rows)
         {
             int go = getRandomInt();
 
-            loadEntity(index.row, index.column, go);
+            loadEntity(index.row, index.column, go, true);
 
             // GameObject newCandy = Instantiate(go, SpawnPositions[column], Quaternion.identity)
             // as GameObject;
