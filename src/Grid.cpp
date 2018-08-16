@@ -8,6 +8,7 @@
 #include <iostream>
 #include <map>
 #include <random>
+#include <algorithm>
 #include <stdlib.h>
 
 Grid Grid::instance;
@@ -191,8 +192,6 @@ void Grid::onLButtonDown(int x, int y)
 {
     std::cout << "onLButtonDown: (" << x << "," << y << ")" << std::endl;
 
-    std::cout << "mWidth: " << mWidth << ", mHeight: " << mHeight << std::endl;
-
     Index index = getIndexesFromPosition(x, y);
     if (index == Index(-1, -1))
     {
@@ -275,10 +274,12 @@ void Grid::update(const Index& pos)
             // Update score
             mScore += matches.size() * mMinimumScore;
             updateScore();
+
+            // Now we need collapse the matches
+            removeMatches(matches);
         }
 
-        // Now we need collapse the matches
-        removeMatches(matches);
+
     }
     else
     {

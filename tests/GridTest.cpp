@@ -194,9 +194,60 @@ TEST(GridTests, Test_function_getDistinctRows)
     matches = {ind1, ind2, ind3};
 
     std::vector<int> columns = testGrid.getDistinctRows(matches);
+    EXPECT_EQ(columns.size(), 3u);
     EXPECT_EQ(columns.at(0), 1);
     EXPECT_EQ(columns.at(1), 2);
     EXPECT_EQ(columns.at(2), 3);
+
+    matches.clear();
+    columns.clear();
+    ind1 = Index(1, 1);
+    ind2 = Index(1, 2);
+    ind3 = Index(1, 3);
+    matches = {ind1, ind2, ind3};
+
+    columns = testGrid.getDistinctRows(matches);
+    EXPECT_EQ(columns.size(), 1u);
+    EXPECT_EQ(columns.at(0), 1);
+
+    matches.clear();
+    columns.clear();
+    ind1 = Index(1, 1);
+    matches = {ind1};
+
+    columns = testGrid.getDistinctRows(matches);
+    EXPECT_EQ(columns.size(), 1u);
+    EXPECT_EQ(columns.at(0), 1);
+
+    /// 4 in a row
+    matches.clear();
+    columns.clear();
+    ind1 = Index(1, 0);
+    ind2 = Index(1, 1);
+    ind3 = Index(1, 2);
+    Index ind4(1, 3);
+    matches = {ind1, ind2, ind3, ind4};
+
+    columns = testGrid.getDistinctRows(matches);
+    EXPECT_EQ(columns.size(), 1u);
+    EXPECT_EQ(columns.at(0), 1);
+
+
+    /// 4 in a column
+    matches.clear();
+    columns.clear();
+    ind1 = Index(0, 1);
+    ind2 = Index(1, 1);
+    ind3 = Index(2, 1);
+    ind4 = Index(3, 1);
+    matches = {ind1, ind2, ind3, ind4};
+
+    columns = testGrid.getDistinctRows(matches);
+    EXPECT_EQ(columns.size(), 4u);
+    EXPECT_EQ(columns.at(0), 0);
+    EXPECT_EQ(columns.at(1), 1);
+    EXPECT_EQ(columns.at(2), 2);
+    EXPECT_EQ(columns.at(3), 3);
 }
 
 
