@@ -12,8 +12,8 @@ class IUiComponent
 public:
     IUiComponent()
     : mX{ 0 }
-    , mY { 0 }
-    , mSurface { NULL }
+    , mY{ 0 }
+    , mSurface{ NULL }
     , mWidth{ 0 }
     , mHeight{ 0 }
     {
@@ -41,7 +41,8 @@ public:
 
     inline void setPosition(int x, int y)
     {
-        mX = x; mY = y;
+        mX = x;
+        mY = y;
     }
 
     inline Pair getPosition()
@@ -60,7 +61,8 @@ public:
         return size;
     }
 
-    inline void setSize(Pair size) {
+    inline void setSize(Pair size)
+    {
         mWidth = size.first;
         mHeight = size.second;
     }

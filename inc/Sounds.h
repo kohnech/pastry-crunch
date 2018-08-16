@@ -7,9 +7,10 @@
 #include <map>
 #include <string>
 
-class Sounds {
+class Sounds
+{
 public:
-    static Sounds           instance;
+    static Sounds instance;
 
     Sounds();
 
@@ -24,6 +25,5 @@ public:
     void stop();
 
 private:
-    std::map<std::string, Mix_Chunk*>     mSounds;
+    std::map<std::string, Mix_Chunk*> mSounds;
 };
-

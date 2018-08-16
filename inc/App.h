@@ -1,12 +1,12 @@
 #pragma once
 
+#include "Button.h"
 #include "CAnimation.h"
-#include "Event.h"
-#include "Entity.h"
 #include "CCamera.h"
+#include "Entity.h"
+#include "Event.h"
 #include "IThread.h"
 #include "Text.h"
-#include "Button.h"
 
 #include <SDL2/SDL.h>
 

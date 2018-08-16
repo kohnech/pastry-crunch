@@ -1,10 +1,10 @@
 #include "App.h"
-#include "Surface.h"
 #include "Assets.h"
-#include "Grid.h"
 #include "Board.h"
 #include "Define.h"
+#include "Grid.h"
 #include "Sounds.h"
+#include "Surface.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_events.h>

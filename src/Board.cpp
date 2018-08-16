@@ -1,7 +1,7 @@
 #include "Board.h"
-#include "Surface.h"
-#include "Define.h"
 #include "Assets.h"
+#include "Define.h"
+#include "Surface.h"
 
 #include <iostream>
 #include <string>
@@ -9,10 +9,10 @@
 Board Board::instance;
 
 Board::Board()
-: mTileAsset{""}
+: mTileAsset{ "" }
 , mHighlightX{ 0 }
 , mHighlightY{ 0 }
-, mHighlightSurf { NULL }
+, mHighlightSurf{ NULL }
 , mIsHighlightVisible{ true }
 {
 }
@@ -51,16 +51,19 @@ void Board::render(SDL_Surface* Surf_Display)
     if (Surf_Display == NULL || mSurface == NULL)
         return;
 
-    for (int x = 0; x < mGridRowSize; ++x) {
-        for (int y = 0; y < mGridColumnSize; ++y) {
+    for (int x = 0; x < mGridRowSize; ++x)
+    {
+        for (int y = 0; y < mGridColumnSize; ++y)
+        {
             int xPos = x * mWidth;
             int yPos = y * mHeight;
 
-            if (mIsHighlightVisible && ((x == mHighlightX) && (y == mHighlightY)) )
+            if (mIsHighlightVisible && ((x == mHighlightX) && (y == mHighlightY)))
             {
                 Surface::OnDraw(Surf_Display, mHighlightSurf, mX + xPos, mY + yPos, 0, 0, mWidth, mHeight);
             }
-            else {
+            else
+            {
                 Surface::OnDraw(Surf_Display, mSurface, mX + xPos, mY + yPos, 0, 0, mWidth, mHeight);
             }
         }

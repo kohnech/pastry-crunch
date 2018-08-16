@@ -1,9 +1,9 @@
 #pragma once
 
 #include "Assets.h"
+#include "Board.h"
 #include "Define.h"
 #include "Entity.h"
-#include "Board.h"
 #include "IUiComponent.h"
 #include "Text.h"
 
@@ -33,13 +33,15 @@
 struct Index
 {
 public:
-    Index(int r = 0, int c = 0) {
+    Index(int r = 0, int c = 0)
+    {
         row = r;
         column = c;
     }
     int row, column; // row is x-axis, column y-axis aligned with SDL coordinate system
 
-    bool operator==(const Index& rhs) {
+    bool operator==(const Index& rhs)
+    {
         return (row == rhs.row && column == rhs.column);
     }
 };
@@ -110,7 +112,7 @@ public:
     virtual void onLButtonDown(int x, int y);
 
     // TODO use for dragging
-    //virtual void onLButtonUp(int mX, int mY);
+    // virtual void onLButtonUp(int mX, int mY);
 
     /*!
      * Keyboard pressed event of any key
@@ -172,7 +174,7 @@ public:
     /*!
      * Get entity at index for unit test purpose
      */
-     Entity* getEntity(Index ind);
+    Entity* getEntity(Index ind);
 
     /*!
      * Sets void @ index. This is useful to simulate voids

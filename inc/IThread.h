@@ -1,8 +1,8 @@
 #pragma once
 
 
-#include <thread>
 #include <chrono>
+#include <thread>
 /*!
  * Thread method
  */
