@@ -182,6 +182,7 @@ void Grid::initGrid()
 
 void Grid::loadEntity(int row, int column, int id)
 {
+    // TODO delete previous entity if not NULL???
     std::string asset = mAssets[id];
     Entity* entity = new Entity(id);
     entity->load(asset.c_str(), mTileWidth, mTileHeight);
