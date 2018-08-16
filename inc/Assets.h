@@ -33,6 +33,8 @@ public:
     int getMinimumScores();
     int getMinimumMatches();
     std::map<std::string, std::string> getSounds();
+    std::string getButtonAsset();
+    std::pair<int, int> getButtonSize();
 
 
 private:

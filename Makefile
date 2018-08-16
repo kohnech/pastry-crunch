@@ -63,7 +63,8 @@ SRCS = 	App.cpp \
 		Board.cpp \
 		IThread.cpp \
 		Text.cpp \
-		Sounds.cpp
+		Sounds.cpp \
+		Button.cpp
 
 HDRS = 	inc/App.h \
 		inc/Surface.h \
@@ -77,7 +78,8 @@ HDRS = 	inc/App.h \
 		inc/Board.h \
 		inc/IThread.h \
 		inc/Text.h \
-		inc/Sounds.h
+		inc/Sounds.h \
+		inc/Button.h
 
 OBJS = $(patsubst %.cpp,$(BUILDDIR)/%.o,$(SRCS))
 
