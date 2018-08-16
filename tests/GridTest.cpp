@@ -298,7 +298,7 @@ TEST(GridTests, Test_function_collapse)
     EXPECT_EQ(2, num);
 }
 
-TEST(GridTests, Test_function_collapse_4_in_row)
+TEST(GridTests, Test_function_collapse_4_in_a_column)
 {
     Assets assets;
     assets.loadFile("assets.json");
@@ -307,7 +307,7 @@ TEST(GridTests, Test_function_collapse_4_in_row)
     testGrid.load(assets); // TODO create fixture...
     testGrid.initGrid();
 
-    testGrid.printGrid();
+//    testGrid.printGrid();
     /// Get all ids above row to be collapsed
     std::vector<int> ids;
     for (int i = 0; i < 5; i++)
@@ -317,7 +317,7 @@ TEST(GridTests, Test_function_collapse_4_in_row)
         std::cout << "GetEntity id: " << entity->id << std::endl;
     }
 
-    /// Test collapse 4 in a row
+    /// Test collapse 4 in a column
         for (int i = 0; i < 5; i++)
     {
         Index ind0(i, 1);
@@ -332,12 +332,12 @@ TEST(GridTests, Test_function_collapse_4_in_row)
         EXPECT_TRUE(nonvoid != NULL);
     }
 
-    testGrid.printGrid();
+    //testGrid.printGrid();
 
-    std::vector<int> columns = {0, 1, 2, 3, 4};
-    testGrid.collapse(columns);
+    std::vector<int> rows = {0, 1, 2, 3, 4};
+    testGrid.collapse(rows);
 
-    testGrid.printGrid();
+    //testGrid.printGrid();
 
     for (int i = 0; i < 5; i++)
     {
@@ -347,5 +347,59 @@ TEST(GridTests, Test_function_collapse_4_in_row)
         EXPECT_EQ(entity->id, ids.at(i));
     }
 
+}
+
+TEST(GridTests, Test_function_collapse_3_in_a_row)
+{
+    Assets assets;
+    assets.loadFile("assets.json");
+
+    Grid testGrid;
+    testGrid.load(assets); // TODO create fixture...
+    testGrid.initGrid();
+
+    /// Get all ids above row to be collapsed
+    std::vector<int> idsLeftRow;
+    std::vector<int> idsRightRow;
+    for (int i = 0; i < 3; i++)
+    {
+        Entity *entity = testGrid.getEntity(Index(0, i));
+        idsLeftRow.push_back(entity->id);
+        entity = testGrid.getEntity(Index(2, i));
+        idsRightRow.push_back(entity->id);
+        std::cout << "GetEntity id: " << entity->id << std::endl;
+    }
+
+    /// Test collapse 3 in a row
+    for (int i = 0; i < 3; i++)
+    {
+        Index ind0(1, i);
+        testGrid.setVoid(ind0);
+        Entity* evoid = testGrid.getEntity(Index(1, i));
+        EXPECT_TRUE(evoid == NULL);
+
+        Entity* nonvoid = testGrid.getEntity(Index(0, i));
+        EXPECT_TRUE(nonvoid != NULL);
+
+        nonvoid = testGrid.getEntity(Index(2, i));
+        EXPECT_TRUE(nonvoid != NULL);
+    }
+
+    testGrid.printGrid();
+
+    std::vector<int> rows = {0 ,1, 2, 3, 4};  // Test collapse all rows
+    testGrid.collapse(rows);
+
+    testGrid.printGrid();
+
+    for (int i = 0; i < 3; i++)
+    {
+        Entity *neighbour = testGrid.getEntity(Index(1, i));
+        EXPECT_TRUE(neighbour == NULL); // We have yet not refilled the grid
+        Entity *entity = testGrid.getEntity(Index(0, i));
+        EXPECT_EQ(entity->id, idsLeftRow.at(i));
+        entity = testGrid.getEntity(Index(2, i));
+        EXPECT_EQ(entity->id, idsRightRow.at(i));
+    }
 }
 
