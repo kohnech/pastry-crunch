@@ -11,6 +11,20 @@ using json = nlohmann::json;
 const int GRID_WIDTH = 5;
 const int GRID_HEIGHT = 3;
 
+// Fixture
+class GridTest : public ::testing::Test {
+protected:
+    void SetUp() override
+    {
+        Assets assets;
+        assets.loadFile("assets.json");
+        grid_.load(assets);
+        grid_.initGrid();
+    }
+
+    Grid grid_;
+};
+
 TEST(GridTests, Test_function_load)
 {
     Assets assets;
@@ -44,84 +58,72 @@ TEST(GridTests, Test_function_load)
     EXPECT_EQ(gridSize.second, GRID_HEIGHT);
 }
 
-TEST(GridTests, Test_function_getIndexesFromPosition)
+TEST_F(GridTest, Test_function_getIndexesFromPosition)
 {
-    Assets assets;
-    assets.loadFile("assets.json");
-
-    Grid testGrid;
-    testGrid.load(assets);
-
-    Pair size = testGrid.getSize();
+    Pair size = grid_.getSize();
     EXPECT_EQ(size.first, 10);
     EXPECT_EQ(size.second, 10);
 
     Index ind;
     // Outside the board
-    ind = testGrid.getIndexesFromPosition(50, 50);
+    ind = grid_.getIndexesFromPosition(50, 50);
     EXPECT_EQ(ind.column, -1);
     EXPECT_EQ(ind.row, -1);
 
-    ind = testGrid.getIndexesFromPosition(100, 100);
+    ind = grid_.getIndexesFromPosition(100, 100);
     EXPECT_EQ(ind.column, 0);
     EXPECT_EQ(ind.row, 0);
 
-    ind = testGrid.getIndexesFromPosition(105, 103);
+    ind = grid_.getIndexesFromPosition(105, 103);
     EXPECT_EQ(ind.column, 0);
     EXPECT_EQ(ind.row, 0);
 
-    ind = testGrid.getIndexesFromPosition(110, 110);
+    ind = grid_.getIndexesFromPosition(110, 110);
     EXPECT_EQ(ind.column, 1);
     EXPECT_EQ(ind.row, 1);
 
-    ind = testGrid.getIndexesFromPosition(121, 122);
+    ind = grid_.getIndexesFromPosition(121, 122);
     EXPECT_EQ(ind.column, 2);
     EXPECT_EQ(ind.row, 2);
 
-    ind = testGrid.getIndexesFromPosition(121, 122);
+    ind = grid_.getIndexesFromPosition(121, 122);
     EXPECT_EQ(ind.column, 2);
     EXPECT_EQ(ind.row, 2);
 
     // Test extreme point now we are outside of the board
-    ind = testGrid.getIndexesFromPosition(150, 130);
+    ind = grid_.getIndexesFromPosition(150, 130);
     EXPECT_EQ(ind.column, -1);
     EXPECT_EQ(ind.row, -1);
 
     // still inside... so a valid index...
-    ind = testGrid.getIndexesFromPosition(149, 129);
+    ind = grid_.getIndexesFromPosition(149, 129);
     EXPECT_EQ(ind.row, 4);
     EXPECT_EQ(ind.column, 2);
 }
 
-TEST(GridTests, Test_function_isAdjacent)
+TEST_F(GridTest, Test_function_isAdjacent)
 {
-    Assets assets;
-    assets.loadFile("assets.json");
-
-    Grid testGrid;
-    testGrid.load(assets);
-
     // Set mPrevClickedPosition with a mouse click... Now it is att Index (0,0)
-    testGrid.onLButtonDown(100,100);
-    EXPECT_TRUE(testGrid.isAdjacent(Index(1,0)));
-    EXPECT_TRUE(testGrid.isAdjacent(Index(0,1)));
+    grid_.onLButtonDown(100,100);
+    EXPECT_TRUE(grid_.isAdjacent(Index(1,0)));
+    EXPECT_TRUE(grid_.isAdjacent(Index(0,1)));
 
     // Click index (4,0)
-    testGrid.onLButtonDown(149,100);
-    EXPECT_TRUE(testGrid.isAdjacent(Index(3,0)));
-    EXPECT_TRUE(testGrid.isAdjacent(Index(4,1)));
+    grid_.onLButtonDown(149,100);
+    EXPECT_TRUE(grid_.isAdjacent(Index(3,0)));
+    EXPECT_TRUE(grid_.isAdjacent(Index(4,1)));
 
     // Click index (4,2)
-    testGrid.onLButtonDown(149,129);
-    EXPECT_TRUE(testGrid.isAdjacent(Index(4,1)));
-    EXPECT_TRUE(testGrid.isAdjacent(Index(3,2)));
+    grid_.onLButtonDown(149,129);
+    EXPECT_TRUE(grid_.isAdjacent(Index(4,1)));
+    EXPECT_TRUE(grid_.isAdjacent(Index(3,2)));
 
     // Click index (2,1)
-    testGrid.onLButtonDown(120,110);
-    EXPECT_TRUE(testGrid.isAdjacent(Index(2,0)));
-    EXPECT_TRUE(testGrid.isAdjacent(Index(2,2)));
-    EXPECT_TRUE(testGrid.isAdjacent(Index(1,1)));
-    EXPECT_TRUE(testGrid.isAdjacent(Index(3,1)));
+    grid_.onLButtonDown(120,110);
+    EXPECT_TRUE(grid_.isAdjacent(Index(2,0)));
+    EXPECT_TRUE(grid_.isAdjacent(Index(2,2)));
+    EXPECT_TRUE(grid_.isAdjacent(Index(1,1)));
+    EXPECT_TRUE(grid_.isAdjacent(Index(3,1)));
 
     // Click index (2,1)
     //testGrid.onLButtonDown(130,120);
@@ -131,22 +133,16 @@ TEST(GridTests, Test_function_isAdjacent)
     //EXPECT_TRUE(testGrid.isAdjacent(Index(3,4)));
 }
 
-TEST(GridTests, Test_function_swapEntity)
+TEST_F(GridTest, Test_function_swapEntity)
 {
-    Assets assets;
-    assets.loadFile("assets.json");
-
-    Grid testGrid;
-    testGrid.load(assets);
-
     Index indFrom(0,0);
     Index indTo(1,1);
-    Entity* from = testGrid.getEntity(indFrom);
-    Entity* to = testGrid.getEntity(indTo);
+    Entity* from = grid_.getEntity(indFrom);
+    Entity* to = grid_.getEntity(indTo);
 
-    testGrid.swapEntity(indFrom, indTo);
-    Entity* newFrom = testGrid.getEntity(indFrom);
-    Entity* newTo = testGrid.getEntity(indTo);
+    grid_.swapEntity(indFrom, indTo);
+    Entity* newFrom = grid_.getEntity(indFrom);
+    Entity* newTo = grid_.getEntity(indTo);
 
     EXPECT_EQ(from, newTo);
     EXPECT_EQ(to, newFrom);
@@ -154,12 +150,12 @@ TEST(GridTests, Test_function_swapEntity)
     ////
     indFrom = Index(4,4);
     indTo = Index(3,4);
-    from = testGrid.getEntity(indFrom);
-    to = testGrid.getEntity(indTo);
+    from = grid_.getEntity(indFrom);
+    to = grid_.getEntity(indTo);
 
-    testGrid.swapEntity(indFrom, indTo);
-    newFrom = testGrid.getEntity(indFrom);
-    newTo = testGrid.getEntity(indTo);
+    grid_.swapEntity(indFrom, indTo);
+    newFrom = grid_.getEntity(indFrom);
+    newTo = grid_.getEntity(indTo);
 
     EXPECT_EQ(from, newTo);
     EXPECT_EQ(to, newFrom);
@@ -167,25 +163,20 @@ TEST(GridTests, Test_function_swapEntity)
     // Try swap impossible case. This case will result in NO swap!!!
     indFrom = Index(4,4);
     indTo = Index(5,4);
-    from = testGrid.getEntity(indFrom);
-    to = testGrid.getEntity(indTo);
+    from = grid_.getEntity(indFrom);
+    to = grid_.getEntity(indTo);
 
-    testGrid.swapEntity(indFrom, indTo);
-    newFrom = testGrid.getEntity(indFrom);
-    newTo = testGrid.getEntity(indTo);
+    grid_.swapEntity(indFrom, indTo);
+    newFrom = grid_.getEntity(indFrom);
+    newTo = grid_.getEntity(indTo);
 
-    EXPECT_EQ(testGrid.getEntity(Index(4, 4)), newTo);
+    EXPECT_EQ(grid_.getEntity(Index(4, 4)), newTo);
     EXPECT_EQ(from, newFrom);
-    EXPECT_EQ(testGrid.getEntity(Index(4, 4)), to);
+    EXPECT_EQ(grid_.getEntity(Index(4, 4)), to);
 }
 
-TEST(GridTests, Test_function_getDistinctRows)
+TEST_F(GridTest, Test_function_getDistinctRows)
 {
-    Assets assets;
-    assets.loadFile("assets.json");
-    Grid testGrid;
-    testGrid.load(assets); // TODO create fixture...
-
     std::vector<Index> matches;
     Index ind1(1, 1);
     Index ind2(2, 1);
@@ -193,7 +184,7 @@ TEST(GridTests, Test_function_getDistinctRows)
 
     matches = {ind1, ind2, ind3};
 
-    std::vector<int> columns = testGrid.getDistinctRows(matches);
+    std::vector<int> columns = grid_.getDistinctRows(matches);
     EXPECT_EQ(columns.size(), 3u);
     EXPECT_EQ(columns.at(0), 1);
     EXPECT_EQ(columns.at(1), 2);
@@ -206,7 +197,7 @@ TEST(GridTests, Test_function_getDistinctRows)
     ind3 = Index(1, 3);
     matches = {ind1, ind2, ind3};
 
-    columns = testGrid.getDistinctRows(matches);
+    columns = grid_.getDistinctRows(matches);
     EXPECT_EQ(columns.size(), 1u);
     EXPECT_EQ(columns.at(0), 1);
 
@@ -215,7 +206,7 @@ TEST(GridTests, Test_function_getDistinctRows)
     ind1 = Index(1, 1);
     matches = {ind1};
 
-    columns = testGrid.getDistinctRows(matches);
+    columns = grid_.getDistinctRows(matches);
     EXPECT_EQ(columns.size(), 1u);
     EXPECT_EQ(columns.at(0), 1);
 
@@ -228,7 +219,7 @@ TEST(GridTests, Test_function_getDistinctRows)
     Index ind4(1, 3);
     matches = {ind1, ind2, ind3, ind4};
 
-    columns = testGrid.getDistinctRows(matches);
+    columns = grid_.getDistinctRows(matches);
     EXPECT_EQ(columns.size(), 1u);
     EXPECT_EQ(columns.at(0), 1);
 
@@ -242,7 +233,7 @@ TEST(GridTests, Test_function_getDistinctRows)
     ind4 = Index(3, 1);
     matches = {ind1, ind2, ind3, ind4};
 
-    columns = testGrid.getDistinctRows(matches);
+    columns = grid_.getDistinctRows(matches);
     EXPECT_EQ(columns.size(), 4u);
     EXPECT_EQ(columns.at(0), 0);
     EXPECT_EQ(columns.at(1), 1);
@@ -251,28 +242,22 @@ TEST(GridTests, Test_function_getDistinctRows)
 }
 
 
-TEST(GridTests, Test_function_collapse)
+TEST_F(GridTest, Test_function_collapse)
 {
-    Assets assets;
-    assets.loadFile("assets.json");
-
-    Grid testGrid;
-    testGrid.load(assets); // TODO create fixture...
-
     // Test collapse Index (1, 1)
     Index ind0(1, 0);
     Index ind1(1, 1);
-    testGrid.setVoid(ind1);
-    EXPECT_TRUE(testGrid.getEntity(ind0) != NULL);
-    EXPECT_EQ(NULL, testGrid.getEntity(ind1));
+    grid_.setVoid(ind1);
+    EXPECT_TRUE(grid_.getEntity(ind0) != NULL);
+    EXPECT_EQ(NULL, grid_.getEntity(ind1));
 
     // Now collapse the void
     std::vector<int> columns = {1};
-    int num = testGrid.collapse(columns);
+    int num = grid_.collapse(columns);
 
     // Check we collapsed the above index (1, 0)
-    EXPECT_EQ(NULL, testGrid.getEntity(ind0));
-    EXPECT_TRUE(testGrid.getEntity(ind1) != NULL);
+    EXPECT_EQ(NULL, grid_.getEntity(ind0));
+    EXPECT_TRUE(grid_.getEntity(ind1) != NULL);
     EXPECT_EQ(1, num);
 
 
@@ -280,39 +265,33 @@ TEST(GridTests, Test_function_collapse)
     ind0 = Index(4, 0);
     ind1 = Index(4, 1);
     Index ind2(4, 2);
-    testGrid.setVoid(ind1);
-    testGrid.setVoid(ind2);
+    grid_.setVoid(ind1);
+    grid_.setVoid(ind2);
 
-    EXPECT_TRUE(testGrid.getEntity(ind0) != NULL);
-    EXPECT_EQ(NULL, testGrid.getEntity(ind1));
-    EXPECT_EQ(NULL, testGrid.getEntity(ind2));
+    EXPECT_TRUE(grid_.getEntity(ind0) != NULL);
+    EXPECT_EQ(NULL, grid_.getEntity(ind1));
+    EXPECT_EQ(NULL, grid_.getEntity(ind2));
 
     // Now collpase the voids
     columns = {4};
-    num = testGrid.collapse(columns);
+    num = grid_.collapse(columns);
 
     // Check we collapsed the above index (1, 0)
-    EXPECT_EQ(NULL, testGrid.getEntity(ind0));
-    EXPECT_EQ(NULL, testGrid.getEntity(ind1));
-    EXPECT_TRUE(testGrid.getEntity(ind2) != NULL);
+    EXPECT_EQ(NULL, grid_.getEntity(ind0));
+    EXPECT_EQ(NULL, grid_.getEntity(ind1));
+    EXPECT_TRUE(grid_.getEntity(ind2) != NULL);
     EXPECT_EQ(2, num);
 }
 
-TEST(GridTests, Test_function_collapse_4_in_a_column)
+TEST_F(GridTest, Test_function_collapse_4_in_a_column)
 {
-    Assets assets;
-    assets.loadFile("assets.json");
+    grid_.initGrid();
 
-    Grid testGrid;
-    testGrid.load(assets); // TODO create fixture...
-    testGrid.initGrid();
-
-//    testGrid.printGrid();
     /// Get all ids above row to be collapsed
     std::vector<int> ids;
     for (int i = 0; i < 5; i++)
     {
-        Entity *entity = testGrid.getEntity(Index(i, 0));
+        Entity *entity = grid_.getEntity(Index(i, 0));
         ids.push_back(entity->id);
         std::cout << "GetEntity id: " << entity->id << std::endl;
     }
@@ -321,51 +300,42 @@ TEST(GridTests, Test_function_collapse_4_in_a_column)
         for (int i = 0; i < 5; i++)
     {
         Index ind0(i, 1);
-        testGrid.setVoid(ind0);
-        Entity* evoid = testGrid.getEntity(Index(i, 1));
+        grid_.setVoid(ind0);
+        Entity* evoid = grid_.getEntity(Index(i, 1));
         EXPECT_TRUE(evoid == NULL);
 
-        Entity* nonvoid = testGrid.getEntity(Index(i, 0));
+        Entity* nonvoid = grid_.getEntity(Index(i, 0));
         EXPECT_TRUE(nonvoid != NULL);
 
-        nonvoid = testGrid.getEntity(Index(i, 2));
+        nonvoid = grid_.getEntity(Index(i, 2));
         EXPECT_TRUE(nonvoid != NULL);
     }
 
-    //testGrid.printGrid();
-
     std::vector<int> rows = {0, 1, 2, 3, 4};
-    testGrid.collapse(rows);
-
-    //testGrid.printGrid();
+    grid_.collapse(rows);
 
     for (int i = 0; i < 5; i++)
     {
-        Entity *evoid = testGrid.getEntity(Index(i, 0));
+        Entity *evoid = grid_.getEntity(Index(i, 0));
         EXPECT_TRUE(evoid == NULL);
-        Entity *entity = testGrid.getEntity(Index(i, 1));
+        Entity *entity = grid_.getEntity(Index(i, 1));
         EXPECT_EQ(entity->id, ids.at(i));
     }
 
 }
 
-TEST(GridTests, Test_function_collapse_3_in_a_row)
+TEST_F(GridTest, Test_function_collapse_3_in_a_row)
 {
-    Assets assets;
-    assets.loadFile("assets.json");
-
-    Grid testGrid;
-    testGrid.load(assets); // TODO create fixture...
-    testGrid.initGrid();
+    grid_.initGrid();
 
     /// Get all ids above row to be collapsed
     std::vector<int> idsLeftRow;
     std::vector<int> idsRightRow;
     for (int i = 0; i < 3; i++)
     {
-        Entity *entity = testGrid.getEntity(Index(0, i));
+        Entity *entity = grid_.getEntity(Index(0, i));
         idsLeftRow.push_back(entity->id);
-        entity = testGrid.getEntity(Index(2, i));
+        entity = grid_.getEntity(Index(2, i));
         idsRightRow.push_back(entity->id);
         std::cout << "GetEntity id: " << entity->id << std::endl;
     }
@@ -374,31 +344,27 @@ TEST(GridTests, Test_function_collapse_3_in_a_row)
     for (int i = 0; i < 3; i++)
     {
         Index ind0(1, i);
-        testGrid.setVoid(ind0);
-        Entity* evoid = testGrid.getEntity(Index(1, i));
+        grid_.setVoid(ind0);
+        Entity* evoid = grid_.getEntity(Index(1, i));
         EXPECT_TRUE(evoid == NULL);
 
-        Entity* nonvoid = testGrid.getEntity(Index(0, i));
+        Entity* nonvoid = grid_.getEntity(Index(0, i));
         EXPECT_TRUE(nonvoid != NULL);
 
-        nonvoid = testGrid.getEntity(Index(2, i));
+        nonvoid = grid_.getEntity(Index(2, i));
         EXPECT_TRUE(nonvoid != NULL);
     }
 
-    testGrid.printGrid();
-
     std::vector<int> rows = {0 ,1, 2, 3, 4};  // Test collapse all rows
-    testGrid.collapse(rows);
-
-    testGrid.printGrid();
+    grid_.collapse(rows);
 
     for (int i = 0; i < 3; i++)
     {
-        Entity *neighbour = testGrid.getEntity(Index(1, i));
+        Entity *neighbour = grid_.getEntity(Index(1, i));
         EXPECT_TRUE(neighbour == NULL); // We have yet not refilled the grid
-        Entity *entity = testGrid.getEntity(Index(0, i));
+        Entity *entity = grid_.getEntity(Index(0, i));
         EXPECT_EQ(entity->id, idsLeftRow.at(i));
-        entity = testGrid.getEntity(Index(2, i));
+        entity = grid_.getEntity(Index(2, i));
         EXPECT_EQ(entity->id, idsRightRow.at(i));
     }
 }
