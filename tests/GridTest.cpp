@@ -285,8 +285,6 @@ TEST_F(GridTest, Test_function_collapse)
 
 TEST_F(GridTest, Test_function_collapse_4_in_a_column)
 {
-    grid_.initGrid();
-
     /// Get all ids above row to be collapsed
     std::vector<int> ids;
     for (int i = 0; i < 5; i++)
@@ -326,8 +324,6 @@ TEST_F(GridTest, Test_function_collapse_4_in_a_column)
 
 TEST_F(GridTest, Test_function_collapse_3_in_a_row)
 {
-    grid_.initGrid();
-
     /// Get all ids above row to be collapsed
     std::vector<int> idsLeftRow;
     std::vector<int> idsRightRow;
