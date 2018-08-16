@@ -278,6 +278,30 @@ void Grid::update(const Index& pos)
 
             // Now we need collapse the matches
             removeMatches(matches);
+
+
+            // TODO add score for each match
+            // TODO This should be a while loop if more matches occurs while refiling the grid...
+            // TODO move out to outer function
+            printGrid();
+
+            std::vector<int> rows = getDistinctRows(matches);
+
+            collapse(rows);
+
+
+            printGrid();
+            createNewEntitiesInRows(rows);
+
+            /*
+            // get columns that we have to collapse
+            var columns = totalMatches.Select(go => go.GetComponent<Shape>().Column).Distinct();
+
+            //the order the 2 methods below get called is important!!!
+            //collapse the ones gone
+            var collapsedCandyInfo = shapes.Collapse(columns);
+            //create new ones
+            var newCandyInfo = CreateNewCandyInSpecificColumns(columns);*/
         }
 
 
@@ -458,29 +482,6 @@ void Grid::removeMatches(const std::vector<Index>& matches)
         delete mGrid[ind.row][ind.column];
         mGrid[ind.row][ind.column] = NULL;
     }
-
-    // TODO add score for each match
-    // TODO This should be a while loop if more matches occurs while refiling the grid...
-    // TODO move out to outer function
-    printGrid();
-
-    std::vector<int> rows = getDistinctRows(matches);
-
-    collapse(rows);
-
-
-    printGrid();
-    createNewEntitiesInRows(rows);
-
-    /*
-    // get columns that we have to collapse
-    var columns = totalMatches.Select(go => go.GetComponent<Shape>().Column).Distinct();
-
-    //the order the 2 methods below get called is important!!!
-    //collapse the ones gone
-    var collapsedCandyInfo = shapes.Collapse(columns);
-    //create new ones
-    var newCandyInfo = CreateNewCandyInSpecificColumns(columns);*/
 }
 
 

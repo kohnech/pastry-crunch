@@ -295,7 +295,7 @@ TEST_F(GridTest, Test_function_collapse_4_in_a_column)
     }
 
     /// Test collapse 4 in a column
-        for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 5; i++)
     {
         Index ind0(i, 1);
         grid_.setVoid(ind0);
@@ -365,3 +365,66 @@ TEST_F(GridTest, Test_function_collapse_3_in_a_row)
     }
 }
 
+TEST_F(GridTest, Test_function_removeMatches_horizontally)
+{
+    std::vector<Index> matches;
+    std::vector<int> idsTopColumn;
+    std::vector<int> idsBottomColumn;
+    /// Test remove matches = creating voids 4 in a column
+    for (int i = 0; i < 4; i++)
+    {
+        Entity *entity = grid_.getEntity(Index(i, 0));
+        idsTopColumn.push_back(entity->id);
+        entity = grid_.getEntity(Index(i, 2));
+        idsBottomColumn.push_back(entity->id);
+
+        Index ind(i, 1);
+        matches.push_back(ind);
+    }
+
+    grid_.removeMatches(matches);
+
+    for (int i = 0; i < 4; i++)
+    {
+        Entity *entity = grid_.getEntity(Index(i, 0));
+        EXPECT_EQ(entity->id, idsTopColumn.at(i));
+        entity = grid_.getEntity(Index(i, 2));
+        EXPECT_EQ(entity->id, idsBottomColumn.at(i));
+
+        Index ind(i, 1);
+        Entity *neighbour = grid_.getEntity(ind);
+        EXPECT_TRUE(neighbour == NULL);
+    }
+}
+
+TEST_F(GridTest, Test_function_removeMatches_vertically)
+{
+    std::vector<Index> matches;
+    std::vector<int> idsLeftRow;
+    std::vector<int> idsRightRow;
+    /// Test remove matches = creating voids 4 in a column
+    for (int i = 0; i < 3; i++)
+    {
+        Entity *entity = grid_.getEntity(Index(0, i));
+        idsLeftRow.push_back(entity->id);
+        entity = grid_.getEntity(Index(2, i));
+        idsRightRow.push_back(entity->id);
+
+        Index ind(1, i);
+        matches.push_back(ind);
+    }
+
+    grid_.removeMatches(matches);
+
+    for (int i = 0; i < 3; i++)
+    {
+        Entity *entity = grid_.getEntity(Index(0, i));
+        EXPECT_EQ(entity->id, idsLeftRow.at(i));
+        entity = grid_.getEntity(Index(2, i));
+        EXPECT_EQ(entity->id, idsRightRow.at(i));
+
+        Index ind(1, i);
+        Entity *neighbour = grid_.getEntity(ind);
+        EXPECT_TRUE(neighbour == NULL);
+    }
+}
