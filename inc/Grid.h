@@ -38,6 +38,10 @@ public:
         column = c;
     }
     int row, column; // row is x-axis, column y-axis aligned with SDL coordinate system
+
+    bool operator==(const Index& rhs) {
+        return (row == rhs.row && column == rhs.column);
+    }
 };
 
 class Grid : public Board, public Event

@@ -3,7 +3,7 @@
 This is a "midars miner" like game and it's about finding at least 3 matches either horizontally or vertically
 of the same pastry.
 
-Everything is configurable from the `assets.json` file. Here you can choose any of the important
+Everything is configurable from the `assets.json` [link](https://github.com/kohnech/bakery-street-game/blob/master/assets/assets.json) file. Here you can choose any of the important
 game parameters and even change skins and the look and feeling of the game as it should
 be.
 
