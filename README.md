@@ -10,14 +10,13 @@ be.
 Any questions? Please ask me or post a PR.
 
 ## Techniques and 3rd-party libraries
+### 3rd-party libraries
 This games relys soly on the SDL2 set of libraries:
 * SDL2 (Basic game engine)
 * SDL2_image (displays jpg/png etc...)
 * SDL2_ttf (display fonts & text)
 * SDL2_mixer (play sounds like wav)
 * Hlohmann Json: https://github.com/nlohmann/json
-* Gameartguppy (Game assets, skins): https://www.gameartguppy.com/shop/pastry-icons/
-* Ideas and techniques learn from: http://www.sdltutorials.com/sdl-tutorial-basics
 
 If you don't have these installed, don't worry, they are included in the Runtime
 environment as a they should be (best practise) so you don't need to search for any
@@ -26,6 +25,12 @@ under linux, the simplest way to run the game is
 ```
 make run
 ```
+
+### References
+* Gameartguppy (Game assets, skins): https://www.gameartguppy.com/shop/pastry-icons/
+* Ideas and techniques learnt from: http://www.sdltutorials.com/sdl-tutorial-basics
+* Some ideas and game logic learnt from: https://github.com/dgkanatsios/matchthreegame
+
 
 ## Building & setup
 
