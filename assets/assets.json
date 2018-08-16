@@ -39,7 +39,9 @@
     "height": 768
   },
   "button": {
-    "asset": "./assets/bakery/button.png"
+    "asset": "./assets/bakery/button.png",
+    "width": 200,
+    "height": 72
   },
   "gameover": {
     "asset": "./assets/bakery/overlay_gameover_ipad.png"

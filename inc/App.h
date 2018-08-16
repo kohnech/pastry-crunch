@@ -6,6 +6,7 @@
 #include "CCamera.h"
 #include "IThread.h"
 #include "Text.h"
+#include "Button.h"
 
 #include <SDL2/SDL.h>
 
@@ -53,4 +54,6 @@ private:
 
     int mWidth;
     int mHeight;
+
+    Button mMuteButton;
 };
