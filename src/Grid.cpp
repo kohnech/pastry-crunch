@@ -105,7 +105,7 @@ void Grid::render(SDL_Surface* Surf_Display)
             else
             {
                 if (entity->animate) {
-                    entity->renderAnimation(Surf_Display, mX + xPos, mY, mX + xPos, mY + yPos);
+                    entity->renderAnimation(Surf_Display, mX + entity->fromX, mY + entity->fromY, mX + xPos, mY + yPos);
                 }
                 else {
                     entity->render(Surf_Display, mX + xPos, mY + yPos);
@@ -192,6 +192,16 @@ void Grid::loadEntity(int row, int column, int id, bool animate)
     Entity* entity = new Entity(id);
     entity->load(asset.c_str(), mTileWidth, mTileHeight);
     entity->animate = animate;
+
+
+    int xFromPos = row * mTileWidth;
+    int yFromPos = 0;
+
+    entity->fromX = xFromPos;
+    entity->fromY = yFromPos;
+
+
+    //entity->animateFrom =
     mGrid[row][column] = entity;
 }
 
@@ -340,9 +350,22 @@ void Grid::swapEntity(Index from, Index to)
     }
 
     // swap entities by swapping them in the grid matrix
-    Entity* temp = mGrid[from.row][from.column];
-    mGrid[from.row][from.column] = mGrid[to.row][to.column];
-    mGrid[to.row][to.column] = temp;
+    Entity* fromEnt = mGrid[from.row][from.column];
+    Entity* toEnt = mGrid[to.row][to.column];
+    mGrid[from.row][from.column] = toEnt;
+    mGrid[to.row][to.column] = fromEnt;
+
+    int xFromPos = from.row * mTileWidth;
+    int yFromPos = from.column * mTileHeight;
+    int xToPos = to.row * mTileWidth;
+    int yToPos = to.column * mTileHeight;
+
+    fromEnt->fromX = xFromPos;
+    fromEnt->fromY = yFromPos;
+    toEnt->fromX = xToPos;
+    toEnt->fromY = yToPos;
+    fromEnt->animate = true;
+    toEnt->animate = true;
 }
 
 std::vector<Index> Grid::findVerticalMatches(const Index& ind)

@@ -71,10 +71,15 @@ void Entity::renderAnimation(SDL_Surface* Surf_Display, int xstart, int ystart, 
 
     mPrevTime = SDL_GetTicks();
 
-    if (mX < xstop)
+
+    if (xstop > xstart && mX < xstop)
         mX += 5;
-    if (mY < ystop)
+    if (ystop > ystart && mY < ystop)
         mY += 5;
+    if (xstop < xstart && mX > xstop)
+        mX -= 5;
+    if (ystop < ystart && mY > ystop)
+        mY -= 5;
 
     Surface::OnDraw(Surf_Display, Surf_Entity, mX, mY, 0, 0, mWidth, mHeight);
 }
