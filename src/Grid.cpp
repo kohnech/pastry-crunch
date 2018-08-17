@@ -96,7 +96,6 @@ void Grid::render(SDL_Surface* Surf_Display)
             int yPos = y * mTileHeight;
 
             Entity* entity = mGrid[x][y];
-            // CSurface::OnDraw(Surf_Display, src->Surf_Entity, xPos, yPos, 0, 0, 100, 100);
 
             if (entity == NULL)
             {
@@ -199,11 +198,9 @@ void Grid::loadEntity(int row, int column, int id, bool animate)
     int xFromPos = row * mTileWidth;
     int yFromPos = 0;
 
-    entity->fromX = xFromPos + mX;
+    entity->fromX = xFromPos + mX; // Remember add grid offset...
     entity->fromY = yFromPos + mY;
 
-
-    //entity->animateFrom =
     mGrid[row][column] = entity;
 }
 
@@ -571,15 +568,6 @@ int Grid::collapse(std::vector<int> rows)
                     {
                         mGrid[row][y] = mGrid[row][y2];
                         mGrid[row][y2] = NULL;
-                        // calculate the biggest distance
-                        // if (row2 - row > collapseInfo.MaxDistance)
-                        //     collapseInfo.MaxDistance = row2 - row;
-
-                        // assign new row and column (name does not change)
-                        // mGrid[row][column].GetComponent<Shape>().Row = row;
-                        // mGrid[row][column].GetComponent<Shape>().Column = column;
-
-                        // collapseInfo.AddCandy(shapes[row, column]);
                         break;
                     }
                 }
@@ -603,21 +591,8 @@ void Grid::createNewEntitiesInRows(std::vector<int> rows)
             int go = getRandomInt();
 
             loadEntity(index.row, index.column, go, true);
-
-            // GameObject newCandy = Instantiate(go, SpawnPositions[column], Quaternion.identity)
-            // as GameObject;
-
-            // newCandy.GetComponent<Shape>().Assign(go.GetComponent<Shape>().Type, item.Row,
-            // item.Column);
-
-            // if (Constants.Rows - item.Row > newCandyInfo.MaxDistance)
-            //    newCandyInfo.MaxDistance = Constants.Rows - item.Row;
-
-            // mGrid[item.Row][item.Column] = newCandy;
-            // newCandyInfo.AddCandy(newCandy);
         }
     }
-    // return newCandyInfo;
 }
 
 
