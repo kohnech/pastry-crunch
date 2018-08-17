@@ -142,7 +142,8 @@ void App::onRender()
             continue;
         }
 
-        entity->render(Surf_Display, CCamera::CameraControl.GetX() * i, CCamera::CameraControl.GetY());
+        entity->setPosition(CCamera::CameraControl.GetX() * i, CCamera::CameraControl.GetY());
+        entity->render(Surf_Display);
         i++;
     }
 

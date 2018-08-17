@@ -40,25 +40,16 @@ bool Entity::load(std::string assetFile, int width, int height)
     return true;
 }
 
-
-void Entity::render(SDL_Surface* Surf_Display, int x, int y)
+void Entity::render(SDL_Surface* Surf_Display)
 {
     if (Surf_Entity == NULL || Surf_Display == NULL)
         return;
 
-    Surface::OnDraw(Surf_Display, Surf_Entity, x, y, 0, 0, mWidth, mHeight);
+    Surface::OnDraw(Surf_Display, Surf_Entity, mX, mY, 0, 0, mWidth, mHeight);
 }
 
-
-void Entity::renderAnimation(SDL_Surface* Surf_Display, int xstart, int ystart, int xstop, int ystop)
+void Entity::renderAnimation(SDL_Surface* Surf_Display)
 {
-    if (isStart)
-    {
-        mX = xstart;
-        mY = ystart;
-    }
-    isStart = false;
-
     if (Surf_Entity == NULL || Surf_Display == NULL)
         return;
 
@@ -72,23 +63,17 @@ void Entity::renderAnimation(SDL_Surface* Surf_Display, int xstart, int ystart, 
     mPrevTime = SDL_GetTicks();
 
 
-    if (xstop > xstart && mX < xstop)
-        mX += 5;
-    if (ystop > ystart && mY < ystop)
-        mY += 5;
-    if (xstop < xstart && mX > xstop)
-        mX -= 5;
-    if (ystop < ystart && mY > ystop)
-        mY -= 5;
+    if (mX > fromX && fromX < mX)
+        fromX += 5;
+    if (mY > fromY && fromY < mY)
+        fromY += 5;
+    if (mX < fromX && fromX > mX)
+        fromX -= 5;
+    if (mY < fromY && fromY > mY)
+        fromY -= 5;
 
-    Surface::OnDraw(Surf_Display, Surf_Entity, mX, mY, 0, 0, mWidth, mHeight);
+    Surface::OnDraw(Surf_Display, Surf_Entity, fromX, fromY, 0, 0, mWidth, mHeight);
 }
-
-
-void Entity::render(SDL_Surface* Surf_Display)
-{
-}
-
 
 void Entity::cleanup()
 {

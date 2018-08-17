@@ -25,10 +25,8 @@ public:
     virtual bool load(std::string assetFile, int width, int height);
 
     virtual void render(SDL_Surface* Surf_Display);
-    virtual void render(SDL_Surface* Surf_Display, int x, int y);
 
-
-    void renderAnimation(SDL_Surface* Surf_Display, int xstart, int ystart, int xstop, int ystop);
+    void renderAnimation(SDL_Surface* Surf_Display);
 
     virtual void cleanup();
 

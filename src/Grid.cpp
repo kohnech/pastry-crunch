@@ -105,10 +105,12 @@ void Grid::render(SDL_Surface* Surf_Display)
             else
             {
                 if (entity->animate) {
-                    entity->renderAnimation(Surf_Display, mX + entity->fromX, mY + entity->fromY, mX + xPos, mY + yPos);
+                    entity->setPosition(mX + xPos, mY + yPos);
+                    entity->renderAnimation(Surf_Display);
                 }
                 else {
-                    entity->render(Surf_Display, mX + xPos, mY + yPos);
+                    entity->setPosition(mX + xPos, mY + yPos);
+                    entity->render(Surf_Display);
                 }
             }
 
@@ -197,8 +199,8 @@ void Grid::loadEntity(int row, int column, int id, bool animate)
     int xFromPos = row * mTileWidth;
     int yFromPos = 0;
 
-    entity->fromX = xFromPos;
-    entity->fromY = yFromPos;
+    entity->fromX = xFromPos + mX;
+    entity->fromY = yFromPos + mY;
 
 
     //entity->animateFrom =
@@ -360,10 +362,10 @@ void Grid::swapEntity(Index from, Index to)
     int xToPos = to.row * mTileWidth;
     int yToPos = to.column * mTileHeight;
 
-    fromEnt->fromX = xFromPos;
-    fromEnt->fromY = yFromPos;
-    toEnt->fromX = xToPos;
-    toEnt->fromY = yToPos;
+    fromEnt->fromX = xFromPos + mX;
+    fromEnt->fromY = yFromPos + mY;
+    toEnt->fromX = xToPos + mX;
+    toEnt->fromY = yToPos + mY;
     fromEnt->animate = true;
     toEnt->animate = true;
 }
