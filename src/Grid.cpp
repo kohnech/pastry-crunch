@@ -96,7 +96,6 @@ void Grid::render(SDL_Surface* Surf_Display)
             int yPos = y * mTileHeight;
 
             Entity* entity = mGrid[x][y];
-            // CSurface::OnDraw(Surf_Display, src->Surf_Entity, xPos, yPos, 0, 0, 100, 100);
 
             if (entity == NULL)
             {
@@ -104,7 +103,14 @@ void Grid::render(SDL_Surface* Surf_Display)
             }
             else
             {
-                entity->render(Surf_Display, mX + xPos, mY + yPos);
+                if (entity->animate) {
+                    entity->setPosition(mX + xPos, mY + yPos);
+                    entity->renderAnimation(Surf_Display);
+                }
+                else {
+                    entity->setPosition(mX + xPos, mY + yPos);
+                    entity->render(Surf_Display);
+                }
             }
 
             mScoreText.render(Surf_Display);
@@ -175,17 +181,26 @@ void Grid::initGrid()
                 newId = getRandomInt();
             }
 
-            loadEntity(row, column, newId);
+            loadEntity(row, column, newId, false);
         }
     }
 }
 
-void Grid::loadEntity(int row, int column, int id)
+void Grid::loadEntity(int row, int column, int id, bool animate)
 {
     // TODO delete previous entity if not NULL???
     std::string asset = mAssets[id];
     Entity* entity = new Entity(id);
     entity->load(asset.c_str(), mTileWidth, mTileHeight);
+    entity->animate = animate;
+
+
+    int xFromPos = row * mTileWidth;
+    int yFromPos = 0;
+
+    entity->fromX = xFromPos + mX; // Remember add grid offset...
+    entity->fromY = yFromPos + mY;
+
     mGrid[row][column] = entity;
 }
 
@@ -334,9 +349,22 @@ void Grid::swapEntity(Index from, Index to)
     }
 
     // swap entities by swapping them in the grid matrix
-    Entity* temp = mGrid[from.row][from.column];
-    mGrid[from.row][from.column] = mGrid[to.row][to.column];
-    mGrid[to.row][to.column] = temp;
+    Entity* fromEnt = mGrid[from.row][from.column];
+    Entity* toEnt = mGrid[to.row][to.column];
+    mGrid[from.row][from.column] = toEnt;
+    mGrid[to.row][to.column] = fromEnt;
+
+    int xFromPos = from.row * mTileWidth;
+    int yFromPos = from.column * mTileHeight;
+    int xToPos = to.row * mTileWidth;
+    int yToPos = to.column * mTileHeight;
+
+    fromEnt->fromX = xFromPos + mX;
+    fromEnt->fromY = yFromPos + mY;
+    toEnt->fromX = xToPos + mX;
+    toEnt->fromY = yToPos + mY;
+    fromEnt->animate = true;
+    toEnt->animate = true;
 }
 
 std::vector<Index> Grid::findVerticalMatches(const Index& ind)
@@ -540,15 +568,6 @@ int Grid::collapse(std::vector<int> rows)
                     {
                         mGrid[row][y] = mGrid[row][y2];
                         mGrid[row][y2] = NULL;
-                        // calculate the biggest distance
-                        // if (row2 - row > collapseInfo.MaxDistance)
-                        //     collapseInfo.MaxDistance = row2 - row;
-
-                        // assign new row and column (name does not change)
-                        // mGrid[row][column].GetComponent<Shape>().Row = row;
-                        // mGrid[row][column].GetComponent<Shape>().Column = column;
-
-                        // collapseInfo.AddCandy(shapes[row, column]);
                         break;
                     }
                 }
@@ -571,22 +590,9 @@ void Grid::createNewEntitiesInRows(std::vector<int> rows)
         {
             int go = getRandomInt();
 
-            loadEntity(index.row, index.column, go);
-
-            // GameObject newCandy = Instantiate(go, SpawnPositions[column], Quaternion.identity)
-            // as GameObject;
-
-            // newCandy.GetComponent<Shape>().Assign(go.GetComponent<Shape>().Type, item.Row,
-            // item.Column);
-
-            // if (Constants.Rows - item.Row > newCandyInfo.MaxDistance)
-            //    newCandyInfo.MaxDistance = Constants.Rows - item.Row;
-
-            // mGrid[item.Row][item.Column] = newCandy;
-            // newCandyInfo.AddCandy(newCandy);
+            loadEntity(index.row, index.column, go, true);
         }
     }
-    // return newCandyInfo;
 }
 
 

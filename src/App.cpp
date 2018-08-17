@@ -142,7 +142,8 @@ void App::onRender()
             continue;
         }
 
-        entity->render(Surf_Display, CCamera::CameraControl.GetX() * i, CCamera::CameraControl.GetY());
+        entity->setPosition(CCamera::CameraControl.GetX() * i, CCamera::CameraControl.GetY());
+        entity->render(Surf_Display);
         i++;
     }
 
@@ -204,6 +205,12 @@ void App::onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode)
     case SDLK_3:
         Sounds::instance.play("mining");
         break;
+    case SDLK_4:
+         Sounds::instance.play("scrape");
+         break;
+    case SDLK_5:
+         Sounds::instance.play("comp");
+         break;
     case SDLK_9:
         Sounds::instance.stop();
         break;
