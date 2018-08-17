@@ -3,7 +3,6 @@
 
 Entity::Entity()
 : id{ 0 }
-, Surf_Entity{ NULL }
 , mAsset{ "" }
 {
 }
@@ -11,7 +10,6 @@ Entity::Entity()
 
 Entity::Entity(int id)
 : id{ id }
-, Surf_Entity{ NULL }
 , mAsset{ "" }
 {
 }
@@ -25,12 +23,12 @@ Entity::~Entity()
 bool Entity::load(std::string assetFile, int width, int height)
 {
     mAsset.assign(assetFile);
-    if ((Surf_Entity = Surface::OnLoad(assetFile)) == NULL)
+    if ((mSurface = Surface::OnLoad(assetFile)) == NULL)
     {
         return false;
     }
 
-    Surface::Transparent(Surf_Entity, 255, 0, 255);
+    Surface::Transparent(mSurface, 255, 0, 255);
 
     mWidth = width;
     mHeight = height;
@@ -38,27 +36,47 @@ bool Entity::load(std::string assetFile, int width, int height)
     return true;
 }
 
-
-void Entity::render(SDL_Surface* Surf_Display, int x, int y)
-{
-    if (Surf_Entity == NULL || Surf_Display == NULL)
-        return;
-
-    Surface::OnDraw(Surf_Display, Surf_Entity, x, y, 0, 0, mWidth, mHeight);
-}
-
-
 void Entity::render(SDL_Surface* Surf_Display)
 {
+    if (mSurface == NULL || Surf_Display == NULL)
+        return;
+
+    Surface::OnDraw(Surf_Display, mSurface, mX, mY, 0, 0, mWidth, mHeight);
 }
 
+void Entity::renderAnimation(SDL_Surface* Surf_Display)
+{
+    if (mSurface == NULL || Surf_Display == NULL)
+        return;
+
+    /*
+    int FrameRate = 300; // Milliseconds
+    if (SDL_GetTicks() < mPrevTime + FrameRate)
+    {
+        return;
+    }*/
+
+    mPrevTime = SDL_GetTicks();
+
+
+    if (mX > fromX && fromX < mX)
+        fromX += 5;
+    if (mY > fromY && fromY < mY)
+        fromY += 5;
+    if (mX < fromX && fromX > mX)
+        fromX -= 5;
+    if (mY < fromY && fromY > mY)
+        fromY -= 5;
+
+    Surface::OnDraw(Surf_Display, mSurface, fromX, fromY, 0, 0, mWidth, mHeight);
+}
 
 void Entity::cleanup()
 {
-    if (Surf_Entity)
+    if (mSurface)
     {
-        SDL_FreeSurface(Surf_Entity);
+        SDL_FreeSurface(mSurface);
     }
 
-    Surf_Entity = NULL;
+    mSurface = NULL;
 }

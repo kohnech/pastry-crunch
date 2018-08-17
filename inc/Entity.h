@@ -25,7 +25,8 @@ public:
     virtual bool load(std::string assetFile, int width, int height);
 
     virtual void render(SDL_Surface* Surf_Display);
-    virtual void render(SDL_Surface* Surf_Display, int x, int y);
+
+    void renderAnimation(SDL_Surface* Surf_Display);
 
     virtual void cleanup();
 
@@ -35,11 +36,8 @@ public:
      */
     int id;
 
-
-protected:
-    SDL_Surface* Surf_Entity;
-
-
 private:
     std::string mAsset;
+
+    long mPrevTime;
 };
