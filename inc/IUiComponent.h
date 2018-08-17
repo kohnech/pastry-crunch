@@ -45,6 +45,12 @@ public:
         mY = y;
     }
 
+    inline void setOrigin(int x, int y)
+    {
+        offsetX = x;
+        offsetY = y;
+    }
+
     inline Pair getPosition()
     {
         Pair position;
@@ -71,4 +77,6 @@ protected:
     int mX, mY;
     SDL_Surface* mSurface;
     int mWidth, mHeight;
+    int offsetX, offsetY;
+    int mRenderX, mRenderY;
 };
