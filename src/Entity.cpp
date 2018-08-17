@@ -5,7 +5,6 @@ Entity::Entity()
 : id{ 0 }
 , Surf_Entity{ NULL }
 , mAsset{ "" }
-, isStart{ true }
 {
 }
 
@@ -14,7 +13,6 @@ Entity::Entity(int id)
 : id{ id }
 , Surf_Entity{ NULL }
 , mAsset{ "" }
-, isStart{ true }
 {
 }
 
