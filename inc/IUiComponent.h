@@ -44,7 +44,7 @@ public:
         mX = x;
         mY = y;
     }
-    
+
     inline Pair getPosition()
     {
         Pair position;
