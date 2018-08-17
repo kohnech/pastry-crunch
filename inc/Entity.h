@@ -51,6 +51,4 @@ private:
     std::string mAsset;
 
     long mPrevTime;
-
-    bool isStart;
 };
