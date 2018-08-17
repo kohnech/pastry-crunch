@@ -40,6 +40,10 @@ public:
 
     bool animate;
 
+    // Animate from these coordinates, the grid always are aware of its new position
+    // since that is encoded in the mGrid indexes...
+    int fromX{0};
+    int fromY{0};
 
 protected:
     SDL_Surface* Surf_Entity;
