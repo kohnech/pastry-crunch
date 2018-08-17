@@ -67,6 +67,12 @@ public:
         mHeight = size.second;
     }
 
+    bool animate{false};
+
+    // Animate from these coordinates
+    int fromX{0};
+    int fromY{0};
+
 protected:
     int mX, mY;
     SDL_Surface* mSurface;
