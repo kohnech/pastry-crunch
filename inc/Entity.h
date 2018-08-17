@@ -43,9 +43,6 @@ public:
     int fromX{0};
     int fromY{0};
 
-protected:
-    SDL_Surface* Surf_Entity;
-
 
 private:
     std::string mAsset;
