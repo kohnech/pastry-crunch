@@ -24,7 +24,7 @@ void Assets::loadFile(std::string file)
     }
     catch (std::exception& e)
     {
-        std::cout << "Could not load asset file: " << file << std::endl;
+        std::cout << "Could not load asset file: " << file << ", with exception: " << e.what() << std::endl;
     }
 
     try
