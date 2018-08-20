@@ -11,6 +11,7 @@
 using json = nlohmann::json;
 
 Assets::Assets()
+	: mRelativePath{""}
 {
 }
 
@@ -25,6 +26,12 @@ void Assets::loadFile(std::string file)
     {
         std::cout << "Could not load asset file: " << file << std::endl;
     }
+
+#ifdef WIN32
+	mRelativePath = mJ["settings"]["assetsRelativExeWin32"];
+#else
+	mRelativePath = mJ["settings"]["assetsRelativeExeLinux"];
+#endif
 }
 
 void Assets::loadJson(json js)
@@ -35,7 +42,8 @@ void Assets::loadJson(json js)
 
 std::string Assets::getBackgroundPath()
 {
-    return mJ["background"]["asset"];
+	std::string str = mJ["background"]["asset"];
+    return mRelativePath + str;
 }
 
 std::pair<int, int> Assets::getScreenSize()
@@ -53,7 +61,8 @@ std::vector<std::string> Assets::getGridAssets()
 
     for (auto it = data.begin(); it != data.end(); ++it)
     {
-        vec.push_back(*it);
+		std::string str = *it;
+        vec.push_back(mRelativePath + str);
     }
 
     return vec;
@@ -90,7 +99,8 @@ std::string Assets::getTitle()
 
 std::string Assets::getTileAsset()
 {
-    return mJ["tile"]["asset"];
+	std::string str = mJ["tile"]["asset"];
+    return mRelativePath + str;
 }
 
 std::pair<int, int> Assets::getTileSize()
@@ -103,12 +113,14 @@ std::pair<int, int> Assets::getTileSize()
 
 std::string Assets::getHighlightAsset()
 {
-    return mJ["tile"]["highlight"];
+	std::string str = mJ["tile"]["highlight"];
+    return mRelativePath + str;
 }
 
 std::string Assets::getFont()
 {
-    return mJ["settings"]["font"];
+	std::string str = mJ["settings"]["font"];
+    return mRelativePath + str;
 }
 
 int Assets::getFontSize()
@@ -140,12 +152,18 @@ std::map<std::string, std::string> Assets::getSounds()
     // get the map out of JSON
     std::map<std::string, std::string> m2 = j;
 
+	for (auto& sound : m2)
+	{
+		sound.second = mRelativePath + sound.second;
+	}
+
     return m2;
 }
 
 std::string Assets::getButtonAsset()
 {
-    return mJ["button"]["asset"];
+	std::string str = mJ["button"]["asset"];
+    return mRelativePath + str;
 }
 
 std::pair<int, int> Assets::getButtonSize()
