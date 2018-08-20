@@ -6,8 +6,7 @@
 #include "Sounds.h"
 #include "Surface.h"
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_events.h>
+#include <SDL_events.h>
 #include <SDL_image.h>
 
 #include <iostream>
@@ -27,6 +26,7 @@ App::~App()
     onCleanup();
 }
 
+#include <string>
 
 bool App::onInit()
 {
@@ -37,7 +37,12 @@ bool App::onInit()
 
     /// Settings & assets
     Assets assets;
-    assets.loadFile("./assets/assets.json");
+
+#ifdef WIN32
+	assets.loadFile("../../../assets/assets.json");
+#else
+   assets.loadFile("./assets/assets.json");
+#endif
 
     std::pair<int, int> size = assets.getScreenSize();
     mWidth = size.first;
@@ -69,7 +74,12 @@ bool App::onInit()
 
     Surf_Display = SDL_GetWindowSurface(mWindow);
 
-    std::string img = "yoshi.png";
+#ifdef WIN32
+    std::string img = "../../../assets/bakery/yoshi.png";
+#else
+    std::string img = "./assets/bakery/yoshi.png";
+#endif
+    
 
     if ((Surf_Test = Surface::OnLoad(img)) == NULL)
     {

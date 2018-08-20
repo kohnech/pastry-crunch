@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup>
+    <Link>
+      <AdditionalLibraryDirectories>C:\Users\cva\Documents\Visual Studio 2015\Projects\ConsoleApplication1\ConsoleApplication1\3rd-party\windows\SDL2-2.0.8\lib\x64;C:\Users\cva\Documents\Visual Studio 2015\Projects\ConsoleApplication1\ConsoleApplication1\3rd-party\windows\SDL2_ttf-2.0.14\lib\x64;C:\Users\cva\Documents\Visual Studio 2015\Projects\ConsoleApplication1\ConsoleApplication1\3rd-party\windows\SDL2_mixer-2.0.2\lib\x64;C:\Users\cva\Documents\Visual Studio 2015\Projects\ConsoleApplication1\ConsoleApplication1\3rd-party\windows\SDL2_image-2.0.3\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup />
+</Project>

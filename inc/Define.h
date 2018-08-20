@@ -3,7 +3,7 @@
 /*
  * Default defines if none specified in json
  */
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 #define MAP_WIDTH 40
 #define MAP_HEIGHT 40

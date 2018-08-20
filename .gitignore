@@ -1,3 +1,12 @@
 /build
 cmake-build-debug/
 .idea/
+Debug/
+Release/
+.vs/
+*.VC.db
+*.VC.opendb
+README.txt
+CHANGES.txt
+COPYING.txt
+LICENSE.*.txt
