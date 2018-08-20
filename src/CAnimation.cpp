@@ -1,6 +1,6 @@
 #include "CAnimation.h"
 
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 CAnimation::CAnimation()
 {
