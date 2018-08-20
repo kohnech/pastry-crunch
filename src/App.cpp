@@ -26,7 +26,6 @@ App::~App()
     onCleanup();
 }
 
-#include <windows.h>
 #include <string>
 
 bool App::onInit()
@@ -39,17 +38,9 @@ bool App::onInit()
     /// Settings & assets
     Assets assets;
 
-
-
-	TCHAR s[100];
-	DWORD a = GetCurrentDirectory(100, s);
-	//std::string str();
-	printf("path: %s\n", s);
-	//std::cout << "my directory is " <<  << "\n";
 #ifdef WIN32
-	std::cout << "win32..." << std::endl;
 	assets.loadFile("../../../assets/assets.json");
-#else // WIN32
+#else
    assets.loadFile("./assets/assets.json");
 #endif
 
@@ -83,7 +74,12 @@ bool App::onInit()
 
     Surf_Display = SDL_GetWindowSurface(mWindow);
 
+#ifdef WIN32
     std::string img = "../../../assets/bakery/yoshi.png";
+#else
+    std::string img = "./assets/bakery/yoshi.png";
+#endif
+    
 
     if ((Surf_Test = Surface::OnLoad(img)) == NULL)
     {
