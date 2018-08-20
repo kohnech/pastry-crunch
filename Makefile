@@ -19,13 +19,12 @@ SDL_MIXER_VERSION=2.0.2
 SDL_MIXER_PATH=$(3RDPARTYDIR)/SDL2_mixer-$(SDL_MIXER_VERSION)
 
 INCLUDE_DIRS += -I$(PROJ_ROOT)/inc \
-				-I$(SDL_PATH)/include \
 				-I$(SDL_PATH)/include/SDL2 \
 				-I$(SDL_IMAGE_PATH)/include \
-				-I$(SDL_TTF_PATH)/include \
+				-I$(SDL_TTF_PATH)/include/SDL2 \
 				-I$(SDL_FREETYPE_PATH)/include \
 				-I$(JSON_PATH)/include \
-				-I$(SDL_MIXER_PATH)/include
+				-I$(SDL_MIXER_PATH)/include/SDL2
 
 ## Libs
 LIBS = -lSDL2 -lSDL2main -lSDL2_image -lsndio -pthread -lSDL2_ttf -lfreetype -lSDL2_mixer
