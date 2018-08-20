@@ -27,11 +27,18 @@ void Assets::loadFile(std::string file)
         std::cout << "Could not load asset file: " << file << std::endl;
     }
 
+    try
+    {
 #ifdef WIN32
 	mRelativePath = mJ["settings"]["assetsRelativExeWin32"];
 #else
 	mRelativePath = mJ["settings"]["assetsRelativeExeLinux"];
 #endif
+    }
+    catch(std::exception& e)
+    {
+	std::cout << "Got exception: " << e.what() << std::endl;
+    }
 }
 
 void Assets::loadJson(json js)
