@@ -185,6 +185,41 @@
     <ClCompile Include="..\..\..\src\Surface.cpp" />
     <ClCompile Include="..\..\..\src\Text.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\assets\assets.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="..\..\..\assets\Ubuntu-C.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\assets\bakery\bg_ipad_landscape.png" />
+    <Image Include="..\..\..\assets\bakery\button.png" />
+    <Image Include="..\..\..\assets\bakery\GameTileBG_01.png" />
+    <Image Include="..\..\..\assets\bakery\GameTileBG_highlight.png" />
+    <Image Include="..\..\..\assets\bakery\overlay_gameover_ipad.png" />
+    <Image Include="..\..\..\assets\bakery\overlay_levelcomplete_ipad.png" />
+    <Image Include="..\..\..\assets\bakery\pastry_cookie01.png" />
+    <Image Include="..\..\..\assets\bakery\pastry_cookie02.png" />
+    <Image Include="..\..\..\assets\bakery\pastry_croissant.png" />
+    <Image Include="..\..\..\assets\bakery\pastry_cupcake.png" />
+    <Image Include="..\..\..\assets\bakery\pastry_donut.png" />
+    <Image Include="..\..\..\assets\bakery\pastry_eclair.png" />
+    <Image Include="..\..\..\assets\bakery\pastry_macaroon.png" />
+    <Image Include="..\..\..\assets\bakery\pastry_pie.png" />
+    <Image Include="..\..\..\assets\bakery\pastry_poptart01.png" />
+    <Image Include="..\..\..\assets\bakery\pastry_poptart02.png" />
+    <Image Include="..\..\..\assets\bakery\pastry_starcookie01.png" />
+    <Image Include="..\..\..\assets\bakery\pastry_starcookie02.png" />
+    <Image Include="..\..\..\assets\bakery\yoshi.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="..\..\..\assets\sounds\Chomp.wav" />
+    <Media Include="..\..\..\assets\sounds\Drip.wav" />
+    <Media Include="..\..\..\assets\sounds\Error.wav" />
+    <Media Include="..\..\..\assets\sounds\Ka-Ching.wav" />
+    <Media Include="..\..\..\assets\sounds\Mining by Moonlight.wav" />
+    <Media Include="..\..\..\assets\sounds\Scrape.wav" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

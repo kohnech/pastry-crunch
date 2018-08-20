@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Resource Files\bakery">
+      <UniqueIdentifier>{5fa04518-4048-4f89-ab38-9c4aa0216104}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\sounds">
+      <UniqueIdentifier>{c29ef807-2cd5-4b0a-af7c-950ecd67d276}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\inc\App.h">
@@ -113,5 +119,94 @@
     <ClCompile Include="..\..\..\src\Text.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\assets\assets.json">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="..\..\..\assets\Ubuntu-C.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\assets\bakery\bg_ipad_landscape.png">
+      <Filter>Resource Files\bakery</Filter>
+    </Image>
+    <Image Include="..\..\..\assets\bakery\button.png">
+      <Filter>Resource Files\bakery</Filter>
+    </Image>
+    <Image Include="..\..\..\assets\bakery\GameTileBG_01.png">
+      <Filter>Resource Files\bakery</Filter>
+    </Image>
+    <Image Include="..\..\..\assets\bakery\GameTileBG_highlight.png">
+      <Filter>Resource Files\bakery</Filter>
+    </Image>
+    <Image Include="..\..\..\assets\bakery\overlay_gameover_ipad.png">
+      <Filter>Resource Files\bakery</Filter>
+    </Image>
+    <Image Include="..\..\..\assets\bakery\overlay_levelcomplete_ipad.png">
+      <Filter>Resource Files\bakery</Filter>
+    </Image>
+    <Image Include="..\..\..\assets\bakery\pastry_cookie01.png">
+      <Filter>Resource Files\bakery</Filter>
+    </Image>
+    <Image Include="..\..\..\assets\bakery\pastry_cookie02.png">
+      <Filter>Resource Files\bakery</Filter>
+    </Image>
+    <Image Include="..\..\..\assets\bakery\pastry_croissant.png">
+      <Filter>Resource Files\bakery</Filter>
+    </Image>
+    <Image Include="..\..\..\assets\bakery\pastry_cupcake.png">
+      <Filter>Resource Files\bakery</Filter>
+    </Image>
+    <Image Include="..\..\..\assets\bakery\pastry_donut.png">
+      <Filter>Resource Files\bakery</Filter>
+    </Image>
+    <Image Include="..\..\..\assets\bakery\pastry_eclair.png">
+      <Filter>Resource Files\bakery</Filter>
+    </Image>
+    <Image Include="..\..\..\assets\bakery\pastry_macaroon.png">
+      <Filter>Resource Files\bakery</Filter>
+    </Image>
+    <Image Include="..\..\..\assets\bakery\pastry_pie.png">
+      <Filter>Resource Files\bakery</Filter>
+    </Image>
+    <Image Include="..\..\..\assets\bakery\pastry_poptart01.png">
+      <Filter>Resource Files\bakery</Filter>
+    </Image>
+    <Image Include="..\..\..\assets\bakery\pastry_poptart02.png">
+      <Filter>Resource Files\bakery</Filter>
+    </Image>
+    <Image Include="..\..\..\assets\bakery\pastry_starcookie01.png">
+      <Filter>Resource Files\bakery</Filter>
+    </Image>
+    <Image Include="..\..\..\assets\bakery\pastry_starcookie02.png">
+      <Filter>Resource Files\bakery</Filter>
+    </Image>
+    <Image Include="..\..\..\assets\bakery\yoshi.png">
+      <Filter>Resource Files\bakery</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="..\..\..\assets\sounds\Chomp.wav">
+      <Filter>Resource Files\sounds</Filter>
+    </Media>
+    <Media Include="..\..\..\assets\sounds\Drip.wav">
+      <Filter>Resource Files\sounds</Filter>
+    </Media>
+    <Media Include="..\..\..\assets\sounds\Error.wav">
+      <Filter>Resource Files\sounds</Filter>
+    </Media>
+    <Media Include="..\..\..\assets\sounds\Ka-Ching.wav">
+      <Filter>Resource Files\sounds</Filter>
+    </Media>
+    <Media Include="..\..\..\assets\sounds\Mining by Moonlight.wav">
+      <Filter>Resource Files\sounds</Filter>
+    </Media>
+    <Media Include="..\..\..\assets\sounds\Scrape.wav">
+      <Filter>Resource Files\sounds</Filter>
+    </Media>
   </ItemGroup>
 </Project>
