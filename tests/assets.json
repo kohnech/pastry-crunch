@@ -8,7 +8,9 @@
     "screen": {
       "width": 1280,
       "height": 720
-    }
+    },
+    "assetsRelativExeWin32": "../../../",
+    "assetsRelativeExeLinux": "./"
   },
   "tile": {
     "asset": "../assets/bakery/GameTileBG_01.png",

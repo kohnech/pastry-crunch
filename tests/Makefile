@@ -27,7 +27,7 @@ INCLUDE_DIRS +=	-I$(CURDIR) \
                 -I$(SDL_PATH)/include/SDL2 \
                 -I$(SDL_IMAGE_PATH)/include \
                 -I$(SDL_JSON_PATH)/include \
-                -I$(SDL_TTF_PATH)/include \
+                -I$(SDL_TTF_PATH)/include/SDL2 \
                 -I$(SDL_FREETYPE_PATH)/include
 
 
