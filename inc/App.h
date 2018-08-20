@@ -8,7 +8,7 @@
 #include "IThread.h"
 #include "Text.h"
 
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 class App : public Event, public IThread
 {
@@ -35,6 +35,8 @@ public:
     void onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode);
 
     virtual bool ThreadMethod();
+
+	std::string ExePath();
 
 private:
     bool mIsRunning;

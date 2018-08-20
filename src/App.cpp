@@ -6,8 +6,7 @@
 #include "Sounds.h"
 #include "Surface.h"
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_events.h>
+#include <SDL_events.h>
 #include <SDL_image.h>
 
 #include <iostream>
@@ -27,6 +26,8 @@ App::~App()
     onCleanup();
 }
 
+#include <windows.h>
+#include <string>
 
 bool App::onInit()
 {
@@ -37,7 +38,20 @@ bool App::onInit()
 
     /// Settings & assets
     Assets assets;
-    assets.loadFile("./assets/assets.json");
+
+
+
+	TCHAR s[100];
+	DWORD a = GetCurrentDirectory(100, s);
+	//std::string str();
+	printf("path: %s\n", s);
+	//std::cout << "my directory is " <<  << "\n";
+#ifdef WIN32
+	std::cout << "win32..." << std::endl;
+	assets.loadFile("../../../assets/assets.json");
+#else // WIN32
+   assets.loadFile("./assets/assets.json");
+#endif
 
     std::pair<int, int> size = assets.getScreenSize();
     mWidth = size.first;
@@ -69,7 +83,7 @@ bool App::onInit()
 
     Surf_Display = SDL_GetWindowSurface(mWindow);
 
-    std::string img = "yoshi.png";
+    std::string img = "../../../assets/bakery/yoshi.png";
 
     if ((Surf_Test = Surface::OnLoad(img)) == NULL)
     {
