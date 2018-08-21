@@ -56,6 +56,14 @@ struct Index
     }
 };
 
+struct FromToIndex
+{
+    Index from;
+    Index to;
+};
+
+typedef std::vector<FromToIndex> FromToIndexVec;
+
 class Grid : public Board, public Event
 {
 public:
@@ -217,13 +225,13 @@ public:
      * the uppermost part of the grid so a refill of new entities can be done
      * @param columns The list of columns to collapse
      */
-    int collapse(std::vector<int> columns);
+    FromToIndexVec collapse(std::vector<int> columns);
 
     /*!
      * Creates new entities to play with in collapsed rows
      * @param rows
      */
-    void createNewEntitiesInRows(std::vector<int> rows);
+    void createNewEntitiesInRows(std::vector<int> rows, FromToIndexVec fromToVec);
 
     /*!
      * Returns which indexes containing voids in a particular row
