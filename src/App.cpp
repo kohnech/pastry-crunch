@@ -132,10 +132,15 @@ void App::onEvent(SDL_Event* event)
     Grid::instance.onEvent(event);
     mMuteButton.onEvent(event);
 }
-
+unsigned int gCounter = 0;
 bool App::onLoop()
 {
     Anim_Yoshi.OnAnimate();
+
+    if ((gCounter % 70) == 0)
+      Grid::instance.updateGrid();
+    gCounter++;
+    
     return mIsRunning;
 }
 

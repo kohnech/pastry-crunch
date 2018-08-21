@@ -311,7 +311,8 @@ void Grid::update(const Index& pos)
 
             createNewEntitiesInRows(rows);
 
-            matches = findNewMatches();    
+            matches = findNewMatches();
+	    mNewMatches = matches;
         }
     }
     else
@@ -671,4 +672,46 @@ std::vector<Index> Grid::findNewMatches()
         std::cout << "find new match: " << match.row << ", " << match.column << std::endl;
     }
     return matches;
+}
+
+void Grid::updateGrid()
+{
+    if (mNewMatches.size() >= mMinimumMatches)
+	{
+	    // play sound
+            Sounds::instance.play("kaChing");
+	    
+            // Update score
+            mScore += mNewMatches.size() * mMinimumScore;
+            updateScore();
+	    
+            // Now we need collapse the matches
+            removeMatches(mNewMatches);
+	    
+
+            // TODO This should be a while loop if more matches occurs while refiling the grid...
+            // TODO move out to outer function
+            printGrid();
+
+            std::vector<int> rows = getDistinctRows(mNewMatches);
+
+            collapse(rows);
+
+            printGrid();
+
+            /*
+            // get columns that we have to collapse
+            var columns = totalMatches.Select(go => go.GetComponent<Shape>().Column).Distinct();
+
+            //the order the 2 methods below get called is important!!!
+            //collapse the ones gone
+            var collapsedCandyInfo = shapes.Collapse(columns);
+            //create new ones
+            var newCandyInfo = CreateNewCandyInSpecificColumns(columns);*/
+	    
+            createNewEntitiesInRows(rows);
+	    
+            mNewMatches = findNewMatches();    
+        }
+    
 }
