@@ -296,8 +296,8 @@ void Grid::update(const Index& pos)
 
             createNewEntitiesInRows(rows);
 
-            matches = findNewMatches();
-            mNewMatches = matches;
+            mNewMatches.clear();
+            mNewMatches = findNewMatches();
         }
     }
     else
@@ -685,6 +685,7 @@ void Grid::updateGrid()
 
         createNewEntitiesInRows(rows);
 
+        mNewMatches.clear();
         mNewMatches = findNewMatches();
     }
 }

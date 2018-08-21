@@ -19,10 +19,10 @@
     "height": 72
   },
   "grid": {
-    "width": 5,
-    "height": 5,
-    "xpos": 400,
-    "ypos": 200,
+    "width": 8,
+    "height": 8,
+    "xpos": 250,
+    "ypos": 100,
     "assets": {
       "width": 64,
       "height": 72,

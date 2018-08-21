@@ -123,7 +123,7 @@ bool App::onInit()
 
     // Add music
     Sounds::instance.play("mining");
-    
+
     std::cout << "finished App OnInit()..." << std::endl;
 
 
