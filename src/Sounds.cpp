@@ -4,6 +4,7 @@
 Sounds Sounds::instance;
 
 Sounds::Sounds()
+: mIsMute{ false }
 {
 }
 
@@ -61,4 +62,17 @@ void Sounds::play(std::string ID)
 void Sounds::stop()
 {
     Mix_HaltChannel(-1); // Stop all channels
+}
+
+void Sounds::toogleMute()
+{
+    mIsMute = !mIsMute;
+    if (mIsMute)
+    {
+        Mix_Volume(-1, 0);
+    }
+    else
+    {
+        Mix_Volume(-1, MIX_MAX_VOLUME / 2);
+    }
 }

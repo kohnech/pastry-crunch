@@ -226,6 +226,9 @@ void App::onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode)
     case SDLK_5:
         Sounds::instance.play("comp");
         break;
+    case SDLK_6:
+        Sounds::instance.toogleMute();
+        break;
     case SDLK_9:
         Sounds::instance.stop();
         break;
