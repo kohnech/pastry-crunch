@@ -257,8 +257,17 @@ public:
      */
     std::vector<Index> findMatches(Index pos);
 
+    /*!
+     * Linear search to find new matches in grid.
+     * @return the new matches found after user input.
+     */
     std::vector<Index> findNewMatches();
 
+    /*!
+     * Quick fix to render and update the grid in the same
+     * thread. Best would be to move out this function to it's
+     * own thread... TODO
+     */
     void updateGrid();
 
 private:
