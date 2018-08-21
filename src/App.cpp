@@ -16,7 +16,7 @@
 App::App()
 : mWindow{ NULL }
 , Surf_Display{ NULL }
-, Surf_Test{ NULL }
+, Yoshi_Surf{ NULL }
 {
     mIsRunning = true;
 }
@@ -81,7 +81,7 @@ bool App::onInit()
 #endif
 
 
-    if ((Surf_Test = Surface::OnLoad(img)) == NULL)
+    if ((Yoshi_Surf = Surface::OnLoad(img)) == NULL)
     {
         printf("Loading Image failed: %s\n", SDL_GetError());
         return false;
@@ -168,7 +168,7 @@ void App::onRender()
 
     Grid::instance.render(Surf_Display);
 
-    Surface::OnDraw(Surf_Display, Surf_Test, 290, 220, 0, Anim_Yoshi.GetCurrentFrame() * 64, 64, 64);
+    Surface::OnDraw(Surf_Display, Yoshi_Surf, 290, 220, 0, Anim_Yoshi.GetCurrentFrame() * 64, 64, 64);
 
     mMuteButton.render(Surf_Display);
 
@@ -177,7 +177,7 @@ void App::onRender()
 
 void App::onCleanup()
 {
-    SDL_FreeSurface(Surf_Test);
+    SDL_FreeSurface(Yoshi_Surf);
     SDL_FreeSurface(Surf_Display);
     SDL_DestroyWindow(mWindow);
 
