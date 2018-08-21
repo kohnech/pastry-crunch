@@ -259,6 +259,8 @@ public:
 
     std::vector<Index> findNewMatches();
 
+    void updateGrid();
+
 private:
     std::vector<std::string> mAssets;
     Entity*** mGrid;
@@ -270,4 +272,5 @@ private:
     int mScore;
     Text mScoreText;
     size_t mMinimumMatches;
+    std::vector<Index> mNewMatches;
 };
