@@ -46,13 +46,13 @@ struct Index
 
     bool operator<(const Index& rhs)
     {
-	return (row < rhs.row || column < rhs.column);
+        return (row < rhs.row || column < rhs.column);
     }
 
     void set(int r, int c)
     {
-	row = r;
-	column = c;
+        row = r;
+        column = c;
     }
 };
 

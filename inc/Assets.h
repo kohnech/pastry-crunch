@@ -39,5 +39,5 @@ public:
 
 private:
     json mJ;
-	std::string mRelativePath;
+    std::string mRelativePath;
 };
