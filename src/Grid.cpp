@@ -12,9 +12,6 @@
 #include <stdlib.h>
 
 
-#include <chrono>
-#include <thread>
-
 Grid Grid::instance;
 
 Grid::Grid(int x, int y)
