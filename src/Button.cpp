@@ -82,4 +82,10 @@ void Button::onLButtonDown(int x, int y)
 void Button::onClicked()
 {
     std::cout << "Button clicked!" << std::endl;
+    mClickedCallback();
+}
+
+void Button::addClickedCallback(ClickedCallback cb)
+{
+    mClickedCallback = cb;
 }

@@ -119,6 +119,7 @@ bool App::onInit()
 
     mMuteButton = Button(800, 0, "Mute");
     mMuteButton.load(assets);
+    mMuteButton.addClickedCallback([&] { Sounds::instance.toogleMute(); });
 
     std::cout << "finished App OnInit()..." << std::endl;
 
