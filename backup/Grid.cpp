@@ -295,7 +295,7 @@ void Grid::update(const Index& pos)
 
             std::vector<int> rows = getDistinctRows(matches);
 
-            collapse(rows);
+            FromToIndexVec fromToVec = collapse(rows);
 
             printGrid();
 
@@ -309,9 +309,10 @@ void Grid::update(const Index& pos)
             //create new ones
             var newCandyInfo = CreateNewCandyInSpecificColumns(columns);*/
 
-            createNewEntitiesInRows(rows);
+            createNewEntitiesInRows(rows, fromToVec);
 
-            matches = findNewMatches();    
+            matches = findNewMatches();
+	    
         }
     }
     else
@@ -544,9 +545,9 @@ std::vector<int> Grid::getDistinctRows(const std::vector<Index>& matches)
     return rows;
 }
 
-int Grid::collapse(std::vector<int> rows)
+FromToIndexVec Grid::collapse(std::vector<int> rows)
 {
-    int numCollapses = 0;
+    FromToIndexVec fromToVec;
     /// search in every row
     for (int row : rows)
     {
@@ -556,26 +557,36 @@ int Grid::collapse(std::vector<int> rows)
             // if you find a null item
             if (mGrid[row][y] == NULL)
             {
-                numCollapses++;
+		Index toInd;
+		Index fromInd;
                 // start searching for the first non-null from one top above of the current index
                 for (int y2 = y - 1; y2 >= 0; y2--)
                 {
                     // if you find one, bring it down (i.e. replace it with the null you found)
                     if (mGrid[row][y2] != NULL)
                     {
+			toInd.set(row, y);
+			fromInd.set(row, y2);
+			
                         mGrid[row][y] = mGrid[row][y2];
-                        mGrid[row][y2] = NULL;
+			delete mGrid[row][y2];
+                        mGrid[row][y2] = NULL; // Memory leak
+			FromToIndex ind;
+			ind.from = fromInd;
+			ind.to = toInd;
+			fromToVec.push_back(ind);
                         break;
                     }
                 }
             }
         }
     }
-    // return collapseInfo;
-    return numCollapses;
+
+    // return collapseInfo; // TODO
+    return fromToVec;
 }
 
-void Grid::createNewEntitiesInRows(std::vector<int> rows)
+void Grid::createNewEntitiesInRows(std::vector<int> rows, FromToIndexVec fromToVec)
 {
     // AlteredCandyInfo newCandyInfo = new AlteredCandyInfo();
 
@@ -600,6 +611,13 @@ void Grid::createNewEntitiesInRows(std::vector<int> rows)
 	    entity->fromY = yFromPos + mY;
         }
     }
+
+    for (auto& ind : fromToVec)
+    {
+	swapEntity(ind.from, ind.to);
+	std::cout << "swap from:" << ind.from.row << ", " << ind.from.column << ", to index: " << ind.to.row << ", " << ind.to.column << std::endl;
+    }
+
 }
 
 
@@ -613,8 +631,10 @@ std::vector<Index> Grid::getEmptyItemsOnRow(int row)
 
     for (int column = 0; column < mGridColumnSize; column++)
     {
-        if (mGrid[row][column] == NULL)
+        if (mGrid[row][column] == NULL) {
             voids.push_back(Index(row, column));
+	    std::cout << "Found VOID: " << row << ", " << column << std::endl;
+	}
     }
     return voids;
 }
@@ -670,5 +690,7 @@ std::vector<Index> Grid::findNewMatches()
     {
         std::cout << "find new match: " << match.row << ", " << match.column << std::endl;
     }
+    
+    
     return matches;
 }
