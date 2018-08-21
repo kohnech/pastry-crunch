@@ -36,7 +36,7 @@ public:
 
     virtual bool ThreadMethod();
 
-	std::string ExePath();
+    std::string ExePath();
 
 private:
     bool mIsRunning;

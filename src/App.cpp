@@ -39,9 +39,9 @@ bool App::onInit()
     Assets assets;
 
 #ifdef WIN32
-	assets.loadFile("../../../assets/assets.json");
+    assets.loadFile("../../../assets/assets.json");
 #else
-   assets.loadFile("./assets/assets.json");
+    assets.loadFile("./assets/assets.json");
 #endif
 
     std::pair<int, int> size = assets.getScreenSize();
@@ -79,7 +79,7 @@ bool App::onInit()
 #else
     std::string img = "./assets/bakery/yoshi.png";
 #endif
-    
+
 
     if ((Surf_Test = Surface::OnLoad(img)) == NULL)
     {
@@ -138,9 +138,9 @@ bool App::onLoop()
     Anim_Yoshi.OnAnimate();
 
     if ((gCounter % 70) == 0)
-      Grid::instance.updateGrid();
+        Grid::instance.updateGrid();
     gCounter++;
-    
+
     return mIsRunning;
 }
 
@@ -221,11 +221,11 @@ void App::onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode)
         Sounds::instance.play("mining");
         break;
     case SDLK_4:
-         Sounds::instance.play("scrape");
-         break;
+        Sounds::instance.play("scrape");
+        break;
     case SDLK_5:
-         Sounds::instance.play("comp");
-         break;
+        Sounds::instance.play("comp");
+        break;
     case SDLK_9:
         Sounds::instance.stop();
         break;

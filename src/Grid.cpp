@@ -5,10 +5,10 @@
 
 #include "SDL_image.h"
 
+#include <algorithm>
 #include <iostream>
 #include <map>
 #include <random>
-#include <algorithm>
 #include <stdlib.h>
 
 
@@ -104,11 +104,13 @@ void Grid::render(SDL_Surface* Surf_Display)
             }
             else
             {
-                if (entity->animate) {
+                if (entity->animate)
+                {
                     entity->setPosition(mX + xPos, mY + yPos);
                     entity->renderAnimation(Surf_Display);
                 }
-                else {
+                else
+                {
                     entity->setPosition(mX + xPos, mY + yPos);
                     entity->render(Surf_Display);
                 }
@@ -262,7 +264,6 @@ void Grid::update(const Index& pos)
         }
 
 
-
         if (matches.size() < mMinimumMatches)
         {
             // play sound
@@ -287,7 +288,7 @@ void Grid::update(const Index& pos)
 
 
             // TODO This should be a while loop if more matches occurs while refiling the grid...
-	    // TODO create new thread...
+            // TODO create new thread...
 
             std::vector<int> rows = getDistinctRows(matches);
 
@@ -296,7 +297,7 @@ void Grid::update(const Index& pos)
             createNewEntitiesInRows(rows);
 
             matches = findNewMatches();
-	    mNewMatches = matches;
+            mNewMatches = matches;
         }
     }
     else
@@ -340,7 +341,8 @@ void Grid::swapEntity(Index from, Index to)
     int xToPos = to.row * mTileWidth;
     int yToPos = to.column * mTileHeight;
 
-    std::cout << "swaping from: " << from.row << ", " << from.column << ", to: " << to.row << ", " << to.column << std::endl;
+    std::cout << "swaping from: " << from.row << ", " << from.column << ", to: " << to.row << ", "
+              << to.column << std::endl;
 
     fromEnt->fromX = xFromPos + mX;
     fromEnt->fromY = yFromPos + mY;
@@ -570,19 +572,19 @@ void Grid::createNewEntitiesInRows(std::vector<int> rows)
         std::vector<Index> emptyItems = getEmptyItemsOnRow(row);
         for (auto index : emptyItems)
         {
-	    std::cout << "emptyItems: " << index.row << ", " << index.column << std::endl;
+            std::cout << "emptyItems: " << index.row << ", " << index.column << std::endl;
             int go = getRandomInt();
 
             Entity* entity = loadEntity(index.row, index.column, go, true);
 
-	    // Set animation
-	    entity->animate = true;
+            // Set animation
+            entity->animate = true;
 
-	    int xFromPos = index.row * mTileWidth;
-	    int yFromPos = 0; // We refill from top...
+            int xFromPos = index.row * mTileWidth;
+            int yFromPos = 0; // We refill from top...
 
-	    entity->fromX = xFromPos + mX; // Remember add grid offset...
-	    entity->fromY = yFromPos + mY;
+            entity->fromX = xFromPos + mX; // Remember add grid offset...
+            entity->fromY = yFromPos + mY;
         }
     }
 }
@@ -631,9 +633,9 @@ std::vector<Index> Grid::findMatches(Index pos)
 std::vector<Index> Grid::findNewMatches()
 {
     std::vector<Index> matches;
-    for (int row = 0; row < mGridRowSize; row ++)
+    for (int row = 0; row < mGridRowSize; row++)
     {
-        for (int column = 0; column < mGridColumnSize; column ++)
+        for (int column = 0; column < mGridColumnSize; column++)
         {
             // Find vertically
             std::vector<Index> newMatches;
@@ -650,7 +652,7 @@ std::vector<Index> Grid::findNewMatches()
     std::sort(matches.begin(), matches.end());
     auto last = std::unique(matches.begin(), matches.end());
     matches.erase(last, matches.end());
-    
+
     for (auto match : matches)
     {
         std::cout << "find new match: " << match.row << ", " << match.column << std::endl;
@@ -661,29 +663,28 @@ std::vector<Index> Grid::findNewMatches()
 void Grid::updateGrid()
 {
     if (mNewMatches.size() >= mMinimumMatches)
-	{
-	    // play sound
-            Sounds::instance.play("kaChing");
-	    
-            // Update score
-            mScore += mNewMatches.size() * mMinimumScore;
-            updateScore();
-	    
-            // Now we need collapse the matches
-            removeMatches(mNewMatches);
-	    
+    {
+        // play sound
+        Sounds::instance.play("kaChing");
 
-            // TODO This should be a while loop if more matches occurs while refiling the grid...
-            // TODO move out to outer function
-            printGrid();
+        // Update score
+        mScore += mNewMatches.size() * mMinimumScore;
+        updateScore();
 
-            std::vector<int> rows = getDistinctRows(mNewMatches);
+        // Now we need collapse the matches
+        removeMatches(mNewMatches);
 
-            collapse(rows);
 
-            createNewEntitiesInRows(rows);
-	    
-            mNewMatches = findNewMatches();    
-        }
-    
+        // TODO This should be a while loop if more matches occurs while refiling the grid...
+        // TODO move out to outer function
+        printGrid();
+
+        std::vector<int> rows = getDistinctRows(mNewMatches);
+
+        collapse(rows);
+
+        createNewEntitiesInRows(rows);
+
+        mNewMatches = findNewMatches();
+    }
 }
