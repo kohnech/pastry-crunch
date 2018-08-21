@@ -32,7 +32,6 @@
  */
 struct Index
 {
-public:
     Index(int r = 0, int c = 0)
     {
         row = r;
@@ -43,6 +42,17 @@ public:
     bool operator==(const Index& rhs)
     {
         return (row == rhs.row && column == rhs.column);
+    }
+
+    bool operator<(const Index& rhs)
+    {
+        return (row < rhs.row || column < rhs.column);
+    }
+
+    void set(int r, int c)
+    {
+        row = r;
+        column = c;
     }
 };
 
@@ -100,7 +110,7 @@ public:
      * @param column
      * @param id
      */
-    void loadEntity(int row, int column, int id, bool animate);
+    Entity* loadEntity(int row, int column, int id, bool animate);
 
     //// Events
 
@@ -240,6 +250,26 @@ public:
      */
     void updateScore();
 
+    /*!
+     * Get both horizontal & vertical matches for one index
+     * @param pos
+     * @return
+     */
+    std::vector<Index> findMatches(Index pos);
+
+    /*!
+     * Linear search to find new matches in grid.
+     * @return the new matches found after user input.
+     */
+    std::vector<Index> findNewMatches();
+
+    /*!
+     * Quick fix to render and update the grid in the same
+     * thread. Best would be to move out this function to it's
+     * own thread... TODO
+     */
+    void updateGrid();
+
 private:
     std::vector<std::string> mAssets;
     Entity*** mGrid;
@@ -251,4 +281,5 @@ private:
     int mScore;
     Text mScoreText;
     size_t mMinimumMatches;
+    std::vector<Index> mNewMatches;
 };

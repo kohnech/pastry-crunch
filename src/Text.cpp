@@ -3,7 +3,6 @@
 #include "Surface.h"
 
 
-
 #include <string>
 
 Text::Text()
@@ -39,8 +38,16 @@ bool Text::load(Assets& assets)
 
 void Text::render(SDL_Surface* display)
 {
+
     mSurface = TTF_RenderUTF8_Solid(mFont, mMessage.c_str(), BLUE);
-    Surface::OnDraw(display, mSurface, mX, mY);
+    if (mSurface)
+    {
+        Surface::OnDraw(display, mSurface, mX, mY);
+    }
+    else
+    {
+        std::cout << "Got error TTF_RenderUTF8_Solid: " << SDL_GetError() << std::endl;
+    }
 }
 
 void Text::cleanup()

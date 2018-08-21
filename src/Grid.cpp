@@ -5,11 +5,12 @@
 
 #include "SDL_image.h"
 
+#include <algorithm>
 #include <iostream>
 #include <map>
 #include <random>
-#include <algorithm>
 #include <stdlib.h>
+
 
 Grid Grid::instance;
 
@@ -103,11 +104,13 @@ void Grid::render(SDL_Surface* Surf_Display)
             }
             else
             {
-                if (entity->animate) {
+                if (entity->animate)
+                {
                     entity->setPosition(mX + xPos, mY + yPos);
                     entity->renderAnimation(Surf_Display);
                 }
-                else {
+                else
+                {
                     entity->setPosition(mX + xPos, mY + yPos);
                     entity->render(Surf_Display);
                 }
@@ -186,22 +189,15 @@ void Grid::initGrid()
     }
 }
 
-void Grid::loadEntity(int row, int column, int id, bool animate)
+Entity* Grid::loadEntity(int row, int column, int id, bool animate)
 {
     // TODO delete previous entity if not NULL???
     std::string asset = mAssets[id];
     Entity* entity = new Entity(id);
     entity->load(asset.c_str(), mTileWidth, mTileHeight);
     entity->animate = animate;
-
-
-    int xFromPos = row * mTileWidth;
-    int yFromPos = 0;
-
-    entity->fromX = xFromPos + mX; // Remember add grid offset...
-    entity->fromY = yFromPos + mY;
-
     mGrid[row][column] = entity;
+    return entity;
 }
 
 void Grid::onLButtonDown(int x, int y)
@@ -260,16 +256,21 @@ void Grid::update(const Index& pos)
         std::cout << "Found adjacent cookies!!!" << std::endl;
         swapEntity(mPrevClickedIndexes, pos);
 
-        std::vector<Index> matches;
-        matches = findVerticalMatches(pos);
-        std::vector<Index> matchesHor = findHorizontalMatches(pos);
-        // Get total matches
-        matches.insert(matches.end(), matchesHor.begin(), matchesHor.end());
-
+        std::vector<Index> matches = findMatches(pos);
 
         for (auto ind : matches)
         {
             std::cout << "match: (" << ind.row << ", " << ind.column << ")" << std::endl;
+        }
+
+
+        if (matches.size() < mMinimumMatches)
+        {
+            // play sound
+            Sounds::instance.play("error");
+            swapEntity(pos, mPrevClickedIndexes); // Undo swap
+            mPrevClickedIndexes = pos;
+            return;
         }
 
 
@@ -286,36 +287,17 @@ void Grid::update(const Index& pos)
             removeMatches(matches);
 
 
-            // TODO add score for each match
             // TODO This should be a while loop if more matches occurs while refiling the grid...
-            // TODO move out to outer function
-            printGrid();
+            // TODO create new thread...
 
             std::vector<int> rows = getDistinctRows(matches);
 
             collapse(rows);
 
-            printGrid();
             createNewEntitiesInRows(rows);
 
-            /*
-            // get columns that we have to collapse
-            var columns = totalMatches.Select(go => go.GetComponent<Shape>().Column).Distinct();
-
-            //the order the 2 methods below get called is important!!!
-            //collapse the ones gone
-            var collapsedCandyInfo = shapes.Collapse(columns);
-            //create new ones
-            var newCandyInfo = CreateNewCandyInSpecificColumns(columns);*/
-        }
-        else // Undo swap if no more than mMinimumMatches
-        {
-            // play sound
-            Sounds::instance.play("error");
-
-            swapEntity(pos, mPrevClickedIndexes); // Undo swap
-            mPrevClickedIndexes = pos;
-            return;
+            matches = findNewMatches();
+            mNewMatches = matches;
         }
     }
     else
@@ -358,6 +340,9 @@ void Grid::swapEntity(Index from, Index to)
     int yFromPos = from.column * mTileHeight;
     int xToPos = to.row * mTileWidth;
     int yToPos = to.column * mTileHeight;
+
+    std::cout << "swaping from: " << from.row << ", " << from.column << ", to: " << to.row << ", "
+              << to.column << std::endl;
 
     fromEnt->fromX = xFromPos + mX;
     fromEnt->fromY = yFromPos + mY;
@@ -405,7 +390,6 @@ std::vector<Index> Grid::findVerticalMatches(const Index& ind)
             else
                 break;
         }
-    std::cout << "size of matches: " << matches.size() << std::endl;
 
     // we are only interested in a set of more than mMinimumMatches connected entities
     if (matches.size() < mMinimumMatches)
@@ -588,9 +572,19 @@ void Grid::createNewEntitiesInRows(std::vector<int> rows)
         std::vector<Index> emptyItems = getEmptyItemsOnRow(row);
         for (auto index : emptyItems)
         {
+            std::cout << "emptyItems: " << index.row << ", " << index.column << std::endl;
             int go = getRandomInt();
 
-            loadEntity(index.row, index.column, go, true);
+            Entity* entity = loadEntity(index.row, index.column, go, true);
+
+            // Set animation
+            entity->animate = true;
+
+            int xFromPos = index.row * mTileWidth;
+            int yFromPos = 0; // We refill from top...
+
+            entity->fromX = xFromPos + mX; // Remember add grid offset...
+            entity->fromY = yFromPos + mY;
         }
     }
 }
@@ -624,4 +618,73 @@ void Grid::updateScore()
     mScoreText.setText(str);
 
     std::cout << "mSCore: " << mScore << std::endl;
+}
+
+std::vector<Index> Grid::findMatches(Index pos)
+{
+    std::vector<Index> matches;
+    matches = findVerticalMatches(pos);
+    std::vector<Index> matchesHor = findHorizontalMatches(pos);
+    // Get total matches
+    matches.insert(matches.end(), matchesHor.begin(), matchesHor.end());
+    return matches;
+}
+
+std::vector<Index> Grid::findNewMatches()
+{
+    std::vector<Index> matches;
+    for (int row = 0; row < mGridRowSize; row++)
+    {
+        for (int column = 0; column < mGridColumnSize; column++)
+        {
+            // Find vertically
+            std::vector<Index> newMatches;
+            newMatches = findVerticalMatches(Index(row, column));
+            matches.insert(matches.end(), newMatches.begin(), newMatches.end());
+
+            newMatches.clear();
+            newMatches = findHorizontalMatches(Index(row, column));
+            matches.insert(matches.end(), newMatches.begin(), newMatches.end());
+        }
+    }
+
+    // Filter out only unique matches
+    std::sort(matches.begin(), matches.end());
+    auto last = std::unique(matches.begin(), matches.end());
+    matches.erase(last, matches.end());
+
+    for (auto match : matches)
+    {
+        std::cout << "find new match: " << match.row << ", " << match.column << std::endl;
+    }
+    return matches;
+}
+
+void Grid::updateGrid()
+{
+    if (mNewMatches.size() >= mMinimumMatches)
+    {
+        // play sound
+        Sounds::instance.play("kaChing");
+
+        // Update score
+        mScore += mNewMatches.size() * mMinimumScore;
+        updateScore();
+
+        // Now we need collapse the matches
+        removeMatches(mNewMatches);
+
+
+        // TODO This should be a while loop if more matches occurs while refiling the grid...
+        // TODO move out to outer function
+        printGrid();
+
+        std::vector<int> rows = getDistinctRows(mNewMatches);
+
+        collapse(rows);
+
+        createNewEntitiesInRows(rows);
+
+        mNewMatches = findNewMatches();
+    }
 }
