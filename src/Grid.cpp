@@ -287,24 +287,11 @@ void Grid::update(const Index& pos)
 
 
             // TODO This should be a while loop if more matches occurs while refiling the grid...
-            // TODO move out to outer function
-            printGrid();
+	    // TODO create new thread...
 
             std::vector<int> rows = getDistinctRows(matches);
 
             collapse(rows);
-
-            printGrid();
-
-            /*
-            // get columns that we have to collapse
-            var columns = totalMatches.Select(go => go.GetComponent<Shape>().Column).Distinct();
-
-            //the order the 2 methods below get called is important!!!
-            //collapse the ones gone
-            var collapsedCandyInfo = shapes.Collapse(columns);
-            //create new ones
-            var newCandyInfo = CreateNewCandyInSpecificColumns(columns);*/
 
             createNewEntitiesInRows(rows);
 
@@ -694,18 +681,6 @@ void Grid::updateGrid()
 
             collapse(rows);
 
-            printGrid();
-
-            /*
-            // get columns that we have to collapse
-            var columns = totalMatches.Select(go => go.GetComponent<Shape>().Column).Distinct();
-
-            //the order the 2 methods below get called is important!!!
-            //collapse the ones gone
-            var collapsedCandyInfo = shapes.Collapse(columns);
-            //create new ones
-            var newCandyInfo = CreateNewCandyInSpecificColumns(columns);*/
-	    
             createNewEntitiesInRows(rows);
 	    
             mNewMatches = findNewMatches();    
