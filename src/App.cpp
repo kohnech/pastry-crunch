@@ -119,7 +119,11 @@ bool App::onInit()
 
     mMuteButton = Button(800, 0, "Mute");
     mMuteButton.load(assets);
+    mMuteButton.addClickedCallback([&] { Sounds::instance.toogleMute(); });
 
+    // Add music
+    Sounds::instance.play("mining");
+    
     std::cout << "finished App OnInit()..." << std::endl;
 
 
@@ -225,6 +229,9 @@ void App::onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode)
         break;
     case SDLK_5:
         Sounds::instance.play("comp");
+        break;
+    case SDLK_6:
+        Sounds::instance.toogleMute();
         break;
     case SDLK_9:
         Sounds::instance.stop();

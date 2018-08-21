@@ -24,6 +24,9 @@ public:
 
     void stop();
 
+    void toogleMute();
+
 private:
     std::map<std::string, Mix_Chunk*> mSounds;
+    bool mIsMute;
 };
