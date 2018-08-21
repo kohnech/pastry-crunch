@@ -121,6 +121,9 @@ bool App::onInit()
     mMuteButton.load(assets);
     mMuteButton.addClickedCallback([&] { Sounds::instance.toogleMute(); });
 
+    // Add music
+    Sounds::instance.play("mining");
+    
     std::cout << "finished App OnInit()..." << std::endl;
 
 
