@@ -125,8 +125,10 @@ bool App::onInit()
     // Add music
     Sounds::instance.play("mining");
 
-    std::cout << "finished App OnInit()..." << std::endl;
+	mCountDown.load(assets);
+	mCountDown.setPosition(100, 100);
 
+    std::cout << "finished App OnInit()..." << std::endl;
 
     return true;
 }
@@ -174,6 +176,7 @@ void App::onRender()
     }
 
     mMuteButton.render(Surf_Display);
+	mCountDown.render(Surf_Display);
 
     SDL_UpdateWindowSurface(mWindow);
 }

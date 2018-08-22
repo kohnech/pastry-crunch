@@ -7,6 +7,7 @@
 #include "Event.h"
 #include "IThread.h"
 #include "Text.h"
+#include "CountDown.h"
 
 #include <SDL.h>
 
@@ -58,4 +59,6 @@ private:
     Button mMuteButton;
 
     bool mEnableYoshi;
+
+	CountDown mCountDown;
 };
