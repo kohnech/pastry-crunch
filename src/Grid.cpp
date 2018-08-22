@@ -73,7 +73,7 @@ bool Grid::load(Assets& assets)
     }
 
     mScoreText.load(assets);
-    mScoreText.setPosition(100, 100);
+    mScoreText.setPosition(824, 100);
     std::string str;
     str = "Score: " + std::to_string(mScore);
     mScoreText.setText(str);

@@ -7,6 +7,7 @@
 #include "Event.h"
 #include "IThread.h"
 #include "Text.h"
+#include "CountDown.h"
 
 #include <SDL.h>
 
@@ -49,6 +50,7 @@ private:
     Entity Entity2;
 
     SDL_Surface* Background_Surf;
+	SDL_Surface* GameOver_Surf;
 
     std::vector<Entity*> EntityList;
 
@@ -58,4 +60,9 @@ private:
     Button mMuteButton;
 
     bool mEnableYoshi;
+
+	CountDown mCountDown;
+	bool mIsGameOver;
+
+	void gameOver();
 };

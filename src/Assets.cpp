@@ -180,3 +180,9 @@ std::pair<int, int> Assets::getButtonSize()
     size.second = mJ["button"]["height"];
     return size;
 }
+
+std::string Assets::getGameOverAsset()
+{
+	std::string str = mJ["gameover"]["asset"];
+	return mRelativePath + str;
+}
