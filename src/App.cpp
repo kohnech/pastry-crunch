@@ -91,7 +91,7 @@ bool App::onInit()
 
     Anim_Yoshi.MaxFrames = 8;
     Surface::Transparent(Yoshi_Surf, 255, 0, 255);
-
+	/*
     if (Entity1.load(img, 64, 64) == false)
     {
         return false;
@@ -103,7 +103,7 @@ bool App::onInit()
     }
 
     EntityList.push_back(&Entity1);
-    EntityList.push_back(&Entity2);
+    EntityList.push_back(&Entity2);*/
 
 
     /// Create game grid
@@ -154,7 +154,7 @@ void App::onRender()
 
     Surface::OnDraw(Surf_Display, Background_Surf, 0, 0);
 
-    int i = 1;
+  /*  int i = 1;
     for (auto entity : EntityList)
     {
         if (!entity)
@@ -165,7 +165,7 @@ void App::onRender()
         entity->setPosition(CCamera::CameraControl.GetX() * i, CCamera::CameraControl.GetY());
         entity->render(Surf_Display);
         i++;
-    }
+    }*/
 
     Grid::instance.render(Surf_Display);
 

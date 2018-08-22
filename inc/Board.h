@@ -21,11 +21,11 @@ public:
 
     ~Board();
 
-    bool load(Assets& assets);
+    virtual bool load(Assets& assets);
 
-    void render(SDL_Surface* Surf_Display);
+    virtual void render(SDL_Surface* Surf_Display);
 
-    void cleanup();
+    virtual void cleanup();
 
     Pair getBoardSize();
 
