@@ -649,9 +649,15 @@ std::vector<Index> Grid::findNewMatches()
     }
 
     // Filter out only unique matches
-    std::sort(matches.begin(), matches.end());
-    auto last = std::unique(matches.begin(), matches.end());
-    matches.erase(last, matches.end());
+	try {
+		std::sort(matches.begin(), matches.end());
+		auto last = std::unique(matches.begin(), matches.end());
+		matches.erase(last, matches.end());
+	}
+	catch (std::exception& e)
+	{
+		std::cout << "Got exception e: " << e.what() << std::endl;
+	}
 
     for (auto match : matches)
     {
