@@ -146,9 +146,11 @@ bool App::onLoop()
 {
     Anim_Yoshi.OnAnimate();
 
-    if ((gCounter % 70) == 0)
-        Grid::instance.updateGrid();
-    gCounter++;
+	if (!mIsGameOver) {
+		if ((gCounter % 70) == 0)
+			Grid::instance.updateGrid();
+		gCounter++;
+	}
 
     return mIsRunning;
 }
