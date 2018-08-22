@@ -59,7 +59,6 @@ bool App::onInit()
         mHeight = SCREEN_HEIGHT;
     }
 
-    std::cout << assets.getBackgroundPath() << std::endl;
     Background_Surf = Surface::loadImage(assets.getBackgroundPath());
 	GameOver_Surf = Surface::loadImage(assets.getGameOverAsset());
     std::string windowTitle = assets.getTitle();
@@ -71,7 +70,7 @@ bool App::onInit()
 
     if (mWindow == nullptr)
     {
-        std::cout << "SDL_CreateWindow got NULL!" << std::endl;
+        std::cout << "SDL_CreateWindow got NULL!" << SDL_GetError() << std::endl;
         return false;
     }
 

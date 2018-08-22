@@ -26,13 +26,10 @@ bool Button::load(Assets& assets)
         std::cout << "ERROR: could not create mSurface: " << SDL_GetError() << std::endl;
         return false;
     }
-    std::cout << "Loaded asset: " << asset << std::endl;
 
     mText.load(assets);
     mText.setPosition(mX + mWidth / 2 - mStr.size() * 6, mY + mHeight / 2 - 20);
     mText.setText(mStr);
-
-    std::cout << "text width" << mText.getPosition().first << mText.getPosition().second << std::endl;
 
     return true;
 }
@@ -58,11 +55,6 @@ void Button::render(SDL_Surface* Surf_Display)
 
 void Button::onLButtonDown(int x, int y)
 {
-    std::cout << "Button got event!!!!!!!!!" << std::endl;
-    std::cout << "onLButtonDown: (" << x << "," << y << ")" << std::endl;
-
-    std::cout << "mWidth: " << mWidth << ", mHeight: " << mHeight << std::endl;
-
     if (mWidth == 0 || mWidth == 0)
     {
         return;
@@ -71,7 +63,7 @@ void Button::onLButtonDown(int x, int y)
     /// Check outside boundaries
     if (x < mX || x >= (mWidth + mX) || y < mY || y >= (mHeight + mY))
     {
-        std::cout << "Out of boundary" << std::endl;
+        std::cout << "Button Out of boundary" << std::endl;
         return;
     }
 
