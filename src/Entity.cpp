@@ -78,5 +78,5 @@ void Entity::cleanup()
         SDL_FreeSurface(mSurface);
     }
 
-    mSurface = NULL;
+    mSurface = nullptr;
 }

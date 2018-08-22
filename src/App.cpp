@@ -14,9 +14,9 @@
 
 
 App::App()
-: mWindow{ NULL }
-, Surf_Display{ NULL }
-, Yoshi_Surf{ NULL }
+: mWindow{ nullptr }
+, Surf_Display{ nullptr }
+, Yoshi_Surf{ nullptr }
 , mEnableYoshi{ false }
 {
     mIsRunning = true;
@@ -67,7 +67,7 @@ bool App::onInit()
     mWindow = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_UNDEFINED,
                                SDL_WINDOWPOS_UNDEFINED, mWidth, mHeight, SDL_WINDOW_RESIZABLE);
 
-    if (mWindow == NULL)
+    if (mWindow == nullptr)
     {
         std::cout << "SDL_CreateWindow got NULL!" << std::endl;
         return false;
@@ -82,7 +82,7 @@ bool App::onInit()
 #endif
 
 
-    if ((Yoshi_Surf = Surface::OnLoad(img)) == NULL)
+    if ((Yoshi_Surf = Surface::OnLoad(img)) == nullptr)
     {
         printf("Loading Image failed: %s\n", SDL_GetError());
         return false;

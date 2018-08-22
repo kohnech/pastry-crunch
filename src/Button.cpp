@@ -21,7 +21,7 @@ bool Button::load(Assets& assets)
     mWidth = size.first;
     mHeight = size.second;
 
-    if ((mSurface = Surface::OnLoad(asset)) == NULL)
+    if ((mSurface = Surface::OnLoad(asset)) == nullptr)
     {
         std::cout << "ERROR: could not create mSurface: " << SDL_GetError() << std::endl;
         return false;
@@ -44,12 +44,12 @@ void Button::cleanup()
         SDL_FreeSurface(mSurface);
     }
 
-    mSurface = NULL;
+    mSurface = nullptr;
 }
 
 void Button::render(SDL_Surface* Surf_Display)
 {
-    if (Surf_Display == NULL || mSurface == NULL)
+    if (Surf_Display == nullptr || mSurface == nullptr)
         return;
 
     Surface::OnDraw(Surf_Display, mSurface, mX, mY, 0, 0, mWidth, mHeight);

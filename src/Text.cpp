@@ -33,26 +33,29 @@ bool Text::load(Assets& assets)
         printf("Could not load fond TTF_OpenFont");
         return false;
     }
+
+	
+
     return true;
 }
 
 void Text::render(SDL_Surface* display)
 {
+	mSurface = TTF_RenderUTF8_Solid(mFont, mMessage.c_str(), BLUE);
+	if (mSurface == nullptr)
+	{
+		std::cout << "Got error TTF_RenderUTF8_Solid: " << SDL_GetError() << std::endl;
+		return;
+	}
 
-    mSurface = TTF_RenderUTF8_Solid(mFont, mMessage.c_str(), BLUE);
-    if (mSurface)
-    {
-        Surface::OnDraw(display, mSurface, mX, mY);
-    }
-    else
-    {
-        std::cout << "Got error TTF_RenderUTF8_Solid: " << SDL_GetError() << std::endl;
-    }
+	Surface::OnDraw(display, mSurface, mX, mY);
+	SDL_FreeSurface(mSurface);
 }
 
 void Text::cleanup()
 {
     TTF_CloseFont(mFont);
+	SDL_FreeSurface(mSurface);
 }
 
 void Text::setText(std::string msg)

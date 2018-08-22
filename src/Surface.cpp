@@ -56,7 +56,7 @@ SDL_Surface* Surface::loadImage(const std::string path)
     // printf("Surface::loadImage... %s\n", path.c_str());
     // Load image at specified path
     SDL_Surface* loadedSurface = IMG_Load(path.c_str());
-    if (loadedSurface == NULL)
+    if (loadedSurface == nullptr)
     {
         printf("Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError());
     }
@@ -69,10 +69,10 @@ SDL_Surface* Surface::loadBmp(const std::string File)
     SDL_Surface* Surf_Temp;
 
     Surf_Temp = SDL_LoadBMP(File.c_str());
-    if (Surf_Temp == NULL)
+    if (Surf_Temp == nullptr)
     {
         printf("Loading BMP Failed: %s\n", SDL_GetError());
-        return NULL;
+        return nullptr;
     }
 
     return Surf_Temp;
@@ -80,7 +80,7 @@ SDL_Surface* Surface::loadBmp(const std::string File)
 
 bool Surface::OnDraw(SDL_Surface* Surf_Dest, SDL_Surface* Surf_Src, int x, int y)
 {
-    if (Surf_Dest == NULL || Surf_Src == NULL)
+    if (Surf_Dest == nullptr || Surf_Src == nullptr)
     {
         printf("Surface Drawing failed: %s\n", SDL_GetError());
         return false;
@@ -90,14 +90,14 @@ bool Surface::OnDraw(SDL_Surface* Surf_Dest, SDL_Surface* Surf_Src, int x, int y
     DestR.x = x;
     DestR.y = y;
 
-    SDL_BlitSurface(Surf_Src, NULL, Surf_Dest, &DestR);
+    SDL_BlitSurface(Surf_Src, nullptr, Surf_Dest, &DestR);
 
     return true;
 }
 
 bool Surface::OnDraw(SDL_Surface* Surf_Dest, SDL_Surface* Surf_Src, int x, int y, int x2, int y2, int w, int h)
 {
-    if (Surf_Dest == NULL || Surf_Src == NULL)
+    if (Surf_Dest == nullptr || Surf_Src == nullptr)
     {
         printf("Surface Drawing failed: %s\n", SDL_GetError());
         return false;
@@ -120,7 +120,7 @@ bool Surface::OnDraw(SDL_Surface* Surf_Dest, SDL_Surface* Surf_Src, int x, int y
 
 bool Surface::Transparent(SDL_Surface* Surf_Dest, int r, int g, int b)
 {
-    if (Surf_Dest == NULL)
+    if (Surf_Dest == nullptr)
     {
         return false;
     }

@@ -13,7 +13,7 @@ public:
     IUiComponent()
     : mX{ 0 }
     , mY{ 0 }
-    , mSurface{ NULL }
+    , mSurface{ nullptr }
     , mWidth{ 0 }
     , mHeight{ 0 }
     {

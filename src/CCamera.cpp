@@ -6,7 +6,7 @@ CCamera::CCamera()
 {
     X = Y = 0;
 
-    TargetX = TargetY = NULL;
+    TargetX = TargetY = nullptr;
 
     TargetMode = TARGET_MODE_NORMAL;
 }
@@ -19,7 +19,7 @@ void CCamera::OnMove(int MoveX, int MoveY)
 
 int CCamera::GetX()
 {
-    if (TargetX != NULL)
+    if (TargetX != nullptr)
     {
         if (TargetMode == TARGET_MODE_CENTER)
         {
@@ -34,7 +34,7 @@ int CCamera::GetX()
 
 int CCamera::GetY()
 {
-    if (TargetY != NULL)
+    if (TargetY != nullptr)
     {
         if (TargetMode == TARGET_MODE_CENTER)
         {

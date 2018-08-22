@@ -15,7 +15,7 @@
 Grid Grid::instance;
 
 Grid::Grid(int x, int y)
-: mGrid{ NULL }
+: mGrid{ nullptr }
 , mImagePath{ "" }
 , mTileWidth{ ICON_WIDTH }
 , mTileHeight{ ICON_HEIGHT }
@@ -98,7 +98,7 @@ void Grid::render(SDL_Surface* Surf_Display)
 
             Entity* entity = mGrid[x][y];
 
-            if (entity == NULL)
+            if (entity == nullptr)
             {
                 // rendering a void is rendering of nothing...
             }
@@ -123,7 +123,7 @@ void Grid::render(SDL_Surface* Surf_Display)
 
 void Grid::cleanup()
 {
-    if (mGrid == NULL)
+    if (mGrid == nullptr)
     {
         std::cout << "ERROR: You must initialize the grid with load()!" << std::endl;
         return;
@@ -135,7 +135,7 @@ void Grid::cleanup()
             if (mGrid[x][y])
             {
                 delete mGrid[x][y];
-                mGrid[x][y] = NULL;
+                mGrid[x][y] = nullptr;
             }
         }
     }
@@ -359,7 +359,7 @@ std::vector<Index> Grid::findVerticalMatches(const Index& ind)
     matches.push_back(ind);
     Entity* entity = mGrid[ind.row][ind.column];
 
-    if (entity == NULL)
+    if (entity == nullptr)
     {
         matches.clear();
         return matches;
@@ -369,7 +369,7 @@ std::vector<Index> Grid::findVerticalMatches(const Index& ind)
     if (ind.column != 0)
         for (int column = ind.column - 1; column >= 0; column--)
         {
-            if (mGrid[ind.row][column] != NULL && mGrid[ind.row][column]->id == entity->id)
+            if (mGrid[ind.row][column] != nullptr && mGrid[ind.row][column]->id == entity->id)
             {
                 Index tmp(ind.row, column);
                 matches.push_back(tmp);
@@ -382,7 +382,7 @@ std::vector<Index> Grid::findVerticalMatches(const Index& ind)
     if (ind.column != mGridRowSize - 1)
         for (int column = ind.column + 1; column < mGridColumnSize; column++)
         {
-            if (mGrid[ind.row][column] != NULL && mGrid[ind.row][column]->id == entity->id)
+            if (mGrid[ind.row][column] != nullptr && mGrid[ind.row][column]->id == entity->id)
             {
                 Index tmp(ind.row, column);
                 matches.push_back(tmp);
@@ -404,7 +404,7 @@ std::vector<Index> Grid::findHorizontalMatches(const Index& ind)
     matches.push_back(ind);
     Entity* entity = mGrid[ind.row][ind.column];
 
-    if (entity == NULL)
+    if (entity == nullptr)
     {
         matches.clear();
         return matches;
@@ -414,7 +414,7 @@ std::vector<Index> Grid::findHorizontalMatches(const Index& ind)
     if (ind.row != 0)
         for (int row = ind.row - 1; row >= 0; row--)
         {
-            if (mGrid[row][ind.column] != NULL && mGrid[row][ind.column]->id == entity->id)
+            if (mGrid[row][ind.column] != nullptr && mGrid[row][ind.column]->id == entity->id)
             {
                 Index tmp(row, ind.column);
                 matches.push_back(tmp);
@@ -427,7 +427,7 @@ std::vector<Index> Grid::findHorizontalMatches(const Index& ind)
     if (ind.row != mGridRowSize - 1)
         for (int row = ind.row + 1; row < mGridRowSize; row++)
         {
-            if (mGrid[row][ind.column] != NULL && mGrid[row][ind.column]->id == entity->id)
+            if (mGrid[row][ind.column] != nullptr && mGrid[row][ind.column]->id == entity->id)
             {
                 Index tmp(row, ind.column);
                 matches.push_back(tmp);
@@ -489,7 +489,7 @@ void Grid::removeMatches(const std::vector<Index>& matches)
     for (Index ind : matches)
     {
         delete mGrid[ind.row][ind.column];
-        mGrid[ind.row][ind.column] = NULL;
+        mGrid[ind.row][ind.column] = nullptr;
     }
 }
 
@@ -500,7 +500,7 @@ void Grid::printGrid()
     {
         for (int row = 0; row < mGridRowSize; row++)
         {
-            if (mGrid[row][column] == NULL)
+            if (mGrid[row][column] == nullptr)
             {
                 std::cout << 0;
             }
@@ -541,17 +541,17 @@ int Grid::collapse(std::vector<int> rows)
         for (int y = mGridColumnSize - 1; y > 0; y--)
         {
             // if you find a null item
-            if (mGrid[row][y] == NULL)
+            if (mGrid[row][y] == nullptr)
             {
                 numCollapses++;
                 // start searching for the first non-null from one top above of the current index
                 for (int y2 = y - 1; y2 >= 0; y2--)
                 {
                     // if you find one, bring it down (i.e. replace it with the null you found)
-                    if (mGrid[row][y2] != NULL)
+                    if (mGrid[row][y2] != nullptr)
                     {
                         mGrid[row][y] = mGrid[row][y2];
-                        mGrid[row][y2] = NULL;
+                        mGrid[row][y2] = nullptr;
                         break;
                     }
                 }
@@ -600,7 +600,7 @@ std::vector<Index> Grid::getEmptyItemsOnRow(int row)
 
     for (int column = 0; column < mGridColumnSize; column++)
     {
-        if (mGrid[row][column] == NULL)
+        if (mGrid[row][column] == nullptr)
             voids.push_back(Index(row, column));
     }
     return voids;
@@ -608,7 +608,7 @@ std::vector<Index> Grid::getEmptyItemsOnRow(int row)
 
 void Grid::setVoid(const Index& index)
 {
-    mGrid[index.row][index.column] = NULL;
+    mGrid[index.row][index.column] = nullptr;
 }
 
 void Grid::updateScore()
