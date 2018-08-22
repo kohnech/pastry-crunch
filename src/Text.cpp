@@ -55,7 +55,6 @@ void Text::render(SDL_Surface* display)
 void Text::cleanup()
 {
     TTF_CloseFont(mFont);
-	SDL_FreeSurface(mSurface);
 }
 
 void Text::setText(std::string msg)
