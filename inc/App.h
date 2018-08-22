@@ -41,7 +41,7 @@ private:
 
     SDL_Window* mWindow;
     SDL_Surface* Surf_Display;
-    SDL_Surface* Surf_Test;
+    SDL_Surface* Yoshi_Surf;
 
     CAnimation Anim_Yoshi;
 
@@ -56,4 +56,6 @@ private:
     int mHeight;
 
     Button mMuteButton;
+
+    bool mEnableYoshi;
 };

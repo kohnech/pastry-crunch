@@ -14,9 +14,10 @@
 
 
 App::App()
-: mWindow{ NULL }
-, Surf_Display{ NULL }
-, Surf_Test{ NULL }
+: mWindow{ nullptr }
+, Surf_Display{ nullptr }
+, Yoshi_Surf{ nullptr }
+, mEnableYoshi{ false }
 {
     mIsRunning = true;
 }
@@ -66,7 +67,7 @@ bool App::onInit()
     mWindow = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_UNDEFINED,
                                SDL_WINDOWPOS_UNDEFINED, mWidth, mHeight, SDL_WINDOW_RESIZABLE);
 
-    if (mWindow == NULL)
+    if (mWindow == nullptr)
     {
         std::cout << "SDL_CreateWindow got NULL!" << std::endl;
         return false;
@@ -81,7 +82,7 @@ bool App::onInit()
 #endif
 
 
-    if ((Surf_Test = Surface::OnLoad(img)) == NULL)
+    if ((Yoshi_Surf = Surface::OnLoad(img)) == nullptr)
     {
         printf("Loading Image failed: %s\n", SDL_GetError());
         return false;
@@ -89,8 +90,8 @@ bool App::onInit()
 
 
     Anim_Yoshi.MaxFrames = 8;
-    // Anim_Yoshi.Oscillate = true;
-
+    Surface::Transparent(Yoshi_Surf, 255, 0, 255);
+	/*
     if (Entity1.load(img, 64, 64) == false)
     {
         return false;
@@ -102,7 +103,7 @@ bool App::onInit()
     }
 
     EntityList.push_back(&Entity1);
-    EntityList.push_back(&Entity2);
+    EntityList.push_back(&Entity2);*/
 
 
     /// Create game grid
@@ -123,7 +124,7 @@ bool App::onInit()
 
     // Add music
     Sounds::instance.play("mining");
-    
+
     std::cout << "finished App OnInit()..." << std::endl;
 
 
@@ -153,7 +154,7 @@ void App::onRender()
 
     Surface::OnDraw(Surf_Display, Background_Surf, 0, 0);
 
-    int i = 1;
+  /*  int i = 1;
     for (auto entity : EntityList)
     {
         if (!entity)
@@ -164,11 +165,13 @@ void App::onRender()
         entity->setPosition(CCamera::CameraControl.GetX() * i, CCamera::CameraControl.GetY());
         entity->render(Surf_Display);
         i++;
-    }
+    }*/
 
     Grid::instance.render(Surf_Display);
 
-    Surface::OnDraw(Surf_Display, Surf_Test, 290, 220, 0, Anim_Yoshi.GetCurrentFrame() * 64, 64, 64);
+    if (mEnableYoshi) {
+        Surface::OnDraw(Surf_Display, Yoshi_Surf, 290, 220, 0, Anim_Yoshi.GetCurrentFrame() * 64, 64, 64);
+    }
 
     mMuteButton.render(Surf_Display);
 
@@ -177,7 +180,7 @@ void App::onRender()
 
 void App::onCleanup()
 {
-    SDL_FreeSurface(Surf_Test);
+    SDL_FreeSurface(Yoshi_Surf);
     SDL_FreeSurface(Surf_Display);
     SDL_DestroyWindow(mWindow);
 
@@ -235,6 +238,9 @@ void App::onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode)
         break;
     case SDLK_9:
         Sounds::instance.stop();
+        break;
+    case SDLK_F10:
+        mEnableYoshi = !mEnableYoshi;
         break;
 
     default:

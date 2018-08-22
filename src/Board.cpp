@@ -12,7 +12,7 @@ Board::Board()
 : mTileAsset{ "" }
 , mHighlightX{ 0 }
 , mHighlightY{ 0 }
-, mHighlightSurf{ NULL }
+, mHighlightSurf{ nullptr }
 , mIsHighlightVisible{ true }
 {
 }
@@ -31,13 +31,13 @@ bool Board::load(Assets& assets)
     mWidth = tileSize.first;
     mHeight = tileSize.second;
 
-    if ((mSurface = Surface::OnLoad(mTileAsset)) == NULL)
+    if ((mSurface = Surface::OnLoad(mTileAsset)) == nullptr)
     {
         std::cout << "ERROR: could not create mSurface: " << SDL_GetError() << std::endl;
         return false;
     }
 
-    if ((mHighlightSurf = Surface::OnLoad(highlightFile)) == NULL)
+    if ((mHighlightSurf = Surface::OnLoad(highlightFile)) == nullptr)
     {
         std::cout << "ERROR: could not create mHighlightSurf: " << SDL_GetError() << std::endl;
         return false;
@@ -48,7 +48,7 @@ bool Board::load(Assets& assets)
 
 void Board::render(SDL_Surface* Surf_Display)
 {
-    if (Surf_Display == NULL || mSurface == NULL)
+    if (Surf_Display == nullptr || mSurface == nullptr)
         return;
 
     for (int x = 0; x < mGridRowSize; ++x)
@@ -82,8 +82,8 @@ void Board::cleanup()
         SDL_FreeSurface(mHighlightSurf);
     }
 
-    mSurface = NULL;
-    mHighlightSurf = NULL;
+    mSurface = nullptr;
+    mHighlightSurf = nullptr;
 }
 
 Pair Board::getBoardSize()

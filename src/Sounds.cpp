@@ -28,9 +28,9 @@ bool Sounds::load(Assets& assets)
 
     for (auto asset : soundMap)
     {
-        Mix_Chunk* TempSound = NULL;
+        Mix_Chunk* TempSound = nullptr;
 
-        if ((TempSound = Mix_LoadWAV(asset.second.c_str())) == NULL)
+        if ((TempSound = Mix_LoadWAV(asset.second.c_str())) == nullptr)
         {
             std::cout << "Error loading sound file: " << asset.second << Mix_GetError() << std::endl;
         }
@@ -53,7 +53,7 @@ void Sounds::cleanup()
 
 void Sounds::play(std::string ID)
 {
-    if (mSounds[ID] == NULL)
+    if (mSounds[ID] == nullptr)
         return;
 
     Mix_PlayChannel(-1, mSounds[ID], 0);

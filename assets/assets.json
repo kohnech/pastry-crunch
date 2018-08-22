@@ -6,7 +6,7 @@
     "minimumMatches": 3,
     "minimumScores": 30,
     "screen": {
-      "width": 1280,
+      "width": 1024,
       "height": 720
     },
     "assetsRelativExeWin32": "../../../",
@@ -19,10 +19,10 @@
     "height": 72
   },
   "grid": {
-    "width": 5,
-    "height": 5,
-    "xpos": 400,
-    "ypos": 200,
+    "width": 8,
+    "height": 8,
+    "xpos": 250,
+    "ypos": 100,
     "assets": {
       "width": 64,
       "height": 72,
