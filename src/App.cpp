@@ -17,6 +17,7 @@ App::App()
 : mWindow{ NULL }
 , Surf_Display{ NULL }
 , Yoshi_Surf{ NULL }
+, mEnableYoshi{ false }
 {
     mIsRunning = true;
 }
@@ -89,7 +90,7 @@ bool App::onInit()
 
 
     Anim_Yoshi.MaxFrames = 8;
-    // Anim_Yoshi.Oscillate = true;
+    Surface::Transparent(Yoshi_Surf, 255, 0, 255);
 
     if (Entity1.load(img, 64, 64) == false)
     {
@@ -168,7 +169,9 @@ void App::onRender()
 
     Grid::instance.render(Surf_Display);
 
-    Surface::OnDraw(Surf_Display, Yoshi_Surf, 290, 220, 0, Anim_Yoshi.GetCurrentFrame() * 64, 64, 64);
+    if (mEnableYoshi) {
+        Surface::OnDraw(Surf_Display, Yoshi_Surf, 290, 220, 0, Anim_Yoshi.GetCurrentFrame() * 64, 64, 64);
+    }
 
     mMuteButton.render(Surf_Display);
 
@@ -235,6 +238,9 @@ void App::onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode)
         break;
     case SDLK_9:
         Sounds::instance.stop();
+        break;
+    case SDLK_F10:
+        mEnableYoshi = !mEnableYoshi;
         break;
 
     default:

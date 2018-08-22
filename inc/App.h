@@ -56,4 +56,6 @@ private:
     int mHeight;
 
     Button mMuteButton;
+
+    bool mEnableYoshi;
 };
