@@ -50,8 +50,6 @@ void CountDown::update()
 		Uint32 diff = mCurrentTimeStamp - mLastTimeStamp;
 		mTimeRemaining = mTimeRemaining - diff;
 		mLastTimeStamp = mCurrentTimeStamp;
-
-		std::cout << "time remaining:" << mTimeRemaining << std::endl;
 	}
 
 	std::string str;

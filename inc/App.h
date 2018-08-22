@@ -50,6 +50,7 @@ private:
     Entity Entity2;
 
     SDL_Surface* Background_Surf;
+	SDL_Surface* GameOver_Surf;
 
     std::vector<Entity*> EntityList;
 
@@ -61,4 +62,7 @@ private:
     bool mEnableYoshi;
 
 	CountDown mCountDown;
+	bool mIsGameOver;
+
+	void gameOver();
 };

@@ -18,6 +18,7 @@ App::App()
 , Surf_Display{ nullptr }
 , Yoshi_Surf{ nullptr }
 , mEnableYoshi{ false }
+, mIsGameOver{ false }
 {
     mIsRunning = true;
 }
@@ -60,6 +61,7 @@ bool App::onInit()
 
     std::cout << assets.getBackgroundPath() << std::endl;
     Background_Surf = Surface::loadImage(assets.getBackgroundPath());
+	GameOver_Surf = Surface::loadImage(assets.getGameOverAsset());
     std::string windowTitle = assets.getTitle();
 
 
@@ -127,6 +129,7 @@ bool App::onInit()
 
 	mCountDown.load(assets);
 	mCountDown.setPosition(100, 100);
+	mCountDown.addTimedOutCallback([&] { mIsGameOver = true; gameOver(); });
 
     std::cout << "finished App OnInit()..." << std::endl;
 
@@ -169,14 +172,20 @@ void App::onRender()
         i++;
     }*/
 
-    Grid::instance.render(Surf_Display);
+	if (!mIsGameOver) {
+		Grid::instance.render(Surf_Display);
 
-    if (mEnableYoshi) {
-        Surface::OnDraw(Surf_Display, Yoshi_Surf, 290, 220, 0, Anim_Yoshi.GetCurrentFrame() * 64, 64, 64);
-    }
+		if (mEnableYoshi) {
+			Surface::OnDraw(Surf_Display, Yoshi_Surf, 290, 220, 0, Anim_Yoshi.GetCurrentFrame() * 64, 64, 64);
+		}
 
-    mMuteButton.render(Surf_Display);
-	mCountDown.render(Surf_Display);
+		
+		mCountDown.render(Surf_Display);
+		mMuteButton.render(Surf_Display);
+	}
+	else {
+		Surface::OnDraw(Surf_Display, GameOver_Surf, 0, 0);
+	}
 
     SDL_UpdateWindowSurface(mWindow);
 }
@@ -185,6 +194,8 @@ void App::onCleanup()
 {
     SDL_FreeSurface(Yoshi_Surf);
     SDL_FreeSurface(Surf_Display);
+	SDL_FreeSurface(Background_Surf);
+	SDL_FreeSurface(GameOver_Surf);
     SDL_DestroyWindow(mWindow);
 
     EntityList.clear();
@@ -272,3 +283,9 @@ bool App::ThreadMethod()
 
     return true;
 };
+
+void App::gameOver()
+{
+	Sounds::instance.stop();
+	Grid::instance.cleanup();
+}
