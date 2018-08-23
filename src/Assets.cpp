@@ -29,10 +29,10 @@ void Assets::loadFile(std::string file)
 
     try
     {
-#ifdef WIN32
-        mRelativePath = mJ["settings"]["assetsRelativExeWin32"];
+#ifdef _DEBUG
+		mRelativePath = "../../../";
 #else
-        mRelativePath = mJ["settings"]["assetsRelativeExeLinux"];
+		mRelativePath = "./";
 #endif
     }
     catch (std::exception& e)

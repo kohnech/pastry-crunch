@@ -40,7 +40,7 @@ bool App::onInit()
     /// Settings & assets
     Assets assets;
 
-#ifdef WIN32
+#ifdef _DEBUG
     assets.loadFile("../../../assets/assets.json");
 #else
     assets.loadFile("./assets/assets.json");
@@ -76,7 +76,7 @@ bool App::onInit()
 
     Surf_Display = SDL_GetWindowSurface(mWindow);
 
-#ifdef WIN32
+#ifdef _DEBUG
     std::string img = "../../../assets/bakery/yoshi.png";
 #else
     std::string img = "./assets/bakery/yoshi.png";
@@ -295,5 +295,4 @@ bool App::ThreadMethod()
 void App::gameOver()
 {
     Sounds::instance.stop();
-    Grid::instance.cleanup();
 }
