@@ -8,23 +8,23 @@
 class CountDown : public IUiComponent
 {
 public:
-	typedef std::function<void()> TimedOutCallback;
+    typedef std::function<void()> TimedOutCallback;
 
-	CountDown();
-	~CountDown();
+    CountDown();
+    ~CountDown();
 
-	bool load(Assets& assets);
-	void cleanup();
-	void render(SDL_Surface* Surf_Display);
+    bool load(Assets& assets);
+    void cleanup();
+    void render(SDL_Surface* Surf_Display);
 
-	void addTimedOutCallback(TimedOutCallback cb);
+    void addTimedOutCallback(TimedOutCallback cb);
 
 private:
-	void update();
+    void update();
 
-	Sint32 mTimeRemaining;
-	Uint32 mCurrentTimeStamp;
-	Uint32 mLastTimeStamp;
-	Text mText;
-	TimedOutCallback mTimedOutCallback;
+    Sint32 mTimeRemaining;
+    Uint32 mCurrentTimeStamp;
+    Uint32 mLastTimeStamp;
+    Text mText;
+    TimedOutCallback mTimedOutCallback;
 };

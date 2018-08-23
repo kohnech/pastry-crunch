@@ -183,6 +183,6 @@ std::pair<int, int> Assets::getButtonSize()
 
 std::string Assets::getGameOverAsset()
 {
-	std::string str = mJ["gameover"]["asset"];
-	return mRelativePath + str;
+    std::string str = mJ["gameover"]["asset"];
+    return mRelativePath + str;
 }
