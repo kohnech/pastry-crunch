@@ -32,6 +32,7 @@ Grid::Grid(int x, int y)
 
 Grid::~Grid()
 {
+	stop();
 	join();
     cleanup();
 }
