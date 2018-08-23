@@ -295,5 +295,4 @@ bool App::ThreadMethod()
 void App::gameOver()
 {
     Sounds::instance.stop();
-    Grid::instance.cleanup();
 }
