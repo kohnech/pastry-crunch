@@ -23,6 +23,7 @@ Grid::Grid(int x, int y)
 , mMinimumScore{ 10 }
 , mScore{ 0 }
 , mMinimumMatches{ 0 }
+, mIsRunning{ true }
 {
     mX = x;
     mY = y;
@@ -31,6 +32,7 @@ Grid::Grid(int x, int y)
 
 Grid::~Grid()
 {
+	join();
     cleanup();
 }
 
@@ -79,6 +81,9 @@ bool Grid::load(Assets& assets)
     Board::load(assets);
 
     initGrid();
+
+	// Start thread
+	start();
 
     return true;
 }
@@ -686,4 +691,19 @@ void Grid::updateGrid()
         mNewMatches.clear();
         mNewMatches = findNewMatches();
     }
+}
+
+bool Grid::ThreadMethod()
+{
+	while (mIsRunning)
+	{
+		updateGrid();
+		sleep(2000); // To get time to run animations & rendering...
+	}
+	return true;
+}
+
+void Grid::stop()
+{
+	mIsRunning = false;
 }

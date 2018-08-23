@@ -8,26 +8,29 @@ IThread::IThread()
 
 void IThread::start()
 {
+	std::cout << "IThread start..." << std::endl;
     mThread = std::thread(ThreadProxy, this);
 }
 
 void IThread::join()
 {
+	std::cout << "IThread join..." << std::endl;
     mThread.join();
 }
 
 void IThread::sleep(int ms)
 {
+	std::cout << "IThread sleep..." << std::endl;
     std::this_thread::sleep_for(std::chrono::milliseconds(ms));
 }
 
 int IThread::ThreadProxy(void* ptr)
 {
+	std::cout << "ThreadProxy..." << std::endl;
     if (ptr == NULL)
     {
         return EXIT_FAILURE;
     }
-
     std::string threadName;
 
     try

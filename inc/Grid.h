@@ -6,6 +6,7 @@
 #include "Entity.h"
 #include "IUiComponent.h"
 #include "Text.h"
+#include "IThread.h"
 
 #include <SDL.h>
 
@@ -56,7 +57,7 @@ struct Index
     }
 };
 
-class Grid : public Board, public Event
+class Grid : public Board, public Event, public IThread
 {
 public:
     static Grid instance;
@@ -270,6 +271,15 @@ public:
      */
     void updateGrid();
 
+	/*!
+	* We need run game logic in its own thread to find new matches since
+	* its much slower than the rendering running in the main thread.
+	*/
+	virtual bool ThreadMethod();
+
+	/*! Stop the thread */
+	void stop();
+
 private:
     std::vector<std::string> mAssets;
     Entity*** mGrid;
@@ -282,4 +292,5 @@ private:
     Text mScoreText;
     size_t mMinimumMatches;
     std::vector<Index> mNewMatches;
+	bool mIsRunning;
 };
