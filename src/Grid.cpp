@@ -50,8 +50,6 @@ bool Grid::load(Assets& assets)
     mTileWidth = gridAssetSize.first;
     mTileHeight = gridAssetSize.second;
 
-    std::cout << "mTileAsset: " << mTileAsset << std::endl;
-
     std::pair<int, int> gridPosition = assets.getGridPosition();
     mX = gridPosition.first;
     mY = gridPosition.second;
@@ -523,11 +521,6 @@ std::vector<int> Grid::getDistinctRows(const std::vector<Index>& matches)
     std::sort(rows.begin(), rows.end());
     auto last = std::unique(rows.begin(), rows.end());
     rows.erase(last, rows.end());
-
-    for (int row : rows)
-    {
-        std::cout << "row: " << row << std::endl;
-    }
     return rows;
 }
 
@@ -616,8 +609,6 @@ void Grid::updateScore()
     std::string str;
     str = "Score: " + std::to_string(mScore);
     mScoreText.setText(str);
-
-    std::cout << "mSCore: " << mScore << std::endl;
 }
 
 std::vector<Index> Grid::findMatches(Index pos)
@@ -649,15 +640,16 @@ std::vector<Index> Grid::findNewMatches()
     }
 
     // Filter out only unique matches
-	try {
-		std::sort(matches.begin(), matches.end());
-		auto last = std::unique(matches.begin(), matches.end());
-		matches.erase(last, matches.end());
-	}
-	catch (std::exception& e)
-	{
-		std::cout << "Got exception e: " << e.what() << std::endl;
-	}
+    try
+    {
+        std::sort(matches.begin(), matches.end());
+        auto last = std::unique(matches.begin(), matches.end());
+        matches.erase(last, matches.end());
+    }
+    catch (std::exception& e)
+    {
+        std::cout << "Got exception e: " << e.what() << std::endl;
+    }
 
     for (auto match : matches)
     {

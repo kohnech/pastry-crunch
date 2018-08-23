@@ -59,9 +59,8 @@ bool App::onInit()
         mHeight = SCREEN_HEIGHT;
     }
 
-    std::cout << assets.getBackgroundPath() << std::endl;
     Background_Surf = Surface::loadImage(assets.getBackgroundPath());
-	GameOver_Surf = Surface::loadImage(assets.getGameOverAsset());
+    GameOver_Surf = Surface::loadImage(assets.getGameOverAsset());
     std::string windowTitle = assets.getTitle();
 
 
@@ -71,7 +70,7 @@ bool App::onInit()
 
     if (mWindow == nullptr)
     {
-        std::cout << "SDL_CreateWindow got NULL!" << std::endl;
+        std::cout << "SDL_CreateWindow got NULL!" << SDL_GetError() << std::endl;
         return false;
     }
 
@@ -93,7 +92,7 @@ bool App::onInit()
 
     Anim_Yoshi.MaxFrames = 8;
     Surface::Transparent(Yoshi_Surf, 255, 0, 255);
-	/*
+    /*
     if (Entity1.load(img, 64, 64) == false)
     {
         return false;
@@ -127,9 +126,12 @@ bool App::onInit()
     // Add music
     Sounds::instance.play("mining");
 
-	mCountDown.load(assets);
-	mCountDown.setPosition(100, 100);
-	mCountDown.addTimedOutCallback([&] { mIsGameOver = true; gameOver(); });
+    mCountDown.load(assets);
+    mCountDown.setPosition(100, 100);
+    mCountDown.addTimedOutCallback([&] {
+        mIsGameOver = true;
+        gameOver();
+    });
 
     std::cout << "finished App OnInit()..." << std::endl;
 
@@ -147,9 +149,12 @@ bool App::onLoop()
 {
     Anim_Yoshi.OnAnimate();
 
-    if ((gCounter % 70) == 0)
-        Grid::instance.updateGrid();
-    gCounter++;
+    if (!mIsGameOver)
+    {
+        if ((gCounter % 70) == 0)
+            Grid::instance.updateGrid();
+        gCounter++;
+    }
 
     return mIsRunning;
 }
@@ -159,33 +164,36 @@ void App::onRender()
 
     Surface::OnDraw(Surf_Display, Background_Surf, 0, 0);
 
-  /*  int i = 1;
-    for (auto entity : EntityList)
+    /*  int i = 1;
+      for (auto entity : EntityList)
+      {
+          if (!entity)
+          {
+              continue;
+          }
+
+          entity->setPosition(CCamera::CameraControl.GetX() * i, CCamera::CameraControl.GetY());
+          entity->render(Surf_Display);
+          i++;
+      }*/
+
+    if (!mIsGameOver)
     {
-        if (!entity)
+        Grid::instance.render(Surf_Display);
+
+        if (mEnableYoshi)
         {
-            continue;
+            Surface::OnDraw(Surf_Display, Yoshi_Surf, 290, 220, 0, Anim_Yoshi.GetCurrentFrame() * 64, 64, 64);
         }
 
-        entity->setPosition(CCamera::CameraControl.GetX() * i, CCamera::CameraControl.GetY());
-        entity->render(Surf_Display);
-        i++;
-    }*/
 
-	if (!mIsGameOver) {
-		Grid::instance.render(Surf_Display);
-
-		if (mEnableYoshi) {
-			Surface::OnDraw(Surf_Display, Yoshi_Surf, 290, 220, 0, Anim_Yoshi.GetCurrentFrame() * 64, 64, 64);
-		}
-
-		
-		mCountDown.render(Surf_Display);
-		mMuteButton.render(Surf_Display);
-	}
-	else {
-		Surface::OnDraw(Surf_Display, GameOver_Surf, 0, 0);
-	}
+        mCountDown.render(Surf_Display);
+        mMuteButton.render(Surf_Display);
+    }
+    else
+    {
+        Surface::OnDraw(Surf_Display, GameOver_Surf, 0, 0);
+    }
 
     SDL_UpdateWindowSurface(mWindow);
 }
@@ -194,8 +202,8 @@ void App::onCleanup()
 {
     SDL_FreeSurface(Yoshi_Surf);
     SDL_FreeSurface(Surf_Display);
-	SDL_FreeSurface(Background_Surf);
-	SDL_FreeSurface(GameOver_Surf);
+    SDL_FreeSurface(Background_Surf);
+    SDL_FreeSurface(GameOver_Surf);
     SDL_DestroyWindow(mWindow);
 
     EntityList.clear();
@@ -286,6 +294,6 @@ bool App::ThreadMethod()
 
 void App::gameOver()
 {
-	Sounds::instance.stop();
-	Grid::instance.cleanup();
+    Sounds::instance.stop();
+    Grid::instance.cleanup();
 }

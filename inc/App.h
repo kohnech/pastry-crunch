@@ -3,11 +3,11 @@
 #include "Button.h"
 #include "CAnimation.h"
 #include "CCamera.h"
+#include "CountDown.h"
 #include "Entity.h"
 #include "Event.h"
 #include "IThread.h"
 #include "Text.h"
-#include "CountDown.h"
 
 #include <SDL.h>
 
@@ -50,7 +50,7 @@ private:
     Entity Entity2;
 
     SDL_Surface* Background_Surf;
-	SDL_Surface* GameOver_Surf;
+    SDL_Surface* GameOver_Surf;
 
     std::vector<Entity*> EntityList;
 
@@ -61,8 +61,8 @@ private:
 
     bool mEnableYoshi;
 
-	CountDown mCountDown;
-	bool mIsGameOver;
+    CountDown mCountDown;
+    bool mIsGameOver;
 
-	void gameOver();
+    void gameOver();
 };
