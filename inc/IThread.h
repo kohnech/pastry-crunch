@@ -19,6 +19,8 @@ public:
     virtual bool ThreadMethod() = 0;
     bool mIsRunning;
 
+    bool getRunningState();
+
 private:
     std::thread mThread;
     static int ThreadProxy(void* ptr);

@@ -15,13 +15,27 @@ void IThread::start()
 void IThread::join()
 {
 	std::cout << "IThread join..." << std::endl;
-    mThread.join();
+    try {
+        mThread.join();
+    }
+    catch(const std::system_error& e) {
+        std::cout << "Caught system_error with code " << e.code()
+                  << " meaning " << e.what() << '\n';
+    }
+
 }
 
 void IThread::sleep(int ms)
 {
 	std::cout << "IThread sleep..." << std::endl;
-    std::this_thread::sleep_for(std::chrono::milliseconds(ms));
+    try {
+        std::this_thread::sleep_for(std::chrono::milliseconds(ms));
+    }
+    catch(const std::system_error& e) {
+        std::cout << "Caught system_error with code " << e.code()
+                  << " meaning " << e.what() << '\n';
+    }
+
 }
 
 int IThread::ThreadProxy(void* ptr)
@@ -50,4 +64,9 @@ int IThread::ThreadProxy(void* ptr)
         std::cout << "Unhandled exception!" << std::endl;
     }
     return EXIT_FAILURE;
+}
+
+bool IThread::getRunningState()
+{
+    return mIsRunning;
 }

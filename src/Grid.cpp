@@ -33,7 +33,10 @@ Grid::Grid(int x, int y)
 Grid::~Grid()
 {
 	stop();
-	join();
+    if (getRunningState())
+    {
+        join();
+    }
     cleanup();
 }
 
@@ -129,7 +132,7 @@ void Grid::cleanup()
 {
     if (mGrid == nullptr)
     {
-        std::cout << "ERROR: You must initialize the grid with load()!" << std::endl;
+        std::cout << "WARNING: You must initialize the grid with load()!" << std::endl;
         return;
     }
     for (int x = 0; x < mGridRowSize; ++x)
