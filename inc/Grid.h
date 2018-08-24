@@ -11,6 +11,7 @@
 #include <SDL.h>
 
 #include <string>
+#include <mutex>
 
 /*!
  * Helper struct to represent (row, column)
@@ -293,4 +294,5 @@ private:
     size_t mMinimumMatches;
     std::vector<Index> mNewMatches;
     bool mIsRunning;
+    std::mutex mLock;
 };

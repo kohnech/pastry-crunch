@@ -303,6 +303,7 @@ void Grid::update(const Index& pos)
 
             createNewEntitiesInRows(rows);
 
+            std::lock_guard<std::mutex> guard(mLock);
             mNewMatches.clear();
             mNewMatches = findNewMatches();
         }
@@ -669,6 +670,7 @@ std::vector<Index> Grid::findNewMatches()
 
 void Grid::updateGrid()
 {
+    std::lock_guard<std::mutex> guard(mLock);
     if (mNewMatches.size() >= mMinimumMatches)
     {
         // play sound
