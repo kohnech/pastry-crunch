@@ -683,11 +683,6 @@ void Grid::updateGrid()
         // Now we need collapse the matches
         removeMatches(mNewMatches);
 
-
-        // TODO This should be a while loop if more matches occurs while refiling the grid...
-        // TODO move out to outer function
-        printGrid();
-
         std::vector<int> rows = getDistinctRows(mNewMatches);
 
         collapse(rows);
