@@ -30,9 +30,9 @@ void Assets::loadFile(std::string file)
     try
     {
 #ifdef _DEBUG
-		mRelativePath = "../../../";
+        mRelativePath = "../../../";
 #else
-		mRelativePath = "./";
+        mRelativePath = "./";
 #endif
     }
     catch (std::exception& e)

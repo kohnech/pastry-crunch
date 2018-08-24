@@ -32,7 +32,7 @@ Grid::Grid(int x, int y)
 
 Grid::~Grid()
 {
-	stop();
+    stop();
     if (getRunningState())
     {
         join();
@@ -86,8 +86,8 @@ bool Grid::load(Assets& assets)
 
     initGrid();
 
-	// Start thread
-	start();
+    // Start thread
+    start();
 
     return true;
 }
@@ -699,15 +699,15 @@ void Grid::updateGrid()
 
 bool Grid::ThreadMethod()
 {
-	while (mIsRunning)
-	{
-		updateGrid();
-		sleep(2000); // To get time to run animations & rendering...
-	}
-	return true;
+    while (mIsRunning)
+    {
+        updateGrid();
+        sleep(2000); // To get time to run animations & rendering...
+    }
+    return true;
 }
 
 void Grid::stop()
 {
-	mIsRunning = false;
+    mIsRunning = false;
 }

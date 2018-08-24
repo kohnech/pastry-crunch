@@ -4,9 +4,9 @@
 #include "Board.h"
 #include "Define.h"
 #include "Entity.h"
+#include "IThread.h"
 #include "IUiComponent.h"
 #include "Text.h"
-#include "IThread.h"
 
 #include <SDL.h>
 
@@ -271,14 +271,14 @@ public:
      */
     void updateGrid();
 
-	/*!
-	* We need run game logic in its own thread to find new matches since
-	* its much slower than the rendering running in the main thread.
-	*/
-	virtual bool ThreadMethod();
+    /*!
+     * We need run game logic in its own thread to find new matches since
+     * its much slower than the rendering running in the main thread.
+     */
+    virtual bool ThreadMethod();
 
-	/*! Stop the thread */
-	void stop();
+    /*! Stop the thread */
+    void stop();
 
 private:
     std::vector<std::string> mAssets;
@@ -292,5 +292,5 @@ private:
     Text mScoreText;
     size_t mMinimumMatches;
     std::vector<Index> mNewMatches;
-	bool mIsRunning;
+    bool mIsRunning;
 };
