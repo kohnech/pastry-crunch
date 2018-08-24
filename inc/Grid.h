@@ -10,8 +10,8 @@
 
 #include <SDL.h>
 
-#include <string>
 #include <mutex>
+#include <string>
 
 /*!
  * Helper struct to represent (row, column)
@@ -275,8 +275,8 @@ public:
 
 private:
     /*!
-    * Update grid in separate thread
-    */
+     * Update grid in separate thread
+     */
     void updateGrid();
 
 
