@@ -6,6 +6,7 @@
 #include "CountDown.h"
 #include "Entity.h"
 #include "Event.h"
+#include "Grid.h"
 #include "IThread.h"
 #include "Text.h"
 
@@ -65,4 +66,6 @@ private:
     bool mIsGameOver;
 
     void gameOver();
+
+    Grid mGrid;
 };

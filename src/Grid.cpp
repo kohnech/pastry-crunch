@@ -12,8 +12,6 @@
 #include <stdlib.h>
 
 
-Grid Grid::instance;
-
 Grid::Grid(int x, int y)
 : mGrid{ nullptr }
 , mImagePath{ "" }

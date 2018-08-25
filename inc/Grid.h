@@ -61,8 +61,6 @@ struct Index
 class Grid : public Board, public Event, public IThread
 {
 public:
-    static Grid instance;
-
     /*!
      * Construct a grid with left upper corner at (x,y)
      * @param x x position upper left corner
