@@ -23,6 +23,7 @@ Grid::Grid(int x, int y)
 , mMinimumScore{ 10 }
 , mScore{ 0 }
 , mMinimumMatches{ 0 }
+, mIsRunning{ true }
 {
     mX = x;
     mY = y;
@@ -31,6 +32,12 @@ Grid::Grid(int x, int y)
 
 Grid::~Grid()
 {
+    if (getRunningState())
+    {
+        stop();
+        join();
+    }
+
     cleanup();
 }
 
@@ -80,6 +87,9 @@ bool Grid::load(Assets& assets)
 
     initGrid();
 
+    // Start thread
+    start();
+
     return true;
 }
 
@@ -123,7 +133,7 @@ void Grid::cleanup()
 {
     if (mGrid == nullptr)
     {
-        std::cout << "ERROR: You must initialize the grid with load()!" << std::endl;
+        std::cout << "WARNING: You must initialize the grid with load()!" << std::endl;
         return;
     }
     for (int x = 0; x < mGridRowSize; ++x)
@@ -294,6 +304,7 @@ void Grid::update(const Index& pos)
 
             createNewEntitiesInRows(rows);
 
+            std::lock_guard<std::mutex> guard(mLock);
             mNewMatches.clear();
             mNewMatches = findNewMatches();
         }
@@ -660,6 +671,7 @@ std::vector<Index> Grid::findNewMatches()
 
 void Grid::updateGrid()
 {
+    std::lock_guard<std::mutex> guard(mLock);
     if (mNewMatches.size() >= mMinimumMatches)
     {
         // play sound
@@ -672,11 +684,6 @@ void Grid::updateGrid()
         // Now we need collapse the matches
         removeMatches(mNewMatches);
 
-
-        // TODO This should be a while loop if more matches occurs while refiling the grid...
-        // TODO move out to outer function
-        printGrid();
-
         std::vector<int> rows = getDistinctRows(mNewMatches);
 
         collapse(rows);
@@ -686,4 +693,19 @@ void Grid::updateGrid()
         mNewMatches.clear();
         mNewMatches = findNewMatches();
     }
+}
+
+bool Grid::ThreadMethod()
+{
+    while (mIsRunning)
+    {
+        updateGrid();
+        sleep(2000); // To get time to run animations & rendering...
+    }
+    return true;
+}
+
+void Grid::stop()
+{
+    mIsRunning = false;
 }

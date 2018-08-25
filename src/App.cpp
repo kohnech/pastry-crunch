@@ -144,18 +144,10 @@ void App::onEvent(SDL_Event* event)
     Grid::instance.onEvent(event);
     mMuteButton.onEvent(event);
 }
-unsigned int gCounter = 0;
+
 bool App::onLoop()
 {
     Anim_Yoshi.OnAnimate();
-
-    if (!mIsGameOver)
-    {
-        if ((gCounter % 70) == 0)
-            Grid::instance.updateGrid();
-        gCounter++;
-    }
-
     return mIsRunning;
 }
 
@@ -295,4 +287,5 @@ bool App::ThreadMethod()
 void App::gameOver()
 {
     Sounds::instance.stop();
+    Sounds::instance.toogleMute();
 }
