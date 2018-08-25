@@ -6,8 +6,6 @@
 #include <iostream>
 #include <string>
 
-Board Board::instance;
-
 Board::Board()
 : mTileAsset{ "" }
 , mHighlightX{ 0 }

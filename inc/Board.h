@@ -15,8 +15,6 @@
 class Board : public IUiComponent
 {
 public:
-    static Board instance;
-
     Board();
 
     ~Board();
