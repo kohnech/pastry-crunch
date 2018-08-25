@@ -32,11 +32,12 @@ Grid::Grid(int x, int y)
 
 Grid::~Grid()
 {
-    stop();
     if (getRunningState())
     {
+        stop();
         join();
     }
+
     cleanup();
 }
 
