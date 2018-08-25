@@ -108,8 +108,9 @@ bool App::onInit()
 
 
     /// Create game grid
-    if (Grid::instance.load(assets) == false)
+    if (mGrid.load(assets) == false)
     {
+        std::cout << "Could not load Grid" << std::endl;
         return false;
     }
 
@@ -141,7 +142,7 @@ bool App::onInit()
 void App::onEvent(SDL_Event* event)
 {
     Event::onEvent(event);
-    Grid::instance.onEvent(event);
+    mGrid.onEvent(event);
     mMuteButton.onEvent(event);
 }
 
@@ -171,7 +172,7 @@ void App::onRender()
 
     if (!mIsGameOver)
     {
-        Grid::instance.render(Surf_Display);
+        mGrid.render(Surf_Display);
 
         if (mEnableYoshi)
         {
