@@ -2,25 +2,27 @@
 
 #include "IAppState.h"
 
-#include "AppStateIntro.h"
 #include "AppStateGame.h"
+#include "AppStateIntro.h"
 
 #include <memory>
 
 
-template<typename T, typename... Args>
-std::unique_ptr<T> make_unique(Args&&... args) {
+template <typename T, typename... Args> std::unique_ptr<T> make_unique(Args&&... args)
+{
     return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
 }
 
-enum {
+enum
+{
     // Add your Other App States Here
     APPSTATE_NONE,
     APPSTATE_INTRO,
     APPSTATE_GAME
 };
 
-class AppStateManager {
+class AppStateManager
+{
 public:
     AppStateManager();
 

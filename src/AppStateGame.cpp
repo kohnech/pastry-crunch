@@ -16,49 +16,50 @@ void AppStateGame::onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode)
     std::cout << "Key pressed: " << unicode << std::endl;
     switch (sym)
     {
-        case SDLK_UP:
-            CCamera::CameraControl.OnMove(0, -5);
-            break;
-        case SDLK_DOWN:
-            CCamera::CameraControl.OnMove(0, 5);
-            break;
-        case SDLK_LEFT:
-            CCamera::CameraControl.OnMove(-5, 0);
-            break;
-        case SDLK_RIGHT:
-            CCamera::CameraControl.OnMove(5, 0);
-            break;
-        case SDLK_1:
-            Sounds::instance.play("drip");
-            break;
-        case SDLK_2:
-            Sounds::instance.play("kaChing");
-            break;
-        case SDLK_3:
-            Sounds::instance.play("mining");
-            break;
-        case SDLK_4:
-            Sounds::instance.play("scrape");
-            break;
-        case SDLK_5:
-            Sounds::instance.play("comp");
-            break;
-        case SDLK_6:
-            Sounds::instance.toggleMute();
-            break;
-        case SDLK_9:
-            Sounds::instance.stop();
-            break;
+    case SDLK_UP:
+        CCamera::CameraControl.OnMove(0, -5);
+        break;
+    case SDLK_DOWN:
+        CCamera::CameraControl.OnMove(0, 5);
+        break;
+    case SDLK_LEFT:
+        CCamera::CameraControl.OnMove(-5, 0);
+        break;
+    case SDLK_RIGHT:
+        CCamera::CameraControl.OnMove(5, 0);
+        break;
+    case SDLK_1:
+        Sounds::instance.play("drip");
+        break;
+    case SDLK_2:
+        Sounds::instance.play("kaChing");
+        break;
+    case SDLK_3:
+        Sounds::instance.play("mining");
+        break;
+    case SDLK_4:
+        Sounds::instance.play("scrape");
+        break;
+    case SDLK_5:
+        Sounds::instance.play("comp");
+        break;
+    case SDLK_6:
+        Sounds::instance.toggleMute();
+        break;
+    case SDLK_9:
+        Sounds::instance.stop();
+        break;
 
-        default:
-        {
-        }
+    default:
+    {
+    }
     }
 }
 
 
-bool AppStateGame::activate() {
-/// Settings & assets
+bool AppStateGame::activate()
+{
+    /// Settings & assets
     Assets assets;
 
 #ifdef _DEBUG
@@ -103,7 +104,8 @@ bool AppStateGame::activate() {
     return true;
 }
 
-void AppStateGame::deactivate() {
+void AppStateGame::deactivate()
+{
     SDL_FreeSurface(Background_Surf);
     SDL_FreeSurface(GameOver_Surf);
     EntityList.clear();

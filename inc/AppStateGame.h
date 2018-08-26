@@ -1,19 +1,20 @@
 #pragma once
 
-#include "IAppState.h"
+#include "Button.h"
 #include "CAnimation.h"
 #include "CCamera.h"
-#include "Button.h"
 #include "CountDown.h"
 #include "Entity.h"
-#include "Surface.h"
 #include "Grid.h"
+#include "IAppState.h"
+#include "Surface.h"
 
 #include <SDL.h>
 #include <SDL_events.h>
 
 
-class AppStateGame : public IAppState {
+class AppStateGame : public IAppState
+{
 public:
     AppStateGame();
 

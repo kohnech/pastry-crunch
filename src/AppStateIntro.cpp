@@ -2,11 +2,13 @@
 
 #include "AppStateManager.h"
 
-AppStateIntro::AppStateIntro() {
+AppStateIntro::AppStateIntro()
+{
     Surf_Logo = NULL;
 }
 
-bool AppStateIntro::activate() {
+bool AppStateIntro::activate()
+{
     // Load Simple Logo
     Surf_Logo = Surface::loadImage("assets/github-octocat.png");
 
@@ -15,21 +17,27 @@ bool AppStateIntro::activate() {
     return true;
 }
 
-void AppStateIntro::deactivate() {
-    if(Surf_Logo) {
+void AppStateIntro::deactivate()
+{
+    if (Surf_Logo)
+    {
         SDL_FreeSurface(Surf_Logo);
         Surf_Logo = NULL;
     }
 }
 
-void AppStateIntro::loop() {
-    if(StartTime + 3000 < SDL_GetTicks()) {
+void AppStateIntro::loop()
+{
+    if (StartTime + 3000 < SDL_GetTicks())
+    {
         AppStateManager::instance.setActiveAppState(APPSTATE_GAME);
     }
 }
 
-void AppStateIntro::render(SDL_Surface* Surf_Display) {
-    if(Surf_Logo) {
+void AppStateIntro::render(SDL_Surface* Surf_Display)
+{
+    if (Surf_Logo)
+    {
         Surface::OnDraw(Surf_Display, Surf_Logo, 0, 0);
     }
 }

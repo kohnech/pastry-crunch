@@ -1,10 +1,10 @@
 #include "App.h"
+#include "AppStateManager.h"
 #include "Assets.h"
 #include "Define.h"
 #include "Grid.h"
 #include "Sounds.h"
 #include "Surface.h"
-#include "AppStateManager.h"
 
 #include <SDL_events.h>
 

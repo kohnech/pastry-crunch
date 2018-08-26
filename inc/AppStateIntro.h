@@ -3,7 +3,8 @@
 #include "IAppState.h"
 #include "Surface.h"
 
-class AppStateIntro : public IAppState {
+class AppStateIntro : public IAppState
+{
 public:
     AppStateIntro();
 

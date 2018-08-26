@@ -2,9 +2,12 @@
 
 #include "Event.h"
 
-class IAppState : public Event {
+class IAppState : public Event
+{
 public:
-    IAppState(){}
+    IAppState()
+    {
+    }
 
     virtual bool activate() = 0;
 
