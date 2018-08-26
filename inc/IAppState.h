@@ -6,11 +6,11 @@ class IAppState : public Event {
 public:
     IAppState(){}
 
-    virtual bool OnActivate() = 0;
+    virtual bool activate() = 0;
 
-    virtual void OnDeactivate() = 0;
+    virtual void deactivate() = 0;
 
-    virtual void OnLoop() = 0;
+    virtual void loop() = 0;
 
-    virtual void OnRender(SDL_Surface* Surf_Display) = 0;
+    virtual void render(SDL_Surface* Surf_Display) = 0;
 };

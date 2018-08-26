@@ -7,13 +7,13 @@ class AppStateIntro : public IAppState {
 public:
     AppStateIntro();
 
-    bool OnActivate();
+    bool activate();
 
-    void OnDeactivate();
+    void deactivate();
 
-    void OnLoop();
+    void loop();
 
-    void OnRender(SDL_Surface* Surf_Display);
+    void render(SDL_Surface* Surf_Display);
 
 private:
     SDL_Surface* Surf_Logo;

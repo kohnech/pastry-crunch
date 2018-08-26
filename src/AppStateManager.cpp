@@ -16,22 +16,22 @@ void AppStateManager::OnEvent(SDL_Event* EventHolder) {
 }
 
 void AppStateManager::OnLoop() {
-    if(ActiveAppState) ActiveAppState->OnLoop();
+    if(ActiveAppState) ActiveAppState->loop();
 }
 
 void AppStateManager::OnRender(SDL_Surface* Surf_Display) {
-    if(ActiveAppState) ActiveAppState->OnRender(Surf_Display);
+    if(ActiveAppState) ActiveAppState->render(Surf_Display);
 }
 
 void AppStateManager::SetActiveAppState(int AppStateID) {
-    if(ActiveAppState) ActiveAppState->OnDeactivate();
+    if(ActiveAppState) ActiveAppState->deactivate();
 
     // Also, add your App State Here so that the Manager can switch to it
     if(AppStateID == APPSTATE_NONE)        ActiveAppState = NULL;
     if(AppStateID == APPSTATE_INTRO)       ActiveAppState = mIntro.get();
     if(AppStateID == APPSTATE_GAME)        ActiveAppState = mGame.get();
 
-    if(ActiveAppState) ActiveAppState->OnActivate();
+    if(ActiveAppState) ActiveAppState->activate();
 }
 
 IAppState* AppStateManager::GetActiveAppState() {

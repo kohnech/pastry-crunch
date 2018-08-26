@@ -57,7 +57,7 @@ void AppStateGame::onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode)
 }
 
 
-bool AppStateGame::OnActivate() {
+bool AppStateGame::activate() {
 /// Settings & assets
     Assets assets;
 
@@ -103,17 +103,17 @@ bool AppStateGame::OnActivate() {
     return true;
 }
 
-void AppStateGame::OnDeactivate() {
+void AppStateGame::deactivate() {
     SDL_FreeSurface(Background_Surf);
     SDL_FreeSurface(GameOver_Surf);
     EntityList.clear();
 }
 
-void AppStateGame::OnLoop()
+void AppStateGame::loop()
 {
 }
 
-void AppStateGame::OnRender(SDL_Surface* Surf_Display)
+void AppStateGame::render(SDL_Surface* Surf_Display)
 {
     Surface::OnDraw(Surf_Display, Background_Surf, 0, 0);
 

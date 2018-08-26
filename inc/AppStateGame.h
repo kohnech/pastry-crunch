@@ -19,13 +19,13 @@ public:
 
     void onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode);
 
-    bool OnActivate();
+    bool activate();
 
-    void OnDeactivate();
+    void deactivate();
 
-    void OnLoop();
+    void loop();
 
-    void OnRender(SDL_Surface* Surf_Display);
+    void render(SDL_Surface* Surf_Display);
 
     void onEvent(SDL_Event* event);
 
