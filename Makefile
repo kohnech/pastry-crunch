@@ -64,7 +64,10 @@ SRCS = 	App.cpp \
 		Sounds.cpp \
 		Button.cpp \
 		CountDown.cpp \
-		IUiComponent.cpp
+		IUiComponent.cpp \
+		AppStateManager.cpp \
+		AppStateIntro.cpp \
+		AppStateGame.cpp
 
 HDRS = 	inc/App.h \
 		inc/Surface.h \
@@ -79,7 +82,11 @@ HDRS = 	inc/App.h \
 		inc/Text.h \
 		inc/Sounds.h \
 		inc/Button.h \
-		inc/CountDown.h
+		inc/CountDown.h \
+		inc/AppStateManager.h \
+		inc/AppStateIntro.h \
+		inc/IAppState.h \
+		inc/AppStateGame.h
 
 OBJS = $(patsubst %.cpp,$(BUILDDIR)/%.o,$(SRCS))
 
