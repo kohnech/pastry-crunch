@@ -5,6 +5,14 @@
 #include "AppStateIntro.h"
 #include "AppStateGame.h"
 
+#include <memory>
+
+
+template<typename T, typename... Args>
+std::unique_ptr<T> make_unique(Args&&... args) {
+    return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
+}
+
 enum {
     // Add your Other App States Here
     APPSTATE_NONE,
@@ -14,6 +22,8 @@ enum {
 
 class AppStateManager {
 public:
+    AppStateManager();
+
     static AppStateManager instance;
 
     void OnEvent(SDL_Event* Event);
@@ -29,6 +39,6 @@ public:
 private:
     static IAppState* ActiveAppState;
 
-    AppStateIntro mIntro;
-    AppStateGame mGame;
+    std::unique_ptr<AppStateIntro> mIntro;
+    std::unique_ptr<AppStateGame> mGame;
 };

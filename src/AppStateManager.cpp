@@ -1,12 +1,15 @@
 #include "AppStateManager.h"
 
-// Refer to your Other App States Here
-//#include "CAppStateIntro.h"
-//#include "CAppStateGame.h"
 
 AppStateManager AppStateManager::instance;
 
 IAppState* AppStateManager::ActiveAppState = 0;
+
+AppStateManager::AppStateManager()
+{
+    mIntro = make_unique<AppStateIntro>();
+    mGame = make_unique<AppStateGame>();
+}
 
 void AppStateManager::OnEvent(SDL_Event* EventHolder) {
     if(ActiveAppState) ActiveAppState->onEvent(EventHolder);
@@ -25,8 +28,8 @@ void AppStateManager::SetActiveAppState(int AppStateID) {
 
     // Also, add your App State Here so that the Manager can switch to it
     if(AppStateID == APPSTATE_NONE)        ActiveAppState = NULL;
-    if(AppStateID == APPSTATE_INTRO)       ActiveAppState = &mIntro;
-    if(AppStateID == APPSTATE_GAME)        ActiveAppState = &mGame;
+    if(AppStateID == APPSTATE_INTRO)       ActiveAppState = mIntro.get();
+    if(AppStateID == APPSTATE_GAME)        ActiveAppState = mGame.get();
 
     if(ActiveAppState) ActiveAppState->OnActivate();
 }
