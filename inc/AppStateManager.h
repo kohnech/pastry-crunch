@@ -26,15 +26,15 @@ public:
 
     static AppStateManager instance;
 
-    void OnEvent(SDL_Event* Event);
+    void onEvent(SDL_Event* Event);
 
-    void OnLoop();
+    void loop();
 
-    void OnRender(SDL_Surface* Surf_Display);
+    void render(SDL_Surface* Surf_Display);
 
-    void SetActiveAppState(int AppStateID);
+    void setActiveAppState(int AppStateID);
 
-    IAppState* GetActiveAppState();
+    IAppState* getActiveAppState();
 
 private:
     static IAppState* ActiveAppState;

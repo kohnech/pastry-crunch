@@ -24,7 +24,7 @@ void AppStateIntro::deactivate() {
 
 void AppStateIntro::loop() {
     if(StartTime + 3000 < SDL_GetTicks()) {
-        AppStateManager::instance.SetActiveAppState(APPSTATE_GAME);
+        AppStateManager::instance.setActiveAppState(APPSTATE_GAME);
     }
 }
 

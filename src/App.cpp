@@ -69,7 +69,7 @@ bool App::init()
 
     std::cout << "finished App OnInit()..." << std::endl;
 
-    AppStateManager::instance.SetActiveAppState(APPSTATE_INTRO);
+    AppStateManager::instance.setActiveAppState(APPSTATE_INTRO);
 
     return true;
 }
@@ -78,26 +78,26 @@ void App::onEvent(SDL_Event* event)
 {
     Event::onEvent(event);
 
-    AppStateManager::instance.OnEvent(event);
+    AppStateManager::instance.onEvent(event);
 }
 
 bool App::loop()
 {
 
-    AppStateManager::instance.OnLoop();
+    AppStateManager::instance.loop();
     return mIsRunning;
 }
 
 void App::render()
 {
-    AppStateManager::instance.OnRender(Surf_Display);
+    AppStateManager::instance.render(Surf_Display);
 
     SDL_UpdateWindowSurface(mWindow);
 }
 
 void App::cleanup()
 {
-    AppStateManager::instance.SetActiveAppState(APPSTATE_NONE);
+    AppStateManager::instance.setActiveAppState(APPSTATE_NONE);
 
     SDL_FreeSurface(Surf_Display);
     SDL_DestroyWindow(mWindow);

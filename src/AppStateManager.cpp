@@ -11,19 +11,19 @@ AppStateManager::AppStateManager()
     mGame = make_unique<AppStateGame>();
 }
 
-void AppStateManager::OnEvent(SDL_Event* EventHolder) {
+void AppStateManager::onEvent(SDL_Event* EventHolder) {
     if(ActiveAppState) ActiveAppState->onEvent(EventHolder);
 }
 
-void AppStateManager::OnLoop() {
+void AppStateManager::loop() {
     if(ActiveAppState) ActiveAppState->loop();
 }
 
-void AppStateManager::OnRender(SDL_Surface* Surf_Display) {
+void AppStateManager::render(SDL_Surface* Surf_Display) {
     if(ActiveAppState) ActiveAppState->render(Surf_Display);
 }
 
-void AppStateManager::SetActiveAppState(int AppStateID) {
+void AppStateManager::setActiveAppState(int AppStateID) {
     if(ActiveAppState) ActiveAppState->deactivate();
 
     // Also, add your App State Here so that the Manager can switch to it
@@ -34,6 +34,6 @@ void AppStateManager::SetActiveAppState(int AppStateID) {
     if(ActiveAppState) ActiveAppState->activate();
 }
 
-IAppState* AppStateManager::GetActiveAppState() {
+IAppState* AppStateManager::getActiveAppState() {
     return ActiveAppState;
 }
