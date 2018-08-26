@@ -42,6 +42,7 @@ void CountDown::render(SDL_Surface* Surf_Display)
 
 void CountDown::update()
 {
+    std::cout << "CountDown update..." << std::endl;
     mText.setPosition(mX, mY);
     mCurrentTimeStamp = SDL_GetTicks();
 

@@ -1,5 +1,8 @@
 #include "AppStateManager.h"
 
+#include "AppStateGame.h"
+#include "AppStateIntro.h"
+#include "AppStateGameOver.h"
 
 AppStateManager AppStateManager::instance;
 
@@ -7,8 +10,6 @@ IAppState* AppStateManager::ActiveAppState = 0;
 
 AppStateManager::AppStateManager()
 {
-    mIntro = make_unique<AppStateIntro>();
-    mGame = make_unique<AppStateGame>();
 }
 
 void AppStateManager::onEvent(SDL_Event* EventHolder)
@@ -31,16 +32,19 @@ void AppStateManager::render(SDL_Surface* Surf_Display)
 
 void AppStateManager::setActiveAppState(int AppStateID)
 {
-    if (ActiveAppState)
+    if (ActiveAppState) {
         ActiveAppState->deactivate();
+        delete ActiveAppState;
+    }
 
-    // Also, add your App State Here so that the Manager can switch to it
     if (AppStateID == APPSTATE_NONE)
-        ActiveAppState = NULL;
+        ActiveAppState = nullptr;
     if (AppStateID == APPSTATE_INTRO)
-        ActiveAppState = mIntro.get();
+        ActiveAppState = new AppStateIntro;
     if (AppStateID == APPSTATE_GAME)
-        ActiveAppState = mGame.get();
+        ActiveAppState = new AppStateGame;
+    if (AppStateID == APPSTATE_GAMEOVER)
+        ActiveAppState = new AppStateGameOver;
 
     if (ActiveAppState)
         ActiveAppState->activate();

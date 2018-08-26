@@ -1,4 +1,5 @@
 #include "AppStateGame.h"
+#include "AppStateManager.h"
 
 #include "Sounds.h"
 
@@ -6,7 +7,6 @@
 
 
 AppStateGame::AppStateGame()
-: mIsGameOver{ false }
 {
 }
 
@@ -59,6 +59,8 @@ void AppStateGame::onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode)
 
 bool AppStateGame::activate()
 {
+    std::cout << "AppStateGame activate()" << std::endl;
+
     /// Settings & assets
     Assets assets;
 
@@ -69,8 +71,6 @@ bool AppStateGame::activate()
 #endif
 
     Background_Surf = Surface::loadImage(assets.getBackgroundPath());
-    GameOver_Surf = Surface::loadImage(assets.getGameOverAsset());
-
 
     /// Create game grid
     if (!mGrid.load(assets))
@@ -95,8 +95,8 @@ bool AppStateGame::activate()
     mCountDown.load(assets);
     mCountDown.setPosition(100, 100);
     mCountDown.addTimedOutCallback([&] {
-        mIsGameOver = true;
-        gameOver();
+        std::cout << "mCountDown timer callback..." << std::endl;
+        AppStateManager::instance.setActiveAppState(APPSTATE_GAMEOVER);
     });
 
     std::cout << "finished AppStateGame OnActivate()..." << std::endl;
@@ -106,9 +106,12 @@ bool AppStateGame::activate()
 
 void AppStateGame::deactivate()
 {
+    std::cout << "AppStateGame deactivate()" << std::endl;
+
+
+    Sounds::instance.stop();
+    Sounds::instance.toogleMute();
     SDL_FreeSurface(Background_Surf);
-    SDL_FreeSurface(GameOver_Surf);
-    EntityList.clear();
 }
 
 void AppStateGame::loop()
@@ -119,27 +122,13 @@ void AppStateGame::render(SDL_Surface* Surf_Display)
 {
     Surface::OnDraw(Surf_Display, Background_Surf, 0, 0);
 
-    if (!mIsGameOver)
-    {
-        mGrid.render(Surf_Display);
-
-        mCountDown.render(Surf_Display);
-        mMuteButton.render(Surf_Display);
-    }
-    else
-    {
-        Surface::OnDraw(Surf_Display, GameOver_Surf, 0, 0);
-    }
+    mGrid.render(Surf_Display);
+    mCountDown.render(Surf_Display);
+    mMuteButton.render(Surf_Display);
 }
 
 void AppStateGame::onEvent(SDL_Event* event)
 {
     mMuteButton.onEvent(event);
     mGrid.onEvent(event);
-}
-
-void AppStateGame::gameOver()
-{
-    Sounds::instance.stop();
-    Sounds::instance.toggleMute();
 }

@@ -32,16 +32,10 @@ public:
 
 private:
     SDL_Surface* Background_Surf;
-    SDL_Surface* GameOver_Surf;
-
-    std::vector<Entity*> EntityList;
 
     Button mMuteButton;
 
     CountDown mCountDown;
-    bool mIsGameOver;
-
-    void gameOver();
 
     Grid mGrid;
 };
