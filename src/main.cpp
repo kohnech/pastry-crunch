@@ -29,7 +29,7 @@ int main(int argc, char* argv[])
     }
     catch (std::exception& e)
     {
-        std::cout << "Got exception: " << e.what() << std::endl;
+        std::cerr << "Got exception: " << e.what() << std::endl;
     }
 
     return EXIT_SUCCESS;

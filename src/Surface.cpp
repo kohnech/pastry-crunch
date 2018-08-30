@@ -40,7 +40,7 @@ SDL_Texture* Surface::loadTexture(SDL_Renderer* renderer, const std::string& str
     SDL_Texture* texture = IMG_LoadTexture(renderer, str.c_str());
     if (texture == nullptr)
     {
-        std::cout << "Failed to load texture " << str << " error : " << SDL_GetError() << std::endl;
+        std::cerr << "Failed to load texture " << str << " error : " << SDL_GetError() << std::endl;
         return nullptr;
     }
 

@@ -69,7 +69,7 @@ bool App::init()
 
     if (mWindow == nullptr)
     {
-        std::cout << "SDL_CreateWindow got NULL!" << SDL_GetError() << std::endl;
+        std::cerr << "ERROR: SDL_CreateWindow got NULL!" << SDL_GetError() << std::endl;
         return false;
     }
 
@@ -109,7 +109,7 @@ bool App::init()
     /// Create game grid
     if (!mGrid.load(assets))
     {
-        std::cout << "Could not load Grid" << std::endl;
+        std::cerr << "Could not load Grid" << std::endl;
         return false;
     }
 

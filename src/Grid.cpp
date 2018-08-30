@@ -126,7 +126,7 @@ void Grid::cleanup()
 {
     if (mGrid == nullptr)
     {
-        std::cout << "WARNING: You must initialize the grid with load()!" << std::endl;
+        std::cerr << "WARNING: You must initialize the grid with load()!" << std::endl;
         return;
     }
     for (int x = 0; x < mGridRowSize; ++x)
@@ -652,7 +652,7 @@ std::vector<Index> Grid::findNewMatches()
     }
     catch (std::exception& e)
     {
-        std::cout << "Got exception e: " << e.what() << std::endl;
+        std::cerr << "Got exception e: " << e.what() << std::endl;
     }
 
     for (auto match : matches)

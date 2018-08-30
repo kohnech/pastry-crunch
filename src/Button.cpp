@@ -23,7 +23,7 @@ bool Button::load(Assets& assets)
 
     if ((mSurface = Surface::loadImage(asset)) == nullptr)
     {
-        std::cout << "ERROR: could not create mSurface: " << SDL_GetError() << std::endl;
+        std::cerr << "ERROR: could not create mSurface: " << SDL_GetError() << std::endl;
         return false;
     }
 
@@ -71,7 +71,7 @@ void Button::onLButtonDown(int x, int y)
 }
 
 
-void Button::onClicked()
+void Button::onClicked() const
 {
     std::cout << "Button clicked!" << std::endl;
     mClickedCallback();

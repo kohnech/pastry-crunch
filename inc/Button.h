@@ -25,7 +25,7 @@ public:
 
     void addClickedCallback(ClickedCallback cb);
 
-    void onClicked();
+    void onClicked() const;
 
 private:
     Text mText;

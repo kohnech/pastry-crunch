@@ -31,13 +31,13 @@ bool Board::load(Assets& assets)
 
     if ((mSurface = Surface::loadImage(mTileAsset)) == nullptr)
     {
-        std::cout << "ERROR: could not create mSurface: " << SDL_GetError() << std::endl;
+        std::cerr << "ERROR: could not create mSurface: " << SDL_GetError() << std::endl;
         return false;
     }
 
     if ((mHighlightSurf = Surface::loadImage(highlightFile)) == nullptr)
     {
-        std::cout << "ERROR: could not create mHighlightSurf: " << SDL_GetError() << std::endl;
+        std::cerr << "ERROR: could not create mHighlightSurf: " << SDL_GetError() << std::endl;
         return false;
     }
 

@@ -21,7 +21,7 @@ void IThread::join()
     }
     catch (const std::system_error& e)
     {
-        std::cout << "Caught system_error with code " << e.code() << " meaning " << e.what() << '\n';
+        std::cerr << "Caught system_error with code " << e.code() << " meaning " << e.what() << '\n';
     }
 }
 
@@ -34,7 +34,7 @@ void IThread::sleep(int milliseconds)
     }
     catch (const std::system_error& e)
     {
-        std::cout << "Caught system_error with code " << e.code() << " meaning " << e.what() << '\n';
+        std::cerr << "Caught system_error with code " << e.code() << " meaning " << e.what() << '\n';
     }
 }
 
@@ -61,7 +61,7 @@ int IThread::ThreadProxy(void* ptr)
 
     catch (...)
     {
-        std::cout << "Unhandled exception!" << std::endl;
+        std::cerr << "Unhandled exception!" << std::endl;
     }
     return EXIT_FAILURE;
 }
