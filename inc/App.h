@@ -18,25 +18,24 @@ public:
     App();
     ~App();
 
-    bool onInit();
+    bool init();
 
-    void onEvent(SDL_Event* Event);
+    bool loop();
 
-    bool onLoop();
+    void render();
 
-    void onRender();
-
-    void onCleanup();
-
+    void cleanup();
 
     /// Events
-    void onExit();
+	void onEvent(SDL_Event* Event) override;
 
-    void onResize(int w, int h);
+    void onExit() override;
 
-    void onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode);
+    void onResize(int w, int h) override;
 
-    virtual bool ThreadMethod();
+    void onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode) override;
+
+    virtual bool ThreadMethod() override;
 
 private:
     bool mIsRunning;

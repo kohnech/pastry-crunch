@@ -25,12 +25,12 @@ App::App()
 
 App::~App()
 {
-    onCleanup();
+    cleanup();
 }
 
 #include <string>
 
-bool App::onInit()
+bool App::init()
 {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
     {
@@ -146,13 +146,13 @@ void App::onEvent(SDL_Event* event)
     mMuteButton.onEvent(event);
 }
 
-bool App::onLoop()
+bool App::loop()
 {
     Anim_Yoshi.OnAnimate();
     return mIsRunning;
 }
 
-void App::onRender()
+void App::render()
 {
 
     Surface::OnDraw(Surf_Display, Background_Surf, 0, 0);
@@ -191,7 +191,7 @@ void App::onRender()
     SDL_UpdateWindowSurface(mWindow);
 }
 
-void App::onCleanup()
+void App::cleanup()
 {
     SDL_FreeSurface(Yoshi_Surf);
     SDL_FreeSurface(Surf_Display);
@@ -277,8 +277,8 @@ bool App::ThreadMethod()
             onEvent(&event);
         }
 
-        onLoop();
-        onRender();
+        loop();
+        render();
         sleep(33); // ms, 30 fps
     }
 

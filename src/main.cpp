@@ -8,7 +8,7 @@ int main(int argc, char* argv[])
         std::cout << "Starting main loop..." << std::endl;
         App theApp;
 
-        if (theApp.onInit() == false)
+        if (theApp.init() == false)
         {
             return EXIT_FAILURE;
         }
@@ -23,8 +23,8 @@ int main(int argc, char* argv[])
                 theApp.onEvent(&event);
             }
 
-            isRunning = theApp.onLoop();
-            theApp.onRender();
+            isRunning = theApp.loop();
+            theApp.render();
         }
     }
     catch (std::exception& e)
