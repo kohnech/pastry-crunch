@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Assets.h"
-#include "Event.h"
 #include "IUiComponent.h"
 
 #include <string>

@@ -9,7 +9,7 @@ public:
 
     virtual ~Event();
 
-    virtual void onEvent(SDL_Event* Event);
+    virtual void onEvent(SDL_Event* event);
 
     virtual void onInputFocusGained();
 

@@ -27,7 +27,7 @@ public:
     void cleanup();
 
     /// Events
-	void onEvent(SDL_Event* Event) override;
+	void onEvent(SDL_Event* event) override;
 
     void onExit() override;
 

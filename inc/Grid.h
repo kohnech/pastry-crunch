@@ -5,7 +5,7 @@
 #include "Define.h"
 #include "Entity.h"
 #include "IThread.h"
-#include "IUiComponent.h"
+#include "Event.h"
 #include "Text.h"
 
 #include <SDL.h>
