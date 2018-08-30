@@ -17,25 +17,25 @@ public:
     Assets();
     void loadFile(std::string);
     void loadJson(json js);
-    std::string getBackgroundPath();
-    std::pair<int, int> getScreenSize();
-    std::vector<std::string> getGridAssets();
-    std::pair<int, int> getGridAssetSize();
-    std::pair<int, int> getGridSize();
-    std::pair<int, int> getGridPosition();
-    std::string getTitle();
-    std::string getTileAsset();
-    std::pair<int, int> getTileSize();
-    std::string getHighlightAsset();
-    std::string getFont();
-    int getFontSize();
-    void printAssets();
-    int getMinimumScores();
-    int getMinimumMatches();
-    std::map<std::string, std::string> getSounds();
-    std::string getButtonAsset();
-    std::pair<int, int> getButtonSize();
-    std::string getGameOverAsset();
+    std::string getBackgroundPath() const;
+    std::pair<int, int> getScreenSize() const;
+    std::vector<std::string> getGridAssets() const;
+    std::pair<int, int> getGridAssetSize() const;
+    std::pair<int, int> getGridSize() const;
+    std::pair<int, int> getGridPosition() const;
+    std::string getTitle() const;
+    std::string getTileAsset() const;
+    std::pair<int, int> getTileSize() const;
+    std::string getHighlightAsset() const;
+    std::string getFont() const;
+    int getFontSize() const;
+    void printAssets() const;
+    int getMinimumScores() const;
+    int getMinimumMatches() const;
+    std::map<std::string, std::string> getSounds() const;
+    std::string getButtonAsset() const;
+    std::pair<int, int> getButtonSize() const;
+    std::string getGameOverAsset() const;
 
 
 private:

@@ -47,13 +47,13 @@ void Assets::loadJson(json js)
 }
 
 
-std::string Assets::getBackgroundPath()
+std::string Assets::getBackgroundPath() const
 {
     std::string str = mJ["background"]["asset"];
     return mRelativePath + str;
 }
 
-std::pair<int, int> Assets::getScreenSize()
+std::pair<int, int> Assets::getScreenSize() const
 {
     std::pair<int, int> size;
     size.first = mJ["settings"]["screen"]["width"];
@@ -61,7 +61,7 @@ std::pair<int, int> Assets::getScreenSize()
     return size;
 };
 
-std::vector<std::string> Assets::getGridAssets()
+std::vector<std::string> Assets::getGridAssets() const
 {
     std::vector<std::string> vec;
     json data = mJ["grid"]["assets"]["icons"];
@@ -75,7 +75,7 @@ std::vector<std::string> Assets::getGridAssets()
     return vec;
 };
 
-std::pair<int, int> Assets::getGridAssetSize()
+std::pair<int, int> Assets::getGridAssetSize() const
 {
     std::pair<int, int> size;
     size.first = mJ["grid"]["assets"]["width"];
@@ -83,7 +83,7 @@ std::pair<int, int> Assets::getGridAssetSize()
     return size;
 }
 
-std::pair<int, int> Assets::getGridSize()
+std::pair<int, int> Assets::getGridSize() const
 {
     std::pair<int, int> size;
     size.first = mJ["grid"]["width"];
@@ -91,7 +91,7 @@ std::pair<int, int> Assets::getGridSize()
     return size;
 }
 
-std::pair<int, int> Assets::getGridPosition()
+std::pair<int, int> Assets::getGridPosition() const
 {
     std::pair<int, int> position;
     position.first = mJ["grid"]["xpos"];
@@ -99,18 +99,18 @@ std::pair<int, int> Assets::getGridPosition()
     return position;
 }
 
-std::string Assets::getTitle()
+std::string Assets::getTitle() const
 {
     return mJ["settings"]["title"];
 }
 
-std::string Assets::getTileAsset()
+std::string Assets::getTileAsset() const
 {
     std::string str = mJ["tile"]["asset"];
     return mRelativePath + str;
 }
 
-std::pair<int, int> Assets::getTileSize()
+std::pair<int, int> Assets::getTileSize() const
 {
     std::pair<int, int> size;
     size.first = mJ["tile"]["width"];
@@ -118,39 +118,39 @@ std::pair<int, int> Assets::getTileSize()
     return size;
 };
 
-std::string Assets::getHighlightAsset()
+std::string Assets::getHighlightAsset() const
 {
     std::string str = mJ["tile"]["highlight"];
     return mRelativePath + str;
 }
 
-std::string Assets::getFont()
+std::string Assets::getFont() const
 {
     std::string str = mJ["settings"]["font"];
     return mRelativePath + str;
 }
 
-int Assets::getFontSize()
+int Assets::getFontSize() const
 {
     return mJ["settings"]["fontSize"];
 }
 
-void Assets::printAssets()
+void Assets::printAssets() const
 {
     std::cout << mJ.dump() << std::endl;
 }
 
-int Assets::getMinimumScores()
+int Assets::getMinimumScores() const
 {
     return mJ["settings"]["minimumScores"];
 }
 
-int Assets::getMinimumMatches()
+int Assets::getMinimumMatches() const
 {
     return mJ["settings"]["minimumMatches"];
 }
 
-std::map<std::string, std::string> Assets::getSounds()
+std::map<std::string, std::string> Assets::getSounds() const
 {
     // create and print a JSON from the map
     json j = mJ["sounds"];
@@ -167,13 +167,13 @@ std::map<std::string, std::string> Assets::getSounds()
     return m2;
 }
 
-std::string Assets::getButtonAsset()
+std::string Assets::getButtonAsset() const
 {
     std::string str = mJ["button"]["asset"];
     return mRelativePath + str;
 }
 
-std::pair<int, int> Assets::getButtonSize()
+std::pair<int, int> Assets::getButtonSize() const
 {
     std::pair<int, int> size;
     size.first = mJ["button"]["width"];
@@ -181,7 +181,7 @@ std::pair<int, int> Assets::getButtonSize()
     return size;
 }
 
-std::string Assets::getGameOverAsset()
+std::string Assets::getGameOverAsset() const
 {
     std::string str = mJ["gameover"]["asset"];
     return mRelativePath + str;
