@@ -1,6 +1,8 @@
 #include "Button.h"
 #include "Surface.h"
 
+#include <iostream>
+
 Button::Button(int x, int y, std::string text)
 {
     mX = x;

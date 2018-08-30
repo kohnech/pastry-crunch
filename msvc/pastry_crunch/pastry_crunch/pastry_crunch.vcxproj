@@ -187,6 +187,7 @@
     <ClCompile Include="..\..\..\src\Sounds.cpp" />
     <ClCompile Include="..\..\..\src\Surface.cpp" />
     <ClCompile Include="..\..\..\src\Text.cpp" />
+    <ClCompile Include="..\..\..\src\IUiComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\assets\assets.json" />

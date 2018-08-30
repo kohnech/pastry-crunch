@@ -5,8 +5,6 @@
 
 #include <SDL.h>
 
-#include <iostream>
-
 class IUiComponent
 {
 public:
@@ -21,53 +19,20 @@ public:
 
 	virtual ~IUiComponent() = default;
 
-    virtual bool load()
-    {
-        std::cerr << "WARNING: Unimplemented method: " << __FILE__ << ":" << __LINE__ << std::endl;
-        return false;
-    }
-    virtual bool load(Assets& assets)
-    {
-        std::cerr << "WARNING: Unimplemented method: " << __FILE__ << ":" << __LINE__ << std::endl;
-        return false;
-    }
-    virtual bool load(std::string file, int width, int height)
-    {
-        std::cerr << "WARNING: Unimplemented method: " << __FILE__ << ":" << __LINE__ << std::endl;
-        return false;
-    }
-
+	virtual bool load();
+	virtual bool load(Assets& assets);
+	virtual bool load(std::string file, int width, int height);
 
     virtual void render(SDL_Surface* Surf_Display) = 0;
     virtual void cleanup() = 0;
 
-    inline void setPosition(int x, int y)
-    {
-        mX = x;
-        mY = y;
-    }
+	void setPosition(int x, int y);
 
-    inline Pair getPosition() const
-    {
-        Pair position;
-        position.first = mX;
-        position.second = mY;
-        return position;
-    }
+	Pair getPosition() const;
 
-    inline Pair getSize() const
-    {
-        Pair size;
-        size.first = mWidth;
-        size.second = mHeight;
-        return size;
-    }
+	Pair getSize() const;
 
-    inline void setSize(Pair size)
-    {
-        mWidth = size.first;
-        mHeight = size.second;
-    }
+	void setSize(Pair size);
 
     bool animate{ false };
 
@@ -80,3 +45,6 @@ protected:
     SDL_Surface* mSurface;
     int mWidth, mHeight;
 };
+
+
+

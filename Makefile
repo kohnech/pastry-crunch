@@ -63,7 +63,8 @@ SRCS = 	App.cpp \
 		Text.cpp \
 		Sounds.cpp \
 		Button.cpp \
-		CountDown.cpp
+		CountDown.cpp \
+		IUiComponent.cpp
 
 HDRS = 	inc/App.h \
 		inc/Surface.h \

@@ -74,13 +74,6 @@ public:
     ~Grid();
 
     /*!
-     * Set grid upper left corner at position (x, y)
-     * @param xpos
-     * @param ypos
-     */
-    void setPosition(int x, int y);
-
-    /*!
      * Loads grid assets
      * @param assets The asset manager to extract assets
      * @return

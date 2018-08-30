@@ -35,13 +35,6 @@ Grid::~Grid()
 }
 
 
-void Grid::setPosition(int x, int y)
-{
-    mX = x;
-    mY = y;
-}
-
-
 bool Grid::load(Assets& assets)
 {
     assets.printAssets();
