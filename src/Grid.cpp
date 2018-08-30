@@ -1,13 +1,8 @@
 #include "Grid.h"
 #include "Sounds.h"
-#include "Surface.h"
-
-
-#include "SDL_image.h"
 
 #include <algorithm>
 #include <iostream>
-#include <map>
 #include <random>
 #include <stdlib.h>
 
@@ -227,7 +222,7 @@ void Grid::onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode)
     std::cout << "mX:" << mX << "mY: " << mY << std::endl;
 }
 
-Index Grid::getIndexesFromPosition(int x, int y)
+Index Grid::getIndexesFromPosition(int x, int y) const
 {
     if (mWidth == 0 || mWidth == 0)
     {

@@ -25,12 +25,12 @@ void IThread::join()
     }
 }
 
-void IThread::sleep(int ms)
+void IThread::sleep(int milliseconds)
 {
     std::cout << "IThread sleep..." << std::endl;
     try
     {
-        std::this_thread::sleep_for(std::chrono::milliseconds(ms));
+        std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
     }
     catch (const std::system_error& e)
     {

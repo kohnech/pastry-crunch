@@ -19,6 +19,8 @@ public:
     {
     }
 
+	virtual ~IUiComponent() = default;
+
     virtual bool load()
     {
         std::cout << "WARNING: Unimplemented method: " << __FILE__ << ":" << __LINE__ << std::endl;
@@ -45,7 +47,7 @@ public:
         mY = y;
     }
 
-    inline Pair getPosition()
+    inline Pair getPosition() const
     {
         Pair position;
         position.first = mX;
@@ -53,7 +55,7 @@ public:
         return position;
     }
 
-    inline Pair getSize()
+    inline Pair getSize() const
     {
         Pair size;
         size.first = mWidth;

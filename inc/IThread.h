@@ -14,7 +14,7 @@ public:
 
     void start();
     void join();
-    void sleep(int milliseconds);
+    static void sleep(int milliseconds);
 
     virtual bool ThreadMethod() = 0;
     bool mIsRunning;

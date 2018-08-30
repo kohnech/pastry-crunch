@@ -41,12 +41,12 @@ struct Index
     }
     int row, column; // row is x-axis, column y-axis aligned with SDL coordinate system
 
-    bool operator==(const Index& rhs)
+    bool operator==(const Index& rhs) const
     {
         return (row == rhs.row && column == rhs.column);
     }
 
-    bool operator<(const Index& rhs)
+    bool operator<(const Index& rhs) const
     {
         return (row < rhs.row && column < rhs.column);
     }
@@ -119,7 +119,7 @@ public:
      * @param x Clicked x-position
      * @param y Clicked y-position
      */
-    virtual void onLButtonDown(int x, int y);
+    void onLButtonDown(int x, int y) override;
 
     // TODO use for dragging
     // virtual void onLButtonUp(int mX, int mY);
@@ -130,7 +130,7 @@ public:
      * @param mod
      * @param unicode
      */
-    virtual void onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode);
+    void onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode) override;
 
     /*!
      * Calculates the grid indexes from mouse clicked positions
@@ -138,13 +138,13 @@ public:
      * @param y
      * @return
      */
-    Index getIndexesFromPosition(int x, int y);
+    Index getIndexesFromPosition(int x, int y) const;
 
     /*!
      * Update game based on new interaction from user
      * @param ind
      */
-    void update(const Index& ind);
+    void update(const Index& pos);
 
     /*!
      * Check if this index is neighbour with previous clicked position
@@ -266,7 +266,7 @@ public:
      * We need run game logic in its own thread to find new matches since
      * its much slower than the rendering running in the main thread.
      */
-    virtual bool ThreadMethod();
+    bool ThreadMethod() override;
 
     /*! Stop the thread */
     void stop();

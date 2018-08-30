@@ -1,10 +1,9 @@
 #pragma once
 
-#include <vector>
-
-#include "CAnimation.h"
 #include "IUiComponent.h"
 #include "Surface.h"
+
+#include <vector>
 
 class Entity : public IUiComponent
 {
@@ -22,13 +21,13 @@ public:
      * @param height
      * @return
      */
-    virtual bool load(std::string assetFile, int width, int height);
+    bool load(std::string assetFile, int width, int height) override;
 
-    virtual void render(SDL_Surface* Surf_Display);
+    void render(SDL_Surface* Surf_Display) override;
 
     void renderAnimation(SDL_Surface* Surf_Display);
 
-    virtual void cleanup();
+    virtual void cleanup() override;
 
     /*!
      * The type of the entity used for matching neighbours with

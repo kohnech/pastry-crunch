@@ -14,12 +14,12 @@ public:
 
     ~Button();
 
-    virtual bool load(Assets& assets) override;
+    bool load(Assets& assets) override;
 
-    virtual void render(SDL_Surface* Surf_Display) override;
-    virtual void cleanup() override;
+    void render(SDL_Surface* Surf_Display) override;
+    void cleanup() override;
 
-    virtual void onLButtonDown(int x, int y) override;
+    void onLButtonDown(int x, int y) override;
 
     // Signal when clicked
 
