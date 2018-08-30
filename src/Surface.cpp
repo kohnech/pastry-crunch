@@ -5,10 +5,6 @@
 #include <SDL_image.h>
 
 
-SDL_Surface* Surface::OnLoad(std::string File)
-{
-    return loadImage(File);
-}
 /*
 SDL_Texture* Surface::loadTexture(SDL_Renderer* renderer, std::string path)
 {

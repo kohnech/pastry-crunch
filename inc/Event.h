@@ -5,9 +5,9 @@
 class Event
 {
 public:
-    Event();
+	Event() = default;
 
-    virtual ~Event();
+	virtual ~Event() = default;
 
     virtual void onEvent(SDL_Event* event);
 

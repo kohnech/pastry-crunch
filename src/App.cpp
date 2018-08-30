@@ -1,13 +1,12 @@
 #include "App.h"
 #include "Assets.h"
-#include "Board.h"
 #include "Define.h"
 #include "Grid.h"
 #include "Sounds.h"
 #include "Surface.h"
 
 #include <SDL_events.h>
-#include <SDL_image.h>
+
 
 #include <iostream>
 #include <utility>
@@ -83,7 +82,7 @@ bool App::init()
 #endif
 
 
-    if ((Yoshi_Surf = Surface::OnLoad(img)) == nullptr)
+    if ((Yoshi_Surf = Surface::loadImage(img)) == nullptr)
     {
         printf("Loading Image failed: %s\n", SDL_GetError());
         return false;
@@ -108,21 +107,21 @@ bool App::init()
 
 
     /// Create game grid
-    if (mGrid.load(assets) == false)
+    if (!mGrid.load(assets))
     {
         std::cout << "Could not load Grid" << std::endl;
         return false;
     }
 
     /// init sounds
-    if (Sounds::instance.load(assets) == false)
+    if (!Sounds::instance.load(assets))
     {
         return false;
     }
 
     mMuteButton = Button(800, 0, "Mute");
     mMuteButton.load(assets);
-    mMuteButton.addClickedCallback([&] { Sounds::instance.toogleMute(); });
+    mMuteButton.addClickedCallback([&] { Sounds::instance.toggleMute(); });
 
     // Add music
     Sounds::instance.play("mining");
@@ -249,7 +248,7 @@ void App::onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode)
         Sounds::instance.play("comp");
         break;
     case SDLK_6:
-        Sounds::instance.toogleMute();
+        Sounds::instance.toggleMute();
         break;
     case SDLK_9:
         Sounds::instance.stop();
@@ -288,5 +287,5 @@ bool App::ThreadMethod()
 void App::gameOver()
 {
     Sounds::instance.stop();
-    Sounds::instance.toogleMute();
+    Sounds::instance.toggleMute();
 }

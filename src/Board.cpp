@@ -29,13 +29,13 @@ bool Board::load(Assets& assets)
     mWidth = tileSize.first;
     mHeight = tileSize.second;
 
-    if ((mSurface = Surface::OnLoad(mTileAsset)) == nullptr)
+    if ((mSurface = Surface::loadImage(mTileAsset)) == nullptr)
     {
         std::cout << "ERROR: could not create mSurface: " << SDL_GetError() << std::endl;
         return false;
     }
 
-    if ((mHighlightSurf = Surface::OnLoad(highlightFile)) == nullptr)
+    if ((mHighlightSurf = Surface::loadImage(highlightFile)) == nullptr)
     {
         std::cout << "ERROR: could not create mHighlightSurf: " << SDL_GetError() << std::endl;
         return false;

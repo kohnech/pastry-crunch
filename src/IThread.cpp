@@ -66,7 +66,7 @@ int IThread::ThreadProxy(void* ptr)
     return EXIT_FAILURE;
 }
 
-bool IThread::getRunningState()
+bool IThread::getRunningState() const
 {
     return mIsRunning;
 }

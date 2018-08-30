@@ -64,7 +64,7 @@ void Sounds::stop()
     Mix_HaltChannel(-1); // Stop all channels
 }
 
-void Sounds::toogleMute()
+void Sounds::toggleMute()
 {
     mIsMute = !mIsMute;
     if (mIsMute)

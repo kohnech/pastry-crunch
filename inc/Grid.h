@@ -95,7 +95,7 @@ public:
      * Creates a new random integer for randomizing the grid...
      * @return a random int
      */
-    int getRandomInt();
+    int getRandomInt() const;
 
     /*!
      * Creates a starting point with bricks laid our randomly with max
@@ -151,7 +151,7 @@ public:
      * @param ind
      * @return
      */
-    bool isAdjacent(const Index& ind);
+    bool isAdjacent(const Index& ind) const;
 
     /*!
      * Swap grid entities and undo if no match
@@ -179,7 +179,7 @@ public:
      * Return my icon asset list
      * @return
      */
-    std::vector<std::string> getAssets();
+    std::vector<std::string> getAssets() const;
 
     /*!
      * Get entity at index for unit test purpose
@@ -202,7 +202,7 @@ public:
     /*!
      * Prints the grid for debug purpose
      */
-    void printGrid();
+    void printGrid() const;
 
     /*!
      * Returns a vector with the columns containing matches
@@ -214,9 +214,9 @@ public:
     /*!
      * Collapses the voids from bottom to top and move them at
      * the uppermost part of the grid so a refill of new entities can be done
-     * @param columns The list of columns to collapse
+     * @param rows The list of rows to collapse
      */
-    int collapse(std::vector<int> columns);
+    int collapse(std::vector<int> rows);
 
     /*!
      * Creates new entities to play with in collapsed rows
@@ -229,7 +229,7 @@ public:
      * @param row
      * @return
      */
-    std::vector<Index> getEmptyItemsOnRow(int row);
+    std::vector<Index> getEmptyItemsOnRow(int row) const;
 
     /*!
      * Moves current highlight position to new index
@@ -242,7 +242,7 @@ public:
      * @return maximum grid index which naturally is the width & height
      * of the grid...
      */
-    Index getMaximumGridIndex();
+    Index getMaximumGridIndex() const;
 
     /*!
      * Updates the new score on next rendering cycle

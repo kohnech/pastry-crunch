@@ -19,7 +19,7 @@ public:
     virtual bool ThreadMethod() = 0;
     bool mIsRunning;
 
-    bool getRunningState();
+    bool getRunningState() const;
 
 private:
     std::thread mThread;

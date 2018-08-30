@@ -64,7 +64,7 @@ private:
     CountDown mCountDown;
     bool mIsGameOver;
 
-    void gameOver();
+    static void gameOver();
 
     Grid mGrid;
 };
