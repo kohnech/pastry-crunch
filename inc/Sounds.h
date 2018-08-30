@@ -22,7 +22,7 @@ public:
 
     void play(std::string ID);
 
-    void stop();
+    static void stop();
 
     void toggleMute();
 

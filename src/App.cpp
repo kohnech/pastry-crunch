@@ -4,9 +4,9 @@
 #include "Grid.h"
 #include "Sounds.h"
 #include "Surface.h"
+#include "CCamera.h"
 
 #include <SDL_events.h>
-
 
 #include <iostream>
 #include <utility>

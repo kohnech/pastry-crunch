@@ -33,6 +33,5 @@ protected:
 
 private:
     SDL_Surface* mHighlightSurf;
-
     bool mIsHighlightVisible;
 };

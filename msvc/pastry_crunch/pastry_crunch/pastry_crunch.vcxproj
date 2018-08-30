@@ -161,7 +161,6 @@
     <ClInclude Include="..\..\..\inc\CCamera.h" />
     <ClInclude Include="..\..\..\inc\CommonTypes.h" />
     <ClInclude Include="..\..\..\inc\CountDown.h" />
-    <ClInclude Include="..\..\..\inc\CTile.h" />
     <ClInclude Include="..\..\..\inc\Define.h" />
     <ClInclude Include="..\..\..\inc\Entity.h" />
     <ClInclude Include="..\..\..\inc\Event.h" />
@@ -180,7 +179,6 @@
     <ClCompile Include="..\..\..\src\CAnimation.cpp" />
     <ClCompile Include="..\..\..\src\CCamera.cpp" />
     <ClCompile Include="..\..\..\src\CountDown.cpp" />
-    <ClCompile Include="..\..\..\src\CTile.cpp" />
     <ClCompile Include="..\..\..\src\Entity.cpp" />
     <ClCompile Include="..\..\..\src\Event.cpp" />
     <ClCompile Include="..\..\..\src\Grid.cpp" />

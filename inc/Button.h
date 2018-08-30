@@ -17,6 +17,7 @@ public:
     bool load(Assets& assets) override;
 
     void render(SDL_Surface* Surf_Display) override;
+
     void cleanup() override;
 
     void onLButtonDown(int x, int y) override;

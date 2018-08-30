@@ -70,14 +70,13 @@ void Button::onLButtonDown(int x, int y)
     onClicked();
 }
 
-
-void Button::onClicked() const
-{
-    std::cout << "Button clicked!" << std::endl;
-    mClickedCallback();
-}
-
 void Button::addClickedCallback(ClickedCallback cb)
 {
     mClickedCallback = cb;
+}
+
+void Button::onClicked() const
+{
+	std::cout << "Button clicked!" << std::endl;
+	mClickedCallback();
 }

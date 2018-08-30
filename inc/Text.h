@@ -13,9 +13,9 @@ class Text : public IUiComponent
 public:
     Text();
     ~Text();
-    virtual bool load(Assets& assets) override;
-    virtual void render(SDL_Surface* display) override;
-    virtual void cleanup() override;
+    bool load(Assets& assets) override;
+    void render(SDL_Surface* display) override;
+    void cleanup() override;
     void setText(std::string msg);
 
 private:
