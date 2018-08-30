@@ -4,10 +4,10 @@
 
 #include "Define.h"
 
-enum
+enum class TARGET_MODE
 {
-    TARGET_MODE_NORMAL = 0,
-    TARGET_MODE_CENTER
+    NORMAL = 0,
+    CENTER
 };
 
 class CCamera
@@ -32,8 +32,8 @@ public:
     void OnMove(int MoveX, int MoveY);
 
 public:
-    int GetX();
-    int GetY();
+    int GetX() const;
+    int GetY() const;
 
 public:
     void SetPos(int X, int Y);
