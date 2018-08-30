@@ -1,13 +1,8 @@
 #include "Grid.h"
 #include "Sounds.h"
-#include "Surface.h"
-
-
-#include "SDL_image.h"
 
 #include <algorithm>
 #include <iostream>
-#include <map>
 #include <random>
 #include <stdlib.h>
 
@@ -37,13 +32,6 @@ Grid::~Grid()
     }
 
     cleanup();
-}
-
-
-void Grid::setPosition(int x, int y)
-{
-    mX = x;
-    mY = y;
 }
 
 
@@ -131,7 +119,7 @@ void Grid::cleanup()
 {
     if (mGrid == nullptr)
     {
-        std::cout << "WARNING: You must initialize the grid with load()!" << std::endl;
+        std::cerr << "WARNING: You must initialize the grid with load()!" << std::endl;
         return;
     }
     for (int x = 0; x < mGridRowSize; ++x)
@@ -148,7 +136,7 @@ void Grid::cleanup()
 }
 
 
-int Grid::getRandomInt()
+int Grid::getRandomInt() const
 {
     // Seed with a real random value, if available
     std::random_device r;
@@ -227,7 +215,7 @@ void Grid::onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode)
     std::cout << "mX:" << mX << "mY: " << mY << std::endl;
 }
 
-Index Grid::getIndexesFromPosition(int x, int y)
+Index Grid::getIndexesFromPosition(int x, int y) const
 {
     if (mWidth == 0 || mWidth == 0)
     {
@@ -315,7 +303,7 @@ void Grid::update(const Index& pos)
     mPrevClickedIndexes = pos;
 }
 
-bool Grid::isAdjacent(const Index& ind)
+bool Grid::isAdjacent(const Index& ind) const
 {
     return (ind.column == mPrevClickedIndexes.column || ind.row == mPrevClickedIndexes.row) &&
            abs(ind.column - mPrevClickedIndexes.column) <= 1 && abs(ind.row - mPrevClickedIndexes.row) <= 1;
@@ -450,7 +438,7 @@ std::vector<Index> Grid::findHorizontalMatches(const Index& ind)
 }
 
 
-std::vector<std::string> Grid::getAssets()
+std::vector<std::string> Grid::getAssets() const
 {
     return mAssets;
 }
@@ -482,7 +470,7 @@ void Grid::setHighlightPosition(const Index& index)
     mHighlightY = index.column;
 }
 
-Index Grid::getMaximumGridIndex()
+Index Grid::getMaximumGridIndex() const
 {
     // Simple math here...
     int row = mGridRowSize - 1;
@@ -501,7 +489,7 @@ void Grid::removeMatches(const std::vector<Index>& matches)
 }
 
 
-void Grid::printGrid()
+void Grid::printGrid() const
 {
     for (int column = 0; column < mGridColumnSize; column++)
     {
@@ -592,7 +580,7 @@ void Grid::createNewEntitiesInRows(std::vector<int> rows)
 }
 
 
-std::vector<Index> Grid::getEmptyItemsOnRow(int row)
+std::vector<Index> Grid::getEmptyItemsOnRow(int row) const
 {
     std::vector<Index> voids;
     if (row >= mGridRowSize)
@@ -657,7 +645,7 @@ std::vector<Index> Grid::findNewMatches()
     }
     catch (std::exception& e)
     {
-        std::cout << "Got exception e: " << e.what() << std::endl;
+        std::cerr << "Got exception e: " << e.what() << std::endl;
     }
 
     for (auto match : matches)

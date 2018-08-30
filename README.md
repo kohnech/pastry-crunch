@@ -49,7 +49,7 @@ make run
 
 ### Windows
 Currently only x86 is supported and MS Visual Studio 2015.
-Open the solution file [`msvc/pastry_crunch/pastry_crunch.sln`](https://github.com/kohnech/bakery-street-game/blob/msvc_integration/msvc/pastry_crunch/pastry_crunch.sln) in Visual Studio to start debug and run the application.
+Open the solution file [`msvc/pastry_crunch/pastry_crunch.sln`](https://github.com/kohnech/pastry-crunch/blob/develop/msvc/pastry_crunch/pastry_crunch.sln) in Visual Studio to start debug and run the application.
 Dependencies and assets are already setup so just hit the run button.
 
 

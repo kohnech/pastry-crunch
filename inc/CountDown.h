@@ -13,9 +13,9 @@ public:
     CountDown();
     ~CountDown();
 
-    bool load(Assets& assets);
-    void cleanup();
-    void render(SDL_Surface* Surf_Display);
+    bool load(Assets& assets) override;
+    void cleanup() override;
+    void render(SDL_Surface* Surf_Display) override;
 
     void addTimedOutCallback(TimedOutCallback cb);
 

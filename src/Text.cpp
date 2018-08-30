@@ -4,6 +4,7 @@
 
 
 #include <string>
+#include <iostream>
 
 Text::Text()
 : mFont{ NULL }
@@ -43,7 +44,7 @@ void Text::render(SDL_Surface* display)
     mSurface = TTF_RenderUTF8_Solid(mFont, mMessage.c_str(), BLUE);
     if (mSurface == nullptr)
     {
-        std::cout << "Got error TTF_RenderUTF8_Solid: " << SDL_GetError() << std::endl;
+        std::cerr << "Got error TTF_RenderUTF8_Solid: " << SDL_GetError() << std::endl;
         return;
     }
 

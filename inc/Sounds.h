@@ -22,9 +22,9 @@ public:
 
     void play(std::string ID);
 
-    void stop();
+    static void stop();
 
-    void toogleMute();
+    void toggleMute();
 
 private:
     std::map<std::string, Mix_Chunk*> mSounds;

@@ -17,12 +17,12 @@ CAnimation::CAnimation()
 void CAnimation::OnAnimate()
 {
 
-    if (OldTime + FrameRate > SDL_GetTicks())
+    if (OldTime + FrameRate > static_cast<int>(SDL_GetTicks()))
     {
         return;
     }
 
-    OldTime = SDL_GetTicks();
+    OldTime = static_cast<int>(SDL_GetTicks());
 
     CurrentFrame += FrameInc;
 
@@ -32,14 +32,14 @@ void CAnimation::OnAnimate()
         {
             if (CurrentFrame >= MaxFrames - 1)
             {
-                FrameInc = -FrameInc;
+                FrameInc =- FrameInc;
             }
         }
         else
         {
             if (CurrentFrame <= 0)
             {
-                FrameInc = -FrameInc;
+                FrameInc =- FrameInc;
             }
         }
     }

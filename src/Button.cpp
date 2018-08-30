@@ -1,6 +1,8 @@
 #include "Button.h"
 #include "Surface.h"
 
+#include <iostream>
+
 Button::Button(int x, int y, std::string text)
 {
     mX = x;
@@ -21,9 +23,9 @@ bool Button::load(Assets& assets)
     mWidth = size.first;
     mHeight = size.second;
 
-    if ((mSurface = Surface::OnLoad(asset)) == nullptr)
+    if ((mSurface = Surface::loadImage(asset)) == nullptr)
     {
-        std::cout << "ERROR: could not create mSurface: " << SDL_GetError() << std::endl;
+        std::cerr << "ERROR: could not create mSurface: " << SDL_GetError() << std::endl;
         return false;
     }
 
@@ -70,14 +72,13 @@ void Button::onLButtonDown(int x, int y)
     onClicked();
 }
 
-
-void Button::onClicked()
-{
-    std::cout << "Button clicked!" << std::endl;
-    mClickedCallback();
-}
-
 void Button::addClickedCallback(ClickedCallback cb)
 {
     mClickedCallback = cb;
+}
+
+void Button::onClicked() const
+{
+	std::cout << "Button clicked!" << std::endl;
+	mClickedCallback();
 }

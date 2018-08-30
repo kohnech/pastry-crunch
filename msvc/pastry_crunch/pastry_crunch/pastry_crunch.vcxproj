@@ -132,7 +132,7 @@
       <AdditionalDependencies>SDL2_image.lib;SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>XCOPY "$(SolutionDir)..\..\assets" "$(TargetDir)\assets\" /S</Command>
+      <Command>XCOPY "$(SolutionDir)..\..\assets" "$(TargetDir)\assets\" /S /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -161,7 +161,6 @@
     <ClInclude Include="..\..\..\inc\CCamera.h" />
     <ClInclude Include="..\..\..\inc\CommonTypes.h" />
     <ClInclude Include="..\..\..\inc\CountDown.h" />
-    <ClInclude Include="..\..\..\inc\CTile.h" />
     <ClInclude Include="..\..\..\inc\Define.h" />
     <ClInclude Include="..\..\..\inc\Entity.h" />
     <ClInclude Include="..\..\..\inc\Event.h" />
@@ -180,7 +179,6 @@
     <ClCompile Include="..\..\..\src\CAnimation.cpp" />
     <ClCompile Include="..\..\..\src\CCamera.cpp" />
     <ClCompile Include="..\..\..\src\CountDown.cpp" />
-    <ClCompile Include="..\..\..\src\CTile.cpp" />
     <ClCompile Include="..\..\..\src\Entity.cpp" />
     <ClCompile Include="..\..\..\src\Event.cpp" />
     <ClCompile Include="..\..\..\src\Grid.cpp" />
@@ -189,6 +187,7 @@
     <ClCompile Include="..\..\..\src\Sounds.cpp" />
     <ClCompile Include="..\..\..\src\Surface.cpp" />
     <ClCompile Include="..\..\..\src\Text.cpp" />
+    <ClCompile Include="..\..\..\src\IUiComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\assets\assets.json" />

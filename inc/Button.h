@@ -14,18 +14,19 @@ public:
 
     ~Button();
 
-    virtual bool load(Assets& assets);
+    bool load(Assets& assets) override;
 
-    virtual void render(SDL_Surface* Surf_Display);
-    virtual void cleanup();
+    void render(SDL_Surface* Surf_Display) override;
 
-    virtual void onLButtonDown(int x, int y);
+    void cleanup() override;
+
+    void onLButtonDown(int x, int y) override;
 
     // Signal when clicked
 
     void addClickedCallback(ClickedCallback cb);
 
-    void onClicked();
+    void onClicked() const;
 
 private:
     Text mText;

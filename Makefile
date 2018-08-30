@@ -55,7 +55,6 @@ SRCS = 	App.cpp \
 		Event.cpp \
 		CAnimation.cpp \
 		Entity.cpp \
-		CTile.cpp \
 		CCamera.cpp \
 		Grid.cpp \
 		Assets.cpp \
@@ -64,14 +63,14 @@ SRCS = 	App.cpp \
 		Text.cpp \
 		Sounds.cpp \
 		Button.cpp \
-		CountDown.cpp
+		CountDown.cpp \
+		IUiComponent.cpp
 
 HDRS = 	inc/App.h \
 		inc/Surface.h \
 		inc/Event.h \
 		inc/CAnimation.h \
 		inc/Entity.h \
-		inc/CTile.h \
 		inc/CCamera.h \
 		inc/Grid.h \
 		inc/Assets.h \

@@ -1,13 +1,12 @@
 #include "App.h"
 #include "Assets.h"
-#include "Board.h"
 #include "Define.h"
 #include "Grid.h"
 #include "Sounds.h"
 #include "Surface.h"
+#include "CCamera.h"
 
 #include <SDL_events.h>
-#include <SDL_image.h>
 
 #include <iostream>
 #include <utility>
@@ -25,12 +24,12 @@ App::App()
 
 App::~App()
 {
-    onCleanup();
+    cleanup();
 }
 
 #include <string>
 
-bool App::onInit()
+bool App::init()
 {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
     {
@@ -70,7 +69,7 @@ bool App::onInit()
 
     if (mWindow == nullptr)
     {
-        std::cout << "SDL_CreateWindow got NULL!" << SDL_GetError() << std::endl;
+        std::cerr << "ERROR: SDL_CreateWindow got NULL!" << SDL_GetError() << std::endl;
         return false;
     }
 
@@ -83,7 +82,7 @@ bool App::onInit()
 #endif
 
 
-    if ((Yoshi_Surf = Surface::OnLoad(img)) == nullptr)
+    if ((Yoshi_Surf = Surface::loadImage(img)) == nullptr)
     {
         printf("Loading Image failed: %s\n", SDL_GetError());
         return false;
@@ -108,21 +107,21 @@ bool App::onInit()
 
 
     /// Create game grid
-    if (mGrid.load(assets) == false)
+    if (!mGrid.load(assets))
     {
-        std::cout << "Could not load Grid" << std::endl;
+        std::cerr << "Could not load Grid" << std::endl;
         return false;
     }
 
     /// init sounds
-    if (Sounds::instance.load(assets) == false)
+    if (!Sounds::instance.load(assets))
     {
         return false;
     }
 
     mMuteButton = Button(800, 0, "Mute");
     mMuteButton.load(assets);
-    mMuteButton.addClickedCallback([&] { Sounds::instance.toogleMute(); });
+    mMuteButton.addClickedCallback([&] { Sounds::instance.toggleMute(); });
 
     // Add music
     Sounds::instance.play("mining");
@@ -146,13 +145,13 @@ void App::onEvent(SDL_Event* event)
     mMuteButton.onEvent(event);
 }
 
-bool App::onLoop()
+bool App::loop()
 {
     Anim_Yoshi.OnAnimate();
     return mIsRunning;
 }
 
-void App::onRender()
+void App::render()
 {
 
     Surface::OnDraw(Surf_Display, Background_Surf, 0, 0);
@@ -191,7 +190,7 @@ void App::onRender()
     SDL_UpdateWindowSurface(mWindow);
 }
 
-void App::onCleanup()
+void App::cleanup()
 {
     SDL_FreeSurface(Yoshi_Surf);
     SDL_FreeSurface(Surf_Display);
@@ -249,7 +248,7 @@ void App::onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode)
         Sounds::instance.play("comp");
         break;
     case SDLK_6:
-        Sounds::instance.toogleMute();
+        Sounds::instance.toggleMute();
         break;
     case SDLK_9:
         Sounds::instance.stop();
@@ -277,8 +276,8 @@ bool App::ThreadMethod()
             onEvent(&event);
         }
 
-        onLoop();
-        onRender();
+        loop();
+        render();
         sleep(33); // ms, 30 fps
     }
 
@@ -288,5 +287,5 @@ bool App::ThreadMethod()
 void App::gameOver()
 {
     Sounds::instance.stop();
-    Sounds::instance.toogleMute();
+    Sounds::instance.toggleMute();
 }

@@ -1,14 +1,5 @@
 #include "Event.h"
 
-Event::Event()
-{
-}
-
-Event::~Event()
-{
-    // Do nothing
-}
-
 void Event::onEvent(SDL_Event* event)
 {
     switch (event->type)
