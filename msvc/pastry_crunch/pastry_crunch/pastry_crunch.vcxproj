@@ -132,7 +132,7 @@
       <AdditionalDependencies>SDL2_image.lib;SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>XCOPY "$(SolutionDir)..\..\assets" "$(TargetDir)\assets\" /S</Command>
+      <Command>XCOPY "$(SolutionDir)..\..\assets" "$(TargetDir)\assets\" /S /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
