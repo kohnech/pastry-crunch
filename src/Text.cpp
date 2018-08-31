@@ -35,7 +35,7 @@ bool Text::load(Assets& assets)
         return false;
     }
 
-    if (mFont == nullptr)
+    if (mFont == NULL) // Must be NULL cannot work otherwise
     {
         std::cerr << "Could not load fond TTF_OpenFont" << std::endl;
         return false;
@@ -52,7 +52,7 @@ void Text::render(SDL_Surface* display)
         std::cerr << "Empty message!" << std::endl;
         return;
     }
-    if(mFont == nullptr)
+    if(mFont == NULL)
     {
         std::cerr << "Empty mFont!" << std::endl;
         return;
