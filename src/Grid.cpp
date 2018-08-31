@@ -25,11 +25,13 @@ Grid::Grid(int x, int y)
 
 Grid::~Grid()
 {
-    if (getRunningState())
+    /*if (getRunningState())
     {
         stop();
         join();
-    }
+    }*/
+    stop();
+    join();
 
     cleanup();
 }
@@ -117,7 +119,6 @@ void Grid::render(SDL_Surface* Surf_Display)
 
 void Grid::cleanup()
 {
-    std::cout << "Grid cleanup() starting" << std::endl;
     if (mGrid == nullptr)
     {
         std::cerr << "WARNING: You must initialize the grid with load()!" << std::endl;
@@ -134,7 +135,6 @@ void Grid::cleanup()
             }
         }
     }
-    std::cout << "Grid cleanup() finish" << std::endl;
 }
 
 

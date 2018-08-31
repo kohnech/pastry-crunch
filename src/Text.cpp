@@ -24,20 +24,20 @@ bool Text::load(Assets& assets)
     mFontSize = assets.getFontSize();
     if (TTF_Init() < 0)
     {
-        printf("TTF_Init failed: %s\n", SDL_GetError());
+        std::cerr << "TTF_Init failed: " << SDL_GetError() << std::endl;
     }
 
     mFont = TTF_OpenFont(font.c_str(), mFontSize);
 
     if (mFont == nullptr)
     {
-        printf("Could not load fond TTF_OpenFont");
+        std::cerr << "Could not load fond TTF_OpenFont" << std::endl;
         return false;
     }
 
-    if (mFont == NULL)
+    if (mFont == nullptr)
     {
-        printf("Could not load fond TTF_OpenFont");
+        std::cerr << "Could not load fond TTF_OpenFont" << std::endl;
         return false;
     }
 
