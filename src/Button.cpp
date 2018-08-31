@@ -39,11 +39,11 @@ bool Button::load(Assets& assets)
 void Button::cleanup()
 {
     std::cout << "Button start cleanup"  << std::endl;
-    if (mSurface) // TODO remove to base class destructor
+   /* if (mSurface) // TODO remove to base class destructor
     {
         SDL_FreeSurface(mSurface);
         mSurface = nullptr;
-    }
+    }*/
     std::cout << "Button end cleanup"  << std::endl;
 }
 

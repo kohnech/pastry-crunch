@@ -30,12 +30,12 @@ bool CountDown::load(Assets& assets)
 void CountDown::cleanup()
 {
     std::cout << "CountDown start cleanup"  << std::endl;
- /*   if (mSurface)
+    /*if (mSurface)
     {
         SDL_FreeSurface(mSurface);
-    }
+        mSurface = nullptr;
+    }*/
 
-    mSurface = nullptr;*/
     std::cout << "CountDown end cleanup"  << std::endl;
 }
 

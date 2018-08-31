@@ -2,14 +2,14 @@
 #include "Define.h"
 #include "Surface.h"
 
-
 #include <string>
 #include <iostream>
 
 Text::Text()
-: mFont{ NULL }
+: mFont{ nullptr }
 , mFontSize{ 30 }
 , mMessage{ "" }
+, mTextSurface{ nullptr }
 {
 }
 
@@ -52,7 +52,7 @@ void Text::render(SDL_Surface* display)
         std::cerr << "Empty message!" << std::endl;
         return;
     }
-    if(mFont == NULL)
+    if(mFont == nullptr)
     {
         std::cerr << "Empty mFont!" << std::endl;
         return;
@@ -63,16 +63,21 @@ void Text::render(SDL_Surface* display)
         return;
     }
 
-    mSurface = TTF_RenderUTF8_Solid(mFont, mMessage.c_str(), BLUE);
-    if (mSurface == nullptr)
+    if (mTextSurface != nullptr)
+    {
+        SDL_FreeSurface(mTextSurface);
+    }
+
+    mTextSurface = TTF_RenderUTF8_Solid(mFont, mMessage.c_str(), BLUE);
+    if (mTextSurface == nullptr)
     {
         std::cerr << "Got error TTF_RenderUTF8_Solid: " << SDL_GetError() << std::endl;
         std::cerr << "Trying to display message: " << mMessage << std::endl;
         return;
     }
 
-    Surface::OnDraw(display, mSurface, mX, mY);
-    SDL_FreeSurface(mSurface);
+    Surface::OnDraw(display, mTextSurface, mX, mY);
+    //SDL_FreeSurface(mTextSurface);
 }
 
 void Text::cleanup()

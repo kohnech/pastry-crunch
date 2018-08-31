@@ -22,4 +22,5 @@ private:
     TTF_Font* mFont;
     int mFontSize;
     std::string mMessage;
+    SDL_Surface* mTextSurface;
 };

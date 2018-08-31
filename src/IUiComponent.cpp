@@ -5,9 +5,9 @@
 
 IUiComponent::~IUiComponent()
 {
-	/*if (mSurface != nullptr) {
+	if (mSurface != nullptr) {
 		SDL_FreeSurface(mSurface);
-	}*/
+	}
 };
 
 bool IUiComponent::load()
