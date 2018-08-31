@@ -110,7 +110,7 @@ void AppStateGame::deactivate()
 
 
     Sounds::instance.stop();
-    Sounds::instance.toogleMute();
+    Sounds::instance.toggleMute();
     SDL_FreeSurface(Background_Surf);
 }
 
