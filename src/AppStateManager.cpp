@@ -4,6 +4,8 @@
 #include "AppStateIntro.h"
 #include "AppStateGameOver.h"
 
+#include <iostream>
+
 AppStateManager AppStateManager::instance;
 
 IAppState* AppStateManager::ActiveAppState = 0;
@@ -32,6 +34,8 @@ void AppStateManager::render(SDL_Surface* Surf_Display)
 
 void AppStateManager::setActiveAppState(int AppStateID)
 {
+    std::cout << "AppStateManager setActiveState: " << ToString(AppStateID) << std::endl;
+
     if (ActiveAppState) {
         ActiveAppState->deactivate();
         delete ActiveAppState;

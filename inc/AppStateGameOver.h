@@ -8,6 +8,8 @@ class AppStateGameOver : public IAppState
 public:
     AppStateGameOver();
 
+    ~AppStateGameOver();
+
     bool activate();
 
     void deactivate();
@@ -16,8 +18,10 @@ public:
 
     void render(SDL_Surface* Surf_Display);
 
+    void cleanup();
+
 private:
-    SDL_Surface* Background_Surf;
+    SDL_Surface* mBackground;
     SDL_Surface* GameOver_Surf;
 
     unsigned int StartTime;

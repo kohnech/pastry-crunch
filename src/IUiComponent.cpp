@@ -2,6 +2,14 @@
 
 #include <iostream>
 
+
+IUiComponent::~IUiComponent()
+{
+	/*if (mSurface != nullptr) {
+		SDL_FreeSurface(mSurface);
+	}*/
+};
+
 bool IUiComponent::load()
 {
 	std::cerr << "WARNING: Unimplemented method: " << __FILE__ << ":" << __LINE__ << std::endl;

@@ -17,7 +17,7 @@ public:
     {
     }
 
-	virtual ~IUiComponent() = default;
+	virtual ~IUiComponent();
 
 	virtual bool load();
 	virtual bool load(Assets& assets);

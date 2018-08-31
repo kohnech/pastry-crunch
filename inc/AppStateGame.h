@@ -18,6 +18,8 @@ class AppStateGame : public IAppState
 public:
     AppStateGame();
 
+    ~AppStateGame();
+
     void onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode);
 
     bool activate();
@@ -30,8 +32,10 @@ public:
 
     void onEvent(SDL_Event* event);
 
+    void cleanup();
+
 private:
-    SDL_Surface* Background_Surf;
+    SDL_Surface* mBackground;
 
     Button mMuteButton;
 

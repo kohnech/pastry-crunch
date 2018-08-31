@@ -5,9 +5,9 @@
 class IAppState : public Event
 {
 public:
-    IAppState()
-    {
-    }
+    IAppState() = default;
+
+    virtual ~IAppState() = default;
 
     virtual bool activate() = 0;
 

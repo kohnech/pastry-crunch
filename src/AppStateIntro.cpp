@@ -3,14 +3,19 @@
 #include "AppStateManager.h"
 
 AppStateIntro::AppStateIntro()
+: mSplash{ nullptr }
 {
-    Surf_Logo = NULL;
+}
+
+AppStateIntro::~AppStateIntro()
+{
+    cleanup();
 }
 
 bool AppStateIntro::activate()
 {
     // Load Simple Logo
-    Surf_Logo = Surface::loadImage("assets/github-octocat.png");
+    mSplash = Surface::loadImage("assets/github-octocat.png");
 
     StartTime = SDL_GetTicks();
 
@@ -19,11 +24,6 @@ bool AppStateIntro::activate()
 
 void AppStateIntro::deactivate()
 {
-    if (Surf_Logo)
-    {
-        SDL_FreeSurface(Surf_Logo);
-        Surf_Logo = NULL;
-    }
 }
 
 void AppStateIntro::loop()
@@ -36,8 +36,17 @@ void AppStateIntro::loop()
 
 void AppStateIntro::render(SDL_Surface* Surf_Display)
 {
-    if (Surf_Logo)
+    if (mSplash)
     {
-        Surface::OnDraw(Surf_Display, Surf_Logo, 0, 0);
+        Surface::OnDraw(Surf_Display, mSplash, 0, 0);
+    }
+}
+
+void AppStateIntro::cleanup()
+{
+    if (mSplash)
+    {
+        SDL_FreeSurface(mSplash);
+        mSplash = nullptr;
     }
 }

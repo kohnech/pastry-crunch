@@ -5,8 +5,13 @@
 #include <iostream>
 
 AppStateGameOver::AppStateGameOver()
+: mBackground{ nullptr }
 {
-    Background_Surf = NULL;
+}
+
+AppStateGameOver::~AppStateGameOver()
+{
+    cleanup();
 }
 
 bool AppStateGameOver::activate()
@@ -22,7 +27,7 @@ bool AppStateGameOver::activate()
     assets.loadFile("./assets/assets.json");
 #endif
 
-    Background_Surf = Surface::loadImage(assets.getBackgroundPath());
+    mBackground = Surface::loadImage(assets.getBackgroundPath());
     GameOver_Surf = Surface::loadImage(assets.getGameOverAsset());
 
     StartTime = SDL_GetTicks();
@@ -33,12 +38,6 @@ bool AppStateGameOver::activate()
 void AppStateGameOver::deactivate()
 {
     std::cout << "AppStateGameOver deactivate()" << std::endl;
-    if (Background_Surf)
-    {
-        SDL_FreeSurface(Background_Surf);
-        Background_Surf = NULL;
-    }
-    SDL_FreeSurface(GameOver_Surf);
 }
 
 void AppStateGameOver::loop()
@@ -51,9 +50,23 @@ void AppStateGameOver::loop()
 
 void AppStateGameOver::render(SDL_Surface* Surf_Display)
 {
-    if (Background_Surf)
+    if (mBackground)
     {
-        Surface::OnDraw(Surf_Display, Background_Surf, 0, 0);
+        Surface::OnDraw(Surf_Display, mBackground, 0, 0);
     }
     Surface::OnDraw(Surf_Display, GameOver_Surf, 0, 0);
+}
+
+void AppStateGameOver::cleanup()
+{
+    if (mBackground)
+    {
+        SDL_FreeSurface(mBackground);
+        mBackground = nullptr;
+    }
+    if (GameOver_Surf)
+    {
+        SDL_FreeSurface(GameOver_Surf);
+        GameOver_Surf = nullptr;
+    }
 }

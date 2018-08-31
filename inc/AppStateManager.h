@@ -2,13 +2,25 @@
 
 #include "IAppState.h"
 
-enum
+enum APPSTATE
 {
     APPSTATE_NONE,
     APPSTATE_INTRO,
     APPSTATE_GAME,
     APPSTATE_GAMEOVER
 };
+
+inline const char* ToString(int v)
+{
+    switch (v)
+    {
+        case APPSTATE_NONE:   return "APPSTATE_NONE";
+        case APPSTATE_INTRO:   return "APPSTATE_INTRO";
+        case APPSTATE_GAME: return "APPSTATE_GAME";
+        case APPSTATE_GAMEOVER: return "APPSTATE_GAMEOVER";
+        default:      return "[Unknown]";
+    }
+}
 
 class AppStateManager
 {

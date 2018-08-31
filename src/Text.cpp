@@ -29,7 +29,13 @@ bool Text::load(Assets& assets)
 
     mFont = TTF_OpenFont(font.c_str(), mFontSize);
 
-    if (mFont < 0)
+    if (mFont == nullptr)
+    {
+        printf("Could not load fond TTF_OpenFont");
+        return false;
+    }
+
+    if (mFont == NULL)
     {
         printf("Could not load fond TTF_OpenFont");
         return false;
@@ -41,10 +47,27 @@ bool Text::load(Assets& assets)
 
 void Text::render(SDL_Surface* display)
 {
+    if (mMessage.empty())
+    {
+        std::cerr << "Empty message!" << std::endl;
+        return;
+    }
+    if(mFont == NULL)
+    {
+        std::cerr << "Empty mFont!" << std::endl;
+        return;
+    }
+    if (display == nullptr)
+    {
+        std::cerr << "Empty display!" << std::endl;
+        return;
+    }
+
     mSurface = TTF_RenderUTF8_Solid(mFont, mMessage.c_str(), BLUE);
     if (mSurface == nullptr)
     {
         std::cerr << "Got error TTF_RenderUTF8_Solid: " << SDL_GetError() << std::endl;
+        std::cerr << "Trying to display message: " << mMessage << std::endl;
         return;
     }
 
@@ -54,7 +77,10 @@ void Text::render(SDL_Surface* display)
 
 void Text::cleanup()
 {
+    std::cout << "Te3xt cleanup() starting" << std::endl;
+    //SDL_FreeSurface(mSurface);
     TTF_CloseFont(mFont);
+    std::cout << "Te3xt cleanup() finish" << std::endl;
 }
 
 void Text::setText(std::string msg)

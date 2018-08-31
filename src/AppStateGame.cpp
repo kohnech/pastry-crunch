@@ -7,7 +7,13 @@
 
 
 AppStateGame::AppStateGame()
+: mBackground{nullptr}
 {
+}
+
+AppStateGame::~AppStateGame()
+{
+    cleanup();
 }
 
 
@@ -70,7 +76,7 @@ bool AppStateGame::activate()
     assets.loadFile("./assets/assets.json");
 #endif
 
-    Background_Surf = Surface::loadImage(assets.getBackgroundPath());
+    mBackground = Surface::loadImage(assets.getBackgroundPath());
 
     /// Create game grid
     if (!mGrid.load(assets))
@@ -107,11 +113,7 @@ bool AppStateGame::activate()
 void AppStateGame::deactivate()
 {
     std::cout << "AppStateGame deactivate()" << std::endl;
-
-
     Sounds::instance.stop();
-    Sounds::instance.toggleMute();
-    SDL_FreeSurface(Background_Surf);
 }
 
 void AppStateGame::loop()
@@ -120,7 +122,7 @@ void AppStateGame::loop()
 
 void AppStateGame::render(SDL_Surface* Surf_Display)
 {
-    Surface::OnDraw(Surf_Display, Background_Surf, 0, 0);
+    Surface::OnDraw(Surf_Display, mBackground, 0, 0);
 
     mGrid.render(Surf_Display);
     mCountDown.render(Surf_Display);
@@ -131,4 +133,12 @@ void AppStateGame::onEvent(SDL_Event* event)
 {
     mMuteButton.onEvent(event);
     mGrid.onEvent(event);
+}
+
+void AppStateGame::cleanup()
+{
+    std::cout << "AppStateGame start cleanup"  << std::endl;
+    if (mBackground != nullptr)
+        SDL_FreeSurface(mBackground);
+    std::cout << "AppStateGame en cleanup"  << std::endl;
 }
