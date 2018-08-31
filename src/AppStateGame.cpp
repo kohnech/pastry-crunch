@@ -7,13 +7,12 @@
 
 
 AppStateGame::AppStateGame()
-: mBackground{nullptr}
 {
 }
 
 AppStateGame::~AppStateGame()
 {
-    cleanup();
+    //cleanup();
 }
 
 
@@ -65,6 +64,11 @@ void AppStateGame::onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode)
 
 bool AppStateGame::activate()
 {
+    mBackground = nullptr;
+    mMuteButton = new Button(800, 0, "Mute");
+    mCountDown =  new CountDown();
+    mCountDown->init();
+
     std::cout << "AppStateGame activate()" << std::endl;
 
     /// Settings & assets
@@ -91,21 +95,22 @@ bool AppStateGame::activate()
         return false;
     }
 
-    mMuteButton = Button(800, 0, "Mute");
-    mMuteButton.load(assets);
-    mMuteButton.addClickedCallback([&] { Sounds::instance.toggleMute(); });
+    mMuteButton->load(assets);
+    mMuteButton->addClickedCallback([&] { Sounds::instance.toggleMute(); });
 
     // Add music
     Sounds::instance.play("mining");
 
-    mCountDown.load(assets);
-    mCountDown.setPosition(100, 100);
-    mCountDown.addTimedOutCallback([&] {
+    mCountDown->load(assets);
+    mCountDown->setPosition(100, 100);
+    mCountDown->addTimedOutCallback([&] {
         std::cout << "mCountDown timer callback..." << std::endl;
         AppStateManager::instance.setActiveAppState(APPSTATE_GAMEOVER);
     });
 
     std::cout << "finished AppStateGame OnActivate()..." << std::endl;
+
+    mActivatedCallback();
 
     return true;
 }
@@ -114,6 +119,9 @@ void AppStateGame::deactivate()
 {
     std::cout << "AppStateGame deactivate()" << std::endl;
     Sounds::instance.stop();
+    mIsDeactivated = true;
+    mCountDown->mIsRendering = false;
+    cleanup();
 }
 
 void AppStateGame::loop()
@@ -122,16 +130,21 @@ void AppStateGame::loop()
 
 void AppStateGame::render(SDL_Surface* Surf_Display)
 {
+    if (mIsDeactivated)
+        return;
+
     Surface::OnDraw(Surf_Display, mBackground, 0, 0);
 
     mGrid.render(Surf_Display);
-    mCountDown.render(Surf_Display);
-    mMuteButton.render(Surf_Display);
+    if (mCountDown != nullptr)
+        mCountDown->render(Surf_Display);
+    if (mMuteButton != nullptr)
+        mMuteButton->render(Surf_Display);
 }
 
 void AppStateGame::onEvent(SDL_Event* event)
 {
-    mMuteButton.onEvent(event);
+    mMuteButton->onEvent(event);
     mGrid.onEvent(event);
 }
 
@@ -140,5 +153,10 @@ void AppStateGame::cleanup()
     std::cout << "AppStateGame start cleanup"  << std::endl;
     if (mBackground != nullptr)
         SDL_FreeSurface(mBackground);
-    std::cout << "AppStateGame en cleanup"  << std::endl;
+
+    delete mCountDown;
+    delete mMuteButton;
+    mCountDown = nullptr;
+    mMuteButton = nullptr;
+    std::cout << "AppStateGame end cleanup"  << std::endl;
 }

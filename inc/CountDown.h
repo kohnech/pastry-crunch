@@ -19,12 +19,14 @@ public:
 
     void addTimedOutCallback(TimedOutCallback cb);
 
+    void init();
+
 private:
     void update();
 
     Sint32 mTimeRemaining;
     Uint32 mCurrentTimeStamp;
     Uint32 mLastTimeStamp;
-    Text mText;
+    Text* mText;
     TimedOutCallback mTimedOutCallback;
 };

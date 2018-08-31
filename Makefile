@@ -68,7 +68,8 @@ SRCS = 	App.cpp \
 		AppStateManager.cpp \
 		AppStateIntro.cpp \
 		AppStateGame.cpp \
-		AppStateGameOver.cpp
+		AppStateGameOver.cpp \
+		IAppState.cpp
 
 HDRS = 	inc/App.h \
 		inc/Surface.h \

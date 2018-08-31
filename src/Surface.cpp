@@ -57,6 +57,11 @@ SDL_Surface* Surface::loadImage(const std::string path)
         printf("Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError());
     }
 
+    if (loadedSurface == NULL)
+    {
+        printf("Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError());
+    }
+
     return loadedSurface;
 }
 

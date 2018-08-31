@@ -62,6 +62,11 @@ void Text::render(SDL_Surface* display)
         std::cerr << "Empty display!" << std::endl;
         return;
     }
+    if (display == NULL)
+    {
+        std::cerr << "Empty display!" << std::endl;
+        return;
+    }
 
     mTextSurface = TTF_RenderUTF8_Solid(mFont, mMessage.c_str(), BLUE);
     if (mTextSurface == nullptr)
@@ -73,6 +78,7 @@ void Text::render(SDL_Surface* display)
 
     Surface::OnDraw(display, mTextSurface, mX, mY);
     SDL_FreeSurface(mTextSurface);
+    mTextSurface = nullptr;
 }
 
 void Text::cleanup()

@@ -37,9 +37,9 @@ public:
 private:
     SDL_Surface* mBackground;
 
-    Button mMuteButton;
+    Button* mMuteButton;
 
-    CountDown mCountDown;
+    CountDown* mCountDown;
 
     Grid mGrid;
 };

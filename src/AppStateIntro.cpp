@@ -19,6 +19,8 @@ bool AppStateIntro::activate()
 
     StartTime = SDL_GetTicks();
 
+    mActivatedCallback();
+
     return true;
 }
 
