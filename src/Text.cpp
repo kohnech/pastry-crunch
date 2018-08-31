@@ -62,7 +62,6 @@ void Text::render(SDL_Surface* display)
         std::cerr << "Empty display!" << std::endl;
         return;
     }
-    std::cout << "mFont:" << mFont << ", mMEssage: " << mMessage << std::endl;
 
     mTextSurface = TTF_RenderUTF8_Solid(mFont, mMessage.c_str(), BLUE);
     if (mTextSurface == nullptr)
@@ -78,19 +77,11 @@ void Text::render(SDL_Surface* display)
 
 void Text::cleanup()
 {
-    std::cout << "Te3xt cleanup() starting" << std::endl;
     TTF_CloseFont(mFont);
     mFont = nullptr;
-    std::cout << "Te3xt cleanup() finish" << std::endl;
 }
 
 void Text::setText(std::string msg)
 {
     mMessage.assign(msg);
-}
-
-void Text::setPosition(int x, int y)
-{
-    mX = x;
-    mY = y;
 }

@@ -70,12 +70,6 @@ void Board::render(SDL_Surface* Surf_Display)
 
 void Board::cleanup()
 {
-   /* if (mSurface)
-    {
-        SDL_FreeSurface(mSurface);
-        mSurface = nullptr;
-    }*/
-
     if (mHighlightSurf)
     {
         SDL_FreeSurface(mHighlightSurf);

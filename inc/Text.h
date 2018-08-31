@@ -8,23 +8,19 @@
 
 #include <string>
 
-class Text //: public IUiComponent
+class Text : public IUiComponent
 {
 public:
     Text();
     ~Text();
-    bool load(Assets& assets); //override;
-    void render(SDL_Surface* display);// override;
-    void cleanup();// override;
+    bool load(Assets& assets) override;
+    void render(SDL_Surface* display) override;
+    void cleanup() override;
     void setText(std::string msg);
-
-    void setPosition(int x, int y);
 
 private:
     TTF_Font* mFont;
     int mFontSize;
     std::string mMessage;
     SDL_Surface* mTextSurface;
-
-    int mX, mY;
 };

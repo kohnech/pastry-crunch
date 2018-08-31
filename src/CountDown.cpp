@@ -8,9 +8,6 @@ CountDown::CountDown()
 , mCurrentTimeStamp{ 0 }
 , mLastTimeStamp{ 0 }
 {
-    std::cout << "Set mTimeRemaining: " << mTimeRemaining << std::endl;
-    std::cout << "Set mCurrentTimeStamp: " << mCurrentTimeStamp << std::endl;
-    std::cout << "Set mLastTimeStamp: " << mLastTimeStamp << std::endl;
 }
 
 CountDown::~CountDown()
@@ -29,14 +26,6 @@ bool CountDown::load(Assets& assets)
 
 void CountDown::cleanup()
 {
-    std::cout << "CountDown start cleanup"  << std::endl;
-    /*if (mSurface)
-    {
-        SDL_FreeSurface(mSurface);
-        mSurface = nullptr;
-    }*/
-
-    std::cout << "CountDown end cleanup"  << std::endl;
 }
 
 void CountDown::render(SDL_Surface* Surf_Display)
@@ -47,8 +36,6 @@ void CountDown::render(SDL_Surface* Surf_Display)
 
 void CountDown::update()
 {
-    std::cout << "CountDown update..." << std::endl;
-
     mText.setPosition(mX, mY);
     if (mLastTimeStamp == 0) {
         mLastTimeStamp = SDL_GetTicks();
