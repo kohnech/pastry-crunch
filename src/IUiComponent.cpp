@@ -5,9 +5,12 @@
 
 IUiComponent::~IUiComponent()
 {
+    std::cout << "IUiComponent start cleanup"  << std::endl;
 	if (mSurface != nullptr) {
 		SDL_FreeSurface(mSurface);
+		mSurface = nullptr;
 	}
+    std::cout << "IUiComponent end cleanup"  << std::endl;
 };
 
 bool IUiComponent::load()
