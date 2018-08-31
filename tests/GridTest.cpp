@@ -22,11 +22,6 @@ protected:
         grid_.initGrid();
     }
 
-    /*void TearDown() override
-    {
-        grid_.join(); // Just in case it wasn't joined...
-    }*/
-
     void createEmptyRow(int row)
     {
         std::vector<Index> matches;
