@@ -1,13 +1,9 @@
 #pragma once
 
 #include "Button.h"
-#include "CAnimation.h"
-#include "CCamera.h"
 #include "CountDown.h"
-#include "Entity.h"
 #include "Grid.h"
 #include "IAppState.h"
-#include "Surface.h"
 
 #include <SDL.h>
 #include <SDL_events.h>
@@ -39,7 +35,9 @@ private:
 
     Button* mMuteButton;
 
-    CountDown* mCountDown;
+    CountDown mCountDown;
 
     Grid mGrid;
 };
+
+static void gCallback();

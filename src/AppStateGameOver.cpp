@@ -32,8 +32,8 @@ bool AppStateGameOver::activate()
     mBackground = Surface::loadImage(assets.getBackgroundPath());
     GameOver_Surf = Surface::loadImage(assets.getGameOverAsset());
 
-    //mRestartBtn->load(assets);
-    //mRestartBtn->addClickedCallback([&] { AppStateManager::instance.setActiveAppState(APPSTATE_GAME); });
+    mRestartBtn->load(assets);
+    mRestartBtn->addClickedCallback([&] { AppStateManager::instance.setActiveAppState(APPSTATE_GAME); });
 
     //mExitBtn->load(assets);
     //mExitBtn->addClickedCallback([&] { AppStateManager::instance.setActiveAppState(APPSTATE_GAME); });
@@ -59,7 +59,7 @@ void AppStateGameOver::render(SDL_Surface* Surf_Display)
         Surface::OnDraw(Surf_Display, mBackground, 0, 0);
     }
     Surface::OnDraw(Surf_Display, GameOver_Surf, 0, 0);
-    //mRestartBtn->render(Surf_Display);
+    mRestartBtn->render(Surf_Display);
 }
 
 void AppStateGameOver::cleanup()
@@ -74,11 +74,11 @@ void AppStateGameOver::cleanup()
         SDL_FreeSurface(GameOver_Surf);
         GameOver_Surf = nullptr;
     }
-    //delete mRestartBtn;
-    //mRestartBtn = nullptr;
+    delete mRestartBtn;
+    mRestartBtn = nullptr;
 }
 
 void AppStateGameOver::onEvent(SDL_Event* event)
 {
-    //mRestartBtn->onEvent(event);
+    mRestartBtn->onEvent(event);
 }

@@ -154,6 +154,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\inc\App.h" />
+    <ClInclude Include="..\..\..\inc\AppStateGame.h" />
+    <ClInclude Include="..\..\..\inc\AppStateGameOver.h" />
+    <ClInclude Include="..\..\..\inc\AppStateIntro.h" />
+    <ClInclude Include="..\..\..\inc\AppStateManager.h" />
     <ClInclude Include="..\..\..\inc\Assets.h" />
     <ClInclude Include="..\..\..\inc\Board.h" />
     <ClInclude Include="..\..\..\inc\Button.h" />
@@ -165,6 +169,7 @@
     <ClInclude Include="..\..\..\inc\Entity.h" />
     <ClInclude Include="..\..\..\inc\Event.h" />
     <ClInclude Include="..\..\..\inc\Grid.h" />
+    <ClInclude Include="..\..\..\inc\IAppState.h" />
     <ClInclude Include="..\..\..\inc\IThread.h" />
     <ClInclude Include="..\..\..\inc\IUiComponent.h" />
     <ClInclude Include="..\..\..\inc\Sounds.h" />
@@ -173,6 +178,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\App.cpp" />
+    <ClCompile Include="..\..\..\src\AppStateGame.cpp" />
+    <ClCompile Include="..\..\..\src\AppStateGameOver.cpp" />
+    <ClCompile Include="..\..\..\src\AppStateIntro.cpp" />
+    <ClCompile Include="..\..\..\src\AppStateManager.cpp" />
     <ClCompile Include="..\..\..\src\Assets.cpp" />
     <ClCompile Include="..\..\..\src\Board.cpp" />
     <ClCompile Include="..\..\..\src\Button.cpp" />
@@ -182,6 +191,7 @@
     <ClCompile Include="..\..\..\src\Entity.cpp" />
     <ClCompile Include="..\..\..\src\Event.cpp" />
     <ClCompile Include="..\..\..\src\Grid.cpp" />
+    <ClCompile Include="..\..\..\src\IAppState.cpp" />
     <ClCompile Include="..\..\..\src\IThread.cpp" />
     <ClCompile Include="..\..\..\src\main.cpp" />
     <ClCompile Include="..\..\..\src\Sounds.cpp" />

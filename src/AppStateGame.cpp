@@ -1,7 +1,8 @@
 #include "AppStateGame.h"
 #include "AppStateManager.h"
-
+#include "CCamera.h"
 #include "Sounds.h"
+
 
 #include <iostream>
 
@@ -66,8 +67,7 @@ bool AppStateGame::activate()
 {
     mBackground = nullptr;
     mMuteButton = new Button(800, 0, "Mute");
-    mCountDown =  new CountDown();
-    mCountDown->init();
+    mCountDown.init();
 
     std::cout << "AppStateGame activate()" << std::endl;
 
@@ -101,12 +101,9 @@ bool AppStateGame::activate()
     // Add music
     Sounds::instance.play("mining");
 
-    mCountDown->load(assets);
-    mCountDown->setPosition(100, 100);
-    mCountDown->addTimedOutCallback([&] {
-        std::cout << "mCountDown timer callback..." << std::endl;
-        AppStateManager::instance.setActiveAppState(APPSTATE_GAMEOVER);
-    });
+    mCountDown.load(assets);
+    mCountDown.setPosition(100, 100);
+    mCountDown.addTimedOutCallback(&gCallback);
 
     std::cout << "finished AppStateGame OnActivate()..." << std::endl;
 
@@ -115,12 +112,18 @@ bool AppStateGame::activate()
     return true;
 }
 
+void gCallback()
+{
+	std::cout << "mCountDown timer callback..." << std::endl;
+	AppStateManager::instance.setActiveAppState(APPSTATE_GAMEOVER);
+}
+
 void AppStateGame::deactivate()
 {
     std::cout << "AppStateGame deactivate()" << std::endl;
-    Sounds::instance.stop();
+    Sounds::stop();
     mIsDeactivated = true;
-    mCountDown->mIsRendering = false;
+    mCountDown.mIsRendering = false;
     cleanup();
 }
 
@@ -136,9 +139,9 @@ void AppStateGame::render(SDL_Surface* Surf_Display)
     Surface::OnDraw(Surf_Display, mBackground, 0, 0);
 
     mGrid.render(Surf_Display);
-    if (mCountDown != nullptr)
-        mCountDown->render(Surf_Display);
-    if (mMuteButton != nullptr)
+    if (!mIsDeactivated)
+        mCountDown.render(Surf_Display);
+    if (mMuteButton != nullptr && !mIsDeactivated)
         mMuteButton->render(Surf_Display);
 }
 
@@ -150,13 +153,12 @@ void AppStateGame::onEvent(SDL_Event* event)
 
 void AppStateGame::cleanup()
 {
+	mCountDown.cleanup();
     std::cout << "AppStateGame start cleanup"  << std::endl;
     if (mBackground != nullptr)
         SDL_FreeSurface(mBackground);
 
-    delete mCountDown;
     delete mMuteButton;
-    mCountDown = nullptr;
     mMuteButton = nullptr;
     std::cout << "AppStateGame end cleanup"  << std::endl;
 }

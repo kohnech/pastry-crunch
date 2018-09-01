@@ -15,7 +15,7 @@ AppStateIntro::~AppStateIntro()
 bool AppStateIntro::activate()
 {
     // Load Simple Logo
-    mSplash = Surface::loadImage("assets/github-octocat.png");
+    mSplash = Surface::loadImage("assets/github-octocat.png"); // TODO Fix this
 
     StartTime = SDL_GetTicks();
 

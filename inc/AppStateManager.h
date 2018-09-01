@@ -44,4 +44,5 @@ public:
 
 private:
     static IAppState* ActiveAppState;
+	int mState;
 };
