@@ -6,6 +6,7 @@
 
 #include <iostream>
 
+
 AppStateManager AppStateManager::instance;
 
 IAppState* AppStateManager::ActiveAppState = 0;
@@ -16,25 +17,27 @@ AppStateManager::AppStateManager()
 
 void AppStateManager::onEvent(SDL_Event* EventHolder)
 {
-    if (ActiveAppState)
+    if (ActiveAppState != nullptr)
         ActiveAppState->onEvent(EventHolder);
 }
 
 void AppStateManager::loop()
 {
-    if (ActiveAppState)
+    if (ActiveAppState != nullptr)
         ActiveAppState->loop();
 }
 
 void AppStateManager::render(SDL_Surface* Surf_Display)
 {
-    if (ActiveAppState)
+    if (ActiveAppState != nullptr) 
+    {
         ActiveAppState->render(Surf_Display);
+    }
 }
 
 void AppStateManager::setActiveAppState(int AppStateID)
 {
-    std::cout << "AppStateManager setActiveState: " << ToString(AppStateID) << std::endl;
+    std::cout << "AppStateManager setActiveAppState: " << ToString(AppStateID) << std::endl;
 
     if (ActiveAppState) {
         ActiveAppState->deactivate();
@@ -50,9 +53,23 @@ void AppStateManager::setActiveAppState(int AppStateID)
     if (AppStateID == APPSTATE_GAMEOVER)
         ActiveAppState = new AppStateGameOver;
 
+    if (ActiveAppState != nullptr) {
+        ActiveAppState->registerOnActivatedCallback(&callback);
+    }
+
+	bool success = false;
     if (ActiveAppState)
-        ActiveAppState->activate();
+		success =ActiveAppState->activate();
+    if (!success)
+    {
+		std::cerr << "Could not activate app state!" << std::endl;
+    }
 }
+
+void AppStateManager::callback()
+{
+    std::cout << "Activated callback..." << std::endl;
+};
 
 IAppState* AppStateManager::getActiveAppState()
 {

@@ -9,7 +9,8 @@ class IUiComponent
 {
 public:
     IUiComponent()
-    : mX{ 0 }
+    : mIsRendering{ true }
+    , mX{ 0 }
     , mY{ 0 }
     , mSurface{ nullptr }
     , mWidth{ 0 }
@@ -40,10 +41,13 @@ public:
     int fromX{ 0 };
     int fromY{ 0 };
 
+    bool mIsRendering;
+
 protected:
     int mX, mY;
     SDL_Surface* mSurface;
     int mWidth, mHeight;
+
 };
 
 

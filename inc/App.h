@@ -1,11 +1,6 @@
 #pragma once
 
-#include "Button.h"
-#include "CAnimation.h"
-#include "CountDown.h"
-#include "Entity.h"
 #include "Event.h"
-
 #include "IThread.h"
 
 #include <SDL.h>

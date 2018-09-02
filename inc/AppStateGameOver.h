@@ -2,6 +2,7 @@
 
 #include "IAppState.h"
 #include "Surface.h"
+#include "Button.h"
 
 class AppStateGameOver : public IAppState
 {
@@ -20,9 +21,12 @@ public:
 
     void cleanup();
 
+    void onEvent(SDL_Event* event);
+
 private:
     SDL_Surface* mBackground;
     SDL_Surface* GameOver_Surf;
 
-    unsigned int StartTime;
+    Button* mRestartBtn;
+    //Button* mExitBtn;
 };

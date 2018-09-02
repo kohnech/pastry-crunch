@@ -3,15 +3,20 @@
 
 #include <iostream>
 
-CountDown::CountDown()
-: mTimeRemaining{ 1000 * 10 } // ms
-, mCurrentTimeStamp{ 0 }
-, mLastTimeStamp{ 0 }
+CountDown::CountDown(int seconds)
+    : mTimeRemaining { 1000 * seconds } // ms
+    , mCurrentTimeStamp { 0 }
+    , mLastTimeStamp { 0 }
+    , mTimedOutCallback { nullptr }
 {
+    std::cout << "CountdDown() called" << std::endl;
+	mIsRendering = true;
 }
 
 CountDown::~CountDown()
 {
+    std::cout << "~COuntdDonw() called" << std::endl;
+    mIsRendering = false;
     cleanup();
 }
 
@@ -30,8 +35,12 @@ void CountDown::cleanup()
 
 void CountDown::render(SDL_Surface* Surf_Display)
 {
-    update();
+    if (!mIsRendering)
+        return;
+    if (Surf_Display == NULL || Surf_Display == nullptr)
+        return;
     mText.render(Surf_Display);
+    update(); // Must be in end since we have a callback
 }
 
 void CountDown::update()

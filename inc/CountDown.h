@@ -4,19 +4,19 @@
 #include "Text.h"
 
 #include <SDL.h>
+#include "IThread.h"
 
 class CountDown : public IUiComponent
 {
 public:
     typedef std::function<void()> TimedOutCallback;
 
-    CountDown();
+    CountDown(int seconds = 10);
     ~CountDown();
 
     bool load(Assets& assets) override;
     void cleanup() override;
     void render(SDL_Surface* Surf_Display) override;
-
     void addTimedOutCallback(TimedOutCallback cb);
 
 private:

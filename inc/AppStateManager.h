@@ -22,6 +22,7 @@ inline const char* ToString(int v)
     }
 }
 
+
 class AppStateManager
 {
 public:
@@ -38,6 +39,8 @@ public:
     void setActiveAppState(int AppStateID);
 
     IAppState* getActiveAppState();
+
+    static void callback();
 
 private:
     static IAppState* ActiveAppState;

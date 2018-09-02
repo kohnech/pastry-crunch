@@ -2,10 +2,14 @@
 
 #include "Event.h"
 
+#include <functional>
+
+typedef std::function<void()> ActivatedCallback;
+
 class IAppState : public Event
 {
 public:
-    IAppState() = default;
+    IAppState();
 
     virtual ~IAppState() = default;
 
@@ -16,4 +20,10 @@ public:
     virtual void loop() = 0;
 
     virtual void render(SDL_Surface* Surf_Display) = 0;
+
+    void registerOnActivatedCallback(ActivatedCallback cb);
+
+protected:
+    ActivatedCallback mActivatedCallback;
+    bool mIsDeactivated;
 };

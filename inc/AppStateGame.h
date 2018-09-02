@@ -1,13 +1,9 @@
 #pragma once
 
 #include "Button.h"
-#include "CAnimation.h"
-#include "CCamera.h"
 #include "CountDown.h"
-#include "Entity.h"
 #include "Grid.h"
 #include "IAppState.h"
-#include "Surface.h"
 
 #include <SDL.h>
 #include <SDL_events.h>
@@ -34,10 +30,12 @@ public:
 
     void cleanup();
 
+    static void callback();
+
 private:
     SDL_Surface* mBackground;
 
-    Button mMuteButton;
+    Button* mMuteButton;
 
     CountDown mCountDown;
 
