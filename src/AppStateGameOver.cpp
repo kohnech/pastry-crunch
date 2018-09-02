@@ -13,7 +13,6 @@ AppStateGameOver::AppStateGameOver()
 
 AppStateGameOver::~AppStateGameOver()
 {
-    cleanup();
 }
 
 bool AppStateGameOver::activate()
@@ -46,6 +45,7 @@ bool AppStateGameOver::activate()
 void AppStateGameOver::deactivate()
 {
     std::cout << "AppStateGameOver deactivate()" << std::endl;
+    cleanup();
 }
 
 void AppStateGameOver::loop()

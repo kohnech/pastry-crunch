@@ -9,7 +9,6 @@ AppStateIntro::AppStateIntro()
 
 AppStateIntro::~AppStateIntro()
 {
-    cleanup();
 }
 
 bool AppStateIntro::activate()
@@ -31,6 +30,7 @@ bool AppStateIntro::activate()
 
 void AppStateIntro::deactivate()
 {
+    cleanup();
 }
 
 void AppStateIntro::loop()

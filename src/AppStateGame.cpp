@@ -13,7 +13,6 @@ AppStateGame::AppStateGame()
 
 AppStateGame::~AppStateGame()
 {
-    //cleanup();
 }
 
 
