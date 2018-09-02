@@ -4,7 +4,6 @@
 #include <iostream>
 
 Button::Button(int x, int y, std::string text)
- : mText{ new Text() }
 {
     mX = x;
     mY = y;
@@ -36,16 +35,15 @@ bool Button::load(Assets& assets)
         return false;
     }
 
-    mText->load(assets);
-    mText->setPosition(mX + mWidth / 2 - mStr.size() * 6, mY + mHeight / 2 - 20);
-    mText->setText(mStr);
+    mText.load(assets);
+    mText.setPosition(mX + mWidth / 2 - mStr.size() * 6, mY + mHeight / 2 - 20);
+    mText.setText(mStr);
 
     return true;
 }
 
 void Button::cleanup()
 {
-    delete mText;
 }
 
 void Button::render(SDL_Surface* Surf_Display)
@@ -57,7 +55,7 @@ void Button::render(SDL_Surface* Surf_Display)
         return;
 
     Surface::OnDraw(Surf_Display, mSurface, mX, mY, 0, 0, mWidth, mHeight);
-    mText->render(Surf_Display);
+    mText.render(Surf_Display);
 }
 
 void Button::onLButtonDown(int x, int y)

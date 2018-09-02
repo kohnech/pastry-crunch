@@ -29,7 +29,7 @@ public:
     void onClicked() const;
 
 private:
-    Text* mText;
+    Text mText;
     std::string mStr;
     ClickedCallback mClickedCallback;
 };
