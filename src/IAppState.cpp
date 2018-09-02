@@ -5,7 +5,6 @@
 IAppState::IAppState()
 : mIsDeactivated{ false }
 {
-
 }
 
 void IAppState::registerOnActivatedCallback(ActivatedCallback cb)

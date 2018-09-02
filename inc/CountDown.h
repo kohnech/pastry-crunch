@@ -6,7 +6,7 @@
 #include <SDL.h>
 #include "IThread.h"
 
-class CountDown : public IUiComponent, public IThread
+class CountDown : public IUiComponent
 {
 public:
     typedef std::function<void()> TimedOutCallback;
@@ -17,13 +17,9 @@ public:
     bool load(Assets& assets) override;
     void cleanup() override;
     void render(SDL_Surface* Surf_Display) override;
-	//void render(SDL_Surface* Surf_Display) override;
-
     void addTimedOutCallback(TimedOutCallback cb);
 
     void init();
-
-	bool ThreadMethod() override;
 
 private:
     void update();

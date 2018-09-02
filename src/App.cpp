@@ -4,7 +4,6 @@
 #include "Define.h"
 #include "Grid.h"
 #include "Sounds.h"
-#include "Surface.h"
 
 #include <SDL_events.h>
 

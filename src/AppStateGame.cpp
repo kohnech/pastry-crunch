@@ -153,12 +153,9 @@ void AppStateGame::onEvent(SDL_Event* event)
 
 void AppStateGame::cleanup()
 {
-	mCountDown.cleanup();
-    std::cout << "AppStateGame start cleanup"  << std::endl;
     if (mBackground != nullptr)
         SDL_FreeSurface(mBackground);
 
     delete mMuteButton;
     mMuteButton = nullptr;
-    std::cout << "AppStateGame end cleanup"  << std::endl;
 }

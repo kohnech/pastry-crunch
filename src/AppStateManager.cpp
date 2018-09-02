@@ -6,35 +6,33 @@
 
 #include <iostream>
 
-static bool gIsActivated = false;
 
 AppStateManager AppStateManager::instance;
 
 IAppState* AppStateManager::ActiveAppState = 0;
 
 AppStateManager::AppStateManager()
-//: mIsActivated{ false }
- : mState{ APPSTATE_NONE }
 {
-    gIsActivated = false;
 }
 
 void AppStateManager::onEvent(SDL_Event* EventHolder)
 {
-    if (ActiveAppState != nullptr  && gIsActivated)
+    if (ActiveAppState != nullptr)
         ActiveAppState->onEvent(EventHolder);
 }
 
 void AppStateManager::loop()
 {
-    if (ActiveAppState != nullptr  && gIsActivated)
+    if (ActiveAppState != nullptr)
         ActiveAppState->loop();
 }
 
 void AppStateManager::render(SDL_Surface* Surf_Display)
 {
-    if ((ActiveAppState != nullptr)  && gIsActivated && (mState != APPSTATE_NONE))
+    if (ActiveAppState != nullptr) 
+    {
         ActiveAppState->render(Surf_Display);
+    }
 }
 
 void AppStateManager::setActiveAppState(int AppStateID)
@@ -44,8 +42,6 @@ void AppStateManager::setActiveAppState(int AppStateID)
     if (ActiveAppState) {
         ActiveAppState->deactivate();
         delete ActiveAppState;
-        gIsActivated = false;
-		mState = APPSTATE_NONE;
     }
 
     if (AppStateID == APPSTATE_NONE)
@@ -63,21 +59,16 @@ void AppStateManager::setActiveAppState(int AppStateID)
 
 	bool success = false;
     if (ActiveAppState)
-		success =ActiveAppState->activate(); // TODO check return value
-	std::cout << "activate result: " << success << std::endl;
+		success =ActiveAppState->activate();
     if (!success)
     {
 		std::cerr << "Could not activate app state!" << std::endl;
     }
-
-	gIsActivated = true;
-	mState = AppStateID;
 }
 
 void AppStateManager::callback()
 {
     std::cout << "Activated callback..." << std::endl;
-    gIsActivated = false;
 };
 
 IAppState* AppStateManager::getActiveAppState()

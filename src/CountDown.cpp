@@ -5,11 +5,13 @@
 
 CountDown::CountDown()
 {
+    std::cout << "CountdDown() called" << std::endl;
 	mIsRendering = true;
 }
 
 CountDown::~CountDown()
 {
+    std::cout << "~COuntdDonw() called" << std::endl;
     mIsRendering = false;
     cleanup();
 }
@@ -21,8 +23,6 @@ void CountDown::init() //SDL_Surface* surface
     mCurrentTimeStamp =  0 ;
     mLastTimeStamp =  0 ;
     mTimedOutCallback =  nullptr;
-
-	start(); // start countdown
 }
 
 bool CountDown::load(Assets& assets)
@@ -36,24 +36,20 @@ bool CountDown::load(Assets& assets)
 
 void CountDown::cleanup()
 {
-	join();
 }
 
 void CountDown::render(SDL_Surface* Surf_Display)
 {
-	std::cout << "count down render" << std::endl;
     if (!mIsRendering)
         return;
     if (Surf_Display == NULL || Surf_Display == nullptr)
         return;
-    update();
-    std::cout << "&mText: " << &mText << std::endl;
-    // if (mText != nullptr)
     mText.render(Surf_Display);
+    update(); // Must be in end since we have a callback
 }
 
 void CountDown::update()
-{/*
+{
     mText.setPosition(mX, mY);
     if (mLastTimeStamp == 0) {
         mLastTimeStamp = SDL_GetTicks();
@@ -73,7 +69,7 @@ void CountDown::update()
     mText.setText(str);
 
     if (mTimeRemaining <= 0)
-        mTimedOutCallback();*/
+        mTimedOutCallback();
 }
 
 void CountDown::addTimedOutCallback(TimedOutCallback cb)
@@ -82,34 +78,4 @@ void CountDown::addTimedOutCallback(TimedOutCallback cb)
         std::cerr << "Trying to register nullptr as callback!" << std::endl;
     }
     mTimedOutCallback = cb;
-}
-
-bool CountDown::ThreadMethod()
-{
-	if (mLastTimeStamp == 0) 
-	{
-		mLastTimeStamp = SDL_GetTicks();
-	}
-
-    while(mTimeRemaining > 0)
-    {
-		mText.setPosition(mX, mY);
-		
-		mCurrentTimeStamp = SDL_GetTicks();
-
-		if (mCurrentTimeStamp > mLastTimeStamp)
-		{
-			Uint32 diff = mCurrentTimeStamp - mLastTimeStamp;
-			mTimeRemaining = mTimeRemaining - diff;
-			mLastTimeStamp = mCurrentTimeStamp;
-		}
-
-		std::string str;
-		str = "Time: " + std::to_string(mTimeRemaining / 1000);
-		mText.setText(str);
-        std::this_thread::sleep_for(std::chrono::milliseconds(5));
-    }
-
-	mTimedOutCallback();
-	return true;
 }

@@ -20,11 +20,13 @@ Grid::Grid(int x, int y)
 {
     mX = x;
     mY = y;
+    std::cout << "Grid() called" << std::endl;
 }
 
 
 Grid::~Grid()
 {
+    std::cout << "~Grid() called" << std::endl;
     stop();
     join();
     cleanup();
