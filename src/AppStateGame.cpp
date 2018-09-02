@@ -103,7 +103,7 @@ bool AppStateGame::activate()
 
     mCountDown.load(assets);
     mCountDown.setPosition(100, 100);
-    mCountDown.addTimedOutCallback(&gCallback);
+    mCountDown.addTimedOutCallback(&callback);
 
     std::cout << "finished AppStateGame OnActivate()..." << std::endl;
 
@@ -112,7 +112,7 @@ bool AppStateGame::activate()
     return true;
 }
 
-void gCallback()
+void AppStateGame::callback()
 {
 	std::cout << "mCountDown timer callback..." << std::endl;
 	AppStateManager::instance.setActiveAppState(APPSTATE_GAMEOVER);

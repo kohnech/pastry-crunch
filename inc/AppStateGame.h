@@ -30,6 +30,8 @@ public:
 
     void cleanup();
 
+    static void callback();
+
 private:
     SDL_Surface* mBackground;
 
@@ -39,5 +41,3 @@ private:
 
     Grid mGrid;
 };
-
-static void gCallback();
