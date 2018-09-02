@@ -8,6 +8,7 @@
 
 
 AppStateGame::AppStateGame()
+: mCountDown { 60 }
 {
 }
 
@@ -66,7 +67,6 @@ bool AppStateGame::activate()
 {
     mBackground = nullptr;
     mMuteButton = new Button(800, 0, "Mute");
-    mCountDown.init();
 
     std::cout << "AppStateGame activate()" << std::endl;
 

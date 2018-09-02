@@ -3,7 +3,11 @@
 
 #include <iostream>
 
-CountDown::CountDown()
+CountDown::CountDown(int seconds)
+    : mTimeRemaining { 1000 * seconds } // ms
+    , mCurrentTimeStamp { 0 }
+    , mLastTimeStamp { 0 }
+    , mTimedOutCallback { nullptr }
 {
     std::cout << "CountdDown() called" << std::endl;
 	mIsRendering = true;
@@ -14,15 +18,6 @@ CountDown::~CountDown()
     std::cout << "~COuntdDonw() called" << std::endl;
     mIsRendering = false;
     cleanup();
-}
-
-void CountDown::init() //SDL_Surface* surface
-{
-	//mSurface = surface;
-    mTimeRemaining =  1000 * 10; // ms
-    mCurrentTimeStamp =  0 ;
-    mLastTimeStamp =  0 ;
-    mTimedOutCallback =  nullptr;
 }
 
 bool CountDown::load(Assets& assets)
