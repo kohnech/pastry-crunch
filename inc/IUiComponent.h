@@ -8,15 +8,7 @@
 class IUiComponent
 {
 public:
-    IUiComponent()
-    : mIsRendering{ true }
-    , mX{ 0 }
-    , mY{ 0 }
-    , mSurface{ nullptr }
-    , mWidth{ 0 }
-    , mHeight{ 0 }
-    {
-    }
+    IUiComponent();
 
 	virtual ~IUiComponent();
 
@@ -35,19 +27,20 @@ public:
 
 	void setSize(Pair size);
 
-    bool animate{ false };
+    bool animate;
 
     // Animate from these coordinates
-    int fromX{ 0 };
-    int fromY{ 0 };
-
-    bool mIsRendering;
+    int fromX;
+    int fromY;
 
 protected:
     int mX, mY;
     SDL_Surface* mSurface;
     int mWidth, mHeight;
 
+private:
+    IUiComponent(const IUiComponent&);
+    const IUiComponent& operator=(const IUiComponent&);
 };
 
 

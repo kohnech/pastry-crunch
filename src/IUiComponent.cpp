@@ -2,6 +2,17 @@
 
 #include <iostream>
 
+IUiComponent::IUiComponent()
+    : animate{ false }
+    , fromX { 0 }
+    , fromY{ 0 }
+    , mX{ 0 }
+    , mY{ 0 }
+    , mSurface{ nullptr }
+    , mWidth{ 0 }
+    , mHeight{ 0 }
+{
+}
 
 IUiComponent::~IUiComponent()
 {

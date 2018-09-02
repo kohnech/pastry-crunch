@@ -119,10 +119,8 @@ void AppStateGame::callback()
 
 void AppStateGame::deactivate()
 {
-    std::cout << "AppStateGame deactivate()" << std::endl;
     Sounds::stop();
     mIsDeactivated = true;
-    mCountDown.mIsRendering = false;
     cleanup();
 }
 

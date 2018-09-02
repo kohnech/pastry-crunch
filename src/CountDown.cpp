@@ -10,13 +10,11 @@ CountDown::CountDown(int seconds)
     , mTimedOutCallback { nullptr }
 {
     std::cout << "CountdDown() called" << std::endl;
-	mIsRendering = true;
 }
 
 CountDown::~CountDown()
 {
     std::cout << "~COuntdDonw() called" << std::endl;
-    mIsRendering = false;
     cleanup();
 }
 
@@ -35,8 +33,6 @@ void CountDown::cleanup()
 
 void CountDown::render(SDL_Surface* Surf_Display)
 {
-    if (!mIsRendering)
-        return;
     if (Surf_Display == NULL || Surf_Display == nullptr)
         return;
     mText.render(Surf_Display);
