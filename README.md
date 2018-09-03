@@ -55,3 +55,20 @@ Dependencies and assets are already setup so just hit the run button.
 
 ## Game logic
 ![alt text](https://github.com/kohnech/bakery-street-game/blob/master/state_machine.png "Game logic")
+
+## Releases
+
+### V1.1
+* Added App states
+* Start once, possible to restart
+* Fixed numerous bugs (memory leak etc..)
+* Added separate Thread to Grid for game logic
+* Removed unecessary singletons
+* Resharped code
+
+### V1.0
+* Basic features 8 x 8 grid
+* Play once
+* Sound interaction
+* Swap interaction
+* Single Thread: Main (besides SDL threads)
