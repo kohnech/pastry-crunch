@@ -3,10 +3,11 @@
 
 #include <iostream>
 
-CountDown::CountDown()
-: mTimeRemaining{ 1000 * 60 } // ms
-, mCurrentTimeStamp{ 0 }
-, mLastTimeStamp{ 0 }
+CountDown::CountDown(int seconds)
+    : mTimeRemaining { 1000 * seconds } // ms
+    , mCurrentTimeStamp { 0 }
+    , mLastTimeStamp { 0 }
+    , mTimedOutCallback { nullptr }
 {
 }
 
@@ -26,23 +27,23 @@ bool CountDown::load(Assets& assets)
 
 void CountDown::cleanup()
 {
-    if (mSurface)
-    {
-        SDL_FreeSurface(mSurface);
-    }
-
-    mSurface = nullptr;
 }
 
 void CountDown::render(SDL_Surface* Surf_Display)
 {
-    update();
+    if (Surf_Display == NULL || Surf_Display == nullptr)
+        return;
     mText.render(Surf_Display);
+    update(); // Must be in end since we have a callback
 }
 
 void CountDown::update()
 {
     mText.setPosition(mX, mY);
+    if (mLastTimeStamp == 0) {
+        mLastTimeStamp = SDL_GetTicks();
+        return;
+    }
     mCurrentTimeStamp = SDL_GetTicks();
 
     if (mCurrentTimeStamp > mLastTimeStamp)
@@ -62,5 +63,8 @@ void CountDown::update()
 
 void CountDown::addTimedOutCallback(TimedOutCallback cb)
 {
+    if (cb == nullptr) {
+        std::cerr << "Trying to register nullptr as callback!" << std::endl;
+    }
     mTimedOutCallback = cb;
 }

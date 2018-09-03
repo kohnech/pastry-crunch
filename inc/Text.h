@@ -11,7 +11,7 @@
 class Text : public IUiComponent
 {
 public:
-    Text();
+    explicit Text();
     ~Text();
     bool load(Assets& assets) override;
     void render(SDL_Surface* display) override;
@@ -22,4 +22,5 @@ private:
     TTF_Font* mFont;
     int mFontSize;
     std::string mMessage;
+    SDL_Surface* mTextSurface;
 };

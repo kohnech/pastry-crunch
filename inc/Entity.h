@@ -8,7 +8,7 @@
 class Entity : public IUiComponent
 {
 public:
-    Entity();
+    explicit Entity();
 
     Entity(int id);
 

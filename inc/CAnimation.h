@@ -5,10 +5,6 @@
 class CAnimation
 {
 public:
-	int MaxFrames;
-
-    bool Oscillate;
-
     CAnimation();
 
     void OnAnimate();
@@ -18,6 +14,10 @@ public:
     void SetCurrentFrame(int Frame);
 
     int GetCurrentFrame();
+
+    int MaxFrames;
+
+    bool Oscillate;
 
 private:
 	int CurrentFrame;

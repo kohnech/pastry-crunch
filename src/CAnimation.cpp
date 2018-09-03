@@ -4,14 +4,12 @@
 
 CAnimation::CAnimation()
 {
-    CurrentFrame = 0;
     MaxFrames = 0;
+    Oscillate = false;
+    CurrentFrame = 0;
     FrameInc = 1;
-
     FrameRate = 100; // Milliseconds
     OldTime = 0;
-
-    Oscillate = false;
 }
 
 void CAnimation::OnAnimate()

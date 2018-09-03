@@ -2,6 +2,26 @@
 
 #include <iostream>
 
+IUiComponent::IUiComponent()
+    : animate{ false }
+    , fromX { 0 }
+    , fromY{ 0 }
+    , mX{ 0 }
+    , mY{ 0 }
+    , mSurface{ nullptr }
+    , mWidth{ 0 }
+    , mHeight{ 0 }
+{
+}
+
+IUiComponent::~IUiComponent()
+{
+	if (mSurface != nullptr) {
+		SDL_FreeSurface(mSurface);
+		mSurface = nullptr;
+	}
+};
+
 bool IUiComponent::load()
 {
 	std::cerr << "WARNING: Unimplemented method: " << __FILE__ << ":" << __LINE__ << std::endl;

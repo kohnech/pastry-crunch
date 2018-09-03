@@ -8,16 +8,9 @@
 class IUiComponent
 {
 public:
-    IUiComponent()
-    : mX{ 0 }
-    , mY{ 0 }
-    , mSurface{ nullptr }
-    , mWidth{ 0 }
-    , mHeight{ 0 }
-    {
-    }
+    IUiComponent();
 
-	virtual ~IUiComponent() = default;
+	virtual ~IUiComponent();
 
 	virtual bool load();
 	virtual bool load(Assets& assets);
@@ -34,16 +27,20 @@ public:
 
 	void setSize(Pair size);
 
-    bool animate{ false };
+    bool animate;
 
     // Animate from these coordinates
-    int fromX{ 0 };
-    int fromY{ 0 };
+    int fromX;
+    int fromY;
 
 protected:
     int mX, mY;
     SDL_Surface* mSurface;
     int mWidth, mHeight;
+
+private:
+    IUiComponent(const IUiComponent&);
+    const IUiComponent& operator=(const IUiComponent&);
 };
 
 

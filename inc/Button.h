@@ -10,7 +10,7 @@ class Button : public IUiComponent, public Event
 public:
     typedef std::function<void()> ClickedCallback;
 
-    Button(int x = 0, int y = 0, std::string text = "Button");
+    explicit Button(int x = 0, int y = 0, std::string text = "Button");
 
     ~Button();
 

@@ -34,7 +34,7 @@
  */
 struct Index
 {
-    Index(int r = 0, int c = 0)
+    explicit Index(int r = 0, int c = 0)
     {
         row = r;
         column = c;
@@ -66,7 +66,7 @@ public:
      * @param x x position upper left corner
      * @param y y position upper left corner
      */
-    Grid(int x = 0, int y = 0);
+    explicit Grid(int x = 0, int y = 0);
 
     /*!
      * Unload resources

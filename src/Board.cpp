@@ -70,18 +70,11 @@ void Board::render(SDL_Surface* Surf_Display)
 
 void Board::cleanup()
 {
-    if (mSurface)
-    {
-        SDL_FreeSurface(mSurface);
-    }
-
     if (mHighlightSurf)
     {
         SDL_FreeSurface(mHighlightSurf);
+        mHighlightSurf = nullptr;
     }
-
-    mSurface = nullptr;
-    mHighlightSurf = nullptr;
 }
 
 Pair Board::getBoardSize()

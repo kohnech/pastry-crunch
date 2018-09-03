@@ -73,10 +73,4 @@ void Entity::renderAnimation(SDL_Surface* Surf_Display)
 
 void Entity::cleanup()
 {
-    if (mSurface)
-    {
-        SDL_FreeSurface(mSurface);
-    }
-
-    mSurface = nullptr;
 }
