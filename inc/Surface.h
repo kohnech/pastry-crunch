@@ -7,8 +7,6 @@
 namespace Surface
 {
 
-SDL_Surface* OnLoad(std::string File);
-
 SDL_Texture* loadTexture(SDL_Renderer* renderer, const std::string& path);
 
 /*!
@@ -49,5 +47,8 @@ bool OnDraw(SDL_Surface* Surf_Dest, SDL_Surface* Surf_Src, int x, int y);
  */
 bool OnDraw(SDL_Surface* Surf_Dest, SDL_Surface* Surf_Src, int x, int y, int x2, int y2, int w, int h);
 
-bool Transparent(SDL_Surface* texture, int r, int g, int b);
+/*!
+ * Make surface transparent with color code rgb
+ */
+bool Transparent(SDL_Surface* surfaceDest, int r, int g, int b);
 }

@@ -2,13 +2,14 @@
 #include "Define.h"
 #include "Surface.h"
 
-
 #include <string>
+#include <iostream>
 
 Text::Text()
-: mFont{ NULL }
+: mFont{ nullptr }
 , mFontSize{ 30 }
 , mMessage{ "" }
+, mTextSurface{ nullptr }
 {
 }
 
@@ -23,37 +24,55 @@ bool Text::load(Assets& assets)
     mFontSize = assets.getFontSize();
     if (TTF_Init() < 0)
     {
-        printf("TTF_Init failed: %s\n", SDL_GetError());
+        std::cerr << "TTF_Init failed: " << SDL_GetError() << std::endl;
     }
 
     mFont = TTF_OpenFont(font.c_str(), mFontSize);
 
-    if (mFont < 0)
+    if (mFont == nullptr || mFont == NULL)
     {
-        printf("Could not load fond TTF_OpenFont");
+        std::cerr << "Could not load fond TTF_OpenFont" << std::endl;
         return false;
     }
-
 
     return true;
 }
 
 void Text::render(SDL_Surface* display)
 {
-    mSurface = TTF_RenderUTF8_Solid(mFont, mMessage.c_str(), BLUE);
-    if (mSurface == nullptr)
+    if (mMessage.empty())
     {
-        std::cout << "Got error TTF_RenderUTF8_Solid: " << SDL_GetError() << std::endl;
+        std::cerr << "Empty message!" << std::endl;
+        return;
+    }
+    if(mFont == NULL)
+    {
+        std::cerr << "Empty mFont!" << std::endl;
+        return;
+    }
+    if (display == nullptr || display == NULL)
+    {
+        std::cerr << "Empty display!" << std::endl;
         return;
     }
 
-    Surface::OnDraw(display, mSurface, mX, mY);
-    SDL_FreeSurface(mSurface);
+    mTextSurface = TTF_RenderUTF8_Solid(mFont, mMessage.c_str(), BLUE);
+    if (mTextSurface == nullptr)
+    {
+        std::cerr << "Got error TTF_RenderUTF8_Solid: " << SDL_GetError() << std::endl;
+        std::cerr << "Trying to display message: " << mMessage << std::endl;
+        return;
+    }
+
+    Surface::OnDraw(display, mTextSurface, mX, mY);
+    SDL_FreeSurface(mTextSurface);
+    mTextSurface = nullptr;
 }
 
 void Text::cleanup()
 {
     TTF_CloseFont(mFont);
+    mFont = nullptr;
 }
 
 void Text::setText(std::string msg)

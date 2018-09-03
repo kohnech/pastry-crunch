@@ -1,18 +1,11 @@
 #include "Grid.h"
 #include "Sounds.h"
-#include "Surface.h"
-
-
-#include "SDL_image.h"
 
 #include <algorithm>
 #include <iostream>
-#include <map>
 #include <random>
 #include <stdlib.h>
 
-
-Grid Grid::instance;
 
 Grid::Grid(int x, int y)
 : mGrid{ nullptr }
@@ -23,6 +16,7 @@ Grid::Grid(int x, int y)
 , mMinimumScore{ 10 }
 , mScore{ 0 }
 , mMinimumMatches{ 0 }
+, mIsRunning{ true }
 {
     mX = x;
     mY = y;
@@ -31,14 +25,9 @@ Grid::Grid(int x, int y)
 
 Grid::~Grid()
 {
+    stop();
+    join();
     cleanup();
-}
-
-
-void Grid::setPosition(int x, int y)
-{
-    mX = x;
-    mY = y;
 }
 
 
@@ -79,6 +68,9 @@ bool Grid::load(Assets& assets)
     Board::load(assets);
 
     initGrid();
+
+    // Start thread
+    start();
 
     return true;
 }
@@ -123,7 +115,7 @@ void Grid::cleanup()
 {
     if (mGrid == nullptr)
     {
-        std::cout << "ERROR: You must initialize the grid with load()!" << std::endl;
+        std::cerr << "WARNING: You must initialize the grid with load()!" << std::endl;
         return;
     }
     for (int x = 0; x < mGridRowSize; ++x)
@@ -140,7 +132,7 @@ void Grid::cleanup()
 }
 
 
-int Grid::getRandomInt()
+int Grid::getRandomInt() const
 {
     // Seed with a real random value, if available
     std::random_device r;
@@ -219,17 +211,17 @@ void Grid::onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode)
     std::cout << "mX:" << mX << "mY: " << mY << std::endl;
 }
 
-Index Grid::getIndexesFromPosition(int x, int y)
+Index Grid::getIndexesFromPosition(int x, int y) const
 {
     if (mWidth == 0 || mWidth == 0)
     {
-        return { 0, 0 };
+        return Index{ 0, 0 };
     }
 
     /// Check board boundaries
     if (x < mX || x >= (mWidth * mGridRowSize + mX) || y < mY || y >= (mHeight * mGridColumnSize + mY))
     {
-        return { -1, -1 };
+        return Index{ -1, -1 };
     }
 
     /// Calculate board coordinate
@@ -239,7 +231,7 @@ Index Grid::getIndexesFromPosition(int x, int y)
 
     if (row < 0 || column < 0)
     {
-        return { -1, -1 };
+        return Index{ -1, -1 };
     }
 
     Index index(row, column);
@@ -294,6 +286,7 @@ void Grid::update(const Index& pos)
 
             createNewEntitiesInRows(rows);
 
+            std::lock_guard<std::mutex> guard(mLock);
             mNewMatches.clear();
             mNewMatches = findNewMatches();
         }
@@ -306,7 +299,7 @@ void Grid::update(const Index& pos)
     mPrevClickedIndexes = pos;
 }
 
-bool Grid::isAdjacent(const Index& ind)
+bool Grid::isAdjacent(const Index& ind) const
 {
     return (ind.column == mPrevClickedIndexes.column || ind.row == mPrevClickedIndexes.row) &&
            abs(ind.column - mPrevClickedIndexes.column) <= 1 && abs(ind.row - mPrevClickedIndexes.row) <= 1;
@@ -441,7 +434,7 @@ std::vector<Index> Grid::findHorizontalMatches(const Index& ind)
 }
 
 
-std::vector<std::string> Grid::getAssets()
+std::vector<std::string> Grid::getAssets() const
 {
     return mAssets;
 }
@@ -473,7 +466,7 @@ void Grid::setHighlightPosition(const Index& index)
     mHighlightY = index.column;
 }
 
-Index Grid::getMaximumGridIndex()
+Index Grid::getMaximumGridIndex() const
 {
     // Simple math here...
     int row = mGridRowSize - 1;
@@ -492,7 +485,7 @@ void Grid::removeMatches(const std::vector<Index>& matches)
 }
 
 
-void Grid::printGrid()
+void Grid::printGrid() const
 {
     for (int column = 0; column < mGridColumnSize; column++)
     {
@@ -583,7 +576,7 @@ void Grid::createNewEntitiesInRows(std::vector<int> rows)
 }
 
 
-std::vector<Index> Grid::getEmptyItemsOnRow(int row)
+std::vector<Index> Grid::getEmptyItemsOnRow(int row) const
 {
     std::vector<Index> voids;
     if (row >= mGridRowSize)
@@ -648,7 +641,7 @@ std::vector<Index> Grid::findNewMatches()
     }
     catch (std::exception& e)
     {
-        std::cout << "Got exception e: " << e.what() << std::endl;
+        std::cerr << "Got exception e: " << e.what() << std::endl;
     }
 
     for (auto match : matches)
@@ -660,6 +653,7 @@ std::vector<Index> Grid::findNewMatches()
 
 void Grid::updateGrid()
 {
+    std::lock_guard<std::mutex> guard(mLock);
     if (mNewMatches.size() >= mMinimumMatches)
     {
         // play sound
@@ -672,11 +666,6 @@ void Grid::updateGrid()
         // Now we need collapse the matches
         removeMatches(mNewMatches);
 
-
-        // TODO This should be a while loop if more matches occurs while refiling the grid...
-        // TODO move out to outer function
-        printGrid();
-
         std::vector<int> rows = getDistinctRows(mNewMatches);
 
         collapse(rows);
@@ -686,4 +675,19 @@ void Grid::updateGrid()
         mNewMatches.clear();
         mNewMatches = findNewMatches();
     }
+}
+
+bool Grid::ThreadMethod()
+{
+    while (mIsRunning)
+    {
+        updateGrid();
+        sleep(2000); // To get time to run animations & rendering...
+    }
+    return true;
+}
+
+void Grid::stop()
+{
+    mIsRunning = false;
 }

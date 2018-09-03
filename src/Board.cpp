@@ -6,8 +6,6 @@
 #include <iostream>
 #include <string>
 
-Board Board::instance;
-
 Board::Board()
 : mTileAsset{ "" }
 , mHighlightX{ 0 }
@@ -31,15 +29,15 @@ bool Board::load(Assets& assets)
     mWidth = tileSize.first;
     mHeight = tileSize.second;
 
-    if ((mSurface = Surface::OnLoad(mTileAsset)) == nullptr)
+    if ((mSurface = Surface::loadImage(mTileAsset)) == nullptr)
     {
-        std::cout << "ERROR: could not create mSurface: " << SDL_GetError() << std::endl;
+        std::cerr << "ERROR: could not create mSurface: " << SDL_GetError() << std::endl;
         return false;
     }
 
-    if ((mHighlightSurf = Surface::OnLoad(highlightFile)) == nullptr)
+    if ((mHighlightSurf = Surface::loadImage(highlightFile)) == nullptr)
     {
-        std::cout << "ERROR: could not create mHighlightSurf: " << SDL_GetError() << std::endl;
+        std::cerr << "ERROR: could not create mHighlightSurf: " << SDL_GetError() << std::endl;
         return false;
     }
 
@@ -72,18 +70,11 @@ void Board::render(SDL_Surface* Surf_Display)
 
 void Board::cleanup()
 {
-    if (mSurface)
-    {
-        SDL_FreeSurface(mSurface);
-    }
-
     if (mHighlightSurf)
     {
         SDL_FreeSurface(mHighlightSurf);
+        mHighlightSurf = nullptr;
     }
-
-    mSurface = nullptr;
-    mHighlightSurf = nullptr;
 }
 
 Pair Board::getBoardSize()

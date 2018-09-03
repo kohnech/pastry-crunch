@@ -23,7 +23,7 @@ Entity::~Entity()
 bool Entity::load(std::string assetFile, int width, int height)
 {
     mAsset.assign(assetFile);
-    if ((mSurface = Surface::OnLoad(assetFile)) == NULL)
+    if ((mSurface = Surface::loadImage(assetFile)) == NULL)
     {
         return false;
     }
@@ -73,10 +73,4 @@ void Entity::renderAnimation(SDL_Surface* Surf_Display)
 
 void Entity::cleanup()
 {
-    if (mSurface)
-    {
-        SDL_FreeSurface(mSurface);
-    }
-
-    mSurface = nullptr;
 }

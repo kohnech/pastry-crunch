@@ -1,13 +1,10 @@
 #pragma once
+#include <SDL_hints.h>
 
 
 class CAnimation
 {
 public:
-    int MaxFrames;
-
-    bool Oscillate;
-
     CAnimation();
 
     void OnAnimate();
@@ -18,12 +15,16 @@ public:
 
     int GetCurrentFrame();
 
-private:
-    int CurrentFrame;
+    int MaxFrames;
 
-    int FrameInc;
+    bool Oscillate;
+
+private:
+	int CurrentFrame;
+
+	int FrameInc;
 
     int FrameRate; // Milliseconds
 
-    long OldTime;
+	int OldTime;
 };

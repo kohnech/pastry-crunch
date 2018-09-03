@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Assets.h"
-#include "Event.h"
 #include "IUiComponent.h"
 
 #include <string>
@@ -15,17 +14,15 @@
 class Board : public IUiComponent
 {
 public:
-    static Board instance;
-
-    Board();
+    explicit Board();
 
     ~Board();
 
-    virtual bool load(Assets& assets);
+    bool load(Assets& assets) override;
 
-    virtual void render(SDL_Surface* Surf_Display);
+    void render(SDL_Surface* Surf_Display) override;
 
-    virtual void cleanup();
+    void cleanup() override;
 
     Pair getBoardSize();
 
@@ -36,6 +33,5 @@ protected:
 
 private:
     SDL_Surface* mHighlightSurf;
-
     bool mIsHighlightVisible;
 };

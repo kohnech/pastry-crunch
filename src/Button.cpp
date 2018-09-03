@@ -1,6 +1,8 @@
 #include "Button.h"
 #include "Surface.h"
 
+#include <iostream>
+
 Button::Button(int x, int y, std::string text)
 {
     mX = x;
@@ -21,9 +23,15 @@ bool Button::load(Assets& assets)
     mWidth = size.first;
     mHeight = size.second;
 
-    if ((mSurface = Surface::OnLoad(asset)) == nullptr)
+    if ((mSurface = Surface::loadImage(asset)) == nullptr)
     {
-        std::cout << "ERROR: could not create mSurface: " << SDL_GetError() << std::endl;
+        std::cerr << "ERROR: could not create mSurface: " << SDL_GetError() << std::endl;
+        return false;
+    }
+
+    if ((mSurface = Surface::loadImage(asset)) == NULL)
+    {
+        std::cerr << "ERROR: could not create mSurface: " << SDL_GetError() << std::endl;
         return false;
     }
 
@@ -36,17 +44,14 @@ bool Button::load(Assets& assets)
 
 void Button::cleanup()
 {
-    if (mSurface)
-    {
-        SDL_FreeSurface(mSurface);
-    }
-
-    mSurface = nullptr;
 }
 
 void Button::render(SDL_Surface* Surf_Display)
 {
     if (Surf_Display == nullptr || mSurface == nullptr)
+        return;
+
+    if (Surf_Display == NULL || mSurface == NULL)
         return;
 
     Surface::OnDraw(Surf_Display, mSurface, mX, mY, 0, 0, mWidth, mHeight);
@@ -70,14 +75,13 @@ void Button::onLButtonDown(int x, int y)
     onClicked();
 }
 
-
-void Button::onClicked()
-{
-    std::cout << "Button clicked!" << std::endl;
-    mClickedCallback();
-}
-
 void Button::addClickedCallback(ClickedCallback cb)
 {
     mClickedCallback = cb;
+}
+
+void Button::onClicked() const
+{
+	std::cout << "Button clicked!" << std::endl;
+	mClickedCallback();
 }

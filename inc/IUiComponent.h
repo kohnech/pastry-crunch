@@ -5,76 +5,43 @@
 
 #include <SDL.h>
 
-#include <iostream>
-
 class IUiComponent
 {
 public:
-    IUiComponent()
-    : mX{ 0 }
-    , mY{ 0 }
-    , mSurface{ nullptr }
-    , mWidth{ 0 }
-    , mHeight{ 0 }
-    {
-    }
+    IUiComponent();
 
-    virtual bool load()
-    {
-        std::cout << "WARNING: Unimplemented method: " << __FILE__ << ":" << __LINE__ << std::endl;
-        return false;
-    }
-    virtual bool load(Assets& assets)
-    {
-        std::cout << "WARNING: Unimplemented method: " << __FILE__ << ":" << __LINE__ << std::endl;
-        return false;
-    }
-    virtual bool load(std::string file, int width, int height)
-    {
-        std::cout << "WARNING: Unimplemented method: " << __FILE__ << ":" << __LINE__ << std::endl;
-        return false;
-    }
+	virtual ~IUiComponent();
 
+	virtual bool load();
+	virtual bool load(Assets& assets);
+	virtual bool load(std::string file, int width, int height);
 
     virtual void render(SDL_Surface* Surf_Display) = 0;
     virtual void cleanup() = 0;
 
-    inline void setPosition(int x, int y)
-    {
-        mX = x;
-        mY = y;
-    }
+	void setPosition(int x, int y);
 
-    inline Pair getPosition()
-    {
-        Pair position;
-        position.first = mX;
-        position.second = mY;
-        return position;
-    }
+	Pair getPosition() const;
 
-    inline Pair getSize()
-    {
-        Pair size;
-        size.first = mWidth;
-        size.second = mHeight;
-        return size;
-    }
+	Pair getSize() const;
 
-    inline void setSize(Pair size)
-    {
-        mWidth = size.first;
-        mHeight = size.second;
-    }
+	void setSize(Pair size);
 
-    bool animate{ false };
+    bool animate;
 
     // Animate from these coordinates
-    int fromX{ 0 };
-    int fromY{ 0 };
+    int fromX;
+    int fromY;
 
 protected:
     int mX, mY;
     SDL_Surface* mSurface;
     int mWidth, mHeight;
+
+private:
+    IUiComponent(const IUiComponent&);
+    const IUiComponent& operator=(const IUiComponent&);
 };
+
+
+

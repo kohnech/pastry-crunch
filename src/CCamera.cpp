@@ -8,7 +8,7 @@ CCamera::CCamera()
 
     TargetX = TargetY = nullptr;
 
-    TargetMode = TARGET_MODE_NORMAL;
+    TargetMode = static_cast<int>(TARGET_MODE::NORMAL);
 }
 
 void CCamera::OnMove(int MoveX, int MoveY)
@@ -17,11 +17,11 @@ void CCamera::OnMove(int MoveX, int MoveY)
     Y += MoveY;
 }
 
-int CCamera::GetX()
+int CCamera::GetX() const
 {
     if (TargetX != nullptr)
     {
-        if (TargetMode == TARGET_MODE_CENTER)
+        if (TargetMode == static_cast<int>(TARGET_MODE::CENTER))
         {
             return *TargetX - (SCREEN_WIDTH / 2);
         }
@@ -32,11 +32,11 @@ int CCamera::GetX()
     return X;
 }
 
-int CCamera::GetY()
+int CCamera::GetY() const
 {
     if (TargetY != nullptr)
     {
-        if (TargetMode == TARGET_MODE_CENTER)
+        if (TargetMode == static_cast<int>(TARGET_MODE::CENTER))
         {
             return *TargetY - (SCREEN_HEIGHT / 2);
         }

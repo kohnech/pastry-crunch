@@ -4,23 +4,29 @@
 #include "Text.h"
 
 #include <SDL.h>
+#include "IThread.h"
 
 class CountDown : public IUiComponent
 {
 public:
     typedef std::function<void()> TimedOutCallback;
 
-    CountDown();
+    explicit CountDown(int seconds = 60);
     ~CountDown();
 
-    bool load(Assets& assets);
-    void cleanup();
-    void render(SDL_Surface* Surf_Display);
+    // Disable operators
+    CountDown(const CountDown&) = delete;
+    const CountDown operator=(const CountDown&) = delete;
+    CountDown & operator= (CountDown &&) = delete;
+    CountDown(CountDown &&) = delete;
 
+    bool load(Assets& assets) override;
+    void cleanup() override;
+    void render(SDL_Surface* Surf_Display) override;
     void addTimedOutCallback(TimedOutCallback cb);
 
 private:
-    void update();
+   void update();
 
     Sint32 mTimeRemaining;
     Uint32 mCurrentTimeStamp;

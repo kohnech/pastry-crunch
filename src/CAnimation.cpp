@@ -4,25 +4,23 @@
 
 CAnimation::CAnimation()
 {
-    CurrentFrame = 0;
     MaxFrames = 0;
+    Oscillate = false;
+    CurrentFrame = 0;
     FrameInc = 1;
-
     FrameRate = 100; // Milliseconds
     OldTime = 0;
-
-    Oscillate = false;
 }
 
 void CAnimation::OnAnimate()
 {
 
-    if (OldTime + FrameRate > SDL_GetTicks())
+    if (OldTime + FrameRate > static_cast<int>(SDL_GetTicks()))
     {
         return;
     }
 
-    OldTime = SDL_GetTicks();
+    OldTime = static_cast<int>(SDL_GetTicks());
 
     CurrentFrame += FrameInc;
 
@@ -32,14 +30,14 @@ void CAnimation::OnAnimate()
         {
             if (CurrentFrame >= MaxFrames - 1)
             {
-                FrameInc = -FrameInc;
+                FrameInc =- FrameInc;
             }
         }
         else
         {
             if (CurrentFrame <= 0)
             {
-                FrameInc = -FrameInc;
+                FrameInc =- FrameInc;
             }
         }
     }

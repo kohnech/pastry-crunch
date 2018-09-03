@@ -5,10 +5,6 @@
 #include <SDL_image.h>
 
 
-SDL_Surface* Surface::OnLoad(std::string File)
-{
-    return loadImage(File);
-}
 /*
 SDL_Texture* Surface::loadTexture(SDL_Renderer* renderer, std::string path)
 {
@@ -44,7 +40,7 @@ SDL_Texture* Surface::loadTexture(SDL_Renderer* renderer, const std::string& str
     SDL_Texture* texture = IMG_LoadTexture(renderer, str.c_str());
     if (texture == nullptr)
     {
-        std::cout << "Failed to load texture " << str << " error : " << SDL_GetError() << std::endl;
+        std::cerr << "Failed to load texture " << str << " error : " << SDL_GetError() << std::endl;
         return nullptr;
     }
 
@@ -57,6 +53,11 @@ SDL_Surface* Surface::loadImage(const std::string path)
     // Load image at specified path
     SDL_Surface* loadedSurface = IMG_Load(path.c_str());
     if (loadedSurface == nullptr)
+    {
+        printf("Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError());
+    }
+
+    if (loadedSurface == NULL)
     {
         printf("Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError());
     }
@@ -118,14 +119,14 @@ bool Surface::OnDraw(SDL_Surface* Surf_Dest, SDL_Surface* Surf_Src, int x, int y
     return true;
 }
 
-bool Surface::Transparent(SDL_Surface* Surf_Dest, int r, int g, int b)
+bool Surface::Transparent(SDL_Surface* surfaceDest, int r, int g, int b)
 {
-    if (Surf_Dest == nullptr)
+    if (surfaceDest == nullptr)
     {
         return false;
     }
 
-    SDL_SetColorKey(Surf_Dest, SDL_TRUE, SDL_MapRGB(Surf_Dest->format, r, g, b));
+    SDL_SetColorKey(surfaceDest, SDL_TRUE, SDL_MapRGB(surfaceDest->format, r, g, b));
 
     return true;
 }

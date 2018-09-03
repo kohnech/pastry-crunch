@@ -1,5 +1,5 @@
 ## Project
-COMPONENT_NAME ?= bakery-street
+COMPONENT_NAME ?= pastry-crunch
 export PROJ_ROOT := $(CURDIR)
 SUBDIRS = tests
 SRCDIR = $(PROJ_ROOT)/src
@@ -55,7 +55,6 @@ SRCS = 	App.cpp \
 		Event.cpp \
 		CAnimation.cpp \
 		Entity.cpp \
-		CTile.cpp \
 		CCamera.cpp \
 		Grid.cpp \
 		Assets.cpp \
@@ -64,14 +63,19 @@ SRCS = 	App.cpp \
 		Text.cpp \
 		Sounds.cpp \
 		Button.cpp \
-		CountDown.cpp
+		CountDown.cpp \
+		IUiComponent.cpp \
+		AppStateManager.cpp \
+		AppStateIntro.cpp \
+		AppStateGame.cpp \
+		AppStateGameOver.cpp \
+		IAppState.cpp
 
 HDRS = 	inc/App.h \
 		inc/Surface.h \
 		inc/Event.h \
 		inc/CAnimation.h \
 		inc/Entity.h \
-		inc/CTile.h \
 		inc/CCamera.h \
 		inc/Grid.h \
 		inc/Assets.h \
@@ -80,7 +84,12 @@ HDRS = 	inc/App.h \
 		inc/Text.h \
 		inc/Sounds.h \
 		inc/Button.h \
-		inc/CountDown.h
+		inc/CountDown.h \
+		inc/AppStateManager.h \
+		inc/AppStateIntro.h \
+		inc/IAppState.h \
+		inc/AppStateGame.h \
+		inc/AppStateGameOver.h
 
 OBJS = $(patsubst %.cpp,$(BUILDDIR)/%.o,$(SRCS))
 
