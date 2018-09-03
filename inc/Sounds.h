@@ -12,7 +12,7 @@ class Sounds
 public:
     static Sounds instance;
 
-    Sounds();
+    explicit Sounds();
 
     ~Sounds();
 

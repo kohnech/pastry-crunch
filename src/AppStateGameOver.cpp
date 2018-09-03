@@ -11,10 +11,6 @@ AppStateGameOver::AppStateGameOver()
 {
 }
 
-AppStateGameOver::~AppStateGameOver()
-{
-}
-
 bool AppStateGameOver::activate()
 {
     std::cout << "AppStateGameOver activate()" << std::endl;

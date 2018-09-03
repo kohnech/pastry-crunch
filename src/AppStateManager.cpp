@@ -9,11 +9,7 @@
 
 AppStateManager AppStateManager::instance;
 
-IAppState* AppStateManager::ActiveAppState = 0;
-
-AppStateManager::AppStateManager()
-{
-}
+IAppState* AppStateManager::ActiveAppState = nullptr;
 
 void AppStateManager::onEvent(SDL_Event* EventHolder)
 {

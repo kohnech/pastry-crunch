@@ -5,7 +5,7 @@
 class Event
 {
 public:
-	Event() = default;
+	explicit Event() = default;
 
 	virtual ~Event() = default;
 

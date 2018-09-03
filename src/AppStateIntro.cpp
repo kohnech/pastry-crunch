@@ -7,10 +7,6 @@ AppStateIntro::AppStateIntro()
 {
 }
 
-AppStateIntro::~AppStateIntro()
-{
-}
-
 bool AppStateIntro::activate()
 {
     // Load Simple Logo

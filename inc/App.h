@@ -8,7 +8,7 @@
 class App : public Event, public IThread
 {
 public:
-    App();
+    explicit  App();
     ~App();
 
     bool init();

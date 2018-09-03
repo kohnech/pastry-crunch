@@ -7,9 +7,9 @@
 class AppStateGameOver : public IAppState
 {
 public:
-    AppStateGameOver();
+    explicit AppStateGameOver();
 
-    ~AppStateGameOver();
+    ~AppStateGameOver() = default;
 
     bool activate();
 

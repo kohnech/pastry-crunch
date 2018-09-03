@@ -215,13 +215,13 @@ Index Grid::getIndexesFromPosition(int x, int y) const
 {
     if (mWidth == 0 || mWidth == 0)
     {
-        return { 0, 0 };
+        return Index{ 0, 0 };
     }
 
     /// Check board boundaries
     if (x < mX || x >= (mWidth * mGridRowSize + mX) || y < mY || y >= (mHeight * mGridColumnSize + mY))
     {
-        return { -1, -1 };
+        return Index{ -1, -1 };
     }
 
     /// Calculate board coordinate
@@ -231,7 +231,7 @@ Index Grid::getIndexesFromPosition(int x, int y) const
 
     if (row < 0 || column < 0)
     {
-        return { -1, -1 };
+        return Index{ -1, -1 };
     }
 
     Index index(row, column);

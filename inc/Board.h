@@ -14,7 +14,7 @@
 class Board : public IUiComponent
 {
 public:
-    Board();
+    explicit Board();
 
     ~Board();
 

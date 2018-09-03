@@ -8,14 +8,10 @@
 
 
 AppStateGame::AppStateGame()
-: mCountDown { 60 }
+: mMuteButton{ 800, 0, "Mute" }
+, mCountDown { 60 }
 {
 }
-
-AppStateGame::~AppStateGame()
-{
-}
-
 
 void AppStateGame::onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode)
 {
@@ -66,7 +62,7 @@ void AppStateGame::onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode)
 bool AppStateGame::activate()
 {
     mBackground = nullptr;
-    mMuteButton = new Button(800, 0, "Mute");
+   // mMuteButton = new Button(800, 0, "Mute");
 
     std::cout << "AppStateGame activate()" << std::endl;
 
@@ -94,8 +90,8 @@ bool AppStateGame::activate()
         return false;
     }
 
-    mMuteButton->load(assets);
-    mMuteButton->addClickedCallback([&] { Sounds::instance.toggleMute(); });
+    mMuteButton.load(assets);
+    mMuteButton.addClickedCallback([&] { Sounds::instance.toggleMute(); });
 
     // Add music
     Sounds::instance.play("mining");
@@ -136,15 +132,13 @@ void AppStateGame::render(SDL_Surface* Surf_Display)
     Surface::OnDraw(Surf_Display, mBackground, 0, 0);
 
     mGrid.render(Surf_Display);
-    if (!mIsDeactivated)
-        mCountDown.render(Surf_Display);
-    if (mMuteButton != nullptr && !mIsDeactivated)
-        mMuteButton->render(Surf_Display);
+    mMuteButton.render(Surf_Display);
+    mCountDown.render(Surf_Display); // TODO Must be last since it contains callback, otherwise we get stack corruption
 }
 
 void AppStateGame::onEvent(SDL_Event* event)
 {
-    mMuteButton->onEvent(event);
+    mMuteButton.onEvent(event);
     mGrid.onEvent(event);
 }
 
@@ -152,7 +146,4 @@ void AppStateGame::cleanup()
 {
     if (mBackground != nullptr)
         SDL_FreeSurface(mBackground);
-
-    delete mMuteButton;
-    mMuteButton = nullptr;
 }

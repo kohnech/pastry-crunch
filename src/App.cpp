@@ -12,10 +12,10 @@
 
 
 App::App()
-: mWindow{ nullptr }
+: mIsRunning { true }
+, mWindow{ nullptr }
 , Surf_Display{ nullptr }
 {
-    mIsRunning = true;
 }
 
 App::~App()

@@ -14,7 +14,8 @@ using json = nlohmann::json;
 class Assets
 {
 public:
-    Assets();
+    explicit Assets();
+    ~Assets() = default;
     void loadFile(std::string);
     void loadJson(json js);
     std::string getBackgroundPath() const;

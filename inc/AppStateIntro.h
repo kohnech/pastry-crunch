@@ -6,9 +6,9 @@
 class AppStateIntro : public IAppState
 {
 public:
-    AppStateIntro();
+    explicit AppStateIntro();
 
-    ~AppStateIntro();
+    ~AppStateIntro() = default;
 
     bool activate();
 

@@ -12,19 +12,21 @@
 class AppStateGame : public IAppState
 {
 public:
-    AppStateGame();
+    explicit AppStateGame();
 
-    ~AppStateGame();
+    ~AppStateGame() = default;
+
+    bool activate() override;
+
+    void deactivate() override;
+
+    void loop() override;
+
+    void render(SDL_Surface* Surf_Display) override;
+
+    // Events
 
     void onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode);
-
-    bool activate();
-
-    void deactivate();
-
-    void loop();
-
-    void render(SDL_Surface* Surf_Display);
 
     void onEvent(SDL_Event* event);
 
@@ -35,7 +37,7 @@ public:
 private:
     SDL_Surface* mBackground;
 
-    Button* mMuteButton;
+    Button mMuteButton;
 
     CountDown mCountDown;
 

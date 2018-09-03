@@ -26,7 +26,7 @@ inline const char* ToString(int v)
 class AppStateManager
 {
 public:
-    AppStateManager();
+    explicit  AppStateManager() = default;
 
     static AppStateManager instance;
 

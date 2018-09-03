@@ -9,12 +9,10 @@ CountDown::CountDown(int seconds)
     , mLastTimeStamp { 0 }
     , mTimedOutCallback { nullptr }
 {
-    std::cout << "CountdDown() called" << std::endl;
 }
 
 CountDown::~CountDown()
 {
-    std::cout << "~COuntdDonw() called" << std::endl;
     cleanup();
 }
 
