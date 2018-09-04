@@ -54,10 +54,10 @@ Dependencies and assets are already setup so just hit the run button.
 
 
 ## SW Architecture
-![alt text](https://github.com/kohnech/bakery-street-game/blob/master/Pastry_crunch.png.png "SW Architecture")
+![alt text](https://github.com/kohnech/pastry-crunch/blob/develop/Pastry_crunch.png "SW Architecture")
 
 ## Game logic
-![alt text](https://github.com/kohnech/bakery-street-game/blob/master/state_machine.png "Game logic")
+![alt text](https://github.com/kohnech/pastry-crunch/blob/develop/state_machine.png "Game logic")
 
 ## Releases
 
