@@ -53,6 +53,9 @@ Open the solution file [`msvc/pastry_crunch/pastry_crunch.sln`](https://github.c
 Dependencies and assets are already setup so just hit the run button.
 
 
+## SW Architecture
+![alt text](https://github.com/kohnech/bakery-street-game/blob/master/Pastry_crunch.png.png "SW Architecture")
+
 ## Game logic
 ![alt text](https://github.com/kohnech/bakery-street-game/blob/master/state_machine.png "Game logic")
 
